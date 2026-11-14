@@ -157,11 +157,9 @@ function pLeg2(){
   let h='<div class="card"><h3>Votre état-major · '+mineI.length+' / '+chSlots()+' places</h3>'
     +'<p class="note">Un lieutenant donne un <b>bonus passif</b> à tout votre camp, une <b>compétence active</b> et peut commander une île. Il est unique : un seul camp l’a. Choisissez-le selon ce dont votre plan a besoin (attaque, défense, Berrys).</p>'
     +(mineI.length?mineI.map(i=>chCard(i,p,'own')).join(''):'<p class="muted">Aucun lieutenant pour l’instant. Remplissez les conditions d’un personnage ci-dessous.</p>')+'</div>';
-  const others=LEGENDS.map((L,i)=>i).filter(i=>CH[i].own!==ME);
-  const grp=i=>CH[i].own>=0?1:LEGENDS[i].camps.includes(cr.id)?0:2;
-  others.sort((a,b)=>grp(a)-grp(b)||RAR_W[chMeta(a).r]-RAR_W[chMeta(b).r]||a-b);
-  const avail=others.filter(i=>grp(i)===0),rest=others.filter(i=>grp(i)!==0);
-  h+='<div class="card"><h3>À recruter ('+avail.length+')</h3><p class="note">Pourquoi recruter l’un plutôt qu’un autre ? Lisez la ligne <b>Utilité</b>. Le coût et les conditions sont en bas de chaque fiche.</p>'+avail.map(i=>chCard(i,p,'hire')).join('')+'</div>';
+  /* camp du joueur : trois sections (recrutables maintenant / presque / plus tard) + ceux non proposés dans cette partie (module 18) */
+  h+=pgRecruitHTML(p);
+  const rest=LEGENDS.map((L,i)=>i).filter(i=>CH[i].own!==ME&&(CH[i].own>=0||!LEGENDS[i].camps.includes(cr.id))).sort((a,b)=>RAR_W[chMeta(a).r]-RAR_W[chMeta(b).r]||a-b);
   if(rest.length)h+='<div class="card"><details><summary><b>Indisponibles ('+rest.length+')</b> — déjà pris ou qui refusent votre camp</summary>'+rest.map(i=>chCard(i,p,'dim')).join('')+'</details></div>';
   const buffs=(p.buf||[]).filter(b=>b.until>time).map(b=>kv(esc(b.n),Math.ceil(b.until-time)+' s')).join('');
   if(buffs)h+='<div class="card"><h3>Effets en cours</h3>'+buffs+'</div>';

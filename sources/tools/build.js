@@ -70,7 +70,7 @@ rep("return '<div class=\"card rpt\">'+btn('repback','','← Retour au journal')
 rep("function islandArt(t){","function islandArt_o(t){");
 rep("ctx.drawImage(off,0,0,W,H);","if(!r25SeaDraw())ctx.drawImage(off,0,0,W,H);");
 /* 12. couche RISK OP */
-const MODS=['10-economie-phases-ia.js','11-recap-objectifs-heros.js','12-interface-onglets-minicarte.js','13-tutoriel.js','14-sauvegardes.js','15-ages.js','16-multijoueur-factions.js','17-multijoueur-web.js','20-rendu25d-biomes.js','21-rendu25d-decors.js','22-rendu25d-iles.js','23-rendu25d-moteur.js','30-illustrations.js','40-menu-boutons.js'];
+const MODS=['10-economie-phases-ia.js','11-recap-objectifs-heros.js','12-interface-onglets-minicarte.js','13-tutoriel.js','14-sauvegardes.js','15-ages.js','16-multijoueur-factions.js','17-multijoueur-web.js','18-progression.js','20-rendu25d-biomes.js','21-rendu25d-decors.js','22-rendu25d-iles.js','23-rendu25d-moteur.js','30-illustrations.js','40-menu-boutons.js'];
 const block='/* ================= RISK OP : couche d\'expérience (audit, tutoriel, phases, économie, sauvegardes, sons, âges) ================= */\n'
   +MODS.map(f=>'/* ─────────── module : '+f+' ─────────── */\n'+rd(f)).join('\n');
 rep('/* ================= Boucle principale ================= */',block+'\n/* ================= Boucle principale ================= */');
@@ -108,6 +108,27 @@ rep("const b=$('#o-host');if(b&&NET.api){$('#o-host').disabled=false;$('#o-join'
 /* 22. hors claude.ai (fichier hébergé ailleurs) : salle pair-à-pair PeerJS, téléchargement direct pour l'export */
 rep("await Promise.race([claude.use('room'),new Promise(r=>setTimeout(()=>r(null),12000))]):null;","await Promise.race([claude.use('room'),new Promise(r=>setTimeout(()=>r(null),12000))]):await rkPeerRoom();");
 rep("    if(rt&&typeof rt.join==='function')NET.api=rt;\n    else NET.why=","    if(rt&&typeof rt.join==='function')NET.api=rt;\n    else if(!window.claude&&NET.why){}\n    else NET.why=");
+/* 23. progression permanente et commandants proposés par difficulté (module 18) */
+rep("function newGame(sd,dk,opts){","function newGame_o(sd,dk,opts){");
+rep("agConquest(a.owner,-1);","agConquest(a.owner,-1);rkCqT(a.owner,t);");
+rep("agConquest(a.owner,prev);","agConquest(a.owner,prev);rkCqT(a.owner,t);");
+rep("agConquest(p.id,prev);","agConquest(p.id,prev);rkCqT(p.id,t);");
+rep("if(!L.camps.includes(cr.id))return 'Il ne rejoindra jamais '+cr.n+'.';","if(!L.camps.includes(cr.id))return 'Il ne rejoindra jamais '+cr.n+'.';\n  if(!pgOffered(cr.id,L.s))return 'Pas proposé dans cette partie (difficulté '+DIFF[diffKey].n+').';");
+rep("function profRec(pid,i){if(MODE==='client'||pid!==ME)return;const k=LEGENDS[i].s;","function profRec(pid,i){if(MODE==='client'||pid!==ME)return;const k=LEGENDS[i].s;try{pgDiscover(k);}catch(_){}");
+rep("profSave();try{achCheck();}catch(_){}\n  if(CAMP&&!CAMP.fin","profSave();try{achCheck();}catch(_){}\n  try{pgEnd(win);}catch(_){}\n  if(CAMP&&!CAMP.fin");
+rep("else if(a==='hire')cmd({k:'hire',i:+v});","else if(a==='hire')cmd({k:'hire',i:+v});\n  else if(a==='chmore')RK.chOpen=RK.chOpen===+v?-1:+v;\n  else if(a==='pgsec'){RK.sec=RK.sec||{};const d={now:true,almost:true};RK.sec[v]=!(v in RK.sec?RK.sec[v]:!!d[v]);}\n  else if(a==='pgrr'){const m=pgReroll();toast(m||'Nouvelle liste de commandants tirée.');}");
+rep("  return h+endStats();","  return h+pgEndHTML()+endStats();");
+/* 24. difficultés : Expert, trêve allongée en Facile, coalitions (Difficile / Expert), fiche des règles (module 18) */
+rep("hard:{n:'Difficile',inc:1.15,aggr:1.2,think:2.6}};","hard:{n:'Difficile',inc:1.15,aggr:1.2,think:2.6},expert:{n:'Expert',inc:1.15,aggr:1.2,think:2.6}};");
+rep("function aiDiplo(p){\n  const myS=strength(p.id);","function aiDiplo(p){\n  try{rkCoalDiplo(p);}catch(_){}\n  const myS=strength(p.id);");
+rep("time>=truce[p.id][q.id]&&time>170*PK&&","time>=truce[p.id][q.id]&&time>rkPeaceT(q.id)&&");
+rep("if(time>=warSince[p.id][q.id]+60*PK&&(myS<.75*qS||Math.random()<.015))propose(p.id,q.id,'peace');","if(time>=warSince[p.id][q.id]+60*PK&&(myS<.75*qS||Math.random()<.015)&&!rkCoalNoPeace(p.id,q.id))propose(p.id,q.id,'peace');");
+rep("if(kind==='peace')return o+(rs-1)*35","if(kind==='peace'&&rkCoalNoPeace(q,p))return false;\n  if(kind==='peace'&&rkCoalPair(q,p))return true;\n  if(kind==='alliance'&&rkCoalPair(q,p)&&rel[q][p]==='peace')return true;\n  if(kind==='peace')return o+(rs-1)*35");
+rep("/p.ai.aggr;\n      if(ratio>=thr){","/p.ai.aggr*(rkCoalFocus(p,x)?.85:1);\n      if(ratio>=thr){");
+rep("const sc=ratio*(evTreasureAt(x.id)?1.5:1)","const sc=ratio*(rkCoalFocus(p,x)?1.6:1)*(evTreasureAt(x.id)?1.5:1)");
+rep("function rulesHTML(){","function rulesHTML_o(){");
+rep("+'<button class=\"btn primary\" id=\"l-start\">","+pgRulesBox('l-drules',NET.diff,+NET.pace)+'<button class=\"btn primary\" id=\"l-start\">");
+rep("$('#l-diff').addEventListener('change',e=>{NET.diff=e.target.value;});","$('#l-diff').addEventListener('change',e=>{NET.diff=e.target.value;const b=$('#l-drules');if(b)b.outerHTML=pgRulesBox('l-drules',NET.diff,+NET.pace);});");
 /* 16. nettoyage : anciennes versions de fonctions et fonctions mortes */
 h=require('./shake.js')(h,true);
 /* 17. sommaire en tête du script principal */

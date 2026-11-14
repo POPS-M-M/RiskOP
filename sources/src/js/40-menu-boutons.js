@@ -14,9 +14,10 @@ $('#b-guide').addEventListener('click',()=>{
 rkAdvLabel();
 function rkIntroRow(){
   const L=svLatest();
-  return '<div class="row" style="margin-bottom:6px">'+(L?'<button class="btn" id="o-cont" title="Reprendre la dernière sauvegarde">Continuer · '+esc(L.o.meta.name)+' <small>('+svFmt(L.o.meta.date)+')</small></button>':'')+'<button class="btn" id="o-saves">Sauvegardes</button><button class="btn" id="o-guide">Guide interactif (rejouable)</button></div>';
+  return pgBandHTML()+'<div class="row" style="margin-bottom:6px">'+(L?'<button class="btn" id="o-cont" title="Reprendre la dernière sauvegarde">Continuer · '+esc(L.o.meta.name)+' <small>('+svFmt(L.o.meta.date)+')</small></button>':'')+'<button class="btn" id="o-saves">Sauvegardes</button><button class="btn" id="o-guide">Guide interactif (rejouable)</button></div>';
 }
 function rkIntroBind(){
+  try{pgIntroRules();}catch(_){}
   const c=$('#o-cont');if(c)c.addEventListener('click',()=>{const L=svLatest();if(!L){toast('Aucune sauvegarde.');return;}const m=svRestore(L.o);if(m){toast(m);showIntro();}else toast('Partie chargée : '+L.o.meta.name);});
   $('#o-saves').addEventListener('click',svOpen);
   $('#o-guide').addEventListener('click',rkStartTutorial);

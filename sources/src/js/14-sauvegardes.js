@@ -9,7 +9,7 @@ function svCanSave(){return MODE==='solo'&&started&&!over&&players.length&&!TU.o
 function svBuild(name){
   const p=players[ME],cw=CREWS[p.crew||0];
   const meta={name:name||(cw.n+' · '+(TM.on?'Tour '+TM.n:Math.floor(time/60)+' min')),camp:cw.n,ic:cw.ic,color:p.color,turn:TM.on?TM.n:0,real:!TM.on,age:AG.n,terr:terrs.filter(t=>t.owner===ME).length,total:terrs.length,diff:diffKey,t:Math.round(time),date:Date.now(),pace:PK};
-  const G=svClone({seed,diffKey,PK,ME,time,speed,secAcc,TM,AG,players,terrs,armies,rel,tradeM,truce,opin,proposals,warSince,vas,vasSince,vasDomT,domKey,domT,poneKey,poneT,marineAt,marineWarned,marineTarget,huntPrimes,BS,CH,EV,evNextAt,evSeq,evLastK,ARMN,BRN,BATTLES:BATTLES.slice(-30),JOURNAL:JOURNAL.slice(-150),logs:logs.slice(-6),CAMP,rec:RK.rec,ui:{sel:ui.sel,tab:ui.tab,pct:ui.pct,stance:ui.stance}});
+  const G=svClone({seed,diffKey,PK,ME,time,speed,secAcc,TM,AG,players,terrs,armies,rel,tradeM,truce,opin,proposals,warSince,vas,vasSince,vasDomT,domKey,domT,poneKey,poneT,marineAt,marineWarned,marineTarget,huntPrimes,BS,CH,EV,evNextAt,evSeq,evLastK,ARMN,BRN,BATTLES:BATTLES.slice(-30),JOURNAL:JOURNAL.slice(-150),logs:logs.slice(-6),CAMP,rec:RK.rec,ui:{sel:ui.sel,tab:ui.tab,pct:ui.pct,stance:ui.stance},rkp:{gid:RK.gid||'',roster:RK.roster||null,disc:RK.disc||[],coal:RK.coal>=0?RK.coal:-1}});
   return {v:1,meta,G};
 }
 function svWrite(k,name){
@@ -32,6 +32,8 @@ function svRestore(o){
     if(Array.isArray(AG.cdl))AG.cdl=AG.cdl.map(v=>v===null?undefined:v);
     BATTLES.length=0;for(const b of G.BATTLES||[])BATTLES.push(b);
     JOURNAL=G.JOURNAL||[];logs=G.logs||[];logDirty=true;CAMP=G.CAMP||null;RK.rec=G.rec||[];
+    /* progression : une sauvegarde d'avant cette version n'a pas de liste → tous les commandants du camp restent proposés */
+    {const P=G.rkp||{};RK.roster=P.roster&&typeof P.roster==='object'?P.roster:null;RK.disc=Array.isArray(P.disc)?P.disc:[];RK.gid=P.gid||('old-'+G.seed+'-'+Math.round(G.time||0));RK.roKey='';RK.pgOver=null;RK.coal=P.coal>=0&&P.coal<4?P.coal|0:-1;}
     over=null;elimShown=false;TU={on:false,i:0,seen:{},clk:0};
     ui.sel=G.ui&&G.ui.sel!=null?G.ui.sel:-1;ui.tab=(G.ui&&G.ui.tab)||'army';ui.pct=(G.ui&&G.ui.pct)||.5;ui.stance=(G.ui&&G.ui.stance)|0;ui.mode='move';
     V.k=1;V.x=0;V.y=0;

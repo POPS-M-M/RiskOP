@@ -14,11 +14,13 @@ src/
     10-economie-phases-ia.js           Détail des revenus, budget, bandeau de phase, IA par tour, annonces de mouvements.
     11-recap-objectifs-heros.js        Butin de conquête, fiche de boss, conseils, objectifs, fiches de personnages.
     12-interface-onglets-minicarte.js  Onglets groupés, notifications, journal, mini-carte déplaçable.
-    13-tutoriel.js                     Guide interactif en 10 étapes.
+    13-tutoriel.js                     Tutoriel joué : 7 objectifs validés par les actions, Codex consultable dans Règles.
     14-sauvegardes.js                  Sauvegardes de partie (3 emplacements + auto).
     15-ages.js                         Écran de transition d'âge.
     16-multijoueur-factions.js         Multijoueur : choix de la faction dans la salle d'attente.
     17-multijoueur-web.js              Multijoueur hors claude.ai : salle pair-à-pair PeerJS (même interface que la salle claude.ai).
+    18-progression.js                  Progression permanente (XP, rangs, collection), commandants proposés par difficulté,
+                                       écran Progression, recrutement en 3 sections, difficulté Expert, coalitions, fiche des règles.
     20-rendu25d-biomes.js              Rendu 2.5D : biomes (relief, couleurs).
     21-rendu25d-decors.js              Rendu 2.5D : bâtiments, arbres, monuments.
     22-rendu25d-iles.js                Rendu 2.5D : fiche d'environnement de chacune des 53 îles.
@@ -53,3 +55,11 @@ node tests/t_ui.js           # etc.
 ```
 
 Pour modifier l'apparence d'une île : éditer sa fiche dans `src/js/22-rendu25d-iles.js`, puis changer `R25.ver` dans `23-rendu25d-moteur.js` pour forcer le recalcul du cache.
+
+## Progression (module 18)
+
+- Stockage : clé `rk-prog` (profil de progression) et `rk-tob` (objectifs du tutoriel), séparées du carnet `gl-profile`, jamais réécrit.
+- Rythme : une seule constante, `pgCost` (XP pour passer d'un rang au suivant).
+- Commandants proposés par camp : `PG_N` (Facile 4, Normal 8, Difficile 16, Expert tous). Une sauvegarde sans liste (`G.rkp` absent) garde tous les commandants.
+- En ligne, la liste est calculée à partir de la graine, de la difficulté et des camps : identique chez l'hôte et les invités, sans message réseau.
+- Tests : `t_prog` (logique), `t_prog_ui` (écrans, PC et mobile), `t_coal` (difficultés, coalitions), `t_tuto` (7 objectifs).
