@@ -581,6 +581,74 @@ img.art25{display:block;width:100%;height:100%;object-fit:cover}
 .cdx p{margin:4px 0 6px;font-size:13px;color:var(--muted)}
 .pgdr{border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin:0 0 10px;font-size:12.5px;text-align:left}
 .pgdr .pgl{margin:4px 0 0;padding-left:18px;display:grid;gap:3px}
+/* tableau de bord de l'île : séparateurs fins, chiffres en avant, pas de cadre autour de chaque information */
+.mq{padding-bottom:6px}
+.mq .mqart{max-height:118px;overflow:hidden}
+.mq.mqin{animation:mqin .22s ease-out}
+@keyframes mqin{from{opacity:.25;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.mq.mqin{animation:none}}
+.mqid{margin:8px 0 2px;font-size:12.5px;color:var(--muted)}
+.mqid .ko{color:var(--bad)}
+.mqals{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 0}
+.mqal{font-size:12px;border-radius:999px;padding:2px 9px;background:rgba(255,255,255,.06);color:var(--ink)}
+.mqal.ok{background:rgba(92,190,120,.16);color:var(--good)}
+.mqal.ko{background:rgba(230,90,80,.18);color:#ff9a8f;font-weight:600}
+.mqs{border-top:1px solid var(--line);margin-top:12px;padding-top:10px;display:grid;gap:8px}
+.mqs h4{margin:0;display:flex;align-items:center;gap:8px;font:700 13px/1 var(--f-display);letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+.mqs h4 em{font-style:normal;display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;border:1px solid var(--accent);font-size:11px}
+.mqsub{font-size:12px;color:var(--muted);letter-spacing:.02em}
+.mqsub b{color:var(--ink);font-size:14px}
+.mqrow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2px}
+.mqn{display:grid;gap:1px;padding:4px 6px;border-left:1px solid var(--line)}
+.mqn:first-child{border-left:0;padding-left:0}
+.mqn b{font:700 24px/1.05 var(--f-display);font-variant-numeric:tabular-nums;letter-spacing:.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mqn b i{font-style:normal;font-size:14px;margin-right:4px;opacity:.85}
+.mqn>span{font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.cg{color:var(--c-gold,#f2c75c)}.cs{color:var(--c-sci,#5aa0f5)}.cf{color:var(--c-faith,#c58cf0)}
+.mqf{border-top:1px dashed rgba(255,255,255,.07)}
+.mqfh{all:unset;cursor:pointer;display:flex;justify-content:space-between;width:100%;padding:5px 0;font-size:12.5px;color:var(--muted)}
+.mqfh:hover{color:var(--ink)}.mqfh:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+.mqfb{padding:0 0 6px;display:grid;gap:4px}
+.mqact{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.mqact small{display:block;font-size:12px;color:var(--muted)}
+.mqrec{display:grid;gap:4px}
+.mqu{display:grid;grid-template-columns:1fr auto;grid-template-rows:auto auto;column-gap:10px;align-items:center;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.mqu b{font-size:14px}.mqu small{grid-column:1;font-size:11.5px;color:var(--muted)}
+.mqu button{grid-column:2;grid-row:1/3}
+.mqu.locked{opacity:.6}
+.mqquick{display:flex;flex-wrap:wrap;gap:6px}
+.mqline{display:flex;justify-content:space-between;gap:8px;font-size:13px}
+.mqline span{color:var(--muted)}
+.mqslots{display:flex;gap:6px;flex-wrap:wrap}
+.mqslots .sl{width:30px;height:30px;border-radius:7px;border:1px dashed var(--line);display:grid;place-items:center;position:relative;overflow:hidden}
+.mqslots .sl.on{border:1px solid var(--accent);background:rgba(224,164,60,.1)}
+.mqslots .sl.q{border-style:solid}.mqslots .sl.q i{position:absolute;left:0;right:0;bottom:0;background:rgba(224,164,60,.45)}
+.mqbar{height:6px;border-radius:999px;background:rgba(255,255,255,.07);overflow:hidden}
+.mqbar i{display:block;height:100%;background:var(--c,var(--accent))}
+.mqreg.off{color:var(--muted)}.mqreg.on{color:var(--good)}
+.mqw{margin:0;padding-left:18px;font-size:12.5px;display:grid;gap:2px}
+/* onglet Économie */
+.mq .mqs.first{border-top:0;margin-top:0;padding-top:0}
+.mqn .pos{color:var(--good)}.mqn .neg{color:var(--bad)}
+.mqline .neg{color:#ff9a8f}
+.mqstack{display:flex;height:12px;border-radius:999px;overflow:hidden;background:rgba(255,255,255,.06)}
+.mqstack i{display:block;height:100%}
+.mqleg{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12px;color:var(--muted)}
+.mqleg span{display:inline-flex;align-items:center;gap:5px}.mqleg i{width:9px;height:9px;border-radius:2px;display:inline-block}
+.mqleg b{color:var(--ink);font-weight:600}
+.mqbuy{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.mqbuy small{display:block;font-size:12px;color:var(--muted)}
+.mqeta{font-size:12px;white-space:nowrap;border-radius:999px;padding:2px 8px;background:rgba(255,255,255,.06);color:var(--muted)}
+.mqeta.ok{background:rgba(92,190,120,.16);color:var(--good)}
+.mqpick{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:6px}
+.mqpick button{flex:none;font-size:13px;padding:5px 10px;border-radius:999px}
+.mqpick button small{color:var(--muted);font-size:11px}
+.mqpick button.on{background:var(--accent);border-color:var(--accent);color:#1b1406}.mqpick button.on small{color:#3a2a08}
+.mqline.lk{align-items:baseline;padding:3px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.mqline.lk span{color:var(--ink);min-width:0}.mqline.lk small{display:block;color:var(--muted);font-size:11.5px}
+.mqline.lk b{font-size:11.5px;color:var(--muted);font-weight:500;text-align:right;flex:none;max-width:45%}
+.mqbr{font-size:10.5px;color:var(--muted);font-weight:500;margin-left:4px}
+.mq .br{margin:2px 0}
 
 </style>
 
@@ -653,6 +721,9 @@ img.art25{display:block;width:100%;height:100%;object-fit:cover}
       - 23-rendu25d-moteur.js
       - 30-illustrations.js
       - 40-menu-boutons.js
+      - 50-tableau-ile.js
+      - 51-economie.js
+      - 52-musique-medievale.js
    3. Boucle principale
    Le mini-jeu « Combat arcade » est un second script indépendant, inchangé.
    ========================================================================== */
@@ -708,29 +779,6 @@ function sNoise(dest,t,dur,vol,freq,q,type,sweep){
   src.buffer=SND.nb;f.type=type||'bandpass';f.frequency.setValueAtTime(freq,t);if(sweep)f.frequency.exponentialRampToValueAtTime(sweep,t+dur);f.Q.value=q||1;
   g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(.0001,t+dur);
   src.connect(f);f.connect(g);g.connect(dest);src.start(t,0,dur+.05);SND.n++;
-}
-function sndBeat(t){
-  const S=SND_SCENES[SND.scene],ch=S.ch[SND.bar%4],stp=SND.beat,len=S.len,m=SND.mus;
-  if(stp===0){
-    for(const n of ch)sTone(m,mfreq(n),t,len*8*1.12,S.wave,S.pad,S.drums?.4:S.pulse?.8:1.2,0,!S.drums&&!S.pulse);
-    sTone(m,mfreq(ch[0]-12),t,len*4,'sine',.1,.05);
-  }else if(stp===4)sTone(m,mfreq(ch[0]-12),t,len*3,'sine',.08,.05);
-  if(S.arp&&stp%2===0)sTone(m,mfreq(ch[(stp/2)%ch.length]+12),t,len*1.6,'sine',.05,.01,0,true);
-  if(S.pulse){
-    if(stp===0||stp===3)sTone(SND.dr,70,t,.4,'sine',.3,.01,48);          /* battement de cœur */
-    if(stp===5)sNoise(SND.dr,t,.1,.03,5200,1,'highpass');
-    if(stp===0&&SND.bar%2===1)sNoise(SND.dr,t,len*5,.035,260,3,'bandpass',900); /* souffle qui monte */
-  }
-  if(S.drums){
-    if(stp===0||stp===4||stp===5)sTone(SND.dr,130,t,.28,'sine',.28,.005,42);
-    if(stp===2||stp===6)sNoise(SND.dr,t,.14,.1,1900,.8);
-    if(stp%2===1)sNoise(SND.dr,t,.04,.025,7000,1,'highpass');
-    sTone(m,mfreq(ch[0]-12),t,len*.7,'triangle',.05,.005);
-  }
-  if(Math.random()<S.mel&&(S.drums||S.pulse||stp%2===0)){
-    SND.mel=Math.max(0,Math.min(S.sc.length-1,SND.mel+Math.round((Math.random()-.5)*4)));
-    sTone(m,mfreq(S.sc[SND.mel]),t,S.drums?.5:1,'triangle',S.mv,.01,0,true);
-  }
 }
 /* scène voulue d'après l'état de la partie ; priorité : fin > guerre > tension > développement > exploration */
 function sndWant(){
@@ -3820,88 +3868,6 @@ function islandArt_o(t){
 
 const leadText=i=>{const d=ltFx(i),o=[];if(d.atk)o.push('attaque des troupes qui en partent +'+Math.round(d.atk*100)+' %');if(d.def)o.push('défense de la garnison +'+Math.round(d.def*100)+' %');if(d.spd)o.push('vitesse des armées +'+Math.round(d.spd*100)+' %');if(d.big)o.push('attaque +'+Math.round(d.big*100)+' % contre une garnison de 18 hommes ou plus');return o.join(', ')||'aucun bonus local';};
 /* ---- la fiche du territoire sélectionné ---- */
-function terrSheet(t){
-  const p=players[ME],own=t.owner>=0?players[t.owner]:null,ty=TYPES[t.type],R=regs.find(r=>r.ids.includes(t.id)),mine=t.owner===ME;
-  const col=own?own.color:'#8d8672',tn=Math.floor(tr(t));
-  const ownName=own?esc(own.name==='Votre camp'?CREWS[own.crew||0].n:own.name):'Indépendante';
-  const near=!mine&&t.nb.some(q=>terrs[q].owner===ME);
-  const cap=30+(own&&own.mod?own.mod.cap||0:0);
-  let h='<div class="card sheet" style="--c:'+col+'"><div class="sh-art">'+islandArt(t)
-    +'<div class="sh-ban"><span class="sw" style="background:'+col+'"></span><b>'+esc(t.name)+'</b>'+(t.capital?'<span class="tag">Capitale</span>':'')+(t.city?'<span class="tag">Ville niv. '+t.city.lvl+'</span>':'')+'</div></div>';
-  /* identité */
-  h+='<div class="sh-id"><span class="ch" title="Propriétaire">'+bico('pin')+' '+ownName+'</span><span class="ch" title="Type de terrain : '+ty.n+', défense ×'+ty.def+'">'+ty.n+'</span>'+(R?'<span class="ch" title="Région">'+esc(R.n)+'</span>':'')
-    +(own&&!mine&&isWar(ME,t.owner)?'<span class="ch ko">En guerre</span>':'')+(t.owner<0?'<span class="ch">Neutre</span>':'')+'</div>';
-  /* garnison et puissance */
-  const gfr=Math.round(clamp(tn/cap,0,1)*100);
-  h+='<h4>Garnison</h4><div class="gar"><b class="big">'+tn+'</b><div class="gbar" title="Garnison par rapport au plafond de recrues naturelles ('+cap+')"><i style="width:'+gfr+'%"></i></div></div>';
-  h+='<p class="note">'+compText(t.u)+'</p>';
-  const dm=ty.def*fortOf(t);
-  if(mine){
-    const dP=Math.round(powerOf(t.u,ZERO_U(),'def')*Math.max(.3,1+p.mod.def)*dm),aP=Math.round(powerOf(t.u,ZERO_U(),'atk')*(1+p.mod.atk));
-    h+=kv('Puissance défensive','<span title="Défense des unités × bonus du camp × terrain × fortifications">'+dP+'</span>')+kv('Puissance d\'attaque','<span title="Attaque des unités × bonus du camp">'+aP+'</span>');
-  }
-  h+=kv('Défense du terrain','×'+dm.toFixed(2));
-  if(t.fo>time)h+=kv('Île fortifiée','×'+String(t.fm||FORT_MUL).replace('.',',')+' · encore '+Math.ceil(t.fo-time)+' s');
-  else if(mine)h+='<div class="kv"><span>Ordre : fortifier (×'+String(fortMul(p)).replace('.',',')+' pendant '+Math.round(fortDur(p))+' s)</span>'+btn('fort',t.id,'Fortifier · '+fortCost(t,p)+' ฿',p.gold<fortCost(t,p))+'</div>';
-  h+=bossSheet(t);
-  /* production */
-  h+='<h4>Production</h4>';
-  if(mine){
-    const pr=tProd(t,p);
-    h+='<div class="prod"><span class="pg" title="Berrys par '+(TM.on?'tour':'minute')+'"><i>฿</i> +'+f2(pr.g*TLEN())+'<small>/'+TUN()+'</small></span><span class="ps" title="Savoir par '+(TM.on?'tour':'minute')+'"><i>◈</i> +'+f2(pr.s*TLEN())+'<small>/'+TUN()+'</small></span><span class="pf" title="Volonté par '+(TM.on?'tour':'minute')+'"><i>✹</i> +'+f2(pr.f*TLEN())+'<small>/'+TUN()+'</small></span></div>'
-      +'<p class="note">Terrain'+(t.city?' + ville niv. '+t.city.lvl:'')+(t.capital?' + capitale':'')+(t.spec&&!t.city?' + spécialité '+SPECS[t.spec]:'')+(t.city&&t.city.b.some(b=>BLD_INCOME[b])?' + bâtiments':'')+', au rythme de la partie, bonus de votre camp inclus.</p>';
-  }else{
-    const mx=.3,bar=(v,c,l)=>'<div class="pot" title="'+l+'"><span>'+l+'</span><div><i style="width:'+Math.round(v/mx*100)+'%;background:'+c+'"></i></div></div>';
-    h+=bar(ty.g,'var(--c-gold)','Berrys')+bar(ty.s,'var(--c-sci)','Savoir')+bar(ty.f,'var(--c-faith,#c58cf0)','Volonté')+'<p class="note">Potentiel du terrain. La production réelle n\'est visible que sur vos propres territoires.</p>';
-  }
-  /* bâtiments */
-  if(t.city){
-    h+='<h4>Bâtiments'+(mine?' · '+usedSlots(t)+' / '+slotsOf(t):'')+'</h4>';
-    if(t.city.b.length){h+='<div class="built">'+t.city.b.map(b=>{const d=defOfBuild(b),w=b.startsWith('w:');return '<span class="bd" title="'+esc(d.n+' — '+(w?d.d:(mine?bDesc(b,p):d.d)))+'">'+bico(w?'wonder':b)+'<em>'+esc(d.n)+'</em></span>';}).join('')+'</div>';}
-    else h+='<p class="note">Aucun bâtiment.</p>';
-    if(mine&&t.city.q){const d=defOfBuild(t.city.q.id);h+='<div class="kv"><span>En construction : '+esc(d.n)+'</span><b>'+Math.ceil(t.city.q.dur-t.city.q.t)+' s</b></div><div class="bar"><i style="width:'+Math.round(t.city.q.t/t.city.q.dur*100)+'%"></i></div>';}
-  }
-  /* personnages présents */
-  const here=[];
-  {const li=ltAt(t.id);if(li>=0)here.push(li);}
-  h+='<h4>Lieutenant</h4>';
-  if(here.length){
-    h+=here.map(i=>{const L=LEGENDS[i],M=chMeta(i),Rr=RAR[M.r],c=CH[i]||{lv:1};
-      return '<div class="chr" title="'+esc(L.t)+'"><b style="color:'+Rr.col+'">♛ '+esc(L.n)+'</b><span class="rar" style="border-color:'+Rr.col+';color:'+Rr.col+'">'+Rr.n+'</span><small>'+M.role+' · niv. '+c.lv+' · '+(mine?'à vos ordres':'camp adverse')+'</small><small>Sur cette île : '+leadText(i)+'.</small></div>';}).join('');
-  }else h+='<p class="note">'+(mine?'Aucun lieutenant ne commande cette île : affectez-en un depuis l\'onglet Équipe.':'Aucun lieutenant connu sur cette île.')+'</p>';
-  /* bonus */
-  const bon=[];
-  if(ISLE_FX[t.name])bon.push('<div class="bn"><b>✦ Île célèbre</b><small>'+fxText(ISLE_FX[t.name].fx)+'. '+esc(ISLE_FX[t.name].w)+'</small></div>');
-  if(t.fruit)bon.push('<div class="bn"><b>Fruit '+FRUITS[t.fruit].n+'</b><small>'+FRUITS[t.fruit].d+'.</small></div>');
-  if(t.pone)bon.push(poneBon(t));
-  if(R&&R.fx){const held=R.ids.filter(i=>terrs[i].owner===t.owner&&t.owner>=0).length;bon.push('<div class="bn"><b>Région '+esc(R.n)+'</b><small>'+fxText(R.fx)+' si un camp tient toute la région ('+(t.owner>=0?held:0)+' / '+R.ids.length+' tenues par ce camp).</small></div>');}
-  if(t.city&&t.city.b.some(b=>b.startsWith('w:')))for(const b of t.city.b)if(b.startsWith('w:'))bon.push('<div class="bn"><b>★ '+esc(WONDER[b.slice(2)].n)+'</b><small>'+WONDER[b.slice(2)].d+'</small></div>');
-  if(bon.length)h+='<h4>Bonus spécifiques</h4>'+bon.join('');
-  /* actions */
-  h+='<h4>Actions</h4>';
-  if(mine){
-    if(t.city)h+='<p class="note">Construire et agrandir : onglet <b>Villes</b>. Pour envoyer des troupes, glissez vers un voisin.</p>';
-    h+='<p class="sub">Recruter</p><div class="rec">';
-    for(const k of UK){
-      const U=UNITS[k],ok=unitOK(p,k),c=recruitCost(p,t,k);
-      h+='<div class="lr'+(ok?'':' locked')+(ui.flash&&ui.flash.key==='u:'+k&&performance.now()<ui.flash.until?' flash':'')+'" title="'+esc(U.pl+' — '+U.d)+'"><b>'+U.pl+'</b><small>'+(ok?'Att. '+U.atk+' · Déf. '+U.def+' · Vit. '+U.spd:'Requiert '+TECH[U.tech].n+'.')+'</small>'
-        +(ok?btn('recruit',k,'+'+U.batch+' · '+c+' ฿',p.gold<c):'')+'</div>';
-    }
-    h+='</div>';
-    if(!t.city&&!t.spec)h+=btn('foundcity',t.id,'Fonder une ville · '+CITY_COST+' ฿ + '+CITY_UNITS+' pirates',p.gold<CITY_COST||t.u.guerrier<CITY_UNITS||tr(t)-CITY_UNITS<1,'wide');
-    if(!t.city&&!t.capital){
-      if(t.spec)h+='<p class="note">Village spécialisé : <b>'+SPECS[t.spec]+'</b>. Il ne deviendra plus une ville.</p>';
-      else h+='<h4>Spécialiser ce village · '+SPEC_COST+' ฿</h4><p class="note">Définitif : le village renonce à devenir une ville et se consacre à une ressource.</p><div class="spc">'+Object.keys(SPECS).map(r=>btn('spec',t.id+':'+r,SPECS[r],p.gold<SPEC_COST)).join('')+'</div>';
-    }
-  }else{
-    if(t.owner<0){
-      const why=annexReason(p,t);
-      h+=btn('annex',t.id,'Envoyer une ambassade · '+annexCost(t)+' ⚜',!!why,'wide')+'<p class="note">'+(why||'Gagne l\'île sans combat ; une ambassade toutes les '+fmtDur(25*PK)+'.')+'</p>';
-    }
-    h+='<p class="note">'+(near?'À portée : sélectionnez votre île voisine puis cliquez ici pour attaquer, ou glissez depuis elle.':'Hors de portée de vos troupes : prenez d\'abord une île voisine.')+'</p>';
-  }
-  return h+'</div>';
-}
 /* retour d'achat : effet sur la carte + surbrillance de la ligne dans le panneau */
 function buyFeedback(c){
   const t=c.t!==undefined&&terrs[c.t]?terrs[c.t]:null;
@@ -4056,53 +4022,6 @@ function pJournal(){
     return '<button class="rrow '+(w?'win':'loss')+'" data-act="rep" data-v="'+r.id+'"><span><b>'+esc(brTitle(r))+'</b><br><span class="muted">'+brMM(r.t)+' · vous −'+Math.round(lo.m0-lo.m1)+' · eux −'+Math.round(lo.e0-lo.e1)+'</span></span><span class="muted">›</span></button>';}).join(''):'<p class="note">Aucun combat pour l\'instant. Chaque bataille où vous êtes engagé laisse un rapport détaillé.</p>')+'</div>';
   return msCard()+achCard()+evCard()+reps+'<div class="card"><h3>Journal de la partie</h3>'+(L.length?L.map(l=>'<div class="jl" style="border-left-color:'+l.color+'"><span class="muted">'+mm(l.t)+'</span> '+l.text+'</div>').join(''):'<p class="muted">Rien pour l\'instant.</p>')
     +'<p class="note">Les 80 derniers événements que vous pouvez voir.</p></div>';
-}
-function pCity(){
-  const p=players[ME],t=ui.sel>=0?terrs[ui.sel]:null;
-  const mine=terrs.filter(x=>x.owner===ME&&x.city);
-  let head;
-  if(t&&t.owner===ME&&t.city){
-    const c=t.city;
-    const built=c.b.length?c.b.map(b=>'<div class="kv"><span class="bd2">'+bico(b.startsWith('w:')?'wonder':b)+defOfBuild(b).n+'</span><b>'+(b.startsWith('w:')?'★':'✓')+'</b></div>').join(''):'<p class="note">Aucun bâtiment pour l\'instant.</p>';
-    let q='';
-    if(c.q){const d=defOfBuild(c.q.id);q='<div class="kv"><span>En construction : '+d.n+'</span><b>'+Math.ceil(c.q.dur-c.q.t)+' s</b></div><div class="bar"><i style="width:'+Math.round(c.q.t/c.q.dur*100)+'%"></i></div>';}
-    const upc=CITY_UP*c.lvl;
-    const opts=Object.keys(BUILDINGS).filter(id=>!c.b.includes(id)).map(id=>bRow(p,t,id,'b')).join('');
-    head='<div class="card"><div class="terr-h"><span class="sw" style="background:'+p.color+'"></span><b>'+t.name+'</b>'+(t.capital?'<span class="tag">Capitale</span>':'')+'<span class="tag">Niveau '+c.lvl+'</span></div>'
-      +kv('Emplacements',usedSlots(t)+' / '+slotsOf(t))+built+q
-      +(c.lvl<3?btn('upcity',t.id,'Agrandir la ville · '+upc+' ฿',p.gold<upc,'wide'):'<p class="note" style="margin-top:8px">Niveau maximal atteint.</p>')+'</div>'
-      +'<div class="card"><h3>Bâtiments</h3>'+(opts||'<p class="note">Tout est construit ici.</p>')+'</div>'
-      +'<div class="card"><h3>Lieux légendaires</h3>'+WONDERS.map(w=>{
-        const ow=wonderOwner(w.id),bd=wonderBuilding(w.id);
-        if(ow!==null)return '<div class="lr owned"><b>'+w.n+'</b><small>Construite par '+esc(players[ow].name)+'.</small></div>';
-        return bRow(p,t,w.id,'w')+(bd?'<p class="note">En cours de construction ailleurs.</p>':'');
-      }).join('')+'<p class="note">Un seul exemplaire de chaque lieu dans le monde. Il appartient à celui qui tient la ville.</p></div>';
-  }else if(t&&t.owner===ME){
-    head='<div class="card"><div class="terr-h"><b>'+t.name+'</b></div><p class="note">Pas de ville ici. Une ville donne des emplacements de bâtiments, plus de revenus et une défense accrue.</p>'
-      +btn('foundcity',t.id,'Fonder une ville · '+CITY_COST+' ฿ + '+CITY_UNITS+' pirates',p.gold<CITY_COST||t.u.guerrier<CITY_UNITS||tr(t)-CITY_UNITS<1,'wide')+'</div>';
-  }else{
-    head='<div class="card"><p class="muted">Sélectionnez une de vos villes sur la carte ou dans la liste ci-dessous.</p></div>';
-  }
-  const list='<div class="card"><h3>Vos villes ('+mine.length+')</h3>'+mine.map(x=>'<div class="lr"><b>'+x.name+(x.capital?' ★':'')+'</b><small>Niveau '+x.city.lvl+' · '+x.city.b.length+'/'+slotsOf(x)+' emplacements'+(x.city.q?' · construction en cours':'')+'</small>'+btn('sel',x.id,'Voir',false)+'</div>').join('')+'</div>';
-  return head+list;
-}
-function pTech(){
-  const p=players[ME];
-  return BRANCHES.map(br=>{
-    let html='<div class="card"><h3>'+br+'</h3>';
-    for(let e=1;e<=3;e++){
-      const list=TECHS.filter(t=>t.br===br&&t.era===e);
-      if(!list.length)continue;
-      html+='<div class="era">'+ERAS[e-1]+'</div>';
-      html+=list.map(t=>{
-        const owned=!!p.techs[t.id],ready=t.req.every(r=>p.techs[r]);
-        const reqs=t.req.length&&!ready?' Requiert : '+t.req.filter(r=>!p.techs[r]).map(r=>TECH[r].n).join(', ')+'.':'';
-        const late=t.era>AG.n+1,mast=!!p.x.ma[t.id];
-        return '<div class="lr'+(owned?' owned':'')+((!owned&&(!ready||late))?' locked':'')+'"><b>'+t.n+(mast?' ✦':'')+'</b><small>'+t.d+reqs+(late?' Disponible à l\'âge '+AGES[t.era-1].n+'.':'')+(mast?' Maîtrisée : effets +50 %.':'')+'</small>'+(owned?(mast?'':btn('mast',t.id,'Maîtrise '+mastCost(t)+' sav.',p.sci<mastCost(t))):btn('tech',t.id,t.cost+' sav.',!ready||late||p.sci<t.cost))+'</div>';
-      }).join('');
-    }
-    return html+'</div>';
-  }).join('')+'<p class="note">Chaque âge ouvre ses technologies (les ères de cet arbre) : celles de l\'âge suivant restent verrouillées. Une technologie découverte peut être <b>maîtrisée</b> (coût ×1,5) pour +50 % de ses effets. Vos technologies restent secrètes : les autres camps ne les voient pas.</p>';
 }
 function pRel(){
   const p=players[ME];
@@ -5266,36 +5185,6 @@ function rkBuys(p){
   }
   return o.map(x=>({n:x[0],c:x[1],why:x[2],eta:eta(x[1])}));
 }
-function pEco(){
-  const p=players[ME];if(!p||!p.x)return '';
-  const E=rkEco(p),u=TUN(),net=E.net*TLEN();
-  const st=net>=.05?'pos':net<=-.05?'neg':'';
-  const verdict=st==='pos'?'Économie positive : tes Berrys augmentent à chaque '+u+'.':st==='neg'?'Économie négative : tu perds des Berrys à chaque '+u+'. Les unités autres que les Pirates coûtent un entretien ; construis un Port marchand ou réduis ton armée.':'Économie à l’équilibre : rien ne s’accumule.';
-  let h='<div class="card"><h3>Berrys</h3><div class="ecoh"><div><small>Disponibles</small><b class="big">'+Math.floor(p.gold)+' ฿</b></div>'
-    +'<div class="net '+st+'"><small>Revenu net par '+u+'</small><b class="big">'+sgn(net,1)+' ฿</b></div></div>'
-    +'<div class="verdict '+st+'">'+verdict+'</div>'
-    +'<div class="ecoh2">Revenus par '+u+'</div>'
-    +ecoRow('Îles (production de base)',E.isl,'','Terrain de chaque île : plage, jungle, volcan')
-    +(E.spec?ecoRow('Villages spécialisés',E.spec):'')
-    +ecoRow('Villes et niveaux',E.city,'','Villes fondées et leurs niveaux')
-    +(E.cap?ecoRow('Capitale',E.cap,'','Bonus de votre capitale'):'')
-    +(E.bld?ecoRow('Bâtiments (Port marchand…)',E.bld):'')
-    +ecoRow('Bonus (techno, camp, commerce, héritage)',E.bonus,E.bonus>=0?'':'neg')
-    +(E.tin?ecoRow('Tribut reçu de vos vassaux',E.tin,'pos'):'')
-    +'<div class="ecoh2">Dépenses par '+u+'</div>'
-    +ecoRow('Entretien des unités',-E.up,E.up>0?'neg':'','Chaque unité autre que Pirate coûte '+UPKEEP+' ฿/s de jeu (soit '+(UPKEEP/PK*TLEN()).toFixed(2).replace('.',',')+' ฿ par '+u+')')
-    +(E.tout?ecoRow('Tribut versé à votre suzerain',-E.tout,'neg'):'')
-    +'<div class="er tot '+(st)+'"><span>Net par '+u+'</span><b>'+sgn(net,2)+' ฿</b></div>'
-    +'<p class="note">'+(TM.on?'Un tour dure '+TURN_LEN+' s de jeu : c’est la période de résolution pendant laquelle les Berrys tombent.':'Valeurs par minute de jeu.')+' Recruter, construire et agrandir coûtent des Berrys une fois ; les technologies coûtent du Savoir.</p></div>';
-  const buys=rkBuys(p);
-  if(buys.length)h+='<div class="card"><h3>Anticiper tes achats</h3>'+buys.map(b=>'<div class="lr"><b>'+esc(b.n)+' · '+b.c+' ฿</b><small>'+esc(b.why)+' — <b>'+b.eta+'</b>'+(p.gold>=b.c?' (solde après achat : '+Math.floor(p.gold-b.c)+' ฿)':'')+'</small></div>').join('')
-    +'<p class="note">Survole un bouton d’achat : le bandeau « Budget » en haut du panneau montre le solde et le revenu après achat.</p></div>';
-  const top=E.per.slice(0,5);
-  h+='<div class="card"><h3>Îles qui rapportent le plus</h3>'+top.map(o=>'<div class="lr"><b>'+esc(o.t.name)+(o.t.capital?' · capitale':o.t.city?' · ville '+o.t.city.lvl:'')+'</b><small>'+sgn(o.g*TLEN(),2)+' ฿ par '+u+'</small>'+btn('sel',o.t.id,'Voir',false)+'</div>').join('')
-    +'<p class="note">Les îles dont la part est faible gagnent à devenir des villes (Villes → fonder). Le revenu complet, Savoir et Volonté compris, est sur chaque fiche d’île.</p></div>';
-  if(RK.rec.length)h+='<div class="card"><h3>Dernières conquêtes</h3>'+RK.rec.slice().reverse().map(r=>'<div class="lr"><b>'+esc(r.tn)+'</b><small>'+r.line+'</small>'+btn('sel',r.id,'Voir',false)+'</div>').join('')+'</div>';
-  return h;
-}
 /* bandeau « Budget » en tête du panneau + aperçu avant achat */
 function budgetBar(){
   const p=players[ME];if(!p||!p.x)return '';
@@ -5617,19 +5506,6 @@ function pTurn2(){
   const mine=TM.queue.filter(o=>o.s===ME);
   if(!mine.length)return '';
   return '<div class="card tcard"><h3>Ordres de ce tour</h3>'+mine.map((o,i)=>'<div class="lr"><b>'+esc(terrs[o.f].name)+' → '+esc(terrs[o.to].name)+'</b><small>'+Math.round(o.pct*100)+' % de la garnison'+(o.st?' · '+STANCE[o.st].n.toLowerCase():'')+'</small>'+btn('unq',i,'Annuler',false)+'</div>').join('')+'<p class="note">Ils partent tous en même temps que ceux des autres camps quand la résolution commence.</p></div>';
-}
-function pArmy2(){
-  const p=players[ME],t=ui.sel>=0?terrs[ui.sel]:null,m=p.mod,cw=CREWS[p.crew||0];
-  let nT=0,trp=0;for(const x of terrs)if(x.owner===ME){nT++;trp+=tr(x);}
-  const mvN=armies.filter(a=>a.owner===ME).reduce((s,a)=>s+Math.floor(sumU(a.u)),0);
-  return campCard()+adviceCard()+(t?terrSheet(t):'<div class="card"><h3>Territoire</h3><p class="muted">Cliquez une île pour afficher sa fiche : garnison, revenu, actions possibles.</p></div>')
-    +'<div class="card"><h3>Envoyer des troupes</h3><div class="segs">'+[25,50,75,100].map(v=>btn('pct',v/100,v+' %',false,Math.round(ui.pct*100)===v?'on':'')).join('')+'</div>'
-    +'<p class="note" style="margin-top:8px">Glissez depuis une de vos îles vers un voisin, ou sélectionnez-la puis cliquez un voisin. Part de la garnison envoyée : <b>'+Math.round(ui.pct*100)+' %</b>. Gagner : votre force doit dépasser celle de la garnison.</p>'
-    +'<details><summary class="note" style="cursor:pointer">Posture au départ (avancé)</summary><div class="segs" style="margin-top:6px">'+STANCE.map((z,i)=>btn('stance',i,z.ic+' '+z.n,false,(ui.stance|0)===i?'on':'')).join('')+'</div><p class="note" style="margin-top:6px">'+STANCE[ui.stance|0].t+'</p></details></div>'
-    +seaCard()
-    +'<div class="card"><details><summary class="note" style="cursor:pointer"><b>Votre camp : '+cw.ic+' '+cw.n+'</b> · '+nT+' îles · '+Math.floor(trp)+' troupes</summary><p class="note">'+cw.t+'</p>'
-    +kv('Troupes en marche',mvN)+kv('Attaque','+'+Math.round(m.atk*100)+' %')+kv('Défense','+'+Math.round(m.def*100)+' %')+kv('Vitesse','+'+Math.round(m.spd*100)+' %')+kv('Votre prime',fmtPrime(primeOf(ME)))
-    +(cw.hunt?(()=>{const pr=curPrimes(),h=huntTarget(ME,pr);return h>=0?'<p class="note">Prime à abattre : <b>'+players[h].name+'</b> ('+fmtPrime(pr[h])+').</p>':'';})():'')+'</details></div>';
 }
 function pAgeInfo(){
   const A=AGES[AG.n];
@@ -7577,6 +7453,372 @@ $('#z-25').addEventListener('click',r25Toggle);{const b=$('#z-25');b.classList.t
 function mpHelp(){
   const n=NET.room?NET.room.peers().length:0;
   return '<p class="note" style="margin:0 0 10px">Personnes connectées à cette salle : <b>'+n+'</b>.'+(n<2?' Si l’autre joueur n’apparaît pas : il doit être connecté à claude.ai, avoir été <b>invité sur cette page</b> avec son compte (Partager → son e-mail, droit d’interagir) et saisir exactement ce code. Un lien public seul ne permet pas de rejoindre.':'')+'</p>';
+}
+
+/* ─────────── module : 50-tableau-ile.js ─────────── */
+/* Tableau de bord de l'île (onglet « Île »).
+   Règles : mêmes valeurs que la fiche actuelle (mêmes fonctions de calcul), mêmes actions (data-act déjà existants :
+   recruit, fort, pct, stance, cpost, foundcity, spec, annex, tab). Aucune mécanique nouvelle, aucune deuxième façon d'agir.
+   Organisation autour de trois questions : 1. Dans quel état est l'île ? 2. Que puis-je faire ? 3. Atouts et faiblesses. */
+RK.mq=RK.mq||{open:{},sel:-1};
+const mqNum=(v,l,ic,tip,cls)=>'<div class="mqn'+(cls?' '+cls:'')+'" title="'+esc(tip||l)+'"><b>'+(ic?'<i>'+ic+'</i>':'')+v+'</b><span>'+l+'</span></div>';
+const mqFr=x=>String(x).replace('.',',');
+function mqFold(k,label,body,def){
+  const o=k in RK.mq.open?RK.mq.open[k]:!!def;
+  return '<div class="mqf"><button class="mqfh" data-act="mqx" data-v="'+k+'" aria-expanded="'+o+'">'+label+'<span>'+(o?'▴':'▾')+'</span></button>'+(o?'<div class="mqfb">'+body+'</div>':'')+'</div>';
+}
+function mqSec(n,title,body){return '<section class="mqs"><h4><em>'+n+'</em>'+title+'</h4>'+body+'</section>';}
+/* voisins : ce que montre déjà la carte (chiffre sur chaque île), regroupé */
+function mqNeighbors(t){
+  const own=t.owner,o=[];
+  for(const q of t.nb){const x=terrs[q];if(x.owner===own)continue;o.push({x,n:Math.floor(tr(x)),war:own>=0&&x.owner>=0&&isWar(own,x.owner),neu:x.owner<0});}
+  return o.sort((a,b)=>b.n-a.n);
+}
+function terrSheet(t){
+  const p=players[ME],own=t.owner>=0?players[t.owner]:null,ty=TYPES[t.type],R=regs.find(r=>r.ids.includes(t.id)),mine=t.owner===ME;
+  const col=own?own.color:'#8d8672',tn=Math.floor(tr(t));
+  const ownName=own?esc(own.name==='Votre camp'?CREWS[own.crew||0].n:own.name):'Indépendante';
+  const enter=RK.mq.sel!==t.id;RK.mq.sel=t.id;
+  const dm=ty.def*fortOf(t);
+  /* ---------- en-tête ---------- */
+  let h='<div class="card sheet mq'+(enter?' mqin':'')+'" style="--c:'+col+'"><div class="sh-art mqart">'+islandArt(t)
+    +'<div class="sh-ban"><span class="sw" style="background:'+col+'"></span><b>'+esc(t.name)+'</b>'+(t.capital?'<span class="tag">Capitale</span>':'')+'</div></div>'
+    +'<p class="mqid">'+ownName+' · '+esc(ty.n)+(R?' · '+esc(R.n):'')+(t.city?' · Ville niv. '+t.city.lvl:t.spec?' · Village '+esc(SPECS[t.spec]):' · Village')
+    +(own&&!mine&&isWar(ME,t.owner)?' · <b class="ko">En guerre</b>':'')+'</p>';
+  /* alertes d'état (déjà visibles sur la carte, regroupées ici) */
+  const inc=armies.filter(a=>a.to===t.id&&a.owner!==t.owner&&(t.owner<0||isWar(a.owner,t.owner)||a.owner===ME));
+  const alerts=[];
+  if(t.fo>time)alerts.push('<span class="mqal ok">🛡 Fortifiée ×'+mqFr(t.fm||FORT_MUL)+' · '+Math.ceil(t.fo-time)+' s</span>');
+  if(mine&&inc.length)alerts.push('<span class="mqal ko">⚠ '+inc.length+' armée'+(inc.length>1?'s':'')+' en approche</span>');
+  if(mine&&t.city&&t.city.q)alerts.push('<span class="mqal">⌂ Construction en cours</span>');
+  if(alerts.length)h+='<div class="mqals">'+alerts.join('')+'</div>';
+
+  /* ---------- 1. ÉTAT ---------- */
+  let s1='<div class="mqsub">Militaire · <b>'+tn+'</b> troupes <small>('+compText(t.u)+')</small></div><div class="mqrow">';
+  if(mine){
+    const dP=Math.round(powerOf(t.u,ZERO_U(),'def')*Math.max(.3,1+p.mod.def)*dm),aP=Math.round(powerOf(t.u,ZERO_U(),'atk')*(1+p.mod.atk));
+    s1+=mqNum(dP,'Défense','🛡','Défense des unités × bonus du camp × terrain × fortifications')+mqNum(aP,'Attaque','⚔','Attaque des unités × bonus du camp');
+  }else s1+=mqNum(tn,'Garnison','⚑','Chiffre affiché sur la carte');
+  s1+=mqNum('×'+mqFr(dm.toFixed(2)),'Terrain','⛰','Terrain '+ty.n+' × fortification')+'</div>';
+  s1+=bossSheet(t);
+  if(mine){
+    const pr=tProd(t,p),L=TLEN(),U=TUN();
+    s1+='<div class="mqsub">Production par '+U+'</div><div class="mqrow">'
+      +mqNum('+'+mqFr(f2(pr.g*L)),'Berrys','<span class="cg">฿</span>','Berrys par '+U)
+      +mqNum('+'+mqFr(f2(pr.s*L)),'Savoir','<span class="cs">◈</span>','Savoir par '+U)
+      +mqNum('+'+mqFr(f2(pr.f*L)),'Volonté','<span class="cf">✹</span>','Volonté par '+U)+'</div>';
+    s1+=mqFold('prod','Détail des sources',
+      '<p class="note">Terrain'+(t.city?' + ville niv. '+t.city.lvl:'')+(t.capital?' + capitale':'')+(t.spec&&!t.city?' + spécialité '+SPECS[t.spec]:'')+(t.city&&t.city.b.some(b=>BLD_INCOME[b])?' + bâtiments':'')+', au rythme de la partie, bonus de votre camp inclus.</p>');
+  }else{
+    const mx=.3,bar=(v,c,l)=>'<div class="pot" title="'+l+'"><span>'+l+'</span><div><i style="width:'+Math.round(v/mx*100)+'%;background:'+c+'"></i></div></div>';
+    s1+=mqFold('pot','Potentiel du terrain',bar(ty.g,'var(--c-gold)','Berrys')+bar(ty.s,'var(--c-sci)','Savoir')+bar(ty.f,'var(--c-faith,#c58cf0)','Volonté')+'<p class="note">La production réelle n’est visible que sur vos îles.</p>');
+  }
+  h+=mqSec(1,'État',s1);
+
+  /* ---------- 2. QUE FAIRE ---------- */
+  let s2='';
+  if(mine){
+    /* fortifier */
+    if(!(t.fo>time)){const fc=fortCost(t,p);s2+='<div class="mqact"><div><b>Fortifier</b><small>Défense ×'+mqFr(fortMul(p))+' pendant '+Math.round(fortDur(p))+' s</small></div>'+btn('fort',t.id,'🛡 '+fc+' ฿',p.gold<fc)+'</div>';}
+    /* recruter : seulement les unités disponibles ; les autres repliées */
+    const okU=UK.filter(k=>unitOK(p,k)),noU=UK.filter(k=>!unitOK(p,k));
+    s2+='<div class="mqsub">Recruter</div><div class="mqrec">'+okU.map(k=>{const U=UNITS[k],c=recruitCost(p,t,k);
+      return '<div class="mqu'+(ui.flash&&ui.flash.key==='u:'+k&&performance.now()<ui.flash.until?' flash':'')+'" title="'+esc(U.pl+' — '+U.d)+'"><b>'+U.pl+'</b><small>Att. '+U.atk+' · Déf. '+U.def+' · Vit. '+U.spd+'</small>'+btn('recruit',k,'+'+U.batch+' · '+c+' ฿',p.gold<c)+'</div>';}).join('')+'</div>';
+    if(noU.length)s2+=mqFold('lockU','Unités verrouillées ('+noU.length+')',noU.map(k=>'<div class="mqu locked"><b>'+UNITS[k].pl+'</b><small>Requiert '+TECH[UNITS[k].tech].n+'</small></div>').join(''));
+    /* envoyer : même réglage que la carte « Envoyer des troupes » */
+    s2+='<div class="mqsub">Envoyer depuis cette île</div><div class="segs">'+[25,50,75,100].map(v=>btn('pct',v/100,v+' %',false,Math.round(ui.pct*100)===v?'on':'')).join('')+'</div>'
+      +'<p class="note">Cliquez une île voisine ou glissez vers elle : <b>'+Math.round(ui.pct*100)+' %</b> de la garnison part.</p>'
+      +mqFold('stance','Posture au départ (avancé)','<div class="segs">'+STANCE.map((z,i)=>btn('stance',i,z.ic+' '+z.n,false,(ui.stance|0)===i?'on':'')).join('')+'</div><p class="note">'+STANCE[ui.stance|0].t+'</p>');
+    /* accès directs (navigation vers l'écran existant, l'île reste sélectionnée) */
+    s2+='<div class="mqquick">'+(t.city?btn('tab','city','⌂ Construire',false):'')+btn('tab','leg','♛ Équipe',false)+'</div>';
+    if(!t.city&&!t.spec)s2+=btn('foundcity',t.id,'Fonder une ville · '+CITY_COST+' ฿ + '+CITY_UNITS+' pirates',p.gold<CITY_COST||t.u.guerrier<CITY_UNITS||tr(t)-CITY_UNITS<1,'wide');
+    if(!t.city&&!t.capital&&!t.spec)s2+=mqFold('spec','Spécialiser ce village · '+SPEC_COST+' ฿','<p class="note">Définitif : le village renonce à devenir une ville et se consacre à une ressource.</p><div class="spc">'+Object.keys(SPECS).map(r=>btn('spec',t.id+':'+r,SPECS[r],p.gold<SPEC_COST)).join('')+'</div>');
+  }else{
+    const near=t.nb.some(q=>terrs[q].owner===ME);
+    if(t.owner<0){const why=annexReason(p,t);s2+=btn('annex',t.id,'Envoyer une ambassade · '+annexCost(t)+' ⚜',!!why,'wide')+'<p class="note">'+(why||'Gagne l’île sans combat ; une ambassade toutes les '+fmtDur(25*PK)+'.')+'</p>';}
+    s2+='<p class="note">'+(near?'À portée : sélectionnez votre île voisine puis cliquez ici, ou glissez depuis elle.':'Hors de portée : prenez d’abord une île voisine.')+'</p>';
+  }
+  h+=mqSec(2,mine?'Que faire ?':'Que puis-je faire ?',s2);
+
+  /* ---------- 3. ATOUTS ET FAIBLESSES ---------- */
+  let s3='';
+  /* développement */
+  if(t.city){
+    const used=usedSlots(t),tot=slotsOf(t),built=t.city.b.length;
+    s3+='<div class="mqline"><span>⌂ Bâtiments</span><b>'+built+' construit'+(built>1?'s':'')+' · '+(tot-used)+' place'+(tot-used>1?'s':'')+' libre'+(tot-used>1?'s':'')+' / '+tot+'</b></div>'
+      +'<div class="mqslots">'+Array.from({length:tot},(_,k)=>{const b=t.city.b[k];if(b){const d=defOfBuild(b);return '<span class="sl on" title="'+esc(d.n+' — '+(b.startsWith('w:')?d.d:(mine?bDesc(b,p):d.d)))+'">'+bico(b.startsWith('w:')?'wonder':b)+'</span>';}
+        if(k===built&&t.city.q)return '<span class="sl q" title="En construction : '+esc(defOfBuild(t.city.q.id).n)+'"><i style="height:'+Math.round(t.city.q.t/t.city.q.dur*100)+'%"></i></span>';return '<span class="sl" title="Place libre"></span>';}).join('')+'</div>';
+  }
+  /* lieutenant : affectation directe (action existante cpost) */
+  const li=ltAt(t.id);
+  if(li>=0){const L=LEGENDS[li],M=chMeta(li),Rr=RAR[M.r];
+    s3+='<div class="mqline"><span>♛ Lieutenant</span><b style="color:'+Rr.col+'">'+esc(L.s)+'</b></div><p class="note">'+leadText(li)+'.</p>'+(mine?btn('cpost',li+':-1','Retirer du poste',false):'');}
+  else if(mine){
+    const free=chOwnedBy(ME).filter(i=>chIsActive(ME,i)&&CH[i].post!==t.id);
+    s3+='<div class="mqline"><span>♛ Lieutenant</span><b class="muted">Aucun</b></div>'
+      +(free.length?'<div class="mqquick">'+free.map(i=>btn('cpost',i+':'+t.id,'Affecter '+esc(LEGENDS[i].s)+(CH[i].post>=0?' (quitte '+esc(terrs[CH[i].post].name)+')':''),false)).join('')+'</div>':'<p class="note">Aucun commandant disponible : recrutez-en un (Équipe).</p>');
+  }
+  /* contrôle régional : verrouillé tant que la région n'est pas complète */
+  if(R&&R.fx){
+    const held=t.owner>=0?R.ids.filter(i=>terrs[i].owner===t.owner).length:0,all=R.ids.length,on=t.owner>=0&&held===all;
+    s3+='<div class="mqline"><span>◎ Région '+esc(R.n)+'</span><b>'+held+' / '+all+'</b></div><div class="mqbar"><i style="width:'+Math.round(held/all*100)+'%"></i></div>'
+      +'<p class="note mqreg '+(on?'on':'off')+'">'+(on?'✓ Bonus actif':'🔒 Bonus verrouillé, il manque '+(all-held)+' île'+(all-held>1?'s':''))+' : '+fxText(R.fx)+'.</p>';
+  }
+  /* bonus propres à l'île */
+  const bon=[];
+  if(ISLE_FX[t.name])bon.push('<div class="bn"><b>✦ Île célèbre</b><small>'+fxText(ISLE_FX[t.name].fx)+'. '+esc(ISLE_FX[t.name].w)+'</small></div>');
+  if(t.fruit)bon.push('<div class="bn"><b>Fruit '+FRUITS[t.fruit].n+'</b><small>'+FRUITS[t.fruit].d+'.</small></div>');
+  if(t.pone)bon.push(poneBon(t));
+  if(t.city)for(const b of t.city.b)if(b.startsWith('w:'))bon.push('<div class="bn"><b>★ '+esc(WONDER[b.slice(2)].n)+'</b><small>'+WONDER[b.slice(2)].d+'</small></div>');
+  if(bon.length)s3+=bon.join('');
+  /* faiblesses : uniquement ce que la carte montre déjà, regroupé */
+  const nb=mqNeighbors(t),weak=[];
+  if(t.owner>=0){
+    const th=nb.filter(z=>!z.neu&&(z.war||t.owner<0));const big=nb.filter(z=>!z.neu).sort((a,b)=>b.n-a.n)[0];
+    if(big&&big.n>tn)weak.push('Voisin plus garni : <b>'+esc(big.x.name)+'</b> ('+big.n+' contre '+tn+')'+(big.war?', en guerre':'')+'.');
+    if(th.length)weak.push(th.length+' voisin'+(th.length>1?'s':'')+' en guerre contre ce camp.');
+  }
+  if(dm<=1)weak.push('Terrain peu défensif (×'+mqFr(dm.toFixed(2))+'), pas de muraille.');
+  const fr=nb.length;
+  s3+='<div class="mqline"><span>⚠ Points faibles</span><b>'+(weak.length?weak.length:'aucun repéré')+'</b></div>'+(weak.length?'<ul class="mqw">'+weak.map(w=>'<li>'+w+'</li>').join('')+'</ul>':'')
+    +'<p class="note">'+fr+' voisin'+(fr>1?'s':'')+' d’un autre camp ou neutres'+(fr?' : '+nb.slice(0,4).map(z=>esc(z.x.name)+' '+z.n).join(', ')+(fr>4?'…':''):'')+'.</p>';
+  h+=mqSec(3,'Atouts et faiblesses',s3);
+  return h+'</div>';
+}
+/* l'onglet Île commence par l'île sélectionnée ; le conseil passe dessous */
+function pArmy2(){
+  const p=players[ME],t=ui.sel>=0?terrs[ui.sel]:null,m=p.mod,cw=CREWS[p.crew||0];
+  let nT=0,trp=0;for(const x of terrs)if(x.owner===ME){nT++;trp+=tr(x);}
+  const mvN=armies.filter(a=>a.owner===ME).reduce((s,a)=>s+Math.floor(sumU(a.u)),0);
+  return campCard()+(t?terrSheet(t)+adviceCard():adviceCard()+'<div class="card"><h3>Territoire</h3><p class="muted">Cliquez une île pour afficher son tableau de bord : état, actions possibles, atouts et faiblesses.</p></div>')
+    +(!t||t.owner!==ME?'<div class="card"><h3>Envoyer des troupes</h3><div class="segs">'+[25,50,75,100].map(v=>btn('pct',v/100,v+' %',false,Math.round(ui.pct*100)===v?'on':'')).join('')+'</div><p class="note" style="margin-top:8px">Sélectionnez une de vos îles puis cliquez un voisin, ou glissez de l’une à l’autre.</p></div>':'')
+    +seaCard()
+    +'<div class="card"><details><summary class="note" style="cursor:pointer"><b>Votre camp : '+cw.ic+' '+cw.n+'</b> · '+nT+' îles · '+Math.floor(trp)+' troupes</summary><p class="note">'+cw.t+'</p>'
+    +kv('Troupes en marche',mvN)+kv('Attaque','+'+Math.round(m.atk*100)+' %')+kv('Défense','+'+Math.round(m.def*100)+' %')+kv('Vitesse','+'+Math.round(m.spd*100)+' %')+kv('Votre prime',fmtPrime(primeOf(ME)))
+    +(cw.hunt?(()=>{const pr=curPrimes(),h=huntTarget(ME,pr);return h>=0?'<p class="note">Prime à abattre : <b>'+players[h].name+'</b> ('+fmtPrime(pr[h])+').</p>':'';})():'')+'</details></div>';
+}
+/* sections repliables (état d'affichage seulement) */
+document.getElementById('side').addEventListener('click',e=>{
+  const b=e.target.closest('[data-act="mqx"]');if(!b)return;
+  const k=b.dataset.v,cur=k in RK.mq.open?RK.mq.open[k]:false;RK.mq.open[k]=!cur;lastPanel='';renderPanel(true);
+});
+
+/* ─────────── module : 51-economie.js ─────────── */
+/* Onglet Économie (Berrys, Villes, Techno), réorganisé.
+   Mêmes calculs (rkEco, rkBuys, bRow, buildReason, mastCost) et mêmes actions (build, upcity, foundcity, tech, mast, sel).
+   Principe : ce qui est faisable maintenant en premier ; ce qui est verrouillé ou plus tard est replié, sans rien retirer. */
+const mqRes=p=>{const L=TLEN(),r=p.rate||{g:0,s:0,f:0};return {g:Math.floor(p.gold),s:Math.floor(p.sci),f:Math.floor(p.faith),sr:r.s*L,fr:r.f*L};};
+/* ---------- Berrys ---------- */
+function pEco(){
+  const p=players[ME];if(!p||!p.x)return '';
+  const E=rkEco(p),u=TUN(),L=TLEN(),net=E.net*L,R=mqRes(p),st=net>=.05?'pos':net<=-.05?'neg':'';
+  let h='<div class="card mq"><section class="mqs first"><h4><em>1</em>Bilan</h4><div class="mqrow">'
+    +mqNum(R.g+' ฿','Berrys','','Disponibles')+mqNum('<span class="'+st+'">'+sgn(net,1)+'</span>','Net / '+u,'','Revenu net par '+u)
+    +mqNum(R.s,'Savoir','<span class="cs">◈</span>','Savoir disponible · '+sgn(R.sr,1)+' par '+u)+'</div>'
+    +'<p class="note">Savoir '+sgn(R.sr,1)+' / '+u+' · Volonté <b>'+R.f+'</b> ('+sgn(R.fr,1)+' / '+u+')</p>'
+    +(st==='neg'?'<p class="verdict neg">Tu perds des Berrys à chaque '+u+' : les unités autres que les Pirates coûtent un entretien. Construis un Port marchand ou réduis ton armée.</p>':'')+'</section>';
+  /* d'où viennent les Berrys : une barre empilée, puis le détail replié */
+  const src=[['Îles',E.isl,'#d9b45a'],['Spécialités',E.spec,'#c98f3c'],['Villes',E.city,'#e2903b'],['Capitale',E.cap,'#f2c75c'],['Bâtiments',E.bld,'#8fd16b'],['Bonus',Math.max(0,E.bonus),'#5aa0f5'],['Tribut reçu',E.tin,'#c58cf0']].filter(x=>x[1]>.0001);
+  const tot=src.reduce((a,x)=>a+x[1],0)||1,out=E.up+E.tout;
+  h+='<section class="mqs"><h4><em>2</em>D’où viennent tes Berrys</h4><div class="mqstack">'+src.map(x=>'<i style="width:'+(x[1]/tot*100).toFixed(1)+'%;background:'+x[2]+'" title="'+esc(x[0])+' '+sgn(x[1]*L,2)+'"></i>').join('')+'</div>'
+    +'<div class="mqleg">'+src.map(x=>'<span><i style="background:'+x[2]+'"></i>'+esc(x[0])+' <b>'+sgn(x[1]*L,2)+'</b></span>').join('')+'</div>'
+    +'<div class="mqline"><span>Dépenses (entretien'+(E.tout?', tribut':'')+')</span><b class="'+(out>0?'neg':'')+'">'+(out>0?'−'+f2(out*L):'0')+'</b></div>'
+    +mqFold('ecodet','Détail ligne par ligne',
+      ecoRow('Îles (production de base)',E.isl,'','Terrain de chaque île : plage, jungle, volcan')+(E.spec?ecoRow('Villages spécialisés',E.spec):'')
+      +ecoRow('Villes et niveaux',E.city,'','Villes fondées et leurs niveaux')+(E.cap?ecoRow('Capitale',E.cap,'','Bonus de votre capitale'):'')
+      +(E.bld?ecoRow('Bâtiments (Port marchand…)',E.bld):'')+ecoRow('Bonus (techno, camp, commerce, héritage)',E.bonus,E.bonus>=0?'':'neg')
+      +(E.tin?ecoRow('Tribut reçu de vos vassaux',E.tin,'pos'):'')
+      +ecoRow('Entretien des unités',-E.up,E.up>0?'neg':'','Chaque unité autre que Pirate coûte '+UPKEEP+' ฿/s de jeu (soit '+(UPKEEP/PK*L).toFixed(2).replace('.',',')+' ฿ par '+u+')')
+      +(E.tout?ecoRow('Tribut versé à votre suzerain',-E.tout,'neg'):'')
+      +'<div class="er tot '+st+'"><span>Net par '+u+'</span><b>'+sgn(net,2)+' ฿</b></div>'
+      +'<p class="note">'+(TM.on?'Un tour dure '+TURN_LEN+' s de jeu : les Berrys tombent pendant la résolution.':'Valeurs par minute de jeu.')+' Recruter, construire et agrandir coûtent des Berrys une fois ; les technologies coûtent du Savoir.</p>')+'</section>';
+  /* que faire de ses Berrys */
+  const buys=rkBuys(p);
+  h+='<section class="mqs"><h4><em>3</em>Que faire de tes Berrys ?</h4>'
+    +(buys.length?buys.map(b=>'<div class="mqbuy"><div><b>'+esc(b.n)+'</b><small>'+esc(b.why)+'</small></div><span class="mqeta'+(p.gold>=b.c?' ok':'')+'">'+b.c+' ฿ · '+b.eta+'</span></div>').join(''):'<p class="note">Rien à prévoir pour l’instant.</p>')
+    +mqFold('ecotop','Îles qui rapportent le plus',E.per.slice(0,5).map(o=>'<div class="mqline"><span>'+esc(o.t.name)+(o.t.capital?' · capitale':o.t.city?' · ville '+o.t.city.lvl:'')+'</span><b>'+sgn(o.g*L,2)+' '+btn('sel',o.t.id,'Voir',false)+'</b></div>').join('')+'<p class="note">Les îles qui rapportent peu gagnent à devenir des villes (Villes → fonder).</p>')
+    +(RK.rec.length?mqFold('ecorec','Dernières conquêtes ('+RK.rec.length+')',RK.rec.slice().reverse().map(r=>'<div class="lr"><b>'+esc(r.tn)+'</b><small>'+r.line+'</small>'+btn('sel',r.id,'Voir',false)+'</div>').join('')):'')
+    +'</section></div>';
+  return h;
+}
+/* ---------- Villes ---------- */
+function pCity(){
+  const p=players[ME],mine=terrs.filter(x=>x.owner===ME&&x.city);
+  let t=ui.sel>=0?terrs[ui.sel]:null;
+  if((!t||t.owner!==ME||!t.city)&&mine.length&&!(t&&t.owner===ME))t=mine.find(x=>x.capital)||mine[0];
+  /* sélecteur de villes : une rangée de pastilles au lieu d'une liste en bas */
+  const pick=mine.length<2?'':'<div class="mqpick">'+mine.map(x=>'<button data-act="sel" data-v="'+x.id+'" class="'+(t&&x.id===t.id?'on':'')+'">'+esc(x.name)+(x.capital?' ★':'')+' <small>niv. '+x.city.lvl+' · '+(slotsOf(x)-usedSlots(x))+' libre'+(slotsOf(x)-usedSlots(x)>1?'s':'')+'</small></button>').join('')+'</div>';
+  if(!t||t.owner!==ME){return '<div class="card mq">'+pick+'<p class="note">Sélectionnez une de vos villes.</p></div>';}
+  if(!t.city){
+    return '<div class="card mq">'+pick+'<section class="mqs first"><h4><em>1</em>'+esc(t.name)+'</h4><p class="note">Pas de ville ici. Une ville donne des emplacements de bâtiments, plus de revenus et une défense accrue.</p>'
+      +btn('foundcity',t.id,'Fonder une ville · '+CITY_COST+' ฿ + '+CITY_UNITS+' pirates',p.gold<CITY_COST||t.u.guerrier<CITY_UNITS||tr(t)-CITY_UNITS<1,'wide')+'</section></div>';
+  }
+  const c=t.city,used=usedSlots(t),tot=slotsOf(t),upc=CITY_UP*c.lvl;
+  let h='<div class="card mq">'+pick+'<section class="mqs first"><h4><em>1</em>'+esc(t.name)+' · niveau '+c.lvl+'</h4>'
+    +'<div class="mqline"><span>Emplacements</span><b>'+c.b.length+' construit'+(c.b.length>1?'s':'')+' · '+(tot-used)+' libre'+(tot-used>1?'s':'')+' / '+tot+'</b></div>'
+    +'<div class="mqslots">'+Array.from({length:tot},(_,k)=>{const b=c.b[k];if(b){const d=defOfBuild(b);return '<span class="sl on" title="'+esc(d.n)+'">'+bico(b.startsWith('w:')?'wonder':b)+'</span>';}
+      if(k===c.b.length&&c.q)return '<span class="sl q" title="En construction : '+esc(defOfBuild(c.q.id).n)+'"><i style="height:'+Math.round(c.q.t/c.q.dur*100)+'%"></i></span>';return '<span class="sl" title="Place libre"></span>';}).join('')+'</div>'
+    +(c.b.length?'<p class="note">'+c.b.map(b=>esc(defOfBuild(b).n)).join(' · ')+'</p>':'')
+    +(c.q?'<div class="mqline"><span>En construction : '+esc(defOfBuild(c.q.id).n)+'</span><b>'+Math.ceil(c.q.dur-c.q.t)+' s</b></div>':'')
+    +(c.lvl<3?'<div class="mqact"><div><b>Agrandir la ville</b><small>Niveau '+(c.lvl+1)+' : +1 emplacement, revenus ×'+String(1+.35*c.lvl).replace('.',',')+'</small></div>'+btn('upcity',t.id,upc+' ฿',p.gold<upc)+'</div>':'<p class="note">Niveau maximal atteint.</p>')+'</section>';
+  /* bâtiments : constructibles d'abord, les verrouillés repliés avec leur condition */
+  const ids=Object.keys(BUILDINGS).filter(id=>!c.b.includes(id));
+  const lockedB=id=>{const r=buildReason(p,t,id,true);return !!r&&(r.startsWith('Techno')||r.startsWith('Une Voie'));};
+  const okB=ids.filter(id=>!lockedB(id)),noB=ids.filter(lockedB);
+  h+='<section class="mqs"><h4><em>2</em>Construire ici</h4>'+(okB.length?okB.map(id=>bRow(p,t,id,'b')).join(''):'<p class="note">Aucun bâtiment débloqué : achète une technologie (Techno).</p>')
+    +(noB.length?mqFold('bLock','Verrouillés ('+noB.length+')',noB.map(id=>{const d=BUILDINGS[id];return '<div class="mqline lk"><span>'+bico(id)+' '+esc(d.n)+' <small>'+esc(bDesc(id,p))+'</small></span><b>'+(d.tech&&!p.techs[d.tech]?'◈ '+esc(TECH[d.tech].n):'')+(d.rel&&!p.religion?' · Voie':'')+'</b></div>';}).join('')):'')+'</section>';
+  /* lieux légendaires */
+  const W=WONDERS.map(w=>({w,ow:wonderOwner(w.id),bd:wonderBuilding(w.id),lk:lockedB('w:'+w.id)}));
+  const wOk=W.filter(x=>x.ow===null&&!x.lk&&!x.bd);
+  h+='<section class="mqs"><h4><em>3</em>Lieux légendaires</h4>'+(wOk.length?wOk.map(x=>bRow(p,t,x.w.id,'w')).join(''):'<p class="note">Aucun lieu constructible maintenant.</p>')
+    +mqFold('wAll','Tous les lieux ('+W.length+')',W.filter(x=>!wOk.includes(x)).map(x=>'<div class="mqline lk"><span>★ '+esc(x.w.n)+' <small>'+esc(x.w.d)+'</small></span><b>'+(x.ow!==null?esc(players[x.ow].name):x.bd?'en cours ailleurs':x.w.tech?'◈ '+esc(TECH[x.w.tech].n):'')+'</b></div>').join('')+'<p class="note">Un seul exemplaire de chaque lieu dans le monde. Il appartient à celui qui tient la ville.</p>')+'</section></div>';
+  return h;
+}
+/* ---------- Techno ---------- */
+function pTech(){
+  const p=players[ME],R=mqRes(p),u=TUN();
+  const st=t=>{const owned=!!p.techs[t.id],ready=t.req.every(r=>p.techs[r]),late=t.era>AG.n+1;return owned?'own':ready&&!late?'ok':'lock';};
+  const eta=c=>p.sci>=c?'maintenant':R.sr>.01?'dans ≈ '+Math.ceil((c-p.sci)/R.sr)+' '+u+(Math.ceil((c-p.sci)/R.sr)>1&&TM.on?'s':''):'—';
+  const row=t=>'<div class="mqu"><b>'+esc(t.n)+' <small class="mqbr">'+esc(t.br)+'</small></b><small>'+esc(t.d)+'</small>'+btn('tech',t.id,t.cost+' ◈',p.sci<t.cost)+'</div>';
+  const ok=TECHS.filter(t=>st(t)==='ok').sort((a,b)=>a.cost-b.cost),own=TECHS.filter(t=>st(t)==='own'),lk=TECHS.filter(t=>st(t)==='lock');
+  let h='<div class="card mq"><section class="mqs first"><h4><em>1</em>Savoir</h4><div class="mqrow">'+mqNum(R.s,'Disponible','<span class="cs">◈</span>')+mqNum(sgn(R.sr,1),'Par '+u,'')+mqNum(own.length+' / '+TECHS.length,'Découvertes','')+'</div>'
+    +(ok.length?'<p class="note">Prochaine abordable : <b>'+esc(ok[0].n)+'</b> ('+ok[0].cost+' ◈) — '+eta(ok[0].cost)+'.</p>':'')+'</section>';
+  h+='<section class="mqs"><h4><em>2</em>Disponibles maintenant ('+ok.length+')</h4>'+(ok.length?ok.map(row).join(''):'<p class="note">Rien de disponible : attends l’âge suivant ou découvre les prérequis.</p>')+'</section>';
+  h+='<section class="mqs"><h4><em>3</em>Ton arbre</h4>'
+    +(own.length?mqFold('tOwn','Découvertes ('+own.length+') · maîtrise',own.map(t=>{const m=!!p.x.ma[t.id];return '<div class="mqu"><b>'+esc(t.n)+(m?' ✦':'')+'</b><small>'+esc(t.d)+(m?' Maîtrisée : effets +50 %.':'')+'</small>'+(m?'':btn('mast',t.id,'Maîtrise '+mastCost(t)+' ◈',p.sci<mastCost(t)))+'</div>';}).join('')+'<p class="note">Maîtriser (coût ×1,5) donne +50 % aux effets.</p>'):'')
+    +BRANCHES.map(br=>{const L=lk.filter(t=>t.br===br);if(!L.length)return '';return mqFold('tL'+br,'Plus tard · '+esc(br)+' ('+L.length+')',L.map(t=>{const miss=t.req.filter(r=>!p.techs[r]).map(r=>TECH[r].n),late=t.era>AG.n+1;
+      return '<div class="mqline lk"><span>'+esc(t.n)+' <small>'+esc(t.d)+'</small></span><b>'+(late?'⌛ '+esc(AGES[t.era-1].n):'')+(miss.length?(late?' · ':'')+'requiert '+esc(miss.join(', ')):'')+'</b></div>';}).join(''));}).join('')
+    +'<p class="note">Chaque âge ouvre ses technologies ; tes technologies restent secrètes pour les autres camps.</p></section></div>';
+  return h;
+}
+
+/* ─────────── module : 52-musique-medievale.js ─────────── */
+/* Musique : 3 morceaux médiévaux + 1 chant de marins : 3 morceaux originaux, composés pour le jeu et joués par le navigateur (Web Audio, aucun fichier).
+   Instruments imités : flûte à bec (vibrato), luth (cordes pincées), bourdon de vielle / cornemuse, cor, tambour sur cadre, tambourin.
+   1. « Le port du village » (ré dorien)       : exploration, paix.
+   2. « Le conseil des capitaines » (sol mixolydien) : phase d'ordres, développement.
+   3. « Bataille » (ré phrygien)                : menace (tension, sans mélodie au début) puis guerre (complète).
+   4. « L'appel du large » (ré mixolydien) : chant de marins original (accordéon), en alternance avec le 1 en exploration.
+   Fin de partie : morceau 4 en fanfare (victoire), du morceau 2 lent et en mineur (défaite).
+   Les moments où la musique change (scènes) ne bougent pas : seul ce qui est joué change. */
+const MED_NOTE={C:0,D:2,E:4,F:5,G:7,A:9,B:11};
+/* « D5 - E5 . » : note, « - » prolonge la note précédente, « . » silence ; 8 temps par mesure */
+function medBar(s){
+  const tk=s.trim().split(/\s+/),out=Array(8).fill(null);let last=-1;
+  tk.forEach((x,i)=>{
+    if(x==='-'){if(last>=0)out[last].d++;return;}
+    if(x==='.'){last=-1;return;}
+    const m=x.match(/^([A-G])(b|#)?(\d)$/);if(!m)return;
+    out[i]={m:12*(+m[3]+1)+MED_NOTE[m[1]]+(m[2]==='b'?-1:m[2]==='#'?1:0),d:1};last=i;
+  });
+  return out;
+}
+const MED={
+  port:{len:.28,roots:[50,50,48,45,50,48,53,50],mel:[
+    'D5 - E5 F5 G5 - A5 -','G5 F5 E5 - D5 - . .','C5 - D5 E5 F5 - E5 D5','E5 - - - . . . .',
+    'D5 - E5 F5 G5 - A5 B5','C6 - B5 A5 G5 - A5 -','F5 E5 D5 - C5 - E5 -','D5 - - - . . . .'].map(medBar),
+    lead:'flute',lute:true,drum:'doux',drone:.05},
+  conseil:{len:.36,roots:[43,43,48,50,43,41,50,43],mel:[
+    'G4 - A4 B4 C5 - B4 A4','G4 - - D5 - - . .','E5 D5 C5 - B4 C5 D5 -','A4 - - - . . . .',
+    'B4 - C5 D5 E5 - D5 C5','D5 - F5 - E5 D5 C5 -','B4 A4 G4 - A4 - B4 -','G4 - - - . . . .'].map(medBar),
+    lead:'flute',lute:'harpe',drum:'rare',drone:.04},
+  bataille:{len:.21,roots:[50,50,53,51,50,46,50,50],mel:[
+    'D5 . D5 F5 G5 - F5 Eb5','D5 - - . A4 . C5 D5','F5 . F5 G5 A5 - G5 F5','Eb5 - D5 - . . . .',
+    'A5 . A5 Bb5 A5 G5 F5 G5','A5 - - . G5 F5 Eb5 F5','D5 . F5 Eb5 D5 C5 Bb4 C5','D5 - - - . . . .'].map(medBar),
+    lead:'cor',lute:false,drum:'marche',drone:.06},
+  /* 4. « L'appel du large » (ré mixolydien) : chant de marins original, accordéon, cordes pincées, pieds et mains */
+  large:{len:.27,roots:[50,43,48,50,50,48,48,50],mel:[
+    'D5 - F#5 E5 D5 - A4 -','B4 C5 D5 - E5 - F#5 -','G5 - F#5 E5 D5 - C5 -','D5 - A4 - - . . .',
+    'F#5 - A5 G5 F#5 - E5 D5','E5 - G5 F#5 E5 - D5 C5','C5 - E5 D5 C5 - A4 C5','D5 - - - D5 . . .'].map(medBar),
+    lead:'accordeon',lute:'bouzouki',drum:'pont',drone:0}
+};
+/* scène du jeu → morceau joué */
+const MED_MAP={explore:['port',1],dev:['conseil',1],tense:['bataille',.55],war:['bataille',1],win:['large',1.25],lose:['conseil',.7]};
+/* exploration : « Le port du village » et « L'appel du large » alternent, deux tours de 8 mesures chacun */
+const medKey=()=>{if(SND.scene!=='explore')return MED_MAP[SND.scene]||MED_MAP.explore;const k=Math.floor(SND.bar/16)%2?'large':'port';const n=k==='large'?'L’appel du large':'Le port du village';if(SND_SCENES.explore.n!==n){SND_SCENES.explore.n=n;try{sndUI();}catch(_){}}return [k,1];};
+Object.assign(SND_SCENES.explore,{n:'Le port du village',len:MED.port.len});
+Object.assign(SND_SCENES.dev,{n:'Le conseil des capitaines',len:MED.conseil.len});
+Object.assign(SND_SCENES.tense,{n:'Bataille (menace)',len:MED.bataille.len*1.25});
+Object.assign(SND_SCENES.war,{n:'Bataille',len:MED.bataille.len});
+Object.assign(SND_SCENES.win,{n:'L’appel du large (fanfare)',len:MED.large.len*.9});
+Object.assign(SND_SCENES.lose,{n:'Le conseil des capitaines (lent)',len:MED.conseil.len*1.6});
+/* ---- instruments ---- */
+function medFlute(f,t,dur,vol){
+  const c=SND.ctx,o=c.createOscillator(),o2=c.createOscillator(),g=c.createGain(),lfo=c.createOscillator(),lg=c.createGain();
+  o.type='sine';o2.type='triangle';o.frequency.setValueAtTime(f,t);o2.frequency.setValueAtTime(f*2,t);
+  lfo.frequency.value=5.2;lg.gain.setValueAtTime(0,t);lg.gain.linearRampToValueAtTime(f*.006,t+Math.min(.35,dur*.6));lfo.connect(lg);lg.connect(o.frequency);
+  const g2=c.createGain();g2.gain.value=.12;o2.connect(g2);g2.connect(g);
+  g.gain.setValueAtTime(.0001,t);g.gain.linearRampToValueAtTime(vol,t+.05);g.gain.setValueAtTime(vol*.85,t+Math.max(.06,dur-.08));g.gain.exponentialRampToValueAtTime(.0001,t+dur+.12);
+  o.connect(g);g.connect(SND.mus);g.connect(SND.send);
+  for(const x of [o,o2,lfo]){x.start(t);x.stop(t+dur+.2);}SND.n++;
+}
+function medPluck(f,t,vol,dec,bright){
+  const c=SND.ctx,o=c.createOscillator(),o2=c.createOscillator(),lp=c.createBiquadFilter(),g=c.createGain();
+  o.type='triangle';o2.type='sawtooth';o.frequency.value=f;o2.frequency.value=f*1.003;
+  lp.type='lowpass';lp.frequency.setValueAtTime(bright||2600,t);lp.frequency.exponentialRampToValueAtTime(500,t+dec);
+  const g2=c.createGain();g2.gain.value=.35;o2.connect(g2);g2.connect(lp);o.connect(lp);lp.connect(g);
+  g.gain.setValueAtTime(.0001,t);g.gain.linearRampToValueAtTime(vol,t+.004);g.gain.exponentialRampToValueAtTime(.0001,t+dec);
+  g.connect(SND.mus);g.connect(SND.send);
+  for(const x of [o,o2]){x.start(t);x.stop(t+dec+.05);}SND.n++;
+}
+function medHorn(f,t,dur,vol){
+  const c=SND.ctx,o=c.createOscillator(),lp=c.createBiquadFilter(),g=c.createGain();
+  o.type='sawtooth';o.frequency.setValueAtTime(f*.985,t);o.frequency.linearRampToValueAtTime(f,t+.05);
+  lp.type='lowpass';lp.frequency.setValueAtTime(700,t);lp.frequency.linearRampToValueAtTime(1500,t+.08);lp.Q.value=2;
+  g.gain.setValueAtTime(.0001,t);g.gain.linearRampToValueAtTime(vol,t+.03);g.gain.setValueAtTime(vol*.8,t+Math.max(.04,dur-.05));g.gain.exponentialRampToValueAtTime(.0001,t+dur+.08);
+  o.connect(lp);lp.connect(g);g.connect(SND.mus);g.connect(SND.send);o.start(t);o.stop(t+dur+.12);SND.n++;
+}
+function medDrone(r,t,dur,vol){
+  /* bourdon de vielle : quinte tenue, filtrée */
+  const c=SND.ctx,lp=c.createBiquadFilter(),g=c.createGain();lp.type='lowpass';lp.frequency.value=520;
+  g.gain.setValueAtTime(.0001,t);g.gain.linearRampToValueAtTime(vol,t+.25);g.gain.setValueAtTime(vol,t+dur-.2);g.gain.exponentialRampToValueAtTime(.0001,t+dur+.15);
+  lp.connect(g);g.connect(SND.mus);
+  for(const [m,ty,k] of [[r,'sawtooth',.5],[r+7,'sawtooth',.35],[r-12,'sine',1]]){const o=c.createOscillator(),gg=c.createGain();o.type=ty;o.frequency.value=mfreq(m);gg.gain.value=k;o.connect(gg);gg.connect(lp);o.start(t);o.stop(t+dur+.2);}
+  SND.n++;
+}
+function medAcc(f,t,dur,vol){
+  /* accordéon : deux anches légèrement désaccordées, filtrées, avec un léger tremolo de soufflet */
+  const c=SND.ctx,lp=c.createBiquadFilter(),g=c.createGain(),tr=c.createOscillator(),tg=c.createGain();
+  lp.type='lowpass';lp.frequency.value=1900;lp.Q.value=.7;
+  tr.frequency.value=6;tg.gain.value=vol*.12;tr.connect(tg);tg.connect(g.gain);
+  for(const [ty,dt,k] of [['square',1,.5],['sawtooth',1.004,.45],['square',2,.12]]){const o=c.createOscillator(),gg=c.createGain();o.type=ty;o.frequency.value=f*dt;gg.gain.value=k;o.connect(gg);gg.connect(lp);o.start(t);o.stop(t+dur+.15);}
+  g.gain.setValueAtTime(.0001,t);g.gain.linearRampToValueAtTime(vol,t+.035);g.gain.setValueAtTime(vol*.85,t+Math.max(.05,dur-.06));g.gain.exponentialRampToValueAtTime(.0001,t+dur+.1);
+  lp.connect(g);g.connect(SND.mus);g.connect(SND.send);tr.start(t);tr.stop(t+dur+.15);SND.n++;
+}
+function medClap(t,vol){sNoise(SND.dr,t,.06,vol,1500,1.4);sNoise(SND.dr,t+.012,.07,vol*.8,1300,1.2);}
+function medDrum(t,vol){sTone(SND.dr,92,t,.32,'sine',vol,.004,52);sNoise(SND.dr,t,.09,vol*.25,320,1.2,'lowpass');}
+function medTamb(t,vol){sNoise(SND.dr,t,.07,vol,6500,1,'highpass');}
+/* ---- un temps de musique ---- */
+function sndBeat(t){
+  const [key,k]=medKey(),P=MED[key],len=SND_SCENES[SND.scene].len,stp=SND.beat,bar=SND.bar%8;
+  const root=P.roots[bar]+(SND.scene==='lose'&&bar%4===3?-1:0);
+  const tense=SND.scene==='tense',win=SND.scene==='win',lose=SND.scene==='lose';
+  if(stp===0&&P.drone)medDrone(root,t,len*8*1.02,P.drone*(tense?1.2:1));
+  if(P.lead==='accordeon'&&(stp===0||stp===4)){medPluck(mfreq(root-12),t,.09,.5,900);for(const iv of [12,16,19])medAcc(mfreq(root+iv),t+len*2,len*.9,.02);}
+  /* luth : arpège racine-quinte-octave ; harpe : un temps sur deux plus aigu */
+  if(P.lute&&!tense){
+    const arp=[0,7,12,7,0,7,12,7];
+    if(P.lute==='bouzouki'){if(stp%2===1)medPluck(mfreq(root+12+arp[stp]),t,.085,.35,3600);}
+    else if(P.lute==='harpe'){if(stp%2===0)medPluck(mfreq(root+12+arp[stp]),t,.07,1.4,3200);}
+    else if(stp%2===0||stp===3)medPluck(mfreq(root+12+arp[stp]),t,.08*(lose?.6:1),.75);
+  }
+  /* mélodie (en « menace », elle n'apparaît qu'une mesure sur deux, plus bas) */
+  const e=P.mel[bar][stp];
+  if(e&&(!tense||SND.bar%2===1)){
+    const f=mfreq(e.m-(tense?12:0)-(lose&&e.m%12===11?1:0))   /* défaite : si → si bémol, le morceau passe en mineur */,d=e.d*len*.95,v=(P.lead==='cor'?.07:.075)*k;
+    if(P.lead==='cor')medHorn(f,t,d,v);else if(P.lead==='accordeon')medAcc(f,t,d,v*.95);else medFlute(f,t,d,v);
+    if(win&&stp===0)medHorn(f/2,t,d,.04);
+  }
+  /* percussions */
+  if(P.drum==='doux'){if(stp===0||stp===5)medDrum(t,.16);if(stp===3||stp===7)medTamb(t,.025);}
+  else if(P.drum==='pont'){if(stp===0||stp===4)medDrum(t,.2);if(stp===2||stp===6)medClap(t,.06);}
+  else if(P.drum==='rare'){if(stp===0&&bar%2===0)medDrum(t,.12);}
+  else if(P.drum==='marche'){
+    if(stp===0||stp===3||stp===6)medDrum(t,tense?.2:.26);
+    if(!tense&&stp%2===1)medTamb(t,.03);
+    if(!tense&&stp===4)sNoise(SND.dr,t,.12,.07,1700,.9);
+  }
+  if(win&&stp===0)medDrum(t,.22);
 }
 
 /* ================= Boucle principale ================= */

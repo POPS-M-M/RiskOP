@@ -10,7 +10,7 @@ src/
   base/grand_line_origine.html   Socle du jeu (carte, règles, IA, diplomatie, âges, réseau, mini-jeu arcade). Jamais modifié à la main.
   styles/risk-op.css             Styles de la couche RISK OP.
   js/
-    00-son.js                          Moteur sonore : 5 ambiances, volumes musique / effets.
+    00-son.js                          Moteur sonore : scènes, volumes musique / effets (morceaux : module 52).
     10-economie-phases-ia.js           Détail des revenus, budget, bandeau de phase, IA par tour, annonces de mouvements.
     11-recap-objectifs-heros.js        Butin de conquête, fiche de boss, conseils, objectifs, fiches de personnages.
     12-interface-onglets-minicarte.js  Onglets groupés, notifications, journal, mini-carte déplaçable.
@@ -27,6 +27,9 @@ src/
     23-rendu25d-moteur.js              Rendu 2.5D : calcul en tâche de fond, cache navigateur, dessin, fiche d'île.
     30-illustrations.js                Illustrations de héros importées (IndexedDB), export / réimport.
     40-menu-boutons.js                 Boutons de l'en-tête et de l'écran d'accueil.
+    50-tableau-ile.js                  Onglet Île : tableau de bord (État · Que faire · Atouts et faiblesses).
+    51-economie.js                     Onglet Économie : Berrys, Villes, Techno (faisable d'abord, le reste replié).
+    52-musique-medievale.js            Musique : 3 morceaux médiévaux + 1 chant de marins, tous originaux (Web Audio).
 tools/
   build.js            Assemble dist/risk_op.html (et dist/risk_test.html avec `test`).
   shake.js            Retire les anciennes versions de fonctions et les fonctions mortes (analyse acorn).
@@ -63,3 +66,8 @@ Pour modifier l'apparence d'une île : éditer sa fiche dans `src/js/22-rendu25d
 - Commandants proposés par camp : `PG_N` (Facile 4, Normal 8, Difficile 16, Expert tous). Une sauvegarde sans liste (`G.rkp` absent) garde tous les commandants.
 - En ligne, la liste est calculée à partir de la graine, de la difficulté et des camps : identique chez l'hôte et les invités, sans message réseau.
 - Tests : `t_prog` (logique), `t_prog_ui` (écrans, PC et mobile), `t_coal` (difficultés, coalitions), `t_tuto` (7 objectifs).
+
+## Interface et musique (modules 50 à 52)
+
+- Mêmes calculs et mêmes actions (data-act existants) que les anciennes fiches : seule la présentation change.
+- Tests : `t_maq` (onglet Île), `t_eco` (Économie), `t_music` (rendu audio hors ligne ; `node tests/t_music.js wav` écrit des extraits .wav).
