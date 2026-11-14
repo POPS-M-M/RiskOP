@@ -42,11 +42,10 @@ rep("const atk=players[a.owner];\n  if((a.s|0)===2&&A<D*PRUD_ABORT)","const atk=
 rep("stInc(a.owner,'bw');\n    if(t.city)captureCity(t);","stInc(a.owner,'bw');\n    if(t.city)captureCity(t);\n    if(a.owner===ME){try{rkRecap(rk0,t,a,prev);}catch(_){}}");
 rep("+'<button class=\"brb\" data-act=\"brrep\" data-v=\"'+r.id+'\">Voir le rapport</button>';","+rkRecapFor(r)+'<button class=\"brb\" data-act=\"brrep\" data-v=\"'+r.id+'\">Voir le rapport</button>';");
 rep("brTimer=setTimeout(brClose,9000);","brTimer=setTimeout(brClose,(r.win&&me==='att'&&!r.bs)?16000:9000);");
-/* 9. IA : une réflexion par tour, visible */
-rep("TM.phase='res';TM.res=TURN_LEN;TM.ready=[false,false,false,false];dirty=true;\n}","TM.phase='res';TM.res=TURN_LEN;TM.ready=[false,false,false,false];dirty=true;\n  try{rkAiTurn();}catch(_){}\n}");
+/* 9. IA : UNE décision par tour, comme un joueur humain. Elle décide au moment où la phase d'ordres se termine,
+      AVANT que les ordres des joueurs ne partent (elle ne voit donc pas les coups humains du tour), puis tout part ensemble. */
+rep("function startRes(){\n  const q=TM.queue.slice();TM.queue=[];","function startRes(){\n  try{rkAiTurn();}catch(_){}\n  const q=TM.queue.slice();TM.queue=[];");
 rep("if(!p.alive||p.human)continue;\n    p.ai.t-=dt;","if(!p.alive||p.human||TM.on)continue;\n    p.ai.t-=dt;");
-rep("if(TM.on&&TM.phase==='res'&&!over){TM.res-=dt;if(TM.res<=1e-9)endRes();}","if(TM.on&&TM.phase==='res'&&!over){TM.res-=dt;if(!TM.mid&&TM.res<TURN_LEN/2){TM.mid=true;try{rkAiTurn();}catch(_){}}if(TM.res<=1e-9)endRes();}");
-rep("TM.phase='res';TM.res=TURN_LEN;TM.ready=[false,false,false,false];dirty=true;\n  try{rkAiTurn();}catch(_){}","TM.phase='res';TM.res=TURN_LEN;TM.mid=false;TM.ready=[false,false,false,false];dirty=true;\n  try{rkAiTurn();}catch(_){}");
 rep("const thr=(x.owner<0?1.4:1.5)*","const thr=(x.owner<0?(mine.length<5?1.15:1.3):1.5)*");
 /* 10. boucle et dessin */
 rep("draw();updateTop();renderLog();","draw();updateTop();renderLog();rkFrame(now);");

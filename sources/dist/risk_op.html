@@ -1732,12 +1732,12 @@ let TM={on:false,phase:'plan',n:1,res:0,ready:[false,false,false,false],queue:[]
 const tmPlan=()=>TM.on&&TM.phase==='plan';
 const allReady=()=>players.every(p=>!p.human||!p.alive||TM.ready[p.id]);
 function startRes(){
+  try{rkAiTurn();}catch(_){}
   const q=TM.queue.slice();TM.queue=[];
   const rot=TM.n%4;
   q.sort((a,b)=>((a.s-rot+4)%4)-((b.s-rot+4)%4));
   for(const o of q){const p=players[o.s];if(p&&p.alive)launch(o.s,o.f,o.to,o.pct,o.st);}
-  TM.phase='res';TM.res=TURN_LEN;TM.mid=false;TM.ready=[false,false,false,false];dirty=true;
-  try{rkAiTurn();}catch(_){}
+  TM.phase='res';TM.res=TURN_LEN;TM.ready=[false,false,false,false];dirty=true;
 }
 function endRes(){
   TM.phase='plan';TM.n++;TM.ready=[false,false,false,false];TM.planLeft=TM.planMax>0?TM.planMax:-1;dirty=true;
@@ -2815,7 +2815,7 @@ function step(dt){
     if(p.ai.t<=0){aiThink(p);p.ai.t=DIFF[diffKey].think*PK*(.7+Math.random()*.6);}
   }
   checkEnd(dt);
-  if(TM.on&&TM.phase==='res'&&!over){TM.res-=dt;if(!TM.mid&&TM.res<TURN_LEN/2){TM.mid=true;try{rkAiTurn();}catch(_){}}if(TM.res<=1e-9)endRes();}
+  if(TM.on&&TM.phase==='res'&&!over){TM.res-=dt;if(TM.res<=1e-9)endRes();}
 }
 function checkEnd(dt){
   if(over)return;
