@@ -1,0 +1,21 @@
+# statut : Mesure terminée. Mémoire JavaScript utilisée : 670 Mo. Mémoire des modèles 3D : 99.1 Mo.
+# durée totale du test 215 s
+Mode	Vue	Version	ms/image	95ᵉ c.	images/s	triangles
+3D	Vue d'ensemble	avant	1046.0	1075.8	1	992 k
+3D	Zoom moyen · Zou	avant	357.1	421.3	3	375 k
+3D	Zoom proche · Whole Cake	avant	110.1	126.4	9	172 k
+3D	Zoom proche · Zou	avant	87.3	113.3	11	126 k
+3D	Vue d'ensemble	après	1060.2	1078.3	1	1005 k
+3D	Zoom moyen · Zou	après	345.7	358.2	3	385 k
+3D	Zoom proche · Whole Cake	après	161.4	175.3	6	267 k
+3D	Zoom proche · Zou	après	183.1	230.8	5	216 k
+3D	Vue d'ensemble	après sans LOD	1352.4	1457.8	1	1332 k
+3D	Zoom moyen · Zou	après sans LOD	463.8	489.1	2	516 k
+3D	Zoom proche · Whole Cake	après sans LOD	166.3	193.9	6	271 k
+3D	Zoom proche · Zou	après sans LOD	179.6	196.1	5	219 k
+2.5D	Vue d'ensemble	avant	8.6	11.4	51	—
+2.5D	Zoom moyen · Zou	avant	8.9	12.9	51	—
+2.5D	Zoom proche · Whole Cake	avant	8.5	11.6	59	—
+2.5D	Vue d'ensemble	après	8.3	12.2	55	—
+2.5D	Zoom moyen · Zou	après	8.4	11.8	54	—
+2.5D	Zoom proche · Whole Cake	après	8.5	12.5	57	—
