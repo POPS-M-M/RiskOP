@@ -8,7 +8,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 import bpy, bmesh
 from mathutils import Vector, Matrix
 import rk_common as C, rk_lib as L
-import w7_plan as W
+import w7_plan_g1g2 as W   # plan figé tel que validé en G1/G2
 
 T0 = time.time(); rnd = random.Random(707)
 sc = C.new_scene(); M = C.materials()
@@ -197,6 +197,6 @@ Bv.done()
 for B in batches.values(): B.done()
 
 os.makedirs(os.path.join(C.ART, 'blender', 'islands'), exist_ok=True)
-bpy.ops.wm.save_as_mainfile(filepath=os.path.join(C.ART, 'blender', 'islands', 'water_7.blend'))
+bpy.ops.wm.save_as_mainfile(filepath=os.path.join(C.ART, 'blender', 'islands', 'water_7_maquette.blend'))   # G2 : ne remplace plus la scène détaillée
 tris = sum(sum(len(p.vertices) - 2 for p in o.data.polygons) for o in bpy.data.objects if o.type == 'MESH')
 print('WATER 7 (maquette G2) ok', round(time.time() - T0, 1), 's', 'triangles', tris)

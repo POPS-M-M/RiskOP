@@ -4,7 +4,7 @@ import matplotlib; matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from matplotlib.patches import Polygon, Circle, Rectangle, FancyArrowPatch
 from matplotlib.lines import Line2D
-import w7_plan as W
+import w7_plan_g1g2 as W   # plan figé tel que validé en G1/G2
 
 OUT = os.path.join(W.ART, 'out', 'water_7', 'presentation'); os.makedirs(OUT, exist_ok=True)
 plt.rcParams.update({'font.family': 'DejaVu Sans', 'font.size': 10})
