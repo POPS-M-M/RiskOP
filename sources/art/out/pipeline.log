@@ -1,0 +1,30 @@
+== zou build 05:13:58
+ZOU ok 126.5 s triangles 116160
+== zou export 05:16:05
+00:00.537  cycles           | WARNING CUEW initialization failed: Error opening the library
+l1 175 x 277 3.0 s 6652 o
+l2 523 x 829 14.2 s 26336 o
+l3 1045 x 1658 58.8 s 64342 o
+ville 2 35.9 s 14050
+ville 3 36.0 s 9690
+ville 4 35.9 s 9428
+lod0 81311 tri 1942076 o
+lod1 25550 tri 670292 o
+lod2 6966 tri 251400 o
+EXPORT ok zou 188.1 s
+== whole_cake build 05:19:14
+WHOLE CAKE ok 8.7 s triangles 82402
+== whole_cake export 05:19:23
+00:00.441  cycles           | WARNING CUEW initialization failed: Error opening the library
+l1 169 x 251 2.1 s 8316 o
+l2 506 x 752 13.0 s 34244 o
+l3 1012 x 1503 57.6 s 80978 o
+ville 2 31.8 s 15926
+ville 3 31.8 s 16122
+ville 4 31.6 s 15064
+lod0 57679 tri 1331708 o
+lod1 18123 tri 454924 o
+lod2 4940 tri 162732 o
+EXPORT ok whole_cake 170.6 s
+iles copiées : {'Zou': 'zou', 'Whole Cake': 'whole_cake'} 5.05 Mo → /tmp/claude-0/-home-claude/e9fea69d-d6d1-5bce-8c4e-46780dac9b28/scratchpad/projet/dist
+== fin 05:22:14

@@ -194,7 +194,7 @@ function w3Rings(G,rc,oc,owned){
 
 /* ---------- construction du modèle 3D d'une île selon son état de jeu ---------- */
 function w3BuildIsland(t){
-  const D=ISLE_ART[t.name]||{},poly=w3Poly(t),owner=t.owner>=0?players[t.owner]:null,oc=owner?r3c(COLORS[t.owner]):r3c('#d8cfb0'),crew=owner?CREWS[owner.crew||0].id:'';
+  const CU=(typeof W3CU!=='undefined'&&!W3.cuOff&&W3CU[t.name])||null,D=CU&&CU.art?Object.assign({},ISLE_ART[t.name]||{},CU.art):(ISLE_ART[t.name]||{}),poly=w3Poly(t),owner=t.owner>=0?players[t.owner]:null,oc=owner?r3c(COLORS[t.owner]):r3c('#d8cfb0'),crew=owner?CREWS[owner.crew||0].id:'';
   if(t.name==='Arabasta'){const e={poly25:poly,poly:poly},M=r3BuildAlabasta(t,e);
     /* les triangles du fond marin appartiennent au 2.5D : en monde 3D, la mer est un plan */
     const G=M.G,keep=[];for(let i=0;i<G.P.length;i+=9){const v0=i/3;if(G.Cl[v0*4+3]<.99||G.Cl[(v0+1)*4+3]<.99||G.Cl[(v0+2)*4+3]<.99)continue;keep.push(i);}
@@ -205,18 +205,22 @@ function w3BuildIsland(t){
   const B=poly.length/2,rc=th=>{const f=((th+Math.PI)/6.2832)*B,i=Math.floor(f)%B,j=(i+1)%B,k=f-Math.floor(f),r0=Math.hypot(poly[i*2],poly[i*2+1]),r1=Math.hypot(poly[j*2],poly[j*2+1]);return r0+(r1-r0)*k;};
   const typ=t.type,PL=typ==='montagne'?3.4:typ==='foret'?2.5:2,hills=typ==='montagne'?1.3:.8,u=R/30;
   const peaks=(D.peaks||(typ==='montagne'?[[0,-.1,60,.5]]:[])).map(p=>[p[0]*R,p[1]*R,p[2]*.075,Math.max(.25,p[3])*R*.55]);
-  const lmS=(D.lmS||1)*u*1.65,lmAt=D.lmAt||[0,.02],LM=D.lm?[lmAt[0]*R,lmAt[1]*R]:null,onPeak=!!D.lmOnPeak&&peaks.length;
+  const lmS=(D.lmS||1)*u*1.65,lmAt=D.lmAt||[0,.02],LM=D.lm?[lmAt[0]*R,lmAt[1]*R]:null,onPeak=!!D.lmOnPeak&&peaks.length&&!!LM;
   if(onPeak){LM[0]=peaks[0][0];LM[1]=peaks[0][1];}
   const pr=5*lmS;
-  const H=(x,y)=>{const r=Math.hypot(x,y),th=Math.atan2(y,x),c=rc(th),d=r/c;if(d>=1)return -.9*r3ss(1,1.2,d);
+  let H=(x,y)=>{const r=Math.hypot(x,y),th=Math.atan2(y,x),c=rc(th),d=r/c;if(d>=1)return -.9*r3ss(1,1.2,d);
     const cliffy=fbm2(Math.cos(th)*1.5+3,Math.sin(th)*1.5+3,S0,3)>.52;
     let h=.3*r3ss(1,.93,d)+PL*(cliffy?r3ss(.9,.84,d):r3ss(.96,.62,d));
     h+=hills*fbm2(x*.07+7,y*.07+2,S0+5,3)*r3ss(.9,.5,d);
     for(const p of peaks){const dx=x-p[0],dy=y-p[1];h+=p[2]*Math.exp(-(dx*dx+dy*dy)/(2*p[3]*p[3]))*r3ss(.95,.5,d);}
     if(LM&&!onPeak){const ld=Math.hypot(x-LM[0],y-LM[1]);if(ld<pr*1.6){const k=r3ss(1.6*pr,.9*pr,ld);h=h*(1-k)+(PL+.4)*k;}}
     return h;};
+  if(CU&&CU.relief)H=CU.relief(H,{rc,R,t,u,S0,PL});            /* île sur mesure : relief propre (la côte reste au niveau de la mer) */
   /* port : l'endroit de la côte le plus bas, plutôt au sud ; chemin sinueux du monument jusqu'au quai */
   let aP=1.5708,bh=1e9;for(let q=0;q<16;q++){const a=.6+q*(2/15),h=H(Math.cos(a)*rc(a)*.9,Math.sin(a)*rc(a)*.9)+Math.abs(a-1.5708)*.5+((q*7+t.id)%5)*.05;if(h<bh){bh=h;aP=a;}}
+  if(CU&&CU.pier!==undefined)aP=CU.pier;
+  /* île produite par la chaîne Blender (version test) : modèle glTF à la place du décor généré */
+  if(typeof blxBuild==='function'){const bm=blxBuild(t,{poly,rc,R,oc,owner,crew,aP});if(bm)return bm;}
   const pS=LM?[LM[0]+Math.cos(aP)*pr,LM[1]+Math.sin(aP)*pr]:[0,0],pE=[Math.cos(aP)*rc(aP)*.93,Math.sin(aP)*rc(aP)*.93],pathPts=[];
   for(let i=0;i<=14;i++){const f=i/14,wx=-Math.sin(aP),wy=Math.cos(aP),w=Math.sin(f*5+t.id)*R*.07*Math.sin(f*Math.PI);pathPts.push([pS[0]+(pE[0]-pS[0])*f+wx*w,pS[1]+(pE[1]-pS[1])*f+wy*w]);}
   const dPath=(x,y)=>{let m=1e9;for(let i=0;i<14;i++){const a=pathPts[i],b=pathPts[i+1],vx=b[0]-a[0],vy=b[1]-a[1],tt=Math.max(0,Math.min(1,((x-a[0])*vx+(y-a[1])*vy)/(vx*vx+vy*vy||1))),d=Math.hypot(x-a[0]-vx*tt,y-a[1]-vy*tt);if(d<m)m=d;}return m;};
@@ -238,12 +242,14 @@ function w3BuildIsland(t){
   for(let j=0;j<N;j++)for(let i=0;i<N;i++){
     if(hz[j][i]<-.08&&hz[j+1][i+1]<-.08&&hz[j][i+1]<-.08&&hz[j+1][i]<-.08)continue;
     const xs=[-ext+i*step,-ext+(i+1)*step],ys=[-ext+j*step,-ext+(j+1)*step];
-    for(const tri of [[[0,0],[1,0],[1,1]],[[0,0],[1,1],[0,1]]])for(const [a,b] of tri){const x=xs[a],y=ys[b],h=Math.max(-.12,hz[j+b][i+a]),n=nAt(i+a,j+b),c=colorAt(x,y,h,1-n[2]);G.P.push(x,y,h);G.N.push(...n);G.Cl.push(c[0],c[1],c[2],1);G.Tw.push(0);}
+    for(const tri of [[[0,0],[1,0],[1,1]],[[0,0],[1,1],[0,1]]])for(const [a,b] of tri){const x=xs[a],y=ys[b],h=Math.max(-.12,hz[j+b][i+a]),n=nAt(i+a,j+b),c=(CU&&CU.color&&CU.color(x,y,h,1-n[2],colorAt,{rc,R,u,S0,H}))||colorAt(x,y,h,1-n[2]);G.P.push(x,y,h);G.N.push(...n);G.Cl.push(c[0],c[1],c[2],1);G.Tw.push(0);}
   }
   const tops=[],occ=[],flags=[],Hs=H;
   const ban=(x,y,z,sc)=>{if(owner)w3Banner(G,x,y,z,oc,crew,sc||1);};
-  /* monument de l'île */
+  /* île sur mesure : tout ce qui lui est propre (monuments, architecture, végétation) */
   let top=PL+4;
+  if(CU&&CU.build){const kk={G,tops,occ,H:Hs,rc,R,u,rnd,oc,owner,aP,t,ban,S0,PL,pc,pal,D,top:0,lvl:t.city?t.city.lvl:0,city:t.city};try{CU.build(kk);}catch(e){console.warn('île sur mesure',t.name,e);}top=Math.max(top,kk.top);}
+  /* monument de l'île */
   if(LM){const z=Hs(LM[0],LM[1]),o=D.lmo||{};const kit={G,x:LM[0],y:LM[1],z,s:lmS,o,oc,rnd,tops,top:z+5,ban:(x,y,zz)=>ban(x,y,zz,1.1),H:Hs,rc,aP,u,R,pr};
     (W3LM[D.lm]||W3LM.default)(kit);try{(W3DET[D.lm]||(()=>{}))(kit);}catch(e){console.warn('détail',D.lm,e);}top=Math.max(top,kit.top);occ.push([LM[0],LM[1],pr*1.15]);}
   for(const ex of (D.ex||[])){const [nm,fx,fy,sc,o]=ex,x=fx*R,y=fy*R;if(Math.hypot(x,y)>rc(Math.atan2(y,x))*.88&&nm!=='ship'&&nm!=='fleet')continue;
@@ -260,7 +266,7 @@ function w3BuildIsland(t){
   /* bâtiments de la ville (mêmes règles que le jeu) : port marchand, fortin, camp */
   const has=b=>!!(t.city&&t.city.b.includes(b));
   const kitV={G,x:LM?LM[0]:0,y:LM?LM[1]:0,z:0,s:u,o:{},oc,rnd,tops,H:Hs,rc,aP,u,R,pr,top:0,ban:()=>{}};
-  w3Harbor(kitV,lvl,has('marche'),!owner);
+  if(!(CU&&CU.noHarbor))w3Harbor(kitV,lvl,has('marche'),!owner);
   w3Village(kitV,0,LM?7:0,LM&&D.b!=='volcanic'?3:0,OC);
   if(has('muraille')){const cx0=.0,cy0=.0,rr=.5*R,st=r3c('#d7bf91');for(let q=0;q<30;q++){const a=q/30*6.2832,x=cx0+Math.cos(a)*rr,y=cy0+Math.sin(a)*rr*.9;if(Hs(x,y)<.4)continue;const z=Hs(x,y);G.box(x-.5,y-.5,z-.1,1,1,1.3,st);if(q%2===0)G.box(x-.5,y-.5,z+1.2,.4,.4,.3,st);if(q%6===0){G.cyl(x,y,z-.1,.62,2.3,st,10);G.cone(x,y,z+2.2,.8,.9,r3c('#b9483a'),10);tops.push([x-.6,y-.6,x+.6,y+.6,z+3]);}}}
   if(has('caserne')){const x0=.35*R,y0=.3*R;for(let q=0;q<5;q++){const x=x0+(q%3)*1.7,y=y0+Math.floor(q/3)*1.7,z=Hs(x,y);if(z<.4)continue;G.cone(x,y,z-.05,.8,1.15,q%2?r3c('#e9dfc8'):oc,4);}}
@@ -283,7 +289,7 @@ function w3Bake(M,t){
   for(const b of M.tops){const i0=Math.max(0,Math.floor((b[0]+ext)/cell)),i1=Math.min(S-1,Math.ceil((b[2]+ext)/cell)),j0=Math.max(0,Math.floor((b[1]+ext)/cell)),j1=Math.min(S-1,Math.ceil((b[3]+ext)/cell));
     for(let j=j0;j<=j1;j++)for(let i=i0;i<=i1;i++)if(b[4]>hf[j*S+i])hf[j*S+i]=b[4];}
   const hAt=(x,y)=>{const i=Math.floor((x+ext)/cell),j=Math.floor((y+ext)/cell);if(i<0||j<0||i>=S||j>=S)return -9;return hf[j*S+i];};
-  const L=R3_SUN,nv=G.P.length/3,O=[],Tt=[],oc3=t&&t.owner>=0?r3c(COLORS[t.owner]):null;
+  const L=R3_SUN,nv=G.P.length/3,OL=[[],[],[],[]],Tt=[],LV=new Uint8Array(nv);for(const o of (G.objs||[]))LV.fill(o[2],o[0],Math.min(o[1],nv));let O;const oc3=t&&t.owner>=0?r3c(COLORS[t.owner]):null;
   for(let v=0;v<nv;v++){
     const x=G.P[v*3],y=G.P[v*3+1],z=G.P[v*3+2],cr=G.Cl[v*4],cg=G.Cl[v*4+1],cb=G.Cl[v*4+2],ca=G.Cl[v*4+3];let nx=G.N[v*3],ny=G.N[v*3+1],nz=G.N[v*3+2];
     if(ca<.995&&nz>.99&&z<.1){Tt.push(x,y,z,cr,cg,cb,ca);continue;}              /* anneaux au niveau de la mer : sans éclairage */
@@ -295,9 +301,11 @@ function w3Bake(M,t){
     const lum=r*.3+g*.59+b*.11;r=lum+(r-lum)*1.16+cr*.06*(1-nz);g=lum+(g-lum)*1.16+cg*.04*(1-nz);b=lum+(b-lum)*1.16+cb*.01*(1-nz);
     /* île conquise : le sol (faces tournées vers le haut) prend la couleur du joueur, plus fortement pour nos propres îles */
     if(oc3&&nz>.55){const k=(t.owner===ME?.30:.15)*Math.min(1,(nz-.55)/.3),lm=r*.3+g*.59+b*.11,lo=Math.max(.15,oc3[0]*.3+oc3[1]*.59+oc3[2]*.11),f=lm/lo;r+=(oc3[0]*f-r)*k;g+=(oc3[1]*f-g)*k;b+=(oc3[2]*f-b)*k;}
-    O.push(x,y,z,r,g,b,1);
+    O=OL[LV[v]];O.push(x,y,z,r,g,b,1);
   }
-  return {O:new Float32Array(O),T:new Float32Array(Tt)};
+  /* sommets rangés par niveau de détail : 0 (toujours), 1 (moyen), 2 (fin), 3 (très fin) */
+  const n0=OL[0].length/7,n1=n0+OL[1].length/7,n2=n1+OL[2].length/7;
+  return {O:new Float32Array(OL[0].concat(OL[1],OL[2],OL[3])),T:new Float32Array(Tt),n0,n1,n2};
 }
 
 /* ---------- WebGL ---------- */
@@ -333,9 +341,13 @@ function w3Init(){
 /* modèle d'une île : construit, éclairé puis envoyé au GPU (une île à la fois, hors du chemin de dessin) */
 function w3Upload(t,key){
   const gl=W3.gl,t0=performance.now(),M=w3BuildIsland(t),B=w3Bake(M,t),old=W3.models.get(t.id);
-  if(old){gl.deleteBuffer(old.bo);gl.deleteBuffer(old.bt);}
+  if(old){gl.deleteBuffer(old.bo);gl.deleteBuffer(old.bt);if(old.alt)for(const a of old.alt)gl.deleteBuffer(a.bo);}
   const bo=gl.createBuffer(),bt=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,bo);gl.bufferData(gl.ARRAY_BUFFER,B.O,gl.STATIC_DRAW);gl.bindBuffer(gl.ARRAY_BUFFER,bt);gl.bufferData(gl.ARRAY_BUFFER,B.T,gl.STATIC_DRAW);
-  W3.models.set(t.id,{key,bo,bt,no:B.O.length/7,nt:B.T.length/7,top:M.top,rc:M.A.rc,pa:M.A.pa,H:M.H,ms:Math.round(performance.now()-t0)});W3.built++;
+  /* étendue du modèle vers le sud (tête de Zunesha, navires…) : l'étiquette du nom se place en dessous */
+  let ys=0;for(let i=0;i<B.O.length;i+=7)if(B.O[i+2]>.4&&B.O[i+1]>ys)ys=B.O[i+1];
+  /* modèles à niveaux de détail séparés (glTF Blender : lod1, lod2) */
+  let alt=null;if(M.alts){alt=M.alts.map(G2=>{const B2=w3Bake({G:G2,H:M.H,tops:M.tops,ext:M.ext},t),b2=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b2);gl.bufferData(gl.ARRAY_BUFFER,B2.O,gl.STATIC_DRAW);return {bo:b2,no:B2.O.length/7};});}
+  W3.models.set(t.id,{key,bo,bt,ys,alt,bl:!!M.bl,no:B.O.length/7,n0:B.n0,n1:B.n1,n2:B.n2,nt:B.T.length/7,top:M.top,rc:M.A.rc,pa:M.A.pa,H:M.H,ms:Math.round(performance.now()-t0)});W3.built++;
 }
 function w3Queue(){
   for(const t of terrs){const k=r3Key(t),m=W3.models.get(t.id);if((!m||m.key!==k)&&!W3.q.some(q=>q.id===t.id))W3.q.push({id:t.id,key:k});}
@@ -355,9 +367,11 @@ function w3Draw(c,now){
   /* îles : opaque, puis translucide (écume, bas-fond, liseré) */
   pr=W3.pI;gl.useProgram(pr);u=setU(pr);let tris=0;const offL=u('off');
   /* îles hors champ : non dessinées (grand gain en gros plan) */
-  const vis=new Set();for(const t of terrs){const p=w3Proj(t.x,t.y,4,c);if(!p)continue;const mg=(1.7*t.rad+22)*p.k;if(p.sx>-mg&&p.sx<cv.width+mg&&p.sy>-mg*1.3&&p.sy<cv.height+mg)vis.add(t.id);}
+  const vis=new Set(),PK=new Map();for(const t of terrs){const p=w3Proj(t.x,t.y,4,c);if(!p)continue;const mg=(1.7*t.rad+22)*p.k;if(p.sx>-mg&&p.sx<cv.width+mg&&p.sy>-mg*1.3&&p.sy<cv.height+mg){vis.add(t.id);PK.set(t.id,p.k);}}
+  /* niveau de détail selon la taille de l'île à l'écran (pixels par unité de carte) : les petits objets n'apparaissent que lorsqu'ils dépassent ~2 pixels */
+  const cnt=(m,id)=>{if(!R3_LOD.on||m.n0===undefined)return m.no;const k=PK.get(id)||9;return k<R3_LOD.p1?m.n0:k<R3_LOD.p2?m.n1:k<R3_LOD.p3?m.n2:m.no;};
   W3.nvis=vis.size;
-  for(const t of terrs){if(!vis.has(t.id))continue;const m=W3.models.get(t.id);if(!m||!m.no)continue;gl.uniform3f(offL,t.x,t.y,0);bind(pr,m.bo);gl.drawArrays(gl.TRIANGLES,0,m.no);tris+=m.no/3;}
+  for(const t of terrs){if(!vis.has(t.id))continue;const m=W3.models.get(t.id);if(!m||!m.no)continue;gl.uniform3f(offL,t.x,t.y,0);let bb=m.bo,nn;if(m.alt&&R3_LOD.on){const k=PK.get(t.id)||9,a=k<R3_LOD.p1?m.alt[1]:k<R3_LOD.p2?m.alt[0]:null;if(a){bb=a.bo;nn=a.no;}else nn=m.no;}else nn=cnt(m,t.id);bind(pr,bb);gl.drawArrays(gl.TRIANGLES,0,nn);tris+=nn/3;}
   gl.enable(gl.BLEND);gl.blendFunc(gl.ONE,gl.ONE_MINUS_SRC_ALPHA);gl.depthMask(false);
   for(const t of terrs){if(!vis.has(t.id))continue;const m=W3.models.get(t.id);if(!m||!m.nt)continue;gl.uniform3f(offL,t.x,t.y,0);bind(pr,m.bt);gl.drawArrays(gl.TRIANGLES,0,m.nt);}
   gl.depthMask(true);W3.tris=tris;
@@ -447,7 +461,7 @@ function w3Overlay(c,now){
     if(own>=0&&players[own].religion){const ic=RELS.find(q=>q.id===players[own].religion).ic;ctx.font=(10*sc)+'px sans-serif';ctx.fillStyle='#fff';ctx.strokeStyle='rgba(8,10,14,.8)';ctx.lineWidth=2.4*sc;ctx.strokeText(ic,x+w/2+7*sc,y);ctx.fillText(ic,x+w/2+7*sc,y);}
     const lti=ltMap[t.id];
     if(showNames||t.id===ui.sel||t.id===ui.hover||lti!==undefined){
-      const pn=P(t.x,t.y+t.rad*.95,0);if(pn){ctx.font='700 '+(Math.max(10,pn.k*10.5))+'px Inter,system-ui,sans-serif';ctx.lineWidth=4*dpr;ctx.strokeStyle='rgba(6,12,20,.85)';ctx.fillStyle='rgba(255,255,255,.97)';
+      const mm=W3.models.get(t.id),pn=P(t.x,t.y+Math.max(t.rad*.95,mm&&mm.ys?mm.ys+1.2:0),0);if(pn){ctx.font='700 '+(Math.max(10,Math.min(pn.k*10.5,24*dpr)))+'px Inter,system-ui,sans-serif';ctx.lineWidth=4*dpr;ctx.strokeStyle='rgba(6,12,20,.85)';ctx.fillStyle='rgba(255,255,255,.97)';
         if((showNames||t.id===ui.sel||t.id===ui.hover)&&!(typeof PXS!=='undefined'&&PXS.land.some(l=>l.t.id===t.id))){ctx.strokeText(t.name,pn.sx,pn.sy+8*dpr);ctx.fillText(t.name,pn.sx,pn.sy+8*dpr);}
         if(lti!==undefined){ctx.fillStyle='#ffe9a8';const yy=pn.sy+8*dpr+((showNames||t.id===ui.sel||t.id===ui.hover)?13*dpr:0);ctx.strokeText('♛ '+LEGENDS[lti].s,pn.sx,yy);ctx.fillText('♛ '+LEGENDS[lti].s,pn.sx,yy);}}}
   }

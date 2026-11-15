@@ -1,0 +1,245 @@
+00:00.351  blend            | Read blend: "/tmp/claude-0/-home-claude/e9fea69d-d6d1-5bce-8c4e-46780dac9b28/scratchpad/projet/art/blender/islands/whole_cake.blend"
+00:00.441  cycles           | WARNING CUEW initialization failed: Error opening the library
+Warning: edge 60 - 59 appears twice, correcting
+Warning: edge 61 - 60 appears twice, correcting
+Warning: edge 62 - 61 appears twice, correcting
+Warning: edge 63 - 62 appears twice, correcting
+Warning: edge 64 - 63 appears twice, correcting
+Warning: edge 65 - 64 appears twice, correcting
+Warning: edge 58 - 65 appears twice, correcting
+Warning: edge 46 - 58 appears twice, correcting
+Warning: edge 49 - 46 appears twice, correcting
+Warning: edge 59 - 49 appears twice, correcting
+Warning: edge 49 - 59 appears twice, correcting
+Warning: edge 59 - 60 appears twice, correcting
+Warning: edge 60 - 49 appears twice, correcting
+Warning: edge 60 - 61 appears twice, correcting
+Warning: edge 61 - 62 appears twice, correcting
+Warning: edge 62 - 60 appears twice, correcting
+Warning: edge 62 - 63 appears twice, correcting
+Warning: edge 63 - 64 appears twice, correcting
+Warning: edge 64 - 62 appears twice, correcting
+Warning: edge 64 - 65 appears twice, correcting
+Warning: edge 65 - 58 appears twice, correcting
+Warning: edge 58 - 64 appears twice, correcting
+Warning: edge 58 - 46 appears twice, correcting
+Warning: edge 46 - 49 appears twice, correcting
+Warning: edge 49 - 58 appears twice, correcting
+Warning: edge 49 - 60 appears twice, correcting
+Warning: edge 60 - 62 appears twice, correcting
+Warning: edge 62 - 64 appears twice, correcting
+Warning: edge 64 - 58 appears twice, correcting
+Warning: edge 58 - 49 appears twice, correcting
+Warning: edge 60 - 59 appears twice, correcting
+Warning: edge 61 - 60 appears twice, correcting
+Warning: edge 62 - 61 appears twice, correcting
+Warning: edge 63 - 62 appears twice, correcting
+Warning: edge 64 - 63 appears twice, correcting
+Warning: edge 65 - 64 appears twice, correcting
+Warning: edge 58 - 65 appears twice, correcting
+Warning: edge 46 - 58 appears twice, correcting
+Warning: edge 49 - 46 appears twice, correcting
+Warning: edge 59 - 49 appears twice, correcting
+Warning: edge 49 - 59 appears twice, correcting
+Warning: edge 59 - 60 appears twice, correcting
+Warning: edge 60 - 49 appears twice, correcting
+Warning: edge 60 - 61 appears twice, correcting
+Warning: edge 61 - 62 appears twice, correcting
+Warning: edge 62 - 60 appears twice, correcting
+Warning: edge 62 - 63 appears twice, correcting
+Warning: edge 63 - 64 appears twice, correcting
+Warning: edge 64 - 62 appears twice, correcting
+Warning: edge 64 - 65 appears twice, correcting
+Warning: edge 65 - 58 appears twice, correcting
+Warning: edge 58 - 64 appears twice, correcting
+Warning: edge 58 - 46 appears twice, correcting
+Warning: edge 46 - 49 appears twice, correcting
+Warning: edge 49 - 58 appears twice, correcting
+Warning: edge 49 - 60 appears twice, correcting
+Warning: edge 60 - 62 appears twice, correcting
+Warning: edge 62 - 49 appears twice, correcting
+Warning: edge 62 - 64 appears twice, correcting
+Warning: edge 64 - 58 appears twice, correcting
+Warning: edge 58 - 62 appears twice, correcting
+Warning: edge 62 - 58 appears twice, correcting
+Warning: edge 58 - 49 appears twice, correcting
+Warning: edge 49 - 62 appears twice, correcting
+00:02.503  render           | Saved: '/tmp/claude-0/-home-claude/e9fea69d-d6d1-5bce-8c4e-46780dac9b28/scratchpad/projet/art/out/whole_cake/l1.png'
+l1 169 x 251 2.1 s 8316 o
+Warning: edge 60 - 59 appears twice, correcting
+Warning: edge 61 - 60 appears twice, correcting
+Warning: edge 62 - 61 appears twice, correcting
+Warning: edge 63 - 62 appears twice, correcting
+Warning: edge 64 - 63 appears twice, correcting
+Warning: edge 65 - 64 appears twice, correcting
+Warning: edge 58 - 65 appears twice, correcting
+Warning: edge 46 - 58 appears twice, correcting
+Warning: edge 49 - 46 appears twice, correcting
+Warning: edge 59 - 49 appears twice, correcting
+Warning: edge 49 - 59 appears twice, correcting
+Warning: edge 59 - 60 appears twice, correcting
+Warning: edge 60 - 49 appears twice, correcting
+Warning: edge 60 - 61 appears twice, correcting
+Warning: edge 61 - 62 appears twice, correcting
+Warning: edge 62 - 60 appears twice, correcting
+Warning: edge 62 - 63 appears twice, correcting
+Warning: edge 63 - 64 appears twice, correcting
+Warning: edge 64 - 62 appears twice, correcting
+Warning: edge 64 - 65 appears twice, correcting
+Warning: edge 65 - 58 appears twice, correcting
+Warning: edge 58 - 64 appears twice, correcting
+Warning: edge 58 - 46 appears twice, correcting
+Warning: edge 46 - 49 appears twice, correcting
+Warning: edge 49 - 58 appears twice, correcting
+Warning: edge 49 - 60 appears twice, correcting
+Warning: edge 60 - 62 appears twice, correcting
+Warning: edge 62 - 64 appears twice, correcting
+Warning: edge 64 - 58 appears twice, correcting
+Warning: edge 58 - 49 appears twice, correcting
+Warning: edge 60 - 59 appears twice, correcting
+Warning: edge 61 - 60 appears twice, correcting
+Warning: edge 62 - 61 appears twice, correcting
+Warning: edge 63 - 62 appears twice, correcting
+Warning: edge 64 - 63 appears twice, correcting
+Warning: edge 65 - 64 appears twice, correcting
+Warning: edge 58 - 65 appears twice, correcting
+Warning: edge 46 - 58 appears twice, correcting
+Warning: edge 49 - 46 appears twice, correcting
+Warning: edge 59 - 49 appears twice, correcting
+Warning: edge 49 - 59 appears twice, correcting
+Warning: edge 59 - 60 appears twice, correcting
+Warning: edge 60 - 49 appears twice, correcting
+Warning: edge 60 - 61 appears twice, correcting
+Warning: edge 61 - 62 appears twice, correcting
+Warning: edge 62 - 60 appears twice, correcting
+Warning: edge 62 - 63 appears twice, correcting
+Warning: edge 63 - 64 appears twice, correcting
+Warning: edge 64 - 62 appears twice, correcting
+Warning: edge 64 - 65 appears twice, correcting
+Warning: edge 65 - 58 appears twice, correcting
+Warning: edge 58 - 64 appears twice, correcting
+Warning: edge 58 - 46 appears twice, correcting
+Warning: edge 46 - 49 appears twice, correcting
+Warning: edge 49 - 58 appears twice, correcting
+Warning: edge 49 - 60 appears twice, correcting
+Warning: edge 60 - 62 appears twice, correcting
+Warning: edge 62 - 49 appears twice, correcting
+Warning: edge 62 - 64 appears twice, correcting
+Warning: edge 64 - 58 appears twice, correcting
+Warning: edge 58 - 62 appears twice, correcting
+Warning: edge 62 - 58 appears twice, correcting
+Warning: edge 58 - 49 appears twice, correcting
+Warning: edge 49 - 62 appears twice, correcting
+00:15.564  render           | Saved: '/tmp/claude-0/-home-claude/e9fea69d-d6d1-5bce-8c4e-46780dac9b28/scratchpad/projet/art/out/whole_cake/l2.png'
+l2 506 x 752 13.0 s 34244 o
+Warning: edge 60 - 59 appears twice, correcting
+Warning: edge 61 - 60 appears twice, correcting
+Warning: edge 62 - 61 appears twice, correcting
+Warning: edge 63 - 62 appears twice, correcting
+Warning: edge 64 - 63 appears twice, correcting
+Warning: edge 65 - 64 appears twice, correcting
+Warning: edge 58 - 65 appears twice, correcting
+Warning: edge 46 - 58 appears twice, correcting
+Warning: edge 49 - 46 appears twice, correcting
+Warning: edge 59 - 49 appears twice, correcting
+Warning: edge 49 - 59 appears twice, correcting
+Warning: edge 59 - 60 appears twice, correcting
+Warning: edge 60 - 49 appears twice, correcting
+Warning: edge 60 - 61 appears twice, correcting
+Warning: edge 61 - 62 appears twice, correcting
+Warning: edge 62 - 60 appears twice, correcting
+Warning: edge 62 - 63 appears twice, correcting
+Warning: edge 63 - 64 appears twice, correcting
+Warning: edge 64 - 62 appears twice, correcting
+Warning: edge 64 - 65 appears twice, correcting
+Warning: edge 65 - 58 appears twice, correcting
+Warning: edge 58 - 64 appears twice, correcting
+Warning: edge 58 - 46 appears twice, correcting
+Warning: edge 46 - 49 appears twice, correcting
+Warning: edge 49 - 58 appears twice, correcting
+Warning: edge 49 - 60 appears twice, correcting
+Warning: edge 60 - 62 appears twice, correcting
+Warning: edge 62 - 64 appears twice, correcting
+Warning: edge 64 - 58 appears twice, correcting
+Warning: edge 58 - 49 appears twice, correcting
+Warning: edge 60 - 59 appears twice, correcting
+Warning: edge 61 - 60 appears twice, correcting
+Warning: edge 62 - 61 appears twice, correcting
+Warning: edge 63 - 62 appears twice, correcting
+Warning: edge 64 - 63 appears twice, correcting
+Warning: edge 65 - 64 appears twice, correcting
+Warning: edge 58 - 65 appears twice, correcting
+Warning: edge 46 - 58 appears twice, correcting
+Warning: edge 49 - 46 appears twice, correcting
+Warning: edge 59 - 49 appears twice, correcting
+Warning: edge 49 - 59 appears twice, correcting
+Warning: edge 59 - 60 appears twice, correcting
+Warning: edge 60 - 49 appears twice, correcting
+Warning: edge 60 - 61 appears twice, correcting
+Warning: edge 61 - 62 appears twice, correcting
+Warning: edge 62 - 60 appears twice, correcting
+Warning: edge 62 - 63 appears twice, correcting
+Warning: edge 63 - 64 appears twice, correcting
+Warning: edge 64 - 62 appears twice, correcting
+Warning: edge 64 - 65 appears twice, correcting
+Warning: edge 65 - 58 appears twice, correcting
+Warning: edge 58 - 64 appears twice, correcting
+Warning: edge 58 - 46 appears twice, correcting
+Warning: edge 46 - 49 appears twice, correcting
+Warning: edge 49 - 58 appears twice, correcting
+Warning: edge 49 - 60 appears twice, correcting
+Warning: edge 60 - 62 appears twice, correcting
+Warning: edge 62 - 49 appears twice, correcting
+Warning: edge 62 - 64 appears twice, correcting
+Warning: edge 64 - 58 appears twice, correcting
+Warning: edge 58 - 62 appears twice, correcting
+Warning: edge 62 - 58 appears twice, correcting
+Warning: edge 58 - 49 appears twice, correcting
+Warning: edge 49 - 62 appears twice, correcting
+01:13.279  render           | Saved: '/tmp/claude-0/-home-claude/e9fea69d-d6d1-5bce-8c4e-46780dac9b28/scratchpad/projet/art/out/whole_cake/l3.png'
+l3 1012 x 1503 57.6 s 80978 o
+01:45.221  render           | Saved: '/tmp/claude-0/-home-claude/e9fea69d-d6d1-5bce-8c4e-46780dac9b28/scratchpad/projet/art/out/whole_cake/ville2.png'
+ville 2 31.8 s 15926
+02:17.120  render           | Saved: '/tmp/claude-0/-home-claude/e9fea69d-d6d1-5bce-8c4e-46780dac9b28/scratchpad/projet/art/out/whole_cake/ville3.png'
+ville 3 31.8 s 16122
+02:48.861  render           | Saved: '/tmp/claude-0/-home-claude/e9fea69d-d6d1-5bce-8c4e-46780dac9b28/scratchpad/projet/art/out/whole_cake/ville4.png'
+ville 4 31.6 s 15064
+ERROR Draco is not available because library could not be found at /usr/local/lib/python3.13/site-packages/bpy/lib/libbf_intern_draco_bridge.so
+ERROR MeshOptimizer is not available because library could not be found at /usr/local/lib/python3.13/site-packages/bpy/lib/libbf_intern_meshopt_bridge.so
+05:22:12 | INFO: Starting glTF 2.0 export
+05:22:13 | INFO: Extracting primitive: BASE
+05:22:13 | INFO: Primitives created: 1
+05:22:13 | INFO: Extracting primitive: VILLE_2
+05:22:13 | INFO: Primitives created: 1
+05:22:13 | INFO: Extracting primitive: VILLE_3
+05:22:13 | INFO: Primitives created: 1
+05:22:13 | INFO: Extracting primitive: VILLE_4
+05:22:13 | INFO: Primitives created: 1
+05:22:13 | INFO: Finished glTF 2.0 export in 0.2053995132446289 s
+
+lod0 57679 tri 1331708 o
+05:22:13 | INFO: Starting glTF 2.0 export
+05:22:13 | INFO: Extracting primitive: BASE.001
+05:22:13 | INFO: Primitives created: 1
+05:22:13 | INFO: Extracting primitive: VILLE_2.001
+05:22:13 | INFO: Primitives created: 1
+05:22:13 | INFO: Extracting primitive: VILLE_3.001
+05:22:13 | INFO: Primitives created: 1
+05:22:13 | INFO: Extracting primitive: VILLE_4.001
+05:22:13 | INFO: Primitives created: 1
+05:22:13 | INFO: Finished glTF 2.0 export in 0.26155948638916016 s
+
+lod1 18123 tri 454924 o
+05:22:14 | INFO: Starting glTF 2.0 export
+05:22:14 | INFO: Extracting primitive: BASE.002
+05:22:14 | INFO: Primitives created: 1
+05:22:14 | INFO: Extracting primitive: VILLE_2.002
+05:22:14 | INFO: Primitives created: 1
+05:22:14 | INFO: Extracting primitive: VILLE_3.002
+05:22:14 | INFO: Primitives created: 1
+05:22:14 | INFO: Extracting primitive: VILLE_4.002
+05:22:14 | INFO: Primitives created: 1
+05:22:14 | INFO: Finished glTF 2.0 export in 0.27832889556884766 s
+
+lod2 4940 tri 162732 o
+EXPORT ok whole_cake 170.6 s

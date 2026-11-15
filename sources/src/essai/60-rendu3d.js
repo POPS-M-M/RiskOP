@@ -24,11 +24,11 @@ function r3Geo(){
     box(x,y,z,w,d,h,col,top){const t=z+h,A=[x,y,t],B=[x+w,y,t],C=[x+w,y+d,t],D=[x,y+d,t];
       G.quad(A,B,C,D,top||col,[0,0,1]);
       G.quad([x,y+d,z],[x+w,y+d,z],C,D,col,[0,1,0]);G.quad([x+w,y,z],[x+w,y+d,z],C,B,col,[1,0,0]);G.quad([x,y,z],[x,y,t],B,[x+w,y,z],col,[0,-1,0]);G.quad([x,y,z],[x,y+d,z],D,A,col,[-1,0,0]);},
-        cyl(x,y,z,r,h,col,n,top){n=n||12;for(let i=0;i<n;i++){const a0=i/n*6.2832,a1=(i+1)/n*6.2832,c0=Math.cos(a0),s0=Math.sin(a0),c1=Math.cos(a1),s1=Math.sin(a1);
+        cyl(x,y,z,r,h,col,n,top){n=r3Seg(r,n||12);for(let i=0;i<n;i++){const a0=i/n*6.2832,a1=(i+1)/n*6.2832,c0=Math.cos(a0),s0=Math.sin(a0),c1=Math.cos(a1),s1=Math.sin(a1);
       const p0=[x+c0*r,y+s0*r,z],p1=[x+c1*r,y+s1*r,z],q0=[p0[0],p0[1],z+h],q1=[p1[0],p1[1],z+h];
       G.tri(p0,p1,q1,col,[c0,s0,0],[c1,s1,0],[c1,s1,0]);G.tri(p0,q1,q0,col,[c0,s0,0],[c1,s1,0],[c0,s0,0]);
       if(top!==false)G.tri([x,y,z+h],q0,q1,top||col,[0,0,1],[0,0,1],[0,0,1]);}},
-    dome(x,y,z,r,hk,col,n){n=n||14;const R=6;for(let j=0;j<R;j++){const b0=j/R*1.5708,b1=(j+1)/R*1.5708;
+    dome(x,y,z,r,hk,col,n){n=r3Seg(r,n||14);const R=6;for(let j=0;j<R;j++){const b0=j/R*1.5708,b1=(j+1)/R*1.5708;
       for(let i=0;i<n;i++){const a0=i/n*6.2832,a1=(i+1)/n*6.2832,pt=(a,b)=>[x+Math.cos(a)*Math.cos(b)*r,y+Math.sin(a)*Math.cos(b)*r,z+Math.sin(b)*r*hk],nm=(a,b)=>{const v=[Math.cos(a)*Math.cos(b),Math.sin(a)*Math.cos(b),Math.sin(b)/hk];const l=Math.hypot(...v);return v.map(q=>q/l);};
         G.tri(pt(a0,b0),pt(a1,b0),pt(a1,b1),col,nm(a0,b0),nm(a1,b0),nm(a1,b1));G.tri(pt(a0,b0),pt(a1,b1),pt(a0,b1),col,nm(a0,b0),nm(a1,b1),nm(a0,b1));}}},
     /* sphère à facettes (octaèdre subdivisé) : arbustes, rochers, feuillages « low-poly » */
@@ -43,10 +43,20 @@ function r3Geo(){
     /* toit en pyramide sur une boîte */
     pyr(x,y,z,w,d,h,col,ov){ov=ov||0;const A=[x-ov,y-ov,z],B=[x+w+ov,y-ov,z],C=[x+w+ov,y+d+ov,z],D=[x-ov,y+d+ov,z],T=[x+w/2,y+d/2,z+h];
       const sl=Math.min(w,d)/2,k=sl/Math.max(h,.01),nf=(nx,ny)=>{const l=Math.hypot(nx,ny,k)||1;return [nx/l,ny/l,k/l];};G.tri(A,B,T,col,...Array(3).fill(nf(0,-1)));G.tri(B,C,T,col,...Array(3).fill(nf(1,0)));G.tri(C,D,T,col,...Array(3).fill(nf(0,1)));G.tri(D,A,T,col,...Array(3).fill(nf(-1,0)));},
-    cone(x,y,z,r,h,col,n){n=n||10;const k=r/Math.max(h,.01);for(let i=0;i<n;i++){const a0=i/n*6.2832,a1=(i+1)/n*6.2832,am=(a0+a1)/2,nm=(a)=>{const cx=Math.cos(a),sy=Math.sin(a),l=Math.hypot(1,k);return [cx/l,sy/l,k/l];};G.tri([x+Math.cos(a0)*r,y+Math.sin(a0)*r,z],[x+Math.cos(a1)*r,y+Math.sin(a1)*r,z],[x,y,z+h],col,nm(a0),nm(a1),nm(am));}}
+    cone(x,y,z,r,h,col,n){n=r3Seg(r,n||10);const k=r/Math.max(h,.01);for(let i=0;i<n;i++){const a0=i/n*6.2832,a1=(i+1)/n*6.2832,am=(a0+a1)/2,nm=(a)=>{const cx=Math.cos(a),sy=Math.sin(a),l=Math.hypot(1,k);return [cx/l,sy/l,k/l];};G.tri([x+Math.cos(a0)*r,y+Math.sin(a0)*r,z],[x+Math.cos(a1)*r,y+Math.sin(a1)*r,z],[x,y,z+h],col,nm(a0),nm(a1),nm(am));}}
   };
+  /* ---- niveaux de détail : chaque objet posé (boîte, cylindre, dôme, sphère…) est mesuré ; les petits objets sont classés
+     en détail moyen (1) ou fin (2) et ne sont dessinés que lorsque l'île est assez grande à l'écran. Les surfaces (relief) restent au niveau 0. */
+  G.objs=[];G._d=0;
+  G.obj=(f)=>{if(G._d){return f();}G._d=1;const i0=P.length/3;let r;try{r=f();}finally{G._d=0;}const i1=P.length/3;if(i1>i0){
+    let x0=1e9,y0=1e9,z0=1e9,x1=-1e9,y1=-1e9,z1=-1e9;for(let v=i0;v<i1;v++){const x=P[v*3],y=P[v*3+1],z=P[v*3+2];if(x<x0)x0=x;if(x>x1)x1=x;if(y<y0)y0=y;if(y>y1)y1=y;if(z<z0)z0=z;if(z>z1)z1=z;}
+    const sz=Math.max(x1-x0,y1-y0,z1-z0),lv=sz<R3_LOD.s3?3:sz<R3_LOD.s2?2:sz<R3_LOD.s1?1:0;if(lv)G.objs.push([i0,i1,lv]);}return r;};
+  for(const nm of ['box','cyl','dome','ico','pyr','cone']){const f0=G[nm];G[nm]=(...a)=>G.obj(()=>f0(...a));}
   return G;
 }
+/* seuils des niveaux de détail (taille d'objet en unités de carte) et nombre de facettes utile pour un rayon donné */
+const R3_LOD={s1:2.2,s2:.9,s3:.42,p1:1.1,p2:2.4,p3:5.2,on:true};
+const r3Seg=(r,n,min)=>Math.max(Math.min(min||5,n),Math.min(n,Math.ceil(6.2832*Math.abs(r)*1.6)));
 /* agrandit autour d'un point tout ce qui a été ajouté depuis i0 (sommets, empreintes d'ombre, mâts) */
 function r3Scale(G,i0,t0,f0,tops,flags,ox,oy,oz,k){for(let i=i0;i<G.P.length;i+=3){G.P[i]=ox+(G.P[i]-ox)*k;G.P[i+1]=oy+(G.P[i+1]-oy)*k;G.P[i+2]=oz+(G.P[i+2]-oz)*k;}
   for(let i=t0;i<tops.length;i++){const b=tops[i];tops[i]=[ox+(b[0]-ox)*k,oy+(b[1]-oy)*k,ox+(b[2]-ox)*k,oy+(b[3]-oy)*k,oz+(b[4]-oz)*k];}

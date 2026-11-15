@@ -1,0 +1,59 @@
+00:00.375  blend            | Read blend: "/tmp/claude-0/-home-claude/e9fea69d-d6d1-5bce-8c4e-46780dac9b28/scratchpad/projet/art/blender/islands/zou.blend"
+00:00.537  cycles           | WARNING CUEW initialization failed: Error opening the library
+Warning: edge 132 - 133 appears twice, correcting
+Warning: edge 152 - 153 appears twice, correcting
+00:03.504  render           | Saved: '/tmp/claude-0/-home-claude/e9fea69d-d6d1-5bce-8c4e-46780dac9b28/scratchpad/projet/art/out/zou/l1.png'
+l1 175 x 277 3.0 s 6652 o
+Warning: edge 132 - 133 appears twice, correcting
+Warning: edge 152 - 153 appears twice, correcting
+00:17.781  render           | Saved: '/tmp/claude-0/-home-claude/e9fea69d-d6d1-5bce-8c4e-46780dac9b28/scratchpad/projet/art/out/zou/l2.png'
+l2 523 x 829 14.2 s 26336 o
+Warning: edge 132 - 133 appears twice, correcting
+Warning: edge 152 - 153 appears twice, correcting
+01:16.691  render           | Saved: '/tmp/claude-0/-home-claude/e9fea69d-d6d1-5bce-8c4e-46780dac9b28/scratchpad/projet/art/out/zou/l3.png'
+l3 1045 x 1658 58.8 s 64342 o
+01:52.791  render           | Saved: '/tmp/claude-0/-home-claude/e9fea69d-d6d1-5bce-8c4e-46780dac9b28/scratchpad/projet/art/out/zou/ville2.png'
+ville 2 35.9 s 14050
+02:28.893  render           | Saved: '/tmp/claude-0/-home-claude/e9fea69d-d6d1-5bce-8c4e-46780dac9b28/scratchpad/projet/art/out/zou/ville3.png'
+ville 3 36.0 s 9690
+03:04.885  render           | Saved: '/tmp/claude-0/-home-claude/e9fea69d-d6d1-5bce-8c4e-46780dac9b28/scratchpad/projet/art/out/zou/ville4.png'
+ville 4 35.9 s 9428
+ERROR Draco is not available because library could not be found at /usr/local/lib/python3.13/site-packages/bpy/lib/libbf_intern_draco_bridge.so
+ERROR MeshOptimizer is not available because library could not be found at /usr/local/lib/python3.13/site-packages/bpy/lib/libbf_intern_meshopt_bridge.so
+05:19:10 | INFO: Starting glTF 2.0 export
+05:19:11 | INFO: Extracting primitive: BASE
+05:19:11 | INFO: Primitives created: 1
+05:19:11 | INFO: Extracting primitive: VILLE_2
+05:19:11 | INFO: Primitives created: 1
+05:19:11 | INFO: Extracting primitive: VILLE_3
+05:19:11 | INFO: Primitives created: 1
+05:19:11 | INFO: Extracting primitive: VILLE_4
+05:19:11 | INFO: Primitives created: 1
+05:19:11 | INFO: Finished glTF 2.0 export in 0.38080477714538574 s
+
+lod0 81311 tri 1942076 o
+05:19:11 | INFO: Starting glTF 2.0 export
+05:19:12 | INFO: Extracting primitive: BASE.001
+05:19:12 | INFO: Primitives created: 1
+05:19:12 | INFO: Extracting primitive: VILLE_2.001
+05:19:12 | INFO: Primitives created: 1
+05:19:12 | INFO: Extracting primitive: VILLE_3.001
+05:19:12 | INFO: Primitives created: 1
+05:19:12 | INFO: Extracting primitive: VILLE_4.001
+05:19:12 | INFO: Primitives created: 1
+05:19:12 | INFO: Finished glTF 2.0 export in 0.500885009765625 s
+
+lod1 25550 tri 670292 o
+05:19:13 | INFO: Starting glTF 2.0 export
+05:19:13 | INFO: Extracting primitive: BASE.002
+05:19:13 | INFO: Primitives created: 1
+05:19:13 | INFO: Extracting primitive: VILLE_2.002
+05:19:13 | INFO: Primitives created: 1
+05:19:13 | INFO: Extracting primitive: VILLE_3.002
+05:19:13 | INFO: Primitives created: 1
+05:19:13 | INFO: Extracting primitive: VILLE_4.002
+05:19:13 | INFO: Primitives created: 1
+05:19:13 | INFO: Finished glTF 2.0 export in 0.6094615459442139 s
+
+lod2 6966 tri 251400 o
+EXPORT ok zou 188.1 s
