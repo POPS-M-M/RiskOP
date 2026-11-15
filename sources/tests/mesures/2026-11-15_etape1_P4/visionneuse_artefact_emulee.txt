@@ -1,0 +1,6 @@
+Visionneuse d'artefact émulée (bundle exécuté dans la session, pas ton compte), paquet format 2 en base64
+prêt en 10.0 s ; format 2 ; vérifiés {'ok': 8, 'taille': 0, 'rejets': []} ; erreur chargeur : ''
+Zou modèles 3D prêts {'lod2': '4 nœuds / 6966 tri', 'lod1': '4 nœuds / 25550 tri', 'lod0': '4 nœuds / 81311 tri'}
+Whole Cake modèles 3D prêts {'lod2': '4 nœuds / 4940 tri', 'lod1': '4 nœuds / 18123 tri', 'lod0': '4 nœuds / 57679 tri'}
+base64 visible dans la page : False
+requêtes iles/ (statut, type) : {'200 application/json': 3, '200 image/webp': 2, '200 text/plain': 6}

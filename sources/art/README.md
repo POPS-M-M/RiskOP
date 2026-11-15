@@ -23,7 +23,7 @@ art/
     build_zou.py               scène source de Zou        → blender/islands/zou.blend
     build_whole_cake.py        scène source de Whole Cake → blender/islands/whole_cake.blend
     export_island.py           .blend → out/<île>/ (WebP, GLB, manifeste) ; --apercu pour un rendu rapide
-    pack_for_game.py           out/ → dist/iles/ (+ index.json)
+    pack_for_game.py           out/ → dist/iles/ : format 2 (noms à empreinte SHA-256, manifeste v2, index.json) ; --b64, --format1, --nettoyer
   blender/islands/             scènes sources (.blend) — à ouvrir et retoucher dans Blender
   blender/imports/<île>/       modèles d'artiste ou générés (Rodin…) à intégrer
   out/<île>/                   sorties (PNG maîtres + WebP + GLB + manifeste)
@@ -37,6 +37,8 @@ python3 art/scripts/build_zou.py                                        # (re)g�
 python3 art/scripts/export_island.py zou --apercu                       # vérification rapide de la composition
 python3 art/scripts/export_island.py zou                                # rendus + glTF + manifeste
 python3 art/scripts/pack_for_game.py                                    # copie à côté de la page de test
+# format 2 : chaque fichier publié porte l'empreinte de son contenu (l3.3f9a2c1b.webp) ; seul index.json est relu à chaque
+# ouverture ; le jeu vérifie taille + SHA-256 du manifeste et des glTF. Les sorties out/ ne sont jamais modifiées.
 ```
 Blender 5.x (module `bpy` ou Blender complet). Rendus : Cycles (processeur suffisant ; carte graphique conseillée).
 

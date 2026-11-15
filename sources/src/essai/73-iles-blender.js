@@ -5,8 +5,21 @@
    - mode 3D : modèles glTF lod0 / lod1 / lod2 (couleurs de sommets = albédo), rééclairés par le soleil du jeu,
      avec la carte des hauteurs exportée de Blender pour poser les unités.
    Les fichiers sont lus à côté de la page (dossier iles/) ; sans eux (ou en cas d'erreur), l'île garde son rendu actuel.
-   Chargement progressif : l1 et le glTF lod2 d'abord, l2/l3 seulement quand le zoom les demande. */
-const BLX={off:false,isl:{},base:'iles/',err:'',loaded:0};
+   Chargement progressif : l1 et le glTF lod2 d'abord, l2/l3 seulement quand le zoom les demande.
+   Versionnage (étape P4) : paquet « format 2 » produit par art/scripts/pack_for_game.py. Seul index.json est relu à chaque
+   ouverture ; manifestes et fichiers portent une empreinte de leur contenu dans leur nom (immuables, donc sûrs en cache).
+   Le jeu vérifie la taille et le SHA-256 du manifeste (contre l'index) et des glTF (contre le manifeste) : un écart écarte
+   l'île (manifeste) ou son modèle 3D (glTF), qui gardent alors leur rendu d'origine. Un index à l'ancien format (format 1)
+   est lu exactement comme avant. Les images sont protégées par leur nom à empreinte ; leur vérification octet par octet
+   relève de l'étape P1 (changement du mode de chargement des images). */
+const BLX={off:false,isl:{},base:'iles/',err:'',loaded:0,format:0,verif:{ok:0,taille:0,rejets:[]}};
+/* empreinte SHA-256 (hexadécimal) ; null si l'API n'est pas disponible (contexte non sécurisé) : seule la taille est alors vérifiée */
+async function blxSha(buf){if(typeof crypto==='undefined'||!crypto.subtle)return null;const d=new Uint8Array(await crypto.subtle.digest('SHA-256',buf));let s='';for(const x of d)s+=(x<16?'0':'')+x.toString(16);return s;}
+async function blxCheck(fichier,buf,att){
+  if(buf.byteLength!==att.octets)throw new Error(fichier+' : '+buf.byteLength+' octets au lieu de '+att.octets);
+  const h=await blxSha(buf);if(h===null){BLX.verif.taille++;return;}
+  if(h!==att.sha256)throw new Error(fichier+' : contenu différent de celui déclaré (empreinte)');BLX.verif.ok++;}
+function blxRejet(ile,fichier,err){const raison=String(err&&err.message||err);BLX.verif.rejets.push({ile,fichier:fichier||'',raison});console.warn('fichier d\'île Blender refusé',ile,raison);}
 const blxLvl=t=>t.city?t.city.lvl:0;
 function blxB64(s){const b=atob(s),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u;}
 function blxHeight(m,which){
@@ -36,15 +49,26 @@ function blxAddNodes(G,nodes,lvl){
 async function blxInit(){
   if(typeof fetch!=='function'||location.protocol==='file:'){BLX.err='fichiers d\'îles non accessibles (page ouverte en local)';return;}
   try{const idx=await (await fetch(BLX.base+'index.json',{cache:'no-cache'})).json();
-    for(const [name,slug] of Object.entries(idx)){try{const m=await (await fetch(BLX.base+slug+'/manifest.json',{cache:'no-cache'})).json();
-      const I=BLX.isl[name]={slug,m,img:{},cv:{},glb:{},ready3:false};blxImg(name,'l1');blxLoad3(name);}catch(err){console.warn('île Blender',name,err);}}}
+    if(idx&&idx.format===2){BLX.format=2;
+      for(const [name,e] of Object.entries(idx.iles||{})){try{
+        const r=await fetch(BLX.base+e.dossier+'/'+e.manifeste);if(!r.ok)throw new Error(e.manifeste+' introuvable ('+r.status+')');
+        const buf=await r.arrayBuffer();await blxCheck(e.manifeste,buf,e);const m=JSON.parse(new TextDecoder().decode(buf));
+        if(m.format!==2||m.ile!==name||String(m.version)!==String(e.version))throw new Error('manifeste incohérent avec l\'index (île, format ou version)');
+        for(const g of ['images25d','ville25d','glb'])for(const ref of Object.values(m[g]||{}))if(!m.fichiers||!m.fichiers[ref.fichier])throw new Error('fichier non déclaré dans le manifeste : '+ref.fichier);
+        BLX.isl[name]={slug:e.dossier,m,img:{},cv:{},glb:{},ready3:false};blxImg(name,'l1');blxLoad3(name);}catch(err){blxRejet(name,e&&e.manifeste,err);}}}
+    else{BLX.format=1;   /* ancien paquet (noms fixes, sans vérification) : lu comme avant l'étape P4 */
+      for(const [name,slug] of Object.entries(idx)){try{const m=await (await fetch(BLX.base+slug+'/manifest.json',{cache:'no-cache'})).json();
+        const I=BLX.isl[name]={slug,m,img:{},cv:{},glb:{},ready3:false};blxImg(name,'l1');blxLoad3(name);}catch(err){console.warn('île Blender',name,err);}}}}
   catch(err){BLX.err=String(err&&err.message||err);}
 }
 async function blxLoad3(name){
   const I=BLX.isl[name];
-  /* .glb direct ; sinon copie en base64 (.glb.txt) pour les hébergements qui ne servent pas le type glTF (artefact de test) */
-  const get=async f=>{let r=await fetch(BLX.base+I.slug+'/'+f).catch(()=>null);if(r&&r.ok)return r.arrayBuffer();r=await fetch(BLX.base+I.slug+'/'+f+'.txt');if(!r.ok)throw new Error('glTF introuvable');return blxB64((await r.text()).trim()).buffer;};
-  for(const lod of ['lod2','lod1','lod0']){try{I.glb[lod]=blxGlb(await get(I.m.glb[lod].fichier));}catch(err){console.warn('glTF',name,lod,err);return;}}
+  /* format 2 : le manifeste dit exactement quel fichier existe et comment il est encodé ; contenu vérifié avant lecture.
+     format 1 : .glb direct ; sinon copie en base64 (.glb.txt) pour les hébergements qui ne servent pas le type glTF (artefact de test) */
+  const get=BLX.format===2?async f=>{const d=I.m.fichiers[f],r=await fetch(BLX.base+I.slug+'/'+f);if(!r.ok)throw new Error(f+' introuvable ('+r.status+')');
+      const buf=d.encodage==='base64'?blxB64((await r.text()).trim()).buffer:await r.arrayBuffer();await blxCheck(f,buf,d);return buf;}
+    :async f=>{let r=await fetch(BLX.base+I.slug+'/'+f).catch(()=>null);if(r&&r.ok)return r.arrayBuffer();r=await fetch(BLX.base+I.slug+'/'+f+'.txt');if(!r.ok)throw new Error('glTF introuvable');return blxB64((await r.text()).trim()).buffer;};
+  for(const lod of ['lod2','lod1','lod0']){try{I.glb[lod]=blxGlb(await get(I.m.glb[lod].fichier));}catch(err){if(BLX.format===2)blxRejet(name,I.m.glb[lod].fichier,err);else console.warn('glTF',name,lod,err);return;}}
   I.Hs=blxHeight(I.m,'sol');I.Ho=blxHeight(I.m,'obstacles');I.ready3=true;BLX.loaded++;blxRefresh(name);
 }
 function blxImg(name,lod,cb){const I=BLX.isl[name];if(I.img[lod]||I.img[lod+'_ld'])return;I.img[lod+'_ld']=1;

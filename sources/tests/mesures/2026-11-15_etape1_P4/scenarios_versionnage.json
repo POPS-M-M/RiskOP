@@ -1,0 +1,229 @@
+{
+ "A_v2_base64": {
+  "format": 2,
+  "err": "",
+  "ok": 8,
+  "taille": 0,
+  "rejets": [],
+  "e404": [],
+  "iles": {
+   "Zou": {
+    "charge": true,
+    "rendu25": "Blender",
+    "l2": true,
+    "glb": "lod2,lod1,lod0",
+    "modele3D": "Blender"
+   },
+   "Whole Cake": {
+    "charge": true,
+    "rendu25": "Blender",
+    "l2": true,
+    "glb": "lod2,lod1,lod0",
+    "modele3D": "Blender"
+   }
+  },
+  "erreursPage": 0,
+  "avert": 0
+ },
+ "A_v2_binaire": {
+  "format": 2,
+  "err": "",
+  "ok": 8,
+  "taille": 0,
+  "rejets": [],
+  "e404": [],
+  "iles": {
+   "Zou": {
+    "charge": true,
+    "rendu25": "Blender",
+    "l2": true,
+    "glb": "lod2,lod1,lod0",
+    "modele3D": "Blender"
+   },
+   "Whole Cake": {
+    "charge": true,
+    "rendu25": "Blender",
+    "l2": true,
+    "glb": "lod2,lod1,lod0",
+    "modele3D": "Blender"
+   }
+  },
+  "erreursPage": 0,
+  "avert": 0
+ },
+ "B_glb_octet_change": {
+  "format": 2,
+  "err": "",
+  "ok": 7,
+  "taille": 0,
+  "rejets": [
+   "Zou : lod0.0fb618eb.glb.txt : contenu différent de celui déclaré (empreinte)"
+  ],
+  "e404": [],
+  "iles": {
+   "Zou": {
+    "charge": true,
+    "rendu25": "Blender",
+    "l2": true,
+    "glb": "lod2,lod1",
+    "modele3D": "origine"
+   },
+   "Whole Cake": {
+    "charge": true,
+    "rendu25": "Blender",
+    "l2": true,
+    "glb": "lod2,lod1,lod0",
+    "modele3D": "Blender"
+   }
+  },
+  "erreursPage": 0,
+  "avert": 1
+ },
+ "C_manifeste_modifie": {
+  "format": 2,
+  "err": "",
+  "ok": 4,
+  "taille": 0,
+  "rejets": [
+   "Zou : manifest.70d66cc0.json : 90346 octets au lieu de 90348"
+  ],
+  "e404": [],
+  "iles": {
+   "Zou": {
+    "charge": false,
+    "rendu25": "origine",
+    "l2": false,
+    "glb": "",
+    "modele3D": "origine"
+   },
+   "Whole Cake": {
+    "charge": true,
+    "rendu25": "Blender",
+    "l2": true,
+    "glb": "lod2,lod1,lod0",
+    "modele3D": "Blender"
+   }
+  },
+  "erreursPage": 0,
+  "avert": 2
+ },
+ "D_version_incoherente": {
+  "format": 2,
+  "err": "",
+  "ok": 5,
+  "taille": 0,
+  "rejets": [
+   "Zou : manifeste incohérent avec l'index (île, format ou version)"
+  ],
+  "e404": [],
+  "iles": {
+   "Zou": {
+    "charge": false,
+    "rendu25": "origine",
+    "l2": false,
+    "glb": "",
+    "modele3D": "origine"
+   },
+   "Whole Cake": {
+    "charge": true,
+    "rendu25": "Blender",
+    "l2": true,
+    "glb": "lod2,lod1,lod0",
+    "modele3D": "Blender"
+   }
+  },
+  "erreursPage": 0,
+  "avert": 2
+ },
+ "E_v1_ancien_format": {
+  "format": 1,
+  "err": "",
+  "ok": 0,
+  "taille": 0,
+  "rejets": [],
+  "e404": [
+   "zou/lod2.glb",
+   "whole_cake/lod2.glb",
+   "zou/lod1.glb",
+   "whole_cake/lod1.glb",
+   "zou/lod0.glb",
+   "whole_cake/lod0.glb"
+  ],
+  "iles": {
+   "Zou": {
+    "charge": true,
+    "rendu25": "Blender",
+    "l2": true,
+    "glb": "lod2,lod1,lod0",
+    "modele3D": "Blender"
+   },
+   "Whole Cake": {
+    "charge": true,
+    "rendu25": "Blender",
+    "l2": true,
+    "glb": "lod2,lod1,lod0",
+    "modele3D": "Blender"
+   }
+  },
+  "erreursPage": 0,
+  "avert": 0
+ },
+ "F_glb_absent": {
+  "format": 2,
+  "err": "",
+  "ok": 7,
+  "taille": 0,
+  "rejets": [
+   "Zou : lod0.0fb618eb.glb.txt introuvable (404)"
+  ],
+  "e404": [
+   "zou/lod0.0fb618eb.glb.txt"
+  ],
+  "iles": {
+   "Zou": {
+    "charge": true,
+    "rendu25": "Blender",
+    "l2": true,
+    "glb": "lod2,lod1",
+    "modele3D": "origine"
+   },
+   "Whole Cake": {
+    "charge": true,
+    "rendu25": "Blender",
+    "l2": true,
+    "glb": "lod2,lod1,lod0",
+    "modele3D": "Blender"
+   }
+  },
+  "erreursPage": 0,
+  "avert": 1
+ },
+ "G_fichier_non_declare": {
+  "format": 2,
+  "err": "",
+  "ok": 5,
+  "taille": 0,
+  "rejets": [
+   "Zou : fichier non déclaré dans le manifeste : lod1.00000000.glb.txt"
+  ],
+  "e404": [],
+  "iles": {
+   "Zou": {
+    "charge": false,
+    "rendu25": "origine",
+    "l2": false,
+    "glb": "",
+    "modele3D": "origine"
+   },
+   "Whole Cake": {
+    "charge": true,
+    "rendu25": "Blender",
+    "l2": true,
+    "glb": "lod2,lod1,lod0",
+    "modele3D": "Blender"
+   }
+  },
+  "erreursPage": 0,
+  "avert": 2
+ }
+}

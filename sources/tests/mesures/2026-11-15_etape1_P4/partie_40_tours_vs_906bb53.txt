@@ -1,0 +1,11 @@
+relevés état (tous les 8 tours) :
+ tour 8 IDENTIQUE f54732f34c2c f54732f34c2c
+ tour 16 IDENTIQUE d4a83db693f2 d4a83db693f2
+ tour 24 IDENTIQUE dc40e6029ce4 dc40e6029ce4
+ tour 32 IDENTIQUE 2434a0827463 2434a0827463
+ tour 40 IDENTIQUE f7c4c20e9da4 f7c4c20e9da4
+sauvegarde finale (hors date) DIFFÉRENTE 1a842a707459 6aaf3e653115 34274 car.
+aller-retour sauvegarde→restauration : public false | test false | armées en fin de partie 24 24
+erreurs de page : public 0 | test 0 [] []
+7 champs différents : ['/G/rkp/gid', '/G/logs[0]/w', '/G/logs[1]/w', '/G/logs[2]/w', '/G/logs[3]/w', '/G/logs[4]/w', '/G/logs[5]/w']
+FINI

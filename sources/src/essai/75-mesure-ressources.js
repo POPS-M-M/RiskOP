@@ -144,6 +144,6 @@ function mesSnap(){
   if(typeof R25!=='undefined')for(const e of R25.cache.values())if(e.spent)r25.parIle[e.name]=e.spent;
   return {date:new Date().toISOString(),depuis:Math.round(mesNow()),ua:navigator.userAgent,ecran:{w:screen.width,h:screen.height,dpr:devicePixelRatio,canvas:cvs?cvs.width+'×'+cvs.height:'?',fenetre:innerWidth+'×'+innerHeight},
     mode:typeof W3!=='undefined'&&W3.act?'3D':'2.5D',sup:MES.sup,mem:mesMem(),fichiers:MES.res.slice(),b64:Object.assign({},MES.b64),b3,r25,jal:Object.assign({},MES.jal),
-    blxErr:typeof BLX!=='undefined'?BLX.err:'',err:{n:MES.errN||0,msg:MES.errMsg||''},fl};}
+    blxErr:typeof BLX!=='undefined'?BLX.err:'',blxFormat:typeof BLX!=='undefined'?BLX.format||0:0,blxVerif:typeof BLX!=='undefined'&&BLX.verif?JSON.parse(JSON.stringify(BLX.verif)):null,err:{n:MES.errN||0,msg:MES.errMsg||''},fl};}
 MES.snap=mesSnap;MES.reset=mesReset;
 window.__MES=MES;   /* accès pour les tests automatisés (copie de test) */

@@ -1,0 +1,321 @@
+# statut : Mesure terminée. Mémoire JavaScript utilisée : 10 Mo. Mémoire des modèles 3D : 99.1 Mo.
+# durée totale du test 325 s
+RISK OP · banc de mesure · 15/11/2026 19:24:28 · Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.12 Safari/537.36
+Mode	Vue	Version	ms/image	95e centile	images/s	triangles
+3D	Vue d'ensemble	avant	1162.5	1228.5	1	992385
+3D	Zoom moyen · Zou	avant	372.3	408.1	3	375216
+3D	Zoom proche · Whole Cake	avant	120.1	142.4	8	171590
+3D	Zoom proche · Zou	avant	90.0	109.2	10	126419
+3D	Vue d'ensemble	après	1080.1	1109.5	1	1005368
+3D	Zoom moyen · Zou	après	369.5	444.0	3	385261
+3D	Zoom proche · Whole Cake	après	186.3	219.0	5	267092
+3D	Zoom proche · Zou	après	209.9	244.5	5	215672
+3D	Vue d'ensemble	après sans LOD	1590.1	1651.6	1	1332087
+3D	Zoom moyen · Zou	après sans LOD	567.6	666.7	2	515720
+3D	Zoom proche · Whole Cake	après sans LOD	181.0	208.2	5	270932
+3D	Zoom proche · Zou	après sans LOD	197.4	238.5	5	219416
+2.5D	Vue d'ensemble	avant	8.6	12.0	50	0
+2.5D	Zoom moyen · Zou	avant	8.8	13.7	52	0
+2.5D	Zoom proche · Whole Cake	avant	8.6	12.1	59	0
+2.5D	Vue d'ensemble	après	8.7	12.4	44	0
+2.5D	Zoom moyen · Zou	après	8.7	13.2	49	0
+2.5D	Zoom proche · Whole Cake	après	8.4	11.5	58	0
+
+Conditions · 15/11/2026 19:24:28 · mode affiché 3D · écran 1000×640 · devicePixelRatio 1 · canvas 2.5D 616×378 · fenêtre 1000×640 · Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.12 Safari/537.36
+API du navigateur · tâches longues oui · LoAF oui · Resource Timing oui · mémoire JS oui · 1 Mo = 1 048 576 octets
+
+## Balayage de zoom (intervalle entre deux images, ms) et changements de niveau de détail
+Mode	Île	Version	Zoom	images	médiane	95e c.	99e c.	max	> 50 ms	> 100 ms	chgts de niveau (île)	chgts (toutes)	images > 50 ms liées à un chgt
+3D	Zou	avant	1.5 → 12 → 1.5	37	166.6	716.7	766.6	766.6	37	30	6	72	19
+3D	Zou	après	1.5 → 12 → 1.5	25	250.0	766.6	766.7	766.7	25	25	4	62	17
+2.5D	Zou	avant	1 → 3.5 → 1	261	33.3	50.0	50.1	66.7	5	0	0	0	0
+2.5D	Zou	après	1 → 3.5 → 1	268	33.3	50.0	66.6	66.7	3	0	0	0	0
+· 3D avant · objets0 → objets1 ; objets1 → objets2 ; objets2 → objets3 ; objets3 → objets2 ; objets2 → objets1 ; objets1 → objets0
+· 3D après · lod2 → lod1 ; lod1 → lod0 ; lod0 → lod1 ; lod1 → lod2
+
+## Reconstruction de tous les modèles 3D (temps de construction)
+Version	îles	durée totale ms	somme des constructions ms	médiane ms	max ms	images > 50 ms	> 100 ms	plus longue image ms	îles Blender
+avant	53	37284	7735	142	277	52	52	1317	—
+après	53	28977	8237	154	353	54	54	900	Zou 353 ms, Whole Cake 216 ms
+
+## Reconstruction isolée d'un modèle 3D (même travail qu'une conquête ou un changement de ville)
+Île	type	total ms	géométrie ms	dont conversion glTF	éclairage cuit ms	envoi GPU ms	sommets	Mo GPU	plus longue image ms
+Zou	Blender	419	110	95	307	2	341127	9.0	800
+Whole Cake	Blender	218	39	32	178	1	197400	5.2	550
+Arabasta	origine	208	125	0	83	1	77424	2.1	583
+
+## Mémoire · images décodées 2.5D (largeur × hauteur × 4 octets)
+Catégorie	alloué (canevas, ImageBitmap) Mo	balises <img> (estimation) Mo
+Îles d'origine (petite, moyenne, grande, bannières)	32.2	0.0
+Îles Blender : images d'origine conservées pour le repli	4.5	0.0
+Îles Blender : canevas composés (base + ville)	0.0	0.0
+Îles Blender : fichiers image chargés (l1, l2, l3, calques)	0.0	0.3
+Mer lisse	1.1	—
+Halos	0.1	—
+Total	38.0	0.3
+· « alloué » : mémoire certainement occupée tant que l'objet existe. « <img> » : le navigateur décode et peut libérer lui-même ces pixels ; valeur haute.
+
+## Mémoire · images 2.5D par île Blender
+Île	composés Mo	fichiers <img> Mo	origine conservée Mo
+Zou	0.0	0.2	2.1
+Whole Cake	0.0	0.2	2.4
+
+## Mémoire · carte graphique (WebGL : octets envoyés)
+Poste	valeur Mo	
+monde 3D	tampons 113.3	textures 1.1
+Îles d'origine (51)	99.1	
+Île Blender Zou	lod0 6.4 · lod1 2.0 · lod2 0.5	translucide 0.0
+Île Blender Whole Cake	lod0 3.7 · lod1 1.2 · lod2 0.3	translucide 0.0
+Tampons dynamiques (par image)	0.0	
+Autres (mer…)	0.0	
+Total tampons + textures	114.5	(estimation précédente du banc : 113.3 Mo, îles du monde 3D seules)
+
+## Mémoire · fichiers compressés et données lues
+Poste	Mo
+Fichiers compressés gardés par les îles d'origine (cache 2.5D)	3.0
+Fichiers compressés d'origine gardés pour le repli des îles Blender	0.2
+Fichiers Blender compressés gardés par le jeu	0,0 (non gardés ; cache HTTP du navigateur)
+Données glTF lues conservées en JavaScript · Zou	2.8
+Données glTF lues conservées en JavaScript · Whole Cake	2.0
+Tas JavaScript utilisé / réservé (indicatif : Chrome arrondit et rafraîchit rarement cette valeur)	9.5 / 9.5
+
+## Chargement · fichiers du dossier iles/ (réseau)
+Fichier	début ms	durée ms	transféré Ko	compressé Ko	décompressé Ko	statut
+index.json	739	4	0	0	0	200
+zou/manifest.70d66cc0.json	1767	1	0	88	88	200
+zou/l1.dcf65261.webp	2705	5	0	6	6	200
+zou/lod2.e08a7bcb.glb.txt	2703	2	0	327	327	200
+whole_cake/manifest.9d9dbdc7.json	2703	4	0	88	88	200
+whole_cake/l1.2e098db0.webp	3713	3	0	8	8	200
+zou/lod1.f33c3b30.glb.txt	3709	2	0	873	873	200
+whole_cake/lod2.81e57e46.glb.txt	3713	3	0	212	212	200
+zou/lod0.0fb618eb.glb.txt	4840	872	2529	2529	2529	200
+whole_cake/lod1.3e451f38.glb.txt	4843	47	593	592	592	200
+whole_cake/lod0.3ae22724.glb.txt	6209	10	1734	1734	1734	200
+· 11 requêtes · 4856 Ko transférés · 6459 Ko reçus · 0 en erreur (statut ≥ 400). « transféré » = 0 si le fichier vient du cache.
+
+## Chargement · étapes par île Blender (ms depuis l'ouverture de la page)
+Île	étapes	base64 → binaire ms	lecture glTF ms
+Zou	manifeste lu 2706 · image l1 prête 3333 · glTF lod2 lu 3709 · glTF lod1 lu 4839 · glTF lod0 lu 6735 · modèles 3D prêts 6739 · premier modèle 3D construit 25108	lod2 3.3 · lod1 3.5 · lod0 13.7	lod2 0.4 · lod1 0.6 · lod0 1.2
+Whole Cake	manifeste lu 3806 · image l1 prête 4120 · glTF lod2 lu 4842 · glTF lod1 lu 6209 · glTF lod0 lu 7902 · modèles 3D prêts 7904 · premier modèle 3D construit 26260	lod2 0.7 · lod1 1.7 · lod0 7.7	lod2 0.3 · lod1 0.5 · lod0 0.8
+
+## Construction des images et modèles (moteurs)
+Mesure	valeur
+2.5D · îles d'origine générées / chargées depuis le cache du navigateur	30 / 0
+2.5D · génération d'une île : médiane / max ms	388 / 762
+2.5D · plus longue tranche de génération (ms, une image)	28.2
+2.5D · toutes les îles prêtes à (ms)	—
+3D · tous les modèles construits à (ms)	39665
+3D · dernière construction, îles d'origine : médiane / max ms	150 / 248
+3D · dernière construction · Zou (Blender)	415 ms = géométrie 99 (dont conversion glTF 93) + éclairage cuit 314 + envoi 3 · 341127 sommets · 9.0 Mo
+3D · dernière construction · Whole Cake (Blender)	279 ms = géométrie 46 (dont conversion glTF 34) + éclairage cuit 232 + envoi 2 · 197400 sommets · 5.2 Mo
+Décodage base64 (copies .glb.txt) : appels / ms	10 / 32
+Erreur du chargeur Blender	aucune
+Paquet des îles Blender : format	2 (noms à empreinte, vérifié)
+Fichiers vérifiés (taille + SHA-256) / taille seule	8 / 0
+Fichiers refusés (rendu d'origine conservé)	aucun
+Erreurs internes du moniteur de mesure	aucune
+
+## Fluidité depuis l'ouverture ou la remise à zéro (intervalle entre deux images)
+Classe (ms)	≤ 20	20–34	34–50	50–100	100–250	> 250
+Images	1431	546	40	50	177	225
+· Images comptées : 2469 · tâches longues (> 50 ms) : 500, la plus longue 1664 ms, total 235507 ms · changements de niveau de détail : 209 (Zou 18, Whole Cake 18, Sphinx 17, Dressrosa 17, Baltigo 16, Elbaf 14) · dessin de la carte : 2469 appels, 33.3 ms en moyenne (sans attente de la carte graphique) · coût du moniteur : 80.9 µs par image.
+
+## Images longues (> 50 ms) les plus récentes et travail en cours à ce moment
+à (ms)	durée ms	cause probable
+301388	1300	aucune opération JavaScript chronométrée (rendu par la carte graphique, travail du navigateur ou autre script)
+300088	1183	aucune opération JavaScript chronométrée (rendu par la carte graphique, travail du navigateur ou autre script)
+298905	1217	aucune opération JavaScript chronométrée (rendu par la carte graphique, travail du navigateur ou autre script)
+297688	1150	aucune opération JavaScript chronométrée (rendu par la carte graphique, travail du navigateur ou autre script)
+296538	1233	aucune opération JavaScript chronométrée (rendu par la carte graphique, travail du navigateur ou autre script)
+295305	1200	aucune opération JavaScript chronométrée (rendu par la carte graphique, travail du navigateur ou autre script)
+294105	1200	aucune opération JavaScript chronométrée (rendu par la carte graphique, travail du navigateur ou autre script)
+292905	1133	aucune opération JavaScript chronométrée (rendu par la carte graphique, travail du navigateur ou autre script)
+291772	1400	dessin de l'image (3D) (281 ms) ; construction 3D · Whole Cake (279 ms)
+290372	1583	dessin de l'image (3D) (427 ms) ; construction 3D · Zou (415 ms)
+287622	67	dessin de l'image (2.5D) (37 ms)
+287555	67	génération image 2.5D (île d'origine) · Karate (9 ms)
+287005	67	aucune opération JavaScript chronométrée (rendu par la carte graphique, travail du navigateur ou autre script)
+272656	67	aucune opération JavaScript chronométrée (rendu par la carte graphique, travail du navigateur ou autre script)
+268756	83	aucune opération JavaScript chronométrée (rendu par la carte graphique, travail du navigateur ou autre script)
+265440	50	aucune opération JavaScript chronométrée (rendu par la carte graphique, travail du navigateur ou autre script)
+265190	50	aucune opération JavaScript chronométrée (rendu par la carte graphique, travail du navigateur ou autre script)
+263056	67	dessin de l'image (2.5D) (48 ms) ; génération image 2.5D (île d'origine) · Egghead (28 ms)
+261523	50	aucune opération JavaScript chronométrée (rendu par la carte graphique, travail du navigateur ou autre script)
+260490	50	aucune opération JavaScript chronométrée (rendu par la carte graphique, travail du navigateur ou autre script)
+251923	117	génération image 2.5D (île d'origine) · Sphinx (10 ms)
+244007	350	aucune opération JavaScript chronométrée (rendu par la carte graphique, travail du navigateur ou autre script)
+243657	317	aucune opération JavaScript chronométrée (rendu par la carte graphique, travail du navigateur ou autre script)
+243340	333	aucune opération JavaScript chronométrée (rendu par la carte graphique, travail du navigateur ou autre script)
+243007	583	dessin de l'image (3D) (211 ms) ; construction 3D · Arabasta (208 ms)
+
+## Images d'animation longues (navigateur, LoAF) : scripts les plus coûteux
+à (ms)	durée ms	blocage ms	scripts
+204726	1657	1606	frame 1653 ms
+207919	1607	1555	frame 1602 ms
+206394	1520	1469	frame 1519 ms
+124229	1233	1182	frame 1230 ms
+121933	1189	1138	frame 1182 ms, sndSched 5 ms
+120776	1153	1102	frame 1149 ms
+184649	1115	1064	frame 1112 ms
+123130	1095	1044	frame 1093 ms
+
+## Mémoire au début de la mesure
+## Mémoire · images décodées 2.5D (largeur × hauteur × 4 octets)
+Catégorie	alloué (canevas, ImageBitmap) Mo	balises <img> (estimation) Mo
+Îles d'origine (petite, moyenne, grande, bannières)	0.0	0.0
+Îles Blender : images d'origine conservées pour le repli	0.0	0.0
+Îles Blender : canevas composés (base + ville)	0.0	0.0
+Îles Blender : fichiers image chargés (l1, l2, l3, calques)	0.0	0.3
+Mer lisse	1.1	—
+Halos	0.0	—
+Total	1.1	0.3
+· « alloué » : mémoire certainement occupée tant que l'objet existe. « <img> » : le navigateur décode et peut libérer lui-même ces pixels ; valeur haute.
+
+## Mémoire · images 2.5D par île Blender
+Île	composés Mo	fichiers <img> Mo	origine conservée Mo
+Zou	0.0	0.2	0.0
+Whole Cake	0.0	0.2	0.0
+
+## Mémoire · carte graphique (WebGL : octets envoyés)
+Poste	valeur Mo	
+monde 3D	tampons 113.3	textures 1.1
+Îles d'origine (51)	99.1	
+Île Blender Zou	lod0 6.4 · lod1 2.0 · lod2 0.5	translucide 0.0
+Île Blender Whole Cake	lod0 3.7 · lod1 1.2 · lod2 0.3	translucide 0.0
+Tampons dynamiques (par image)	0.0	
+Autres (mer…)	0.0	
+Total tampons + textures	114.5	(estimation précédente du banc : 113.3 Mo, îles du monde 3D seules)
+
+## Mémoire · fichiers compressés et données lues
+Poste	Mo
+Fichiers compressés gardés par les îles d'origine (cache 2.5D)	0.0
+Fichiers compressés d'origine gardés pour le repli des îles Blender	0.0
+Fichiers Blender compressés gardés par le jeu	0,0 (non gardés ; cache HTTP du navigateur)
+Données glTF lues conservées en JavaScript · Zou	2.8
+Données glTF lues conservées en JavaScript · Whole Cake	2.0
+Tas JavaScript utilisé / réservé (indicatif : Chrome arrondit et rafraîchit rarement cette valeur)	9.5 / 9.5
+
+# ---- instantané AVANT la mesure (après chargement) ----
+RISK OP · banc de mesure · 15/11/2026 19:20:30 · Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.12 Safari/537.36
+Mode	Vue	Version	ms/image	95e centile	images/s	triangles
+
+
+Conditions · 15/11/2026 19:20:30 · mode affiché 3D · écran 1000×640 · devicePixelRatio 1 · canvas 2.5D 616×378 · fenêtre 1000×640 · Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.12 Safari/537.36
+API du navigateur · tâches longues oui · LoAF oui · Resource Timing oui · mémoire JS oui · 1 Mo = 1 048 576 octets
+
+## Mémoire · images décodées 2.5D (largeur × hauteur × 4 octets)
+Catégorie	alloué (canevas, ImageBitmap) Mo	balises <img> (estimation) Mo
+Îles d'origine (petite, moyenne, grande, bannières)	0.0	0.0
+Îles Blender : images d'origine conservées pour le repli	0.0	0.0
+Îles Blender : canevas composés (base + ville)	0.0	0.0
+Îles Blender : fichiers image chargés (l1, l2, l3, calques)	0.0	0.3
+Mer lisse	1.1	—
+Halos	0.0	—
+Total	1.1	0.3
+· « alloué » : mémoire certainement occupée tant que l'objet existe. « <img> » : le navigateur décode et peut libérer lui-même ces pixels ; valeur haute.
+
+## Mémoire · images 2.5D par île Blender
+Île	composés Mo	fichiers <img> Mo	origine conservée Mo
+Zou	0.0	0.2	0.0
+Whole Cake	0.0	0.2	0.0
+
+## Mémoire · carte graphique (WebGL : octets envoyés)
+Poste	valeur Mo	
+monde 3D	tampons 113.3	textures 1.1
+Îles d'origine (51)	99.1	
+Île Blender Zou	lod0 6.4 · lod1 2.0 · lod2 0.5	translucide 0.0
+Île Blender Whole Cake	lod0 3.7 · lod1 1.2 · lod2 0.3	translucide 0.0
+Tampons dynamiques (par image)	0.0	
+Autres (mer…)	0.0	
+Total tampons + textures	114.5	(estimation précédente du banc : 113.3 Mo, îles du monde 3D seules)
+
+## Mémoire · fichiers compressés et données lues
+Poste	Mo
+Fichiers compressés gardés par les îles d'origine (cache 2.5D)	0.0
+Fichiers compressés d'origine gardés pour le repli des îles Blender	0.0
+Fichiers Blender compressés gardés par le jeu	0,0 (non gardés ; cache HTTP du navigateur)
+Données glTF lues conservées en JavaScript · Zou	2.8
+Données glTF lues conservées en JavaScript · Whole Cake	2.0
+Tas JavaScript utilisé / réservé (indicatif : Chrome arrondit et rafraîchit rarement cette valeur)	9.5 / 9.5
+
+## Chargement · fichiers du dossier iles/ (réseau)
+Fichier	début ms	durée ms	transféré Ko	compressé Ko	décompressé Ko	statut
+index.json	739	4	0	0	0	200
+zou/manifest.70d66cc0.json	1767	1	0	88	88	200
+zou/l1.dcf65261.webp	2705	5	0	6	6	200
+zou/lod2.e08a7bcb.glb.txt	2703	2	0	327	327	200
+whole_cake/manifest.9d9dbdc7.json	2703	4	0	88	88	200
+whole_cake/l1.2e098db0.webp	3713	3	0	8	8	200
+zou/lod1.f33c3b30.glb.txt	3709	2	0	873	873	200
+whole_cake/lod2.81e57e46.glb.txt	3713	3	0	212	212	200
+zou/lod0.0fb618eb.glb.txt	4840	872	2529	2529	2529	200
+whole_cake/lod1.3e451f38.glb.txt	4843	47	593	592	592	200
+whole_cake/lod0.3ae22724.glb.txt	6209	10	1734	1734	1734	200
+· 11 requêtes · 4856 Ko transférés · 6459 Ko reçus · 0 en erreur (statut ≥ 400). « transféré » = 0 si le fichier vient du cache.
+
+## Chargement · étapes par île Blender (ms depuis l'ouverture de la page)
+Île	étapes	base64 → binaire ms	lecture glTF ms
+Zou	manifeste lu 2706 · image l1 prête 3333 · glTF lod2 lu 3709 · glTF lod1 lu 4839 · glTF lod0 lu 6735 · modèles 3D prêts 6739 · premier modèle 3D construit 25108	lod2 3.3 · lod1 3.5 · lod0 13.7	lod2 0.4 · lod1 0.6 · lod0 1.2
+Whole Cake	manifeste lu 3806 · image l1 prête 4120 · glTF lod2 lu 4842 · glTF lod1 lu 6209 · glTF lod0 lu 7902 · modèles 3D prêts 7904 · premier modèle 3D construit 26260	lod2 0.7 · lod1 1.7 · lod0 7.7	lod2 0.3 · lod1 0.5 · lod0 0.8
+
+## Construction des images et modèles (moteurs)
+Mesure	valeur
+2.5D · îles d'origine générées / chargées depuis le cache du navigateur	0 / 0
+2.5D · génération d'une île : médiane / max ms	0 / 0
+2.5D · plus longue tranche de génération (ms, une image)	0.0
+2.5D · toutes les îles prêtes à (ms)	—
+3D · tous les modèles construits à (ms)	39665
+3D · dernière construction, îles d'origine : médiane / max ms	155 / 215
+3D · dernière construction · Zou (Blender)	365 ms = géométrie 76 (dont conversion glTF 73) + éclairage cuit 279 + envoi 10 · 341127 sommets · 9.0 Mo
+3D · dernière construction · Whole Cake (Blender)	242 ms = géométrie 61 (dont conversion glTF 52) + éclairage cuit 175 + envoi 5 · 197400 sommets · 5.2 Mo
+Décodage base64 (copies .glb.txt) : appels / ms	10 / 32
+Erreur du chargeur Blender	aucune
+Paquet des îles Blender : format	2 (noms à empreinte, vérifié)
+Fichiers vérifiés (taille + SHA-256) / taille seule	8 / 0
+Fichiers refusés (rendu d'origine conservé)	aucun
+Erreurs internes du moniteur de mesure	aucune
+
+## Fluidité depuis l'ouverture ou la remise à zéro (intervalle entre deux images)
+Classe (ms)	≤ 20	20–34	34–50	50–100	100–250	> 250
+Images	0	0	0	0	0	75
+· Images comptées : 75 · tâches longues (> 50 ms) : 75, la plus longue 1272 ms, total 61105 ms · changements de niveau de détail : 0 · dessin de la carte : 76 appels, 114.4 ms en moyenne (sans attente de la carte graphique) · coût du moniteur : 256.6 µs par image.
+
+## Images longues (> 50 ms) les plus récentes et travail en cours à ce moment
+à (ms)	durée ms	cause probable
+63331	1083	aucune opération JavaScript chronométrée (rendu par la carte graphique, travail du navigateur ou autre script)
+62248	1067	aucune opération JavaScript chronométrée (rendu par la carte graphique, travail du navigateur ou autre script)
+61181	1183	aucune opération JavaScript chronométrée (rendu par la carte graphique, travail du navigateur ou autre script)
+59998	1050	aucune opération JavaScript chronométrée (rendu par la carte graphique, travail du navigateur ou autre script)
+58948	1050	aucune opération JavaScript chronométrée (rendu par la carte graphique, travail du navigateur ou autre script)
+57898	1067	aucune opération JavaScript chronométrée (rendu par la carte graphique, travail du navigateur ou autre script)
+56831	1200	aucune opération JavaScript chronométrée (rendu par la carte graphique, travail du navigateur ou autre script)
+55631	1083	aucune opération JavaScript chronométrée (rendu par la carte graphique, travail du navigateur ou autre script)
+54548	1100	aucune opération JavaScript chronométrée (rendu par la carte graphique, travail du navigateur ou autre script)
+53448	1117	aucune opération JavaScript chronométrée (rendu par la carte graphique, travail du navigateur ou autre script)
+52331	1083	aucune opération JavaScript chronométrée (rendu par la carte graphique, travail du navigateur ou autre script)
+51248	1083	aucune opération JavaScript chronométrée (rendu par la carte graphique, travail du navigateur ou autre script)
+50165	1117	aucune opération JavaScript chronométrée (rendu par la carte graphique, travail du navigateur ou autre script)
+49048	1067	aucune opération JavaScript chronométrée (rendu par la carte graphique, travail du navigateur ou autre script)
+47982	1050	aucune opération JavaScript chronométrée (rendu par la carte graphique, travail du navigateur ou autre script)
+46932	1067	aucune opération JavaScript chronométrée (rendu par la carte graphique, travail du navigateur ou autre script)
+45865	1017	aucune opération JavaScript chronométrée (rendu par la carte graphique, travail du navigateur ou autre script)
+44848	967	aucune opération JavaScript chronométrée (rendu par la carte graphique, travail du navigateur ou autre script)
+43882	1067	aucune opération JavaScript chronométrée (rendu par la carte graphique, travail du navigateur ou autre script)
+42815	1017	aucune opération JavaScript chronométrée (rendu par la carte graphique, travail du navigateur ou autre script)
+41799	1083	aucune opération JavaScript chronométrée (rendu par la carte graphique, travail du navigateur ou autre script)
+40715	1050	aucune opération JavaScript chronométrée (rendu par la carte graphique, travail du navigateur ou autre script)
+39665	1267	dessin de l'image (3D) (148 ms) ; construction 3D · Fish-Man (147 ms)
+38399	1250	dessin de l'image (3D) (157 ms) ; construction 3D · Sabaody (155 ms)
+37149	1100	dessin de l'image (3D) (105 ms) ; construction 3D · Reverse Mountain (103 ms)
+
+## Images d'animation longues (navigateur, LoAF) : scripts les plus coûteux
+à (ms)	durée ms	blocage ms	scripts
+726	439	388	frame 292 ms, http://127.0.0.1:9302/essai_test.html 136 ms
+24742	368	318	frame 367 ms
+26015	247	196	frame 244 ms
+15152	219	169	frame 218 ms
+3703	218	69	frame 114 ms
+2065	216	160	frame 209 ms
+29223	211	161	frame 210 ms
+1765	211	159	frame 208 ms
