@@ -1,6 +1,7 @@
 const fs=require('fs');
 const root=__dirname+'/../',SRC=root+'src/';
-const test=process.argv[2]==='test',web=process.argv[2]==='web';
+/* essai : version « test » publiée sur claude.ai = jeu + prototypes de src/essai/ ; essai-test : la même avec l'accès de test */
+const essai=/^essai/.test(process.argv[2]||''),test=process.argv[2]==='test'||process.argv[2]==='essai-test',web=process.argv[2]==='web'||process.argv[2]==='essai-web';
 let h=fs.readFileSync(SRC+'base/grand_line_origine.html','utf8');
 const rd=f=>fs.readFileSync(SRC+'js/'+f,'utf8');
 function rep(a,b,n){n=n||1;const parts=h.split(a);if(parts.length-1!==n)throw new Error('ancre trouvée '+(parts.length-1)+'× au lieu de '+n+' : '+a.slice(0,80));h=parts.join(b);}
@@ -72,7 +73,8 @@ rep("ctx.drawImage(off,0,0,W,H);","if(!r25SeaDraw())ctx.drawImage(off,0,0,W,H);"
 /* 12. couche RISK OP */
 const MODS=['10-economie-phases-ia.js','11-recap-objectifs-heros.js','12-interface-onglets-minicarte.js','13-tutoriel.js','14-sauvegardes.js','15-ages.js','16-multijoueur-factions.js','17-multijoueur-web.js','18-progression.js','20-rendu25d-biomes.js','21-rendu25d-decors.js','22-rendu25d-iles.js','23-rendu25d-moteur.js','30-illustrations.js','40-menu-boutons.js','50-tableau-ile.js','51-economie.js','52-musique-medievale.js'];
 const block='/* ================= RISK OP : couche d\'expérience (audit, tutoriel, phases, économie, sauvegardes, sons, âges) ================= */\n'
-  +MODS.map(f=>'/* ─────────── module : '+f+' ─────────── */\n'+rd(f)).join('\n');
+  +MODS.map(f=>'/* ─────────── module : '+f+' ─────────── */\n'+rd(f)).join('\n')
+  +(essai?fs.readdirSync(SRC+'essai').filter(f=>f.endsWith('.js')).sort().map(f=>'\n/* ─────────── PROTOTYPE (version test) : '+f+' ─────────── */\n'+fs.readFileSync(SRC+'essai/'+f,'utf8')).join(''):'');
 rep('/* ================= Boucle principale ================= */',block+'\n/* ================= Boucle principale ================= */');
 if(test){
   rep("requestAnimationFrame(frame);\n})();\n"+"",
@@ -129,6 +131,17 @@ rep("const sc=ratio*(evTreasureAt(x.id)?1.5:1)","const sc=ratio*(rkCoalFocus(p,x
 rep("function rulesHTML(){","function rulesHTML_o(){");
 rep("+'<button class=\"btn primary\" id=\"l-start\">","+pgRulesBox('l-drules',NET.diff,+NET.pace)+'<button class=\"btn primary\" id=\"l-start\">");
 rep("$('#l-diff').addEventListener('change',e=>{NET.diff=e.target.value;});","$('#l-diff').addEventListener('change',e=>{NET.diff=e.target.value;const b=$('#l-drules');if(b)b.outerHTML=pgRulesBox('l-drules',NET.diff,+NET.pace);});");
+/* 25. version test seulement : prototype 3D (le dessin 2.5D d'une île passe d'abord par r3Check) */
+if(essai){
+  rep("function r25Draw(t,e,now,u){\n  const D=ISLE_ART","function r25Draw_o(t,e,now,u){\n  const D=ISLE_ART");
+  rep('<button id="z-reset"','<button id="z-3d" class="on" aria-pressed="true" title="Prototype 3D (Alabasta) : activer / désactiver">3D</button><button id="z-reset"');
+  if(!web)rep('<title>RISK OP</title>','<title>RISK OP test</title>');
+  /* monde 3D (version test) : la fonction de dessin de la carte passe d'abord par w3Frame ; bouton « Monde 3D » */
+  rep("function draw(){\n  if(!grid)return;","function draw_o(){\n  if(!grid)return;");
+  rep("V.k=clamp(V.k,1,3.5);","V.k=clamp(V.k,1,(typeof W3!=='undefined'&&W3.act)?18:3.5);");
+  rep("V.k=clamp(V.k*f,1,3.5);","V.k=clamp(V.k*f,1,(typeof W3!=='undefined'&&W3.act)?18:3.5);");
+  rep('<button id="z-3d"','<button id="z-w3" class="on" aria-pressed="true" title="Monde 3D : caméra libre (clic droit : tourner et incliner, Q/E : tourner)">🌍</button><button id="z-3d"');
+}
 /* 16. nettoyage : anciennes versions de fonctions et fonctions mortes */
 h=require('./shake.js')(h,true);
 /* 17. sommaire en tête du script principal */
@@ -136,5 +149,5 @@ const TOC='/* ==================================================================
 rep("<script>\n(()=>{\n'use strict';","<script>\n"+TOC+"/* global claude */\n(()=>{\n'use strict';");
 if(web){const lib=fs.readFileSync(root+'tools/vendor/peerjs-1.5.5.min.js','utf8').replace(/<\/script/gi,'<\\/script');
   rep('<script>\n/* ==========================================================================\n   RISK OP','<script>/* PeerJS 1.5.5 (licence MIT) — réseau pair-à-pair pour le multijoueur hors claude.ai */\n'+lib+'\n</script>\n<script>\n/* ==========================================================================\n   RISK OP');}
-fs.writeFileSync(root+'dist/'+(test?'risk_test.html':web?'index.html':'risk_op.html'),h);
-console.log('ok',(test?'test':web?'web (index.html)':'release'),h.length,'octets');
+fs.writeFileSync(root+'dist/'+(essai&&web?'index.html':essai?(test?'essai_test.html':'risk_op_test.html'):test?'risk_test.html':web?'index.html':'risk_op.html'),h);
+console.log('ok',(essai&&web?'essai-web (index.html)':essai?'essai'+(test?' (test)':''):test?'test':web?'web (index.html)':'release'),h.length,'octets');

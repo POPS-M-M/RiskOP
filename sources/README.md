@@ -31,7 +31,7 @@ src/
     51-economie.js                     Onglet Économie : Berrys, Villes, Techno (faisable d'abord, le reste replié).
     52-musique-medievale.js            Musique : 3 morceaux médiévaux + 1 chant de marins, tous originaux (Web Audio).
 tools/
-  build.js            Assemble dist/risk_op.html (et dist/risk_test.html avec `test`).
+  build.js            Assemble dist/risk_op.html (et dist/risk_test.html avec `test`) ; `essai`, `essai-test`, `essai-web` y ajoutent les modules de src/essai/.
   shake.js            Retire les anciennes versions de fonctions et les fonctions mortes (analyse acorn).
   expose-tests.txt    Accès de test ajouté uniquement à risk_test.html.
   eslintrc.json       Règles d'analyse statique.
@@ -51,7 +51,8 @@ dist/                 Fichiers assemblés.
 ```
 node tools/build.js          # dist/risk_op.html
 node tools/build.js test     # dist/risk_test.html
-node tools/build.js web      # dist/index.html : version à héberger (GitHub Pages…), PeerJS inclus
+node tools/build.js web      # dist/index.html : jeu sans les modules 3D (PeerJS inclus)
+node tools/build.js essai-web # dist/index.html : version publiée = jeu + monde 3D, combat 3D, nouveaux personnages et navires (src/essai/), PeerJS inclus
 npx eslint -c tools/eslintrc.json <script extrait>   # analyse statique
 cd dist && python3 -m http.server 8766               # requis par t_ill, t_25, t_ara
 node tests/t_ui.js           # etc.
@@ -71,3 +72,7 @@ Pour modifier l'apparence d'une île : éditer sa fiche dans `src/js/22-rendu25d
 
 - Mêmes calculs et mêmes actions (data-act existants) que les anciennes fiches : seule la présentation change.
 - Tests : `t_maq` (onglet Île), `t_eco` (Économie), `t_music` (rendu audio hors ligne ; `node tests/t_music.js wav` écrit des extraits .wav).
+
+## src/essai/ (monde 3D et personnages)
+
+Modules ajoutés par les modes `essai*` : `60-rendu3d` (géométrie et relief), `61-monde3d` (carte 3D, caméra libre, îles teintées à la couleur du propriétaire), `62-combat3d` (scène de bataille : navires en caravelle, soldats qui voyagent sur le pont puis débarquent), `63-refonte-iles`, `64-66-persos-*` (personnages stylisés, sprites et débarquements), `67-objectifs-discrets` (fiche d'objectif repliée en pastille). L'atelier de comparaison des personnages s'ouvre avec Maj+P (aucun bouton à l'écran).
