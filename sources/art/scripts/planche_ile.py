@@ -131,7 +131,10 @@ cols = T['colonnes']; lw = 560 if len(cols) <= 5 else 450; cw = [lw] + [min(420,
 for k, h in enumerate([''] + cols): txt(40 + sum(cw[:k]), y, h, 21, GOLD if k == len(cols) else INK, True)
 y += 34
 for lab, vals in T['tableau']:
-    for k, v in enumerate([lab] + vals): txt(40 + sum(cw[:k]), y, str(v), 19 if len(cols) <= 5 else 18, INK if k else MUTED, k == len(cols))
+    for k, v in enumerate([lab] + vals):
+        fs = 19 if len(cols) <= 5 else 18; bold = k == len(cols)
+        while fs > 12 and d.textlength(str(v), font=F(fs, bold)) > cw[k] - 12: fs -= 1          # cellule trop longue : police réduite
+        txt(40 + sum(cw[:k]), y + (18 - fs) // 2, str(v), fs, INK if k else MUTED, bold)
     y += 28
 y += 14
 for l in T['verifs']: txt(40, y, '✔ ' + l, 19); y += 28

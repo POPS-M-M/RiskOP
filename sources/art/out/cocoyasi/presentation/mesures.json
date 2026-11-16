@@ -1,0 +1,166 @@
+{
+ "colonnes": [
+  "Zou",
+  "Whole Cake",
+  "Water 7",
+  "Loguetown",
+  "Wano",
+  "Alabasta",
+  "Syrup",
+  "Cocoyasi"
+ ],
+ "tableau": [
+  [
+   "Bâtiments (scène)",
+   [
+    "—",
+    "—",
+    "357",
+    "278 + 14",
+    "109 + monuments",
+    "171 + monuments",
+    "98 + monuments",
+    "101 + monuments"
+   ]
+  ],
+  [
+   "Triangles scène Blender",
+   [
+    "—",
+    "—",
+    "121 728",
+    "80 970",
+    "100 842",
+    "70 880",
+    "81 325",
+    "101 462"
+   ]
+  ],
+  [
+   "lod0 · triangles / fichier / gzip",
+   [
+    "81311 · 1.94 Mo · 1.40 Mo",
+    "57679 · 1.33 Mo · 0.78 Mo",
+    "85206 · 4.59 Mo · 1.53 Mo",
+    "56677 · 3.44 Mo · 1.08 Mo",
+    "70585 · 4.20 Mo · 1.26 Mo",
+    "49611 · 3.12 Mo · 0.99 Mo",
+    "56924 · 2.14 Mo · 0.86 Mo",
+    "71019 · 3.62 Mo · 1.30 Mo"
+   ]
+  ],
+  [
+   "lod1 · triangles / fichier",
+   [
+    "25550 · 0.67 Mo",
+    "18123 · 0.45 Mo",
+    "26779 · 1.62 Mo",
+    "17810 · 1.04 Mo",
+    "22181 · 1.33 Mo",
+    "15588 · 0.95 Mo",
+    "17889 · 0.77 Mo",
+    "22319 · 1.26 Mo"
+   ]
+  ],
+  [
+   "lod2 · triangles / fichier",
+   [
+    "6966 · 251 Ko",
+    "4940 · 163 Ko",
+    "7301 · 446 Ko",
+    "4855 · 310 Ko",
+    "6049 · 465 Ko",
+    "4251 · 291 Ko",
+    "4877 · 304 Ko",
+    "6086 · 355 Ko"
+   ]
+  ],
+  [
+   "Images 2.5D (webp, total)",
+   [
+    "130 Ko",
+    "171 Ko",
+    "272 Ko",
+    "280 Ko",
+    "244 Ko",
+    "215 Ko",
+    "195 Ko",
+    "230 Ko"
+   ]
+  ],
+  [
+   "Export Blender (Cycles CPU)",
+   [
+    "188 s",
+    "171 s",
+    "158 s",
+    "150 s",
+    "174 s",
+    "137 s",
+    "126 s",
+    "115 s"
+   ]
+  ],
+  [
+   "Mémoire graphique 3D ¹",
+   [
+    "2.58 Mo",
+    "1.76 Mo",
+    "6.07 Mo",
+    "4.33 Mo",
+    "5.44 Mo",
+    "3.11 Mo",
+    "2.86 Mo",
+    "4.74 Mo"
+   ]
+  ],
+  [
+   "Sommets indexés envoyés",
+   [
+    "67827",
+    "45453",
+    "172858",
+    "125524",
+    "158008",
+    "89014",
+    "85173",
+    "132751"
+   ]
+  ],
+  [
+   "Cuisson lod0, en tranches ²",
+   [
+    "3.6 s",
+    "2.2 s",
+    "8.8 s",
+    "7.4 s",
+    "7.6 s",
+    "5.6 s",
+    "4.3 s",
+    "7.2 s"
+   ]
+  ],
+  [
+   "Conquête 3D : reconstruction",
+   [
+    "4 ms",
+    "11 ms",
+    "6 ms",
+    "4 ms",
+    "9 ms",
+    "4 ms",
+    "4 ms",
+    "4 ms"
+   ]
+  ]
+ ],
+ "verifs": [
+  "¹ Avec le socle : trois niveaux gardés indexés sur la carte graphique. ² Temps écoulé, images dessinées entre les tranches comprises (rendu logiciel lent) : ce n'est pas un gel.",
+  "Mesures faites avec le socle (toutes les colonnes, même session) ; 0 erreur de page en 2.5D et en 3D ; 52 fichiers vérifiés par empreinte SHA-256, 0 rejet ; Cocoyasi 3D construite depuis le modèle Blender.",
+  "Les sept autres îles : fichiers sources, .blend et exports inchangés ; src/, tools/ et build public dist/risk_op.html inchangés (sha256 08e04954…).",
+  "Coordonnées, rayon, contour, zones de clic, règles et sauvegardes : non touchés.",
+  "Budget respecté : lod0 ≤ 90 000 triangles (71 019), mémoire graphique ≤ 10 Mo (4,74 Mo), images ≤ 300 Ko.",
+  "Alabasta : son lod1, préchargé puis inutilisé, avait été libéré (règle des 45 s) au moment de la mesure.",
+  "Branche essai/ile-cocoyasi seulement (part de Syrup validée) ; rien sur main ni gh-pages."
+ ]
+}

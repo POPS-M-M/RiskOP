@@ -143,7 +143,13 @@
   "Végétation : mandariniers en rangs, palmiers, bananiers, frangipaniers, jungle.",
   "Kit : rk_bali.py (nouveau) ; reprises limitées (fenêtres, quai)."
  ],
- "limites": [],
+ "limites": [
+  "Rizières en anneaux irréguliers autour d'une seule colline [I] : plus réguliers que de vraies terrasses ; le riz est figuré par des points.",
+  "Au zoom du jeu, murs de cour et portes fendues sont petits : le style balinais se lit surtout dans les vues Blender.",
+  "Ruines d'Arlong Park : seuls l'emplacement côtier, le bassin relié à la mer, les deux portes d'acier et la destruction sont sourcés ; la forme du bâtiment est interprétée [I], sans emblème.",
+  "En 3D, l'éclairage cuit assombrit le sol autour des bosquets (taches sombres).",
+  "Eau des rizières et du bassin immobile ; moulin à vent [C?] non confirmé par une source."
+ ],
  "sources": [
   "One Piece Wiki, « Cocoyasi Village » : https://onepiece.fandom.com/wiki/Cocoyasi_Village (consultée le 16/11/2026)",
   "One Piece Wiki, « Conomi Islands » : https://onepiece.fandom.com/wiki/Conomi_Islands (consultée le 16/11/2026)",
