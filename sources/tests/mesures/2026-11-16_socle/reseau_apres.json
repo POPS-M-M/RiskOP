@@ -1,0 +1,1141 @@
+{
+ "demarrage25": {
+  "req": {
+   "index": {
+    "n": 1,
+    "o": 1123,
+    "f": [
+     "index.json"
+    ]
+   },
+   "manifestes": {
+    "n": 6,
+    "o": 19047,
+    "f": [
+     "zou/manifest.c933e6dd.json",
+     "whole_cake/manifest.f780d420.json",
+     "water_7/manifest.347fcbc9.json",
+     "loguetown/manifest.f0a09666.json",
+     "wano/manifest.a518dcd2.json",
+     "alabasta/manifest.e02b9d43.json"
+    ]
+   },
+   "l1": {
+    "n": 6,
+    "o": 42444,
+    "f": [
+     "zou/l1.dcf65261.webp",
+     "whole_cake/l1.2e098db0.webp",
+     "water_7/l1.16e9682e.webp",
+     "loguetown/l1.a06b98ad.webp",
+     "wano/l1.9832f284.webp",
+     "alabasta/l1.d959eb30.webp"
+    ]
+   }
+  },
+  "mem": {
+   "mode": "2.5D",
+   "glTotal": 0,
+   "glBlender": {},
+   "glOrigine": 0,
+   "gltfJS": 0,
+   "img": {
+    "blender_compose|alloué": 169676,
+    "origine_gardee|alloué": 2551956,
+    "origine|alloué": 5156020,
+    "blender_img|alloué": 780448
+   },
+   "sommets": {}
+  }
+ },
+ "zoom25": {
+  "req": {
+   "2.5D fin": {
+    "n": 2,
+    "o": 115222,
+    "f": [
+     "whole_cake/l3.5ca8736d.webp",
+     "whole_cake/l2.c6e3ecd4.webp"
+    ]
+   }
+  },
+  "mem": {
+   "mode": "2.5D",
+   "glTotal": 0,
+   "glBlender": {},
+   "glOrigine": 0,
+   "gltfJS": 115222,
+   "img": {
+    "origine|alloué": 10207224,
+    "blender_compose|alloué": 7606192,
+    "blender_img|alloué": 8556316,
+    "origine_gardee|alloué": 2551956
+   },
+   "sommets": {}
+  }
+ },
+ "bascule3d": {
+  "req": {
+   "hauteurs": {
+    "n": 6,
+    "o": 393216,
+    "f": [
+     "loguetown/hauteurs.d305f7b4.bin",
+     "alabasta/hauteurs.eec63979.bin",
+     "water_7/hauteurs.cd8a8964.bin",
+     "zou/hauteurs.4198a1b1.bin",
+     "whole_cake/hauteurs.674a60e2.bin",
+     "wano/hauteurs.bc44c6d7.bin"
+    ]
+   },
+   "lod2": {
+    "n": 6,
+    "o": 1926284,
+    "f": [
+     "loguetown/lod2.83100bd4.glb",
+     "alabasta/lod2.96e4377a.glb",
+     "water_7/lod2.3527af93.glb",
+     "zou/lod2.e08a7bcb.glb",
+     "whole_cake/lod2.81e57e46.glb",
+     "wano/lod2.ca031565.glb"
+    ]
+   },
+   "lod1/lod0": {
+    "n": 6,
+    "o": 14750768,
+    "f": [
+     "loguetown/lod0.e91c1059.glb",
+     "loguetown/lod1.2ba5c065.glb",
+     "alabasta/lod0.7e2d992e.glb",
+     "alabasta/lod1.708ac3fd.glb",
+     "water_7/lod0.6db8269b.glb",
+     "water_7/lod1.46b4e717.glb"
+    ]
+   }
+  },
+  "mem": {
+   "mode": "3D",
+   "glTotal": 99233056,
+   "glBlender": {
+    "Loguetown": 1238658,
+    "Alabasta": 1141258,
+    "Water 7": 441266,
+    "Zou": 270584,
+    "Whole Cake": 191452,
+    "Wano": 456490
+   },
+   "glOrigine": 95493132,
+   "gltfJS": 508438,
+   "img": {
+    "origine|alloué": 10207224,
+    "blender_compose|alloué": 169676,
+    "origine_gardee|alloué": 2551956,
+    "blender_img|alloué": 780448,
+    "mer|alloué": 1204000
+   },
+   "sommets": {
+    "Loguetown": {
+     "sommets": 0,
+     "lod1": 28971,
+     "lod2": 8682,
+     "indexe": true,
+     "dyn": 0
+    },
+    "Orange Town": {
+     "sommets": 73272,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Shells Town": {
+     "sommets": 70338,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Syrup": {
+     "sommets": 75051,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Baratie": {
+     "sommets": 66456,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Cocoyasi": {
+     "sommets": 84375,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Goa": {
+     "sommets": 75000,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Foosha": {
+     "sommets": 75027,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Lvneel": {
+     "sommets": 72021,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Flevance": {
+     "sommets": 59109,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Germa": {
+     "sommets": 62238,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Ruskaina": {
+     "sommets": 59490,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Lulusia": {
+     "sommets": 59436,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Spider Miles": {
+     "sommets": 59334,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Mirrorball": {
+     "sommets": 75480,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Ohara": {
+     "sommets": 73986,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Sphinx": {
+     "sommets": 76896,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Sorbet": {
+     "sommets": 70554,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Hachinosu": {
+     "sommets": 58812,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Raijin": {
+     "sommets": 67218,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Karate": {
+     "sommets": 73812,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Baterilla": {
+     "sommets": 74940,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Briss": {
+     "sommets": 78708,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Torino": {
+     "sommets": 89172,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Birka": {
+     "sommets": 74124,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Kamabakka": {
+     "sommets": 73500,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Whisky Peak": {
+     "sommets": 84825,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Little Garden": {
+     "sommets": 87957,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Drum": {
+     "sommets": 62832,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Alabasta": {
+     "sommets": 0,
+     "lod1": 26596,
+     "lod2": 8184,
+     "indexe": true,
+     "dyn": 0
+    },
+    "Jaya": {
+     "sommets": 71907,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Skypiea": {
+     "sommets": 75600,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Long Ring Long Land": {
+     "sommets": 52950,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Water 7": {
+     "sommets": 0,
+     "lod1": 0,
+     "lod2": 12467,
+     "indexe": true,
+     "dyn": 0
+    },
+    "Enies Lobby": {
+     "sommets": 57906,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Thriller Bark": {
+     "sommets": 61527,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Impel Down": {
+     "sommets": 56466,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Amazon Lily": {
+     "sommets": 75480,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Punk Hazard": {
+     "sommets": 57819,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Dressrosa": {
+     "sommets": 78474,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Zou": {
+     "sommets": 0,
+     "lod1": 0,
+     "lod2": 6443,
+     "indexe": true,
+     "dyn": 0
+    },
+    "Whole Cake": {
+     "sommets": 0,
+     "lod1": 0,
+     "lod2": 4051,
+     "indexe": true,
+     "dyn": 0
+    },
+    "New Marineford": {
+     "sommets": 77178,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Wano": {
+     "sommets": 0,
+     "lod1": 0,
+     "lod2": 13279,
+     "indexe": true,
+     "dyn": 0
+    },
+    "Elbaf": {
+     "sommets": 78948,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Kuraigana": {
+     "sommets": 78051,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Baltigo": {
+     "sommets": 59676,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Egghead": {
+     "sommets": 64785,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Laugh Tale": {
+     "sommets": 72012,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Mary Geoise": {
+     "sommets": 62097,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Reverse Mountain": {
+     "sommets": 57846,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Sabaody": {
+     "sommets": 91656,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Fish-Man": {
+     "sommets": 80304,
+     "lod1": 0,
+     "lod2": 0
+    }
+   }
+  },
+  "blx": {
+   "isl": {
+    "Zou": {
+     "ready3": true,
+     "fail3": false,
+     "g3": {
+      "lod2": "pret"
+     },
+     "vu3": "",
+     "vu25": "",
+     "img": [
+      "l1"
+     ],
+     "img_ld": {
+      "l1": ""
+     },
+     "cv": []
+    },
+    "Whole Cake": {
+     "ready3": true,
+     "fail3": false,
+     "g3": {
+      "lod2": "pret"
+     },
+     "vu3": "",
+     "vu25": "l3l2l1",
+     "img": [
+      "l1"
+     ],
+     "img_ld": {
+      "l1": "",
+      "l3": "",
+      "l2": ""
+     },
+     "cv": []
+    },
+    "Water 7": {
+     "ready3": true,
+     "fail3": false,
+     "g3": {
+      "lod2": "pret",
+      "lod0": "en cours",
+      "lod1": "en cours"
+     },
+     "vu3": "lod2",
+     "vu25": "",
+     "img": [
+      "l1"
+     ],
+     "img_ld": {
+      "l1": ""
+     },
+     "cv": []
+    },
+    "Loguetown": {
+     "ready3": true,
+     "fail3": false,
+     "g3": {
+      "lod2": "pret",
+      "lod0": "en cours",
+      "lod1": "pret"
+     },
+     "vu3": "lod1",
+     "vu25": "",
+     "img": [
+      "l1"
+     ],
+     "img_ld": {
+      "l1": ""
+     },
+     "cv": []
+    },
+    "Wano": {
+     "ready3": true,
+     "fail3": false,
+     "g3": {
+      "lod2": "pret"
+     },
+     "vu3": "",
+     "vu25": "",
+     "img": [
+      "l1"
+     ],
+     "img_ld": {
+      "l1": ""
+     },
+     "cv": []
+    },
+    "Alabasta": {
+     "ready3": true,
+     "fail3": false,
+     "g3": {
+      "lod2": "pret",
+      "lod0": "en cours",
+      "lod1": "pret"
+     },
+     "vu3": "lod1",
+     "vu25": "",
+     "img": [
+      "l1"
+     ],
+     "img_ld": {
+      "l1": ""
+     },
+     "cv": []
+    }
+   },
+   "err": "",
+   "stat": {
+    "req": 26,
+    "essais": 0,
+    "liberes25": 2,
+    "liberes3": 0,
+    "cuits": 8
+   },
+   "rejets": [],
+   "cuis": [
+    {
+     "ile": "Loguetown",
+     "lod": "lod2",
+     "ms": 1582,
+     "sommets": 8682,
+     "triangles": 4855
+    },
+    {
+     "ile": "Alabasta",
+     "lod": "lod2",
+     "ms": 4032,
+     "sommets": 8184,
+     "triangles": 4251
+    },
+    {
+     "ile": "Water 7",
+     "lod": "lod2",
+     "ms": 2595,
+     "sommets": 12467,
+     "triangles": 7301
+    },
+    {
+     "ile": "Zou",
+     "lod": "lod2",
+     "ms": 1263,
+     "sommets": 6443,
+     "triangles": 6966
+    },
+    {
+     "ile": "Whole Cake",
+     "lod": "lod2",
+     "ms": 647,
+     "sommets": 4051,
+     "triangles": 4940
+    },
+    {
+     "ile": "Wano",
+     "lod": "lod2",
+     "ms": 2139,
+     "sommets": 13279,
+     "triangles": 6049
+    },
+    {
+     "ile": "Loguetown",
+     "lod": "lod1",
+     "ms": 4027,
+     "sommets": 28971,
+     "triangles": 17810
+    },
+    {
+     "ile": "Alabasta",
+     "lod": "lod1",
+     "ms": 5339,
+     "sommets": 26596,
+     "triangles": 15588
+    }
+   ]
+  }
+ },
+ "zoom3d": {
+  "req": {
+   "lod1/lod0": {
+    "n": 4,
+    "o": 4399000,
+    "f": [
+     "zou/lod0.0fb618eb.glb",
+     "zou/lod1.f33c3b30.glb",
+     "whole_cake/lod0.3ae22724.glb",
+     "whole_cake/lod1.3e451f38.glb"
+    ]
+   }
+  },
+  "mem": {
+   "mode": "3D",
+   "glTotal": 113448346,
+   "glBlender": {
+    "Loguetown": 4379170,
+    "Alabasta": 3999830,
+    "Water 7": 4683486,
+    "Zou": 2630502,
+    "Whole Cake": 1805520,
+    "Wano": 456490
+   },
+   "glOrigine": 95493132,
+   "gltfJS": 508438,
+   "img": {
+    "origine|alloué": 10207224,
+    "blender_compose|alloué": 169676,
+    "origine_gardee|alloué": 2551956,
+    "blender_img|alloué": 780448,
+    "mer|alloué": 1204000
+   },
+   "sommets": {
+    "Loguetown": {
+     "sommets": 87871,
+     "lod1": 28971,
+     "lod2": 8682,
+     "indexe": true,
+     "dyn": 0
+    },
+    "Orange Town": {
+     "sommets": 73272,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Shells Town": {
+     "sommets": 70338,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Syrup": {
+     "sommets": 75051,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Baratie": {
+     "sommets": 66456,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Cocoyasi": {
+     "sommets": 84375,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Goa": {
+     "sommets": 75000,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Foosha": {
+     "sommets": 75027,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Lvneel": {
+     "sommets": 72021,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Flevance": {
+     "sommets": 59109,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Germa": {
+     "sommets": 62238,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Ruskaina": {
+     "sommets": 59490,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Lulusia": {
+     "sommets": 59436,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Spider Miles": {
+     "sommets": 59334,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Mirrorball": {
+     "sommets": 75480,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Ohara": {
+     "sommets": 73986,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Sphinx": {
+     "sommets": 76896,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Sorbet": {
+     "sommets": 70554,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Hachinosu": {
+     "sommets": 58812,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Raijin": {
+     "sommets": 67218,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Karate": {
+     "sommets": 73812,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Baterilla": {
+     "sommets": 74940,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Briss": {
+     "sommets": 78708,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Torino": {
+     "sommets": 89172,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Birka": {
+     "sommets": 74124,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Kamabakka": {
+     "sommets": 73500,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Whisky Peak": {
+     "sommets": 84825,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Little Garden": {
+     "sommets": 87957,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Drum": {
+     "sommets": 62832,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Alabasta": {
+     "sommets": 80830,
+     "lod1": 26596,
+     "lod2": 8184,
+     "indexe": true,
+     "dyn": 0
+    },
+    "Jaya": {
+     "sommets": 71907,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Skypiea": {
+     "sommets": 75600,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Long Ring Long Land": {
+     "sommets": 52950,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Water 7": {
+     "sommets": 114991,
+     "lod1": 0,
+     "lod2": 12467,
+     "indexe": true,
+     "dyn": 0
+    },
+    "Enies Lobby": {
+     "sommets": 57906,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Thriller Bark": {
+     "sommets": 61527,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Impel Down": {
+     "sommets": 56466,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Amazon Lily": {
+     "sommets": 75480,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Punk Hazard": {
+     "sommets": 57819,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Dressrosa": {
+     "sommets": 78474,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Zou": {
+     "sommets": 45336,
+     "lod1": 16048,
+     "lod2": 6443,
+     "indexe": true,
+     "dyn": 0
+    },
+    "Whole Cake": {
+     "sommets": 30692,
+     "lod1": 10710,
+     "lod2": 4051,
+     "indexe": true,
+     "dyn": 0
+    },
+    "New Marineford": {
+     "sommets": 77178,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Wano": {
+     "sommets": 0,
+     "lod1": 0,
+     "lod2": 13279,
+     "indexe": true,
+     "dyn": 0
+    },
+    "Elbaf": {
+     "sommets": 78948,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Kuraigana": {
+     "sommets": 78051,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Baltigo": {
+     "sommets": 59676,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Egghead": {
+     "sommets": 64785,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Laugh Tale": {
+     "sommets": 72012,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Mary Geoise": {
+     "sommets": 62097,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Reverse Mountain": {
+     "sommets": 57846,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Sabaody": {
+     "sommets": 91656,
+     "lod1": 0,
+     "lod2": 0
+    },
+    "Fish-Man": {
+     "sommets": 80304,
+     "lod1": 0,
+     "lod2": 0
+    }
+   }
+  },
+  "blx": {
+   "isl": {
+    "Zou": {
+     "ready3": true,
+     "fail3": false,
+     "g3": {
+      "lod2": "pret",
+      "lod0": "pret",
+      "lod1": "pret"
+     },
+     "vu3": "lod0",
+     "vu25": "",
+     "img": [
+      "l1"
+     ],
+     "img_ld": {
+      "l1": ""
+     },
+     "cv": []
+    },
+    "Whole Cake": {
+     "ready3": true,
+     "fail3": false,
+     "g3": {
+      "lod2": "pret",
+      "lod0": "pret",
+      "lod1": "pret"
+     },
+     "vu3": "lod0",
+     "vu25": "l3l2l1",
+     "img": [
+      "l1"
+     ],
+     "img_ld": {
+      "l1": "",
+      "l3": "",
+      "l2": ""
+     },
+     "cv": []
+    },
+    "Water 7": {
+     "ready3": true,
+     "fail3": false,
+     "g3": {
+      "lod2": "pret",
+      "lod0": "pret"
+     },
+     "vu3": "lod2",
+     "vu25": "",
+     "img": [
+      "l1"
+     ],
+     "img_ld": {
+      "l1": ""
+     },
+     "cv": []
+    },
+    "Loguetown": {
+     "ready3": true,
+     "fail3": false,
+     "g3": {
+      "lod2": "pret",
+      "lod0": "pret",
+      "lod1": "pret"
+     },
+     "vu3": "lod1",
+     "vu25": "",
+     "img": [
+      "l1"
+     ],
+     "img_ld": {
+      "l1": ""
+     },
+     "cv": []
+    },
+    "Wano": {
+     "ready3": true,
+     "fail3": false,
+     "g3": {
+      "lod2": "pret"
+     },
+     "vu3": "",
+     "vu25": "",
+     "img": [
+      "l1"
+     ],
+     "img_ld": {
+      "l1": ""
+     },
+     "cv": []
+    },
+    "Alabasta": {
+     "ready3": true,
+     "fail3": false,
+     "g3": {
+      "lod2": "pret",
+      "lod0": "pret",
+      "lod1": "pret"
+     },
+     "vu3": "lod1",
+     "vu25": "",
+     "img": [
+      "l1"
+     ],
+     "img_ld": {
+      "l1": ""
+     },
+     "cv": []
+    }
+   },
+   "err": "",
+   "stat": {
+    "req": 30,
+    "essais": 0,
+    "liberes25": 2,
+    "liberes3": 1,
+    "cuits": 16
+   },
+   "rejets": [],
+   "cuis": [
+    {
+     "ile": "Loguetown",
+     "lod": "lod2",
+     "ms": 1582,
+     "sommets": 8682,
+     "triangles": 4855
+    },
+    {
+     "ile": "Alabasta",
+     "lod": "lod2",
+     "ms": 4032,
+     "sommets": 8184,
+     "triangles": 4251
+    },
+    {
+     "ile": "Water 7",
+     "lod": "lod2",
+     "ms": 2595,
+     "sommets": 12467,
+     "triangles": 7301
+    },
+    {
+     "ile": "Zou",
+     "lod": "lod2",
+     "ms": 1263,
+     "sommets": 6443,
+     "triangles": 6966
+    },
+    {
+     "ile": "Whole Cake",
+     "lod": "lod2",
+     "ms": 647,
+     "sommets": 4051,
+     "triangles": 4940
+    },
+    {
+     "ile": "Wano",
+     "lod": "lod2",
+     "ms": 2139,
+     "sommets": 13279,
+     "triangles": 6049
+    },
+    {
+     "ile": "Loguetown",
+     "lod": "lod1",
+     "ms": 4027,
+     "sommets": 28971,
+     "triangles": 17810
+    },
+    {
+     "ile": "Alabasta",
+     "lod": "lod1",
+     "ms": 5339,
+     "sommets": 26596,
+     "triangles": 15588
+    },
+    {
+     "ile": "Water 7",
+     "lod": "lod1",
+     "ms": 6017,
+     "sommets": 45400,
+     "triangles": 26779
+    },
+    {
+     "ile": "Zou",
+     "lod": "lod1",
+     "ms": 725,
+     "sommets": 16048,
+     "triangles": 25550
+    },
+    {
+     "ile": "Whole Cake",
+     "lod": "lod1",
+     "ms": 725,
+     "sommets": 10710,
+     "triangles": 18123
+    },
+    {
+     "ile": "Whole Cake",
+     "lod": "lod0",
+     "ms": 1534,
+     "sommets": 30692,
+     "triangles": 57679
+    },
+    {
+     "ile": "Alabasta",
+     "lod": "lod0",
+     "ms": 10201,
+     "sommets": 80830,
+     "triangles": 49611
+    },
+    {
+     "ile": "Zou",
+     "lod": "lod0",
+     "ms": 2139,
+     "sommets": 45336,
+     "triangles": 81311
+    },
+    {
+     "ile": "Loguetown",
+     "lod": "lod0",
+     "ms": 10275,
+     "sommets": 87871,
+     "triangles": 56677
+    },
+    {
+     "ile": "Water 7",
+     "lod": "lod0",
+     "ms": 10327,
+     "sommets": 114991,
+     "triangles": 85206
+    }
+   ]
+  }
+ },
+ "errs": []
+}

@@ -160,7 +160,7 @@ function blxGlb(buf){
 function blxMesh(nodes){
   const grp=n=>/^VILLE_(\d)/.test(n.name)?+RegExp.$1:1,ord=nodes.slice().sort((a,b)=>grp(a)-grp(b));
   let nv=0,ni=0;for(const nd of ord){nv+=nd.P.length/3;ni+=nd.I?nd.I.length:nd.P.length/3;}
-  const P=new Float32Array(nv*3),N=new Float32Array(nv*3),C=new Float32Array(nv*3),I=new Uint32Array(ni),fin={1:0,2:0,3:0,4:0};
+  const P=new Float32Array(nv*3),N=new Float32Array(nv*3),C=new Float32Array(nv*3),I=new Uint32Array(ni),fin={1:0,2:0,3:0,4:0},vgrp=new Uint8Array(nv);
   let v0=0,i0=0;
   for(const nd of ord){const n=nd.P.length/3,Cc=nd.C,cs=Cc?(Cc.T===Uint16Array?65535:Cc.T===Uint8Array?255:1):1,cn=Cc?Cc.nc:4;
     for(let v=0;v<n;v++){const o=(v0+v)*3;P[o]=nd.P[v*3];P[o+1]=nd.P[v*3+2];P[o+2]=nd.P[v*3+1];
@@ -168,23 +168,23 @@ function blxMesh(nodes){
       /* couleurs glTF linéaires → sRGB (le jeu travaille en sRGB) */
       if(Cc){const d=Cc.d;C[o]=Math.pow(d[v*cn]/cs,1/2.2);C[o+1]=Math.pow(d[v*cn+1]/cs,1/2.2);C[o+2]=Math.pow(d[v*cn+2]/cs,1/2.2);}else{C[o]=.8;C[o+1]=.8;C[o+2]=.8;}}
     if(nd.I)for(let k=0;k<nd.I.length;k++)I[i0+k]=v0+nd.I[k];else for(let k=0;k<n;k++)I[i0+k]=v0+k;
-    v0+=n;i0+=nd.I?nd.I.length:n;const g=grp(nd);for(let L=g;L<=4;L++)fin[L]=i0;}
+    const g=grp(nd);vgrp.fill(g,v0,v0+n);v0+=n;i0+=nd.I?nd.I.length:n;for(let L=g;L<=4;L++)fin[L]=i0;}
   /* plage d'un niveau = fin de son groupe ; un niveau sans calque garde la plage du niveau inférieur */
   for(let L=2;L<=4;L++)if(fin[L]<fin[L-1])fin[L]=fin[L-1];
-  return {P,N,C,I,nv,ni,fin};}
+  return {P,N,C,I,nv,ni,fin,vgrp};}
 /* cuisson en tranches : même éclairage que w3Bake (fonction w3Lit partagée), sans la teinte du propriétaire ;
    4e composante = poids « sol » (faces tournées vers le haut) qui reçoit la teinte au dessin */
 function blxCuire(name,lod,mesh){
   return new Promise((ok,ko)=>{const I=BLX.isl[name];
     if(!I.hAt)I.hAt=w3HF({H:I.Ho,tops:[],ext:I.m.cadre.ext});
-    const hAt=I.hAt,O=new Float32Array(mesh.nv*7),q=[0,0,0,0];let v=0,ys=0;
+    const hAt=I.hAt,O=new Float32Array(mesh.nv*7),q=[0,0,0,0],ysL=[0,0,0,0,0];let v=0;
     const step=()=>{const t0=blxNow();try{
         for(;v<mesh.nv&&blxNow()-t0<BLX.cfg.tranche;v++){const o=v*3,x=mesh.P[o],y=mesh.P[o+1],z=mesh.P[o+2];
           w3Lit(hAt,x,y,z,mesh.N[o],mesh.N[o+1],mesh.N[o+2],mesh.C[o],mesh.C[o+1],mesh.C[o+2],false,q,0);
           const k=v*7;O[k]=x;O[k+1]=y;O[k+2]=z;O[k+3]=q[0];O[k+4]=q[1];O[k+5]=q[2];O[k+6]=q[3]>.55?Math.min(1,(q[3]-.55)/.3):0;
-          if(z>.4&&y>ys)ys=y;}
+          if(z>.4){const g=mesh.vgrp[v];for(let L=g;L<=4;L++)if(y>ysL[L])ysL[L]=y;}}
         if(v<mesh.nv){setTimeout(step,0);return;}
-        ok({O,ys});}catch(err){ko(err);}};
+        ok({O,ysL});}catch(err){ko(err);}};
     setTimeout(step,0);});}
 const BLX_VS='attribute vec3 p;attribute vec4 c;uniform vec3 eye,cr,cu,cf,off,oc;uniform vec4 P;uniform float os,olo;varying vec4 vc;varying float vz;varying vec3 wp;'
  +'void main(){vec3 q=p+off,d=q-eye;float x=dot(d,cr),y=dot(d,cu),z=dot(d,cf);gl_Position=vec4(x*P.x,y*P.y,(z*(P.w+P.z)-2.*P.w*P.z)/(P.w-P.z),z);'
@@ -217,10 +217,9 @@ function blxWant3(name,lod){
       try{vb=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,vb);gl.bufferData(gl.ARRAY_BUFFER,arr,gl.STATIC_DRAW);
         if(draw==='el'){G.ib=gl.createBuffer();gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,G.ib);gl.bufferData(gl.ELEMENT_ARRAY_BUFFER,ib,gl.STATIC_DRAW);}}
       finally{if(typeof MES!=='undefined')MES.tag=null;}
-      Object.assign(G,{st:'pret',vb,type,draw,fin:mesh.fin,nv:mesh.nv,ni,octets:arr.byteLength+(draw==='el'?ib.byteLength:0),cuisson:t1-t0,ys:B.ys});
+      Object.assign(G,{st:'pret',vb,type,draw,fin:mesh.fin,nv:mesh.nv,ni,octets:arr.byteLength+(draw==='el'?ib.byteLength:0),cuisson:t1-t0,ysL:B.ysL});
       BLX.stat.cuits++;BLX.cuis.push({ile:name,lod,ms:Math.round(t1-t0),sommets:mesh.nv,triangles:ni/3});
       if(typeof mesEv==='function')mesEv('cuisson 3D Blender (en tranches)',name,t0,t1,lod+' · '+mesh.nv+' sommets · '+(G.octets/1048576).toFixed(2)+' Mo envoyés');
-      I.ys=Math.max(I.ys,B.ys);
       if(!I.ready3){I.ready3=true;BLX.loaded++;blxRefresh(name);}
       dirty=true;}
     catch(err){G.st='echec';
@@ -228,12 +227,13 @@ function blxWant3(name,lod){
       if(['lod2','lod1','lod0'].every(l=>I.g3[l]&&I.g3[l].st==='echec')||!I.Hs){I.fail3=true;if(I.ready3){I.ready3=false;blxRefresh(name);}}
       else if(!I.ready3){const nx=lod==='lod2'?'lod1':lod==='lod1'?'lod0':null;if(nx)blxWant3(name,nx);}}})();}
 function blxDrop3(I,lod){const G=I.g3[lod];if(!G)return;if(G.st==='pret'&&W3.gl){try{W3.gl.deleteBuffer(G.vb);if(G.ib)W3.gl.deleteBuffer(G.ib);}catch(_){}BLX.stat.liberes3++;}delete I.g3[lod];}
-const blxYs=name=>{const I=BLX.isl[name];return I?I.ys:0;};
+/* bord sud du modèle (étiquette du nom) au niveau de ville de la partie, d'après le niveau de détail le plus fin déjà prêt */
+function blxYs(name,t){const I=BLX.isl[name];if(!I)return 0;const L=Math.max(1,Math.min(4,blxLvl(t)||1));for(const l of ['lod0','lod1','lod2']){const g=I.g3[l];if(g&&g.st==='pret')return g.ysL[L];}return 0;}
 /* dessin des îles Blender visibles ; niveau voulu selon la taille à l'écran, sinon le plus proche déjà prêt (secours) */
 function blxDraw3(c,list,PK,near,far,fog,fd){
   const P=blxProg(),gl=P.gl,U=P.U,now=blxNow();let tris=0;
   gl.useProgram(P.p);gl.uniform3fv(U.eye,c.eye);gl.uniform3fv(U.cr,c.r);gl.uniform3fv(U.cu,c.u);gl.uniform3fv(U.cf,c.f);gl.uniform4f(U.P,1/c.tx,1/c.ty,near,far);gl.uniform3fv(U.fogc,fog);gl.uniform1f(U.fogd,fd);
-  for(const t of list){const m=W3.models.get(t.id),I=BLX.isl[m.bx];if(!I)continue;if(I.ys>m.ys)m.ys=I.ys;   /* étiquette du nom : sous le modèle le plus détaillé arrivé */const k=PK.get(t.id)||9,L=R3_LOD;
+  for(const t of list){const m=W3.models.get(t.id),I=BLX.isl[m.bx];if(!I)continue;m.ys=Math.max(m.ysd||0,blxYs(m.bx,t));   /* étiquette du nom : sous le modèle le plus détaillé arrivé */const k=PK.get(t.id)||9,L=R3_LOD;
     const want=!L.on?'lod0':k<L.p1?'lod2':k<L.p2?'lod1':'lod0';blxWant3(m.bx,want);
     if(L.on){if(k>=.8*L.p1)blxWant3(m.bx,'lod1');if(k>=.8*L.p2)blxWant3(m.bx,'lod0');}   /* préchargement */
     const order=want==='lod0'?['lod0','lod1','lod2']:want==='lod1'?['lod1','lod2','lod0']:['lod2','lod1','lod0'];

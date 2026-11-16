@@ -1,0 +1,494 @@
+{
+ "demarrage25": {
+  "req": {
+   "index": {
+    "n": 1,
+    "o": 10414,
+    "f": [
+     "index.json"
+    ]
+   },
+   "manifestes": {
+    "n": 53,
+    "o": 168320,
+    "f": [
+     "zou/manifest.009a828e.json",
+     "whole_cake/manifest.a17c7a4b.json",
+     "water_7/manifest.4b51ffaa.json",
+     "loguetown/manifest.04b94f26.json",
+     "wano/manifest.a8a95640.json",
+     "alabasta/manifest.60affe77.json",
+     "zou/manifest.8e84ca85.json",
+     "whole_cake/manifest.febc9ae2.json",
+     "water_7/manifest.956b4571.json",
+     "loguetown/manifest.719e75fc.json",
+     "wano/manifest.f5172804.json",
+     "alabasta/manifest.96aa31c7.json",
+     "zou/manifest.924039f3.json",
+     "whole_cake/manifest.7a963f5e.json",
+     "water_7/manifest.6b594972.json",
+     "loguetown/manifest.359c08aa.json",
+     "wano/manifest.87c46d47.json",
+     "alabasta/manifest.afb3a114.json",
+     "zou/manifest.e6d67922.json",
+     "whole_cake/manifest.0f838b9d.json",
+     "water_7/manifest.bd26da51.json",
+     "loguetown/manifest.68283903.json",
+     "wano/manifest.72f0e009.json",
+     "alabasta/manifest.141b16ee.json",
+     "zou/manifest.d8af0af4.json",
+     "whole_cake/manifest.4309a193.json",
+     "water_7/manifest.008bb54c.json",
+     "loguetown/manifest.73406000.json",
+     "wano/manifest.6e7549fa.json",
+     "alabasta/manifest.e02b9d43.json",
+     "zou/manifest.a212c9c0.json",
+     "whole_cake/manifest.9638f2e7.json",
+     "water_7/manifest.eaf07658.json",
+     "loguetown/manifest.2041e4ed.json",
+     "wano/manifest.18410ed0.json",
+     "alabasta/manifest.540d6cc6.json",
+     "zou/manifest.2b058368.json",
+     "whole_cake/manifest.d80be04a.json",
+     "water_7/manifest.8738d740.json",
+     "loguetown/manifest.905df7d8.json",
+     "wano/manifest.f51725da.json",
+     "alabasta/manifest.0b57285f.json",
+     "zou/manifest.561398de.json",
+     "whole_cake/manifest.64ec7b9b.json",
+     "water_7/manifest.6f0843d9.json",
+     "loguetown/manifest.ac7b9281.json",
+     "wano/manifest.3991b7f4.json",
+     "alabasta/manifest.2c84abeb.json",
+     "zou/manifest.8a00f68e.json",
+     "whole_cake/manifest.d779d582.json",
+     "water_7/manifest.e96915b0.json",
+     "loguetown/manifest.b6839152.json",
+     "wano/manifest.fcdd50da.json"
+    ]
+   },
+   "l1": {
+    "n": 53,
+    "o": 375110,
+    "f": [
+     "zou/l1.dcf65261.webp",
+     "whole_cake/l1.2e098db0.webp",
+     "water_7/l1.16e9682e.webp",
+     "loguetown/l1.a06b98ad.webp",
+     "wano/l1.9832f284.webp",
+     "alabasta/l1.d959eb30.webp",
+     "zou/l1.dcf65261.webp",
+     "whole_cake/l1.2e098db0.webp",
+     "water_7/l1.16e9682e.webp",
+     "loguetown/l1.a06b98ad.webp",
+     "wano/l1.9832f284.webp",
+     "alabasta/l1.d959eb30.webp",
+     "zou/l1.dcf65261.webp",
+     "whole_cake/l1.2e098db0.webp",
+     "water_7/l1.16e9682e.webp",
+     "loguetown/l1.a06b98ad.webp",
+     "wano/l1.9832f284.webp",
+     "alabasta/l1.d959eb30.webp",
+     "zou/l1.dcf65261.webp",
+     "whole_cake/l1.2e098db0.webp",
+     "water_7/l1.16e9682e.webp",
+     "loguetown/l1.a06b98ad.webp",
+     "wano/l1.9832f284.webp",
+     "alabasta/l1.d959eb30.webp",
+     "zou/l1.dcf65261.webp",
+     "whole_cake/l1.2e098db0.webp",
+     "water_7/l1.16e9682e.webp",
+     "loguetown/l1.a06b98ad.webp",
+     "wano/l1.9832f284.webp",
+     "alabasta/l1.d959eb30.webp",
+     "zou/l1.dcf65261.webp",
+     "whole_cake/l1.2e098db0.webp",
+     "water_7/l1.16e9682e.webp",
+     "loguetown/l1.a06b98ad.webp",
+     "wano/l1.9832f284.webp",
+     "alabasta/l1.d959eb30.webp",
+     "zou/l1.dcf65261.webp",
+     "whole_cake/l1.2e098db0.webp",
+     "water_7/l1.16e9682e.webp",
+     "loguetown/l1.a06b98ad.webp",
+     "wano/l1.9832f284.webp",
+     "alabasta/l1.d959eb30.webp",
+     "zou/l1.dcf65261.webp",
+     "whole_cake/l1.2e098db0.webp",
+     "water_7/l1.16e9682e.webp",
+     "loguetown/l1.a06b98ad.webp",
+     "wano/l1.9832f284.webp",
+     "alabasta/l1.d959eb30.webp",
+     "zou/l1.dcf65261.webp",
+     "whole_cake/l1.2e098db0.webp",
+     "water_7/l1.16e9682e.webp",
+     "loguetown/l1.a06b98ad.webp",
+     "wano/l1.9832f284.webp"
+    ]
+   }
+  },
+  "mem": {
+   "mode": "2.5D",
+   "glTotalMo": 0,
+   "glBlenderMo": 0,
+   "gltfJSMo": 0,
+   "iles3d": 0
+  }
+ },
+ "bascule3d": {
+  "req": {
+   "hauteurs": {
+    "n": 47,
+    "o": 2949120,
+    "f": [
+     "zou/hauteurs.4198a1b1.bin",
+     "whole_cake/hauteurs.674a60e2.bin",
+     "water_7/hauteurs.cd8a8964.bin",
+     "loguetown/hauteurs.d305f7b4.bin",
+     "wano/hauteurs.bc44c6d7.bin",
+     "alabasta/hauteurs.eec63979.bin",
+     "zou/hauteurs.4198a1b1.bin",
+     "whole_cake/hauteurs.674a60e2.bin",
+     "water_7/hauteurs.cd8a8964.bin",
+     "loguetown/hauteurs.d305f7b4.bin",
+     "wano/hauteurs.bc44c6d7.bin",
+     "alabasta/hauteurs.eec63979.bin",
+     "zou/hauteurs.4198a1b1.bin",
+     "whole_cake/hauteurs.674a60e2.bin",
+     "water_7/hauteurs.cd8a8964.bin",
+     "loguetown/hauteurs.d305f7b4.bin",
+     "wano/hauteurs.bc44c6d7.bin",
+     "alabasta/hauteurs.eec63979.bin",
+     "zou/hauteurs.4198a1b1.bin",
+     "whole_cake/hauteurs.674a60e2.bin",
+     "water_7/hauteurs.cd8a8964.bin",
+     "loguetown/hauteurs.d305f7b4.bin",
+     "wano/hauteurs.bc44c6d7.bin",
+     "alabasta/hauteurs.eec63979.bin",
+     "zou/hauteurs.4198a1b1.bin",
+     "whole_cake/hauteurs.674a60e2.bin",
+     "water_7/hauteurs.cd8a8964.bin",
+     "loguetown/hauteurs.d305f7b4.bin",
+     "wano/hauteurs.bc44c6d7.bin",
+     "alabasta/hauteurs.eec63979.bin",
+     "zou/hauteurs.4198a1b1.bin",
+     "whole_cake/hauteurs.674a60e2.bin",
+     "water_7/hauteurs.cd8a8964.bin",
+     "loguetown/hauteurs.d305f7b4.bin",
+     "wano/hauteurs.bc44c6d7.bin",
+     "alabasta/hauteurs.eec63979.bin",
+     "zou/hauteurs.4198a1b1.bin",
+     "whole_cake/hauteurs.674a60e2.bin",
+     "water_7/hauteurs.cd8a8964.bin",
+     "loguetown/hauteurs.d305f7b4.bin",
+     "wano/hauteurs.bc44c6d7.bin",
+     "alabasta/hauteurs.eec63979.bin",
+     "zou/hauteurs.4198a1b1.bin",
+     "whole_cake/hauteurs.674a60e2.bin",
+     "water_7/hauteurs.cd8a8964.bin",
+     "loguetown/hauteurs.d305f7b4.bin",
+     "wano/hauteurs.bc44c6d7.bin"
+    ]
+   },
+   "lod2": {
+    "n": 35,
+    "o": 10491776,
+    "f": [
+     "zou/lod2.e08a7bcb.glb",
+     "whole_cake/lod2.81e57e46.glb",
+     "water_7/lod2.3527af93.glb",
+     "loguetown/lod2.83100bd4.glb",
+     "wano/lod2.ca031565.glb",
+     "alabasta/lod2.96e4377a.glb",
+     "zou/lod2.e08a7bcb.glb",
+     "whole_cake/lod2.81e57e46.glb",
+     "water_7/lod2.3527af93.glb",
+     "loguetown/lod2.83100bd4.glb",
+     "wano/lod2.ca031565.glb",
+     "alabasta/lod2.96e4377a.glb",
+     "zou/lod2.e08a7bcb.glb",
+     "whole_cake/lod2.81e57e46.glb",
+     "water_7/lod2.3527af93.glb",
+     "loguetown/lod2.83100bd4.glb",
+     "wano/lod2.ca031565.glb",
+     "alabasta/lod2.96e4377a.glb",
+     "zou/lod2.e08a7bcb.glb",
+     "whole_cake/lod2.81e57e46.glb",
+     "water_7/lod2.3527af93.glb",
+     "loguetown/lod2.83100bd4.glb",
+     "wano/lod2.ca031565.glb",
+     "alabasta/lod2.96e4377a.glb",
+     "zou/lod2.e08a7bcb.glb",
+     "whole_cake/lod2.81e57e46.glb",
+     "water_7/lod2.3527af93.glb",
+     "loguetown/lod2.83100bd4.glb",
+     "wano/lod2.ca031565.glb",
+     "alabasta/lod2.96e4377a.glb",
+     "zou/lod2.e08a7bcb.glb",
+     "whole_cake/lod2.81e57e46.glb",
+     "water_7/lod2.3527af93.glb",
+     "loguetown/lod2.83100bd4.glb",
+     "wano/lod2.ca031565.glb"
+    ]
+   }
+  },
+  "mem": {
+   "mode": "3D",
+   "glTotalMo": 58.1,
+   "glBlenderMo": 10.4,
+   "gltfJSMo": 3,
+   "iles3d": 32
+  }
+ },
+ "etapes": [
+  {
+   "ile": "Zou",
+   "mem": {
+    "mode": "3D",
+    "glTotalMo": 47.3,
+    "glBlenderMo": 18,
+    "gltfJSMo": 3.5,
+    "iles3d": 41
+   },
+   "req": 33
+  },
+  {
+   "ile": "Whole Cake",
+   "mem": {
+    "mode": "3D",
+    "glTotalMo": 51.2,
+    "glBlenderMo": 51.2,
+    "gltfJSMo": 3.5,
+    "iles3d": 53
+   },
+   "req": 36
+  },
+  {
+   "ile": "Water 7",
+   "mem": {
+    "mode": "3D",
+    "glTotalMo": 85.3,
+    "glBlenderMo": 85.3,
+    "gltfJSMo": 3.5,
+    "iles3d": 53
+   },
+   "req": 19
+  },
+  {
+   "ile": "Loguetown",
+   "mem": {
+    "mode": "3D",
+    "glTotalMo": 80.8,
+    "glBlenderMo": 80.8,
+    "gltfJSMo": 3.5,
+    "iles3d": 53
+   },
+   "req": 9
+  },
+  {
+   "ile": "Wano",
+   "mem": {
+    "mode": "3D",
+    "glTotalMo": 81.1,
+    "glBlenderMo": 81.1,
+    "gltfJSMo": 3.5,
+    "iles3d": 53
+   },
+   "req": 8
+  },
+  {
+   "ile": "Alabasta",
+   "mem": {
+    "mode": "3D",
+    "glTotalMo": 80.9,
+    "glBlenderMo": 80.9,
+    "gltfJSMo": 3.5,
+    "iles3d": 53
+   },
+   "req": 15
+  },
+  {
+   "ile": "Drum",
+   "mem": {
+    "mode": "3D",
+    "glTotalMo": 75.7,
+    "glBlenderMo": 75.7,
+    "gltfJSMo": 3.5,
+    "iles3d": 53
+   },
+   "req": 10
+  },
+  {
+   "ile": "Jaya",
+   "mem": {
+    "mode": "3D",
+    "glTotalMo": 69.8,
+    "glBlenderMo": 69.8,
+    "gltfJSMo": 3.5,
+    "iles3d": 53
+   },
+   "req": 11
+  },
+  {
+   "ile": "Skypiea",
+   "mem": {
+    "mode": "3D",
+    "glTotalMo": 62.1,
+    "glBlenderMo": 62.1,
+    "gltfJSMo": 3.5,
+    "iles3d": 53
+   },
+   "req": 9
+  },
+  {
+   "ile": "Dressrosa",
+   "mem": {
+    "mode": "3D",
+    "glTotalMo": 74.2,
+    "glBlenderMo": 74.2,
+    "gltfJSMo": 3.5,
+    "iles3d": 53
+   },
+   "req": 14
+  },
+  {
+   "ile": "Enies Lobby",
+   "mem": {
+    "mode": "3D",
+    "glTotalMo": 81.5,
+    "glBlenderMo": 81.5,
+    "gltfJSMo": 3.5,
+    "iles3d": 53
+   },
+   "req": 15
+  },
+  {
+   "ile": "Sabaody",
+   "mem": {
+    "mode": "3D",
+    "glTotalMo": 83.1,
+    "glBlenderMo": 83.1,
+    "gltfJSMo": 3.5,
+    "iles3d": 53
+   },
+   "req": 16
+  }
+ ],
+ "pause50s": {
+  "mem": {
+   "mode": "3D",
+   "glTotalMo": 85.2,
+   "glBlenderMo": 85.2,
+   "gltfJSMo": 3.5,
+   "iles3d": 53
+  }
+ },
+ "etapes25": [
+  {
+   "ile": "Zou",
+   "mem": {
+    "imgBlenderMo": 50.4,
+    "glBlenderMo": 81.5
+   }
+  },
+  {
+   "ile": "Whole Cake",
+   "mem": {
+    "imgBlenderMo": 93.5,
+    "glBlenderMo": 81.5
+   }
+  },
+  {
+   "ile": "Water 7",
+   "mem": {
+    "imgBlenderMo": 94.5,
+    "glBlenderMo": 81.5
+   }
+  },
+  {
+   "ile": "Loguetown",
+   "mem": {
+    "imgBlenderMo": 97,
+    "glBlenderMo": 81.5
+   }
+  },
+  {
+   "ile": "Wano",
+   "mem": {
+    "imgBlenderMo": 99,
+    "glBlenderMo": 17.7
+   }
+  },
+  {
+   "ile": "Alabasta",
+   "mem": {
+    "imgBlenderMo": 97,
+    "glBlenderMo": 17.7
+   }
+  },
+  {
+   "ile": "Drum",
+   "mem": {
+    "imgBlenderMo": 97.1,
+    "glBlenderMo": 17.7
+   }
+  },
+  {
+   "ile": "Jaya",
+   "mem": {
+    "imgBlenderMo": 97.4,
+    "glBlenderMo": 17.7
+   }
+  },
+  {
+   "ile": "Skypiea",
+   "mem": {
+    "imgBlenderMo": 101.5,
+    "glBlenderMo": 17.7
+   }
+  },
+  {
+   "ile": "Dressrosa",
+   "mem": {
+    "imgBlenderMo": 111.4,
+    "glBlenderMo": 17.7
+   }
+  },
+  {
+   "ile": "Enies Lobby",
+   "mem": {
+    "imgBlenderMo": 107.2,
+    "glBlenderMo": 17.7
+   }
+  },
+  {
+   "ile": "Sabaody",
+   "mem": {
+    "imgBlenderMo": 110.7,
+    "glBlenderMo": 17.7
+   }
+  }
+ ],
+ "pause25_50s": {
+  "mem": {
+   "imgBlenderMo": 8.4,
+   "glBlenderMo": 17.7
+  }
+ },
+ "fluidite": {
+  "lt": {
+   "n": 500,
+   "max": 97,
+   "total": 29194
+  },
+  "classes": [
+   0,
+   268,
+   1266,
+   1154,
+   44,
+   418
+  ]
+ },
+ "errs": []
+}

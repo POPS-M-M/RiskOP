@@ -1,0 +1,9 @@
+relevés état (tous les 8 tours) :
+ tour 8 IDENTIQUE f54732f34c2c f54732f34c2c
+ tour 16 IDENTIQUE d4a83db693f2 d4a83db693f2
+ tour 24 IDENTIQUE dc40e6029ce4 dc40e6029ce4
+ tour 32 IDENTIQUE 2434a0827463 2434a0827463
+ tour 40 IDENTIQUE f7c4c20e9da4 f7c4c20e9da4
+sauvegarde finale (hors date) DIFFÉRENTE a9688b45563b f2a76dc1c24a 34287 car.
+aller-retour sauvegarde→restauration : public false | test false | armées en fin de partie 24 24
+erreurs de page : public 0 | test 0 [] []

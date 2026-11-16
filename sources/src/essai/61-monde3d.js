@@ -356,10 +356,10 @@ function w3Upload(t,key){
   const bo=gl.createBuffer(),bt=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,bo);gl.bufferData(gl.ARRAY_BUFFER,B.O,gl.STATIC_DRAW);gl.bindBuffer(gl.ARRAY_BUFFER,bt);gl.bufferData(gl.ARRAY_BUFFER,B.T,gl.STATIC_DRAW);
   /* étendue du modèle vers le sud (tête de Zunesha, navires…) : l'étiquette du nom se place en dessous */
   let ys=0;for(let i=0;i<B.O.length;i+=7)if(B.O[i+2]>.4&&B.O[i+1]>ys)ys=B.O[i+1];
-  if(M.bx&&typeof blxYs==='function')ys=Math.max(ys,blxYs(M.bx));   /* île Blender : son modèle (envoyé à part) compte aussi */
+  const ysd=ys;if(M.bx&&typeof blxYs==='function')ys=Math.max(ys,blxYs(M.bx,t));   /* île Blender : son modèle (envoyé à part) compte aussi */
   /* modèles à niveaux de détail séparés (glTF Blender : lod1, lod2) */
   let alt=null;if(M.alts){alt=M.alts.map(G2=>{const B2=w3Bake({G:G2,H:M.H,tops:M.tops,ext:M.ext},t),b2=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b2);gl.bufferData(gl.ARRAY_BUFFER,B2.O,gl.STATIC_DRAW);return {bo:b2,no:B2.O.length/7};});}
-  W3.models.set(t.id,{key,bo,bt,ys,alt,bl:!!M.bl,bx:M.bx||null,no:B.O.length/7,n0:B.n0,n1:B.n1,n2:B.n2,nt:B.T.length/7,top:M.top,rc:M.A.rc,pa:M.A.pa,H:M.H,ms:Math.round(performance.now()-t0)});W3.built++;
+  W3.models.set(t.id,{key,bo,bt,ys,ysd,alt,bl:!!M.bl,bx:M.bx||null,no:B.O.length/7,n0:B.n0,n1:B.n1,n2:B.n2,nt:B.T.length/7,top:M.top,rc:M.A.rc,pa:M.A.pa,H:M.H,ms:Math.round(performance.now()-t0)});W3.built++;
 }
 function w3Queue(){
   for(const t of terrs){const k=r3Key(t),m=W3.models.get(t.id);if((!m||m.key!==k)&&!W3.q.some(q=>q.id===t.id))W3.q.push({id:t.id,key:k});}

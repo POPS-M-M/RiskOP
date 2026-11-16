@@ -1,0 +1,495 @@
+{
+ "normal": {
+  "mode": "25",
+  "erreurs_page": [],
+  "zou": {
+   "ready3": false,
+   "fail3": false,
+   "g3": {},
+   "vu3": "",
+   "vu25": "l3l2l1",
+   "img": [
+    "l1",
+    "l3",
+    "l2"
+   ],
+   "img_ld": {
+    "l1": "",
+    "l3": "",
+    "l2": ""
+   },
+   "cv": [
+    "l3|0",
+    "l2|0"
+   ]
+  },
+  "cache25": {
+   "isBl": true
+  },
+  "modele3d": null,
+  "requetes_max_par_fichier": 1,
+  "requetes_zou": {
+   "zou/manifest.c933e6dd.json": 1,
+   "zou/l1.dcf65261.webp": 1,
+   "zou/l3.555eb2b8.webp": 1,
+   "zou/l2.d3ca3cf3.webp": 1
+  },
+  "rejets": [],
+  "err": ""
+ },
+ "l2_absent": {
+  "mode": "25",
+  "erreurs_page": [],
+  "zou": {
+   "ready3": false,
+   "fail3": false,
+   "g3": {},
+   "vu3": "",
+   "vu25": "l3l1",
+   "img": [
+    "l1",
+    "l3"
+   ],
+   "img_ld": {
+    "l1": "",
+    "l2": "echec",
+    "l3": ""
+   },
+   "cv": [
+    "l3|0"
+   ]
+  },
+  "cache25": {
+   "isBl": true
+  },
+  "modele3d": null,
+  "requetes_max_par_fichier": 3,
+  "requetes_zou": {
+   "zou/manifest.c933e6dd.json": 1,
+   "zou/l1.dcf65261.webp": 1,
+   "zou/l2.d3ca3cf3.webp": 3,
+   "zou/l3.555eb2b8.webp": 1
+  },
+  "rejets": [
+   "l2.d3ca3cf3.webp : l2.d3ca3cf3.webp introuvable (404)"
+  ],
+  "err": ""
+ },
+ "l3_absent": {
+  "mode": "25",
+  "erreurs_page": [],
+  "zou": {
+   "ready3": false,
+   "fail3": false,
+   "g3": {},
+   "vu3": "",
+   "vu25": "l2l1",
+   "img": [
+    "l1",
+    "l2"
+   ],
+   "img_ld": {
+    "l1": "",
+    "l3": "echec",
+    "l2": ""
+   },
+   "cv": [
+    "l2|0"
+   ]
+  },
+  "cache25": {
+   "isBl": true
+  },
+  "modele3d": null,
+  "requetes_max_par_fichier": 3,
+  "requetes_zou": {
+   "zou/manifest.c933e6dd.json": 1,
+   "zou/l1.dcf65261.webp": 1,
+   "zou/l3.555eb2b8.webp": 3,
+   "zou/l2.d3ca3cf3.webp": 1
+  },
+  "rejets": [
+   "l3.555eb2b8.webp : l3.555eb2b8.webp introuvable (404)"
+  ],
+  "err": ""
+ },
+ "ville_absente": {
+  "mode": "25",
+  "erreurs_page": [],
+  "zou": {
+   "ready3": false,
+   "fail3": false,
+   "g3": {},
+   "vu3": "",
+   "vu25": "l1",
+   "img": [
+    "l1",
+    "l2",
+    "l3"
+   ],
+   "img_ld": {
+    "l1": "",
+    "l3": "",
+    "v2": "echec",
+    "l2": ""
+   },
+   "cv": []
+  },
+  "cache25": {
+   "isBl": true
+  },
+  "modele3d": null,
+  "requetes_max_par_fichier": 3,
+  "requetes_zou": {
+   "zou/manifest.c933e6dd.json": 1,
+   "zou/l1.dcf65261.webp": 1,
+   "zou/l3.555eb2b8.webp": 1,
+   "zou/ville2.28c5a223.webp": 3,
+   "zou/l2.d3ca3cf3.webp": 1
+  },
+  "rejets": [
+   "ville2.28c5a223.webp : ville2.28c5a223.webp introuvable (404)"
+  ],
+  "err": ""
+ },
+ "l2_corrompu": {
+  "mode": "25",
+  "erreurs_page": [],
+  "zou": {
+   "ready3": false,
+   "fail3": false,
+   "g3": {},
+   "vu3": "",
+   "vu25": "l3l1",
+   "img": [
+    "l1",
+    "l3"
+   ],
+   "img_ld": {
+    "l1": "",
+    "l2": "echec",
+    "l3": ""
+   },
+   "cv": [
+    "l3|0"
+   ]
+  },
+  "cache25": {
+   "isBl": true
+  },
+  "modele3d": null,
+  "requetes_max_par_fichier": 3,
+  "requetes_zou": {
+   "zou/manifest.c933e6dd.json": 1,
+   "zou/l1.dcf65261.webp": 1,
+   "zou/l2.d3ca3cf3.webp": 3,
+   "zou/l3.555eb2b8.webp": 1
+  },
+  "rejets": [
+   "l2.d3ca3cf3.webp : l2.d3ca3cf3.webp : contenu différent de celui déclaré (empreinte)"
+  ],
+  "err": ""
+ },
+ "l3_tronque": {
+  "mode": "25",
+  "erreurs_page": [],
+  "zou": {
+   "ready3": false,
+   "fail3": false,
+   "g3": {},
+   "vu3": "",
+   "vu25": "l2l1",
+   "img": [
+    "l1",
+    "l2"
+   ],
+   "img_ld": {
+    "l1": "",
+    "l3": "echec",
+    "l2": ""
+   },
+   "cv": [
+    "l2|0"
+   ]
+  },
+  "cache25": {
+   "isBl": true
+  },
+  "modele3d": null,
+  "requetes_max_par_fichier": 3,
+  "requetes_zou": {
+   "zou/manifest.c933e6dd.json": 1,
+   "zou/l1.dcf65261.webp": 1,
+   "zou/l3.555eb2b8.webp": 3,
+   "zou/l2.d3ca3cf3.webp": 1
+  },
+  "rejets": [
+   "l3.555eb2b8.webp : l3.555eb2b8.webp : 32171 octets au lieu de 64342"
+  ],
+  "err": ""
+ },
+ "l1_absent": {
+  "mode": "25",
+  "erreurs_page": [],
+  "zou": {
+   "ready3": false,
+   "fail3": false,
+   "g3": {},
+   "vu3": "",
+   "vu25": "l3l2",
+   "img": [
+    "l2",
+    "l3"
+   ],
+   "img_ld": {
+    "l1": "echec",
+    "l2": "",
+    "l3": ""
+   },
+   "cv": [
+    "l2|0",
+    "l3|0"
+   ]
+  },
+  "cache25": {
+   "isBl": true
+  },
+  "modele3d": null,
+  "requetes_max_par_fichier": 3,
+  "requetes_zou": {
+   "zou/manifest.c933e6dd.json": 1,
+   "zou/l1.dcf65261.webp": 3,
+   "zou/l2.d3ca3cf3.webp": 1,
+   "zou/l3.555eb2b8.webp": 1
+  },
+  "rejets": [
+   "l1.dcf65261.webp : l1.dcf65261.webp introuvable (404)"
+  ],
+  "err": ""
+ },
+ "manifeste_absent": {
+  "mode": "25",
+  "erreurs_page": [],
+  "zou": null,
+  "cache25": {
+   "isBl": false
+  },
+  "modele3d": null,
+  "requetes_max_par_fichier": 3,
+  "requetes_zou": {
+   "zou/manifest.c933e6dd.json": 3
+  },
+  "rejets": [
+   "manifest.c933e6dd.json : manifest.c933e6dd.json introuvable (404)"
+  ],
+  "err": ""
+ },
+ "index_absent": {
+  "mode": "25",
+  "erreurs_page": [],
+  "zou": null,
+  "cache25": {
+   "isBl": false
+  },
+  "modele3d": null,
+  "requetes_max_par_fichier": 0,
+  "requetes_zou": {},
+  "rejets": [],
+  "err": "index.json introuvable (404)"
+ },
+ "reprise_apres_echec": {
+  "mode": "25",
+  "erreurs_page": [],
+  "zou": {
+   "ready3": false,
+   "fail3": false,
+   "g3": {},
+   "vu3": "",
+   "vu25": "l3l2l1",
+   "img": [
+    "l1",
+    "l2",
+    "l3"
+   ],
+   "img_ld": {
+    "l1": "",
+    "l3": "",
+    "l2": ""
+   },
+   "cv": [
+    "l2|0",
+    "l3|0"
+   ]
+  },
+  "cache25": {
+   "isBl": true
+  },
+  "modele3d": null,
+  "requetes_max_par_fichier": 2,
+  "requetes_zou": {
+   "zou/manifest.c933e6dd.json": 1,
+   "zou/l1.dcf65261.webp": 1,
+   "zou/l3.555eb2b8.webp": 2,
+   "zou/l2.d3ca3cf3.webp": 1
+  },
+  "rejets": [],
+  "err": ""
+ },
+ "coupure_lod0": {
+  "mode": "3d",
+  "erreurs_page": [],
+  "zou": {
+   "ready3": true,
+   "fail3": false,
+   "g3": {
+    "lod2": "pret",
+    "lod0": "echec",
+    "lod1": "pret"
+   },
+   "vu3": "lod1",
+   "vu25": "",
+   "img": [
+    "l1"
+   ],
+   "img_ld": {
+    "l1": ""
+   },
+   "cv": []
+  },
+  "cache25": null,
+  "modele3d": {
+   "bx": "Zou",
+   "bl": true
+  },
+  "requetes_max_par_fichier": 3,
+  "requetes_zou": {
+   "zou/manifest.c933e6dd.json": 1,
+   "zou/l1.dcf65261.webp": 1,
+   "zou/hauteurs.4198a1b1.bin": 1,
+   "zou/lod2.e08a7bcb.glb": 1,
+   "zou/lod0.0fb618eb.glb": 3,
+   "zou/lod1.f33c3b30.glb": 1
+  },
+  "rejets": [
+   "lod0.0fb618eb.glb : Failed to fetch"
+  ],
+  "err": ""
+ },
+ "lod2_absent": {
+  "mode": "3d",
+  "erreurs_page": [],
+  "zou": {
+   "ready3": true,
+   "fail3": false,
+   "g3": {
+    "lod2": "echec",
+    "lod1": "pret",
+    "lod0": "pret"
+   },
+   "vu3": "lod0",
+   "vu25": "",
+   "img": [
+    "l1"
+   ],
+   "img_ld": {
+    "l1": ""
+   },
+   "cv": []
+  },
+  "cache25": null,
+  "modele3d": {
+   "bx": "Zou",
+   "bl": true
+  },
+  "requetes_max_par_fichier": 3,
+  "requetes_zou": {
+   "zou/manifest.c933e6dd.json": 1,
+   "zou/l1.dcf65261.webp": 1,
+   "zou/hauteurs.4198a1b1.bin": 1,
+   "zou/lod2.e08a7bcb.glb": 3,
+   "zou/lod1.f33c3b30.glb": 1,
+   "zou/lod0.0fb618eb.glb": 1
+  },
+  "rejets": [
+   "lod2.e08a7bcb.glb : lod2.e08a7bcb.glb introuvable (404)"
+  ],
+  "err": ""
+ },
+ "hauteurs_absentes": {
+  "mode": "3d",
+  "erreurs_page": [],
+  "zou": {
+   "ready3": false,
+   "fail3": true,
+   "g3": {
+    "lod2": "echec"
+   },
+   "vu3": "",
+   "vu25": "",
+   "img": [
+    "l1"
+   ],
+   "img_ld": {
+    "l1": ""
+   },
+   "cv": []
+  },
+  "cache25": null,
+  "modele3d": {
+   "bx": null,
+   "bl": false
+  },
+  "requetes_max_par_fichier": 3,
+  "requetes_zou": {
+   "zou/manifest.c933e6dd.json": 1,
+   "zou/l1.dcf65261.webp": 1,
+   "zou/hauteurs.4198a1b1.bin": 3
+  },
+  "rejets": [
+   "hauteurs.4198a1b1.bin : hauteurs.4198a1b1.bin introuvable (404)"
+  ],
+  "err": ""
+ },
+ "tous_glb_absents": {
+  "mode": "3d",
+  "erreurs_page": [],
+  "zou": {
+   "ready3": false,
+   "fail3": true,
+   "g3": {
+    "lod2": "echec",
+    "lod1": "echec",
+    "lod0": "echec"
+   },
+   "vu3": "",
+   "vu25": "",
+   "img": [
+    "l1"
+   ],
+   "img_ld": {
+    "l1": ""
+   },
+   "cv": []
+  },
+  "cache25": null,
+  "modele3d": {
+   "bx": null,
+   "bl": false
+  },
+  "requetes_max_par_fichier": 3,
+  "requetes_zou": {
+   "zou/manifest.c933e6dd.json": 1,
+   "zou/l1.dcf65261.webp": 1,
+   "zou/hauteurs.4198a1b1.bin": 1,
+   "zou/lod2.e08a7bcb.glb": 3,
+   "zou/lod1.f33c3b30.glb": 3,
+   "zou/lod0.0fb618eb.glb": 3
+  },
+  "rejets": [
+   "lod2.e08a7bcb.glb : lod2.e08a7bcb.glb introuvable (404)",
+   "lod1.f33c3b30.glb : lod1.f33c3b30.glb introuvable (404)",
+   "lod0.0fb618eb.glb : lod0.0fb618eb.glb introuvable (404)"
+  ],
+  "err": ""
+ }
+}

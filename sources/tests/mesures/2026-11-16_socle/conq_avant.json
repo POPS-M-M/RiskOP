@@ -1,0 +1,178 @@
+{
+ "Zou": {
+  "etapes": {
+   "proprietaire = moi": {
+    "reconstructions": 1,
+    "derniere_ms": 500,
+    "sommets_reconstruits": 344835,
+    "taches_longues_ms": [
+     990,
+     354,
+     424,
+     399,
+     354,
+     373
+    ],
+    "evenements": [
+     "construction 3D 500 ms"
+    ]
+   },
+   "proprietaire = adversaire": {
+    "reconstructions": 1,
+    "derniere_ms": 431,
+    "sommets_reconstruits": 344781,
+    "taches_longues_ms": [
+     891,
+     442,
+     365,
+     361,
+     424,
+     437
+    ],
+    "evenements": [
+     "construction 3D 431 ms"
+    ]
+   },
+   "ville niveau 3": {
+    "reconstructions": 1,
+    "derniere_ms": 496,
+    "sommets_reconstruits": 348975,
+    "taches_longues_ms": [
+     962,
+     342,
+     397,
+     349,
+     353,
+     461
+    ],
+    "evenements": [
+     "construction 3D 496 ms"
+    ]
+   },
+   "neutre": {
+    "reconstructions": 1,
+    "derniere_ms": 397,
+    "sommets_reconstruits": 341127,
+    "taches_longues_ms": [
+     788,
+     409,
+     341,
+     402,
+     376,
+     422,
+     399
+    ],
+    "evenements": [
+     "construction 3D 397 ms"
+    ]
+   }
+  },
+  "errs": [],
+  "blx": {
+   "ready3": true,
+   "g3": {},
+   "vu3": "",
+   "vu25": "",
+   "img": [
+    "l1_ld",
+    "l1"
+   ],
+   "img_ld": {},
+   "cv": []
+  }
+ },
+ "Alabasta": {
+  "etapes": {
+   "proprietaire = moi": {
+    "reconstructions": 2,
+    "derniere_ms": 218,
+    "sommets_reconstruits": 170700,
+    "taches_longues_ms": [
+     470,
+     469,
+     343,
+     470,
+     505,
+     534,
+     290
+    ],
+    "evenements": [
+     "construction 3D 265 ms",
+     "construction 3D 218 ms"
+    ]
+   },
+   "proprietaire = adversaire": {
+    "reconstructions": 1,
+    "derniere_ms": 286,
+    "sommets_reconstruits": 170646,
+    "taches_longues_ms": [
+     545,
+     265,
+     259,
+     238,
+     255,
+     224,
+     246,
+     247,
+     268,
+     250
+    ],
+    "evenements": [
+     "construction 3D 286 ms"
+    ]
+   },
+   "ville niveau 3": {
+    "reconstructions": 1,
+    "derniere_ms": 311,
+    "sommets_reconstruits": 216333,
+    "taches_longues_ms": [
+     592,
+     252,
+     280,
+     283,
+     248,
+     275,
+     281,
+     282,
+     249
+    ],
+    "evenements": [
+     "construction 3D 311 ms"
+    ]
+   },
+   "neutre": {
+    "reconstructions": 1,
+    "derniere_ms": 302,
+    "sommets_reconstruits": 166992,
+    "taches_longues_ms": [
+     563,
+     257,
+     222,
+     258,
+     257,
+     227,
+     252,
+     235,
+     259,
+     262
+    ],
+    "evenements": [
+     "construction 3D 302 ms"
+    ]
+   }
+  },
+  "errs": [],
+  "blx": {
+   "ready3": true,
+   "g3": {},
+   "vu3": "",
+   "vu25": "",
+   "img": [
+    "l1_ld",
+    "l1"
+   ],
+   "img_ld": {},
+   "cv": []
+  }
+ }
+}
