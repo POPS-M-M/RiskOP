@@ -24,7 +24,7 @@
         propriétaire ; celle-ci et le niveau de ville (plages d'indices BASE, VILLE_2, _3, _4) s'appliquent au dessin. Un changement
         de propriétaire ne reconstruit que drapeaux et liserés (quelques centaines de sommets). */
 const BLX={off:false,isl:{},base:'iles/',err:'',loaded:0,format:0,verif:{ok:0,taille:0,rejets:[]},
-  cfg:{essais:3,delais:[700,2500],maxDl:4,libere:45000,inactif:30000,tranche:6},
+  cfg:{essais:3,delais:[700,2500],maxDl:4,libere:45000,inactif:30000,tranche:6,budget25:96e6,budget3:64e6,recent:2000},
   dl:{n:0,q:[]},cuis:[],gl:null,stat:{req:0,essais:0,liberes25:0,liberes3:0,cuits:0}};
 /* empreinte SHA-256 (hexadécimal) ; null si l'API n'est pas disponible (contexte non sécurisé) : seule la taille est alors vérifiée */
 async function blxSha(buf){if(typeof crypto==='undefined'||!crypto.subtle)return null;const d=new Uint8Array(await crypto.subtle.digest('SHA-256',buf));let s='';for(const x of d)s+=(x<16?'0':'')+x.toString(16);return s;}
@@ -64,7 +64,9 @@ function blxFetch(name,nom){
 /* ---------- index et manifestes ---------- */
 async function blxInit(){
   if(typeof fetch!=='function'||location.protocol==='file:'){BLX.err='fichiers d\'îles non accessibles (page ouverte en local)';return;}
-  const add=(name,slug,m)=>{BLX.isl[name]={slug,m,f:{},img:{},cv:{},z:{},u25:{},img_ld:{},g3:{},u3:{},ready3:false,fail3:false,Hs:null,Ho:null,ys:0};blxImg(name,'l1');};
+  const add=(name,slug,m)=>{BLX.isl[name]={slug,m,f:{},img:{},cv:{},z:{},u25:{},img_ld:{},g3:{},u3:{},ready3:false,fail3:false,Hs:null,Ho:null,ys:0};blxImg(name,'l1');
+    /* manifeste arrivé après la construction de l'île en 3D (partie ouverte directement en 3D) : demander son modèle */
+    if(typeof W3!=='undefined'&&W3.gl&&!BLX.off&&!W3.cuOff)blxWant3(name,'lod2');};
   try{const r=await fetch(BLX.base+'index.json',{cache:'no-cache'});if(!r.ok)throw new Error('index.json introuvable ('+r.status+')');const idx=await r.json();
     if(idx&&idx.format===2){BLX.format=2;
       /* manifestes lus en parallèle (chacun est petit et vérifié contre l'index) */
@@ -92,14 +94,15 @@ function blxImg(name,key){
   if(!ref){I.img_ld[key]='echec';return;}
   I.img_ld[key]='en cours';
   (async()=>{try{if(!I.z[key])I.z[key]=new Blob([await blxFetch(name,ref.fichier)],{type:'image/webp'});
-      const im=await blxDecode(I.z[key]);if(I.img_ld[key]!=='en cours'){if(im.close)im.close();return;}I.img[key]=im;I.img_ld[key]='';dirty=true;}
+      const im=await blxDecode(I.z[key]);if(I.img_ld[key]!=='en cours'){if(im.close)im.close();return;}I.img[key]=im;I.img_ld[key]='';if(key==='l1')delete I.z.l1;   /* l1 n'est jamais libéré : inutile de garder son fichier */
+      dirty=true;}
     catch(err){I.img_ld[key]='echec';dirty=true;}})();}
 const blxFailed=(I,key)=>I.img_ld[key]==='echec';
 /* calques de ville nécessaires au niveau de la partie (ceux que le manifeste déclare) */
 const blxVilles=(I,lvl)=>{const v=[];for(let k=2;k<=lvl;k++)if(I.m.ville25d&&I.m.ville25d[k])v.push('v'+k);return v;};
 function blxComplete(I,lod,lvl){if(!I.img[lod])return false;if(lod==='l1')return true;return blxVilles(I,lvl).every(k=>I.img[k]);}
 function blxBroken(I,lod,lvl){if(blxFailed(I,lod))return true;if(lod==='l1')return false;return blxVilles(I,lvl).some(k=>blxFailed(I,k));}
-function blxWant25(name,lod,lvl){const I=BLX.isl[name];blxImg(name,lod);if(lod!=='l1')for(const k of blxVilles(I,lvl))blxImg(name,k);}
+function blxWant25(name,lod,lvl){const I=BLX.isl[name];if(!I.img[lod]&&!I.img_ld[lod]&&!blxRoom25())return;blxImg(name,lod);if(lod!=='l1')for(const k of blxVilles(I,lvl))blxImg(name,k);}
 function blxCompose(I,base,lvl){const c=document.createElement('canvas');c.width=base.width;c.height=base.height;const g=c.getContext('2d');g.imageSmoothingQuality='high';g.drawImage(base,0,0);
   for(const k of blxVilles(I,lvl))g.drawImage(I.img[k],0,0,c.width,c.height);return c;}
 /* image composée (base + calques de ville du niveau de la partie), gardée tant que ses images sources le sont */
@@ -130,9 +133,10 @@ function blxApply25(t,e){
 {const d0=r25Draw;r25Draw=function(t,e,now,u){try{blxApply25(t,e);}catch(err){console.warn('île Blender 2.5D',err);}return d0(t,e,now,u);};}
 
 /* ---------- mode 3D ---------- */
-function blxHeightArr(n,ext,u){const cell=2*ext/n,f=new Float32Array(n*n);for(let i=0;i<n*n;i++)f[i]=u[i]/65535*96-4;
+function blxHeightArr(n,ext,u){const cell=2*ext/n;u=new Uint16Array(u);   /* gardé en entiers 16 bits (2 octets par point) */
+  const F=i=>Math.fround(u[i]/65535*96-4);   /* même valeur que l'ancien tableau en flottants 32 bits */
   return (x,y)=>{const fx=(x+ext)/cell-.5,fy=(y+ext)/cell-.5;if(fx<0||fy<0||fx>n-1||fy>n-1)return -.9;const i=Math.floor(fx),j=Math.floor(fy),a=fx-i,b=fy-j,i1=Math.min(n-1,i+1),j1=Math.min(n-1,j+1);
-    return f[j*n+i]*(1-a)*(1-b)+f[j*n+i1]*a*(1-b)+f[j1*n+i]*(1-a)*b+f[j1*n+i1]*a*b;};}
+    return F(j*n+i)*(1-a)*(1-b)+F(j*n+i1)*a*(1-b)+F(j1*n+i)*(1-a)*b+F(j1*n+i1)*a*b;};}
 /* hauteurs incluses dans le manifeste (paquets d'avant le socle) */
 function blxHeight(m,which){const H=m.hauteurs,raw=blxB64(H[which]);return blxHeightArr(H.n,H.ext,new Uint16Array(raw.buffer,raw.byteOffset,H.n*H.n));}
 async function blxHeights(name){
@@ -198,6 +202,7 @@ function blxProg(){
 /* un niveau 3D : téléchargement, lecture, cuisson en tranches, envoi ; les données lues sont libérées ensuite */
 function blxWant3(name,lod){
   const I=BLX.isl[name];if(!I||I.fail3||!W3.gl)return;const g=I.g3[lod];if(g)return;
+  if(lod!=='lod2'&&I.ready3&&!blxRoom3())return;   /* budget 3D atteint : l'île garde le niveau déjà prêt */
   if(I.f[I.m.glb[lod].fichier]&&I.f[I.m.glb[lod].fichier].st==='echec'){I.g3[lod]={st:'echec'};return;}
   const G=I.g3[lod]={st:'en cours'},gl0=W3.gl;
   (async()=>{try{
@@ -260,20 +265,31 @@ function blxBuild(t,o){
 }
 
 /* ---------- libération de la mémoire (P3) ---------- */
+/* octets décodés (2.5D : images fines et compositions) et envoyés à la carte graphique (3D : lod0 et lod1) */
+const blxPx=o=>o?(o.width||0)*(o.height||0)*4:0;
+function blxMem25(){let n=0;for(const I of Object.values(BLX.isl)){for(const [k,v] of Object.entries(I.img))if(k!=='l1')n+=blxPx(v);for(const v of Object.values(I.cv))n+=blxPx(v);}return n;}
+function blxMem3(){let n=0;for(const I of Object.values(BLX.isl))for(const l of ['lod0','lod1']){const g=I.g3[l];if(g&&g.st==='pret')n+=g.octets;}return n;}
+/* budget dépassé : on ne demande plus de niveau fin (l'île garde le meilleur niveau déjà prêt) tant que la libération n'a pas fait de place */
+const blxRoom25=()=>blxMem25()<BLX.cfg.budget25,blxRoom3=()=>blxMem3()<BLX.cfg.budget3;
+function blxEvict25(I,lods){let rel=false;for(const lod of lods)if(I.img[lod]){if(I.img[lod].close)I.img[lod].close();delete I.img[lod];rel=true;BLX.stat.liberes25++;}
+  if(!I.img.l2&&!I.img.l3)for(const k of Object.keys(I.img))if(/^v\d$/.test(k)){if(I.img[k].close)I.img[k].close();delete I.img[k];rel=true;}
+  for(const k of Object.keys(I.cv))if(!I.img[k.split('|')[0]])delete I.cv[k];
+  /* l'entrée du cache 2.5D ne doit garder aucune image libérée : elle est recomposée au prochain dessin */
+  if(rel){const name=Object.keys(BLX.isl).find(n=>BLX.isl[n]===I),t=terrs.find(q=>q.name===name),e=t&&R25.cache.get(t.id);if(e&&e.isBl){if(e.small!==I.img.l1)blxRestore25(e);else{e.mid=null;e.full=e.small;e.blKey='';}}}}
 function blxSweep(){
   const now=blxNow(),act3=typeof W3!=='undefined'&&W3.act,C=BLX.cfg;
   if(act3!==BLX.mode){BLX.mode=act3;BLX.since=now;}
   const inactif=now-(BLX.since||0)>C.inactif;
-  for(const [name,I] of Object.entries(BLX.isl)){
-    /* 2.5D : niveaux fins inutilisés, ou mode 2.5D inactif ; l1 reste (affichage de secours immédiat) */
-    let rel=false;
-    for(const lod of ['l2','l3']){const idle=now-(I.u25[lod]||0)>C.libere;if(I.img[lod]&&(idle||(act3&&inactif))){if(I.img[lod].close)I.img[lod].close();delete I.img[lod];rel=true;BLX.stat.liberes25++;}}
-    if(!I.img.l2&&!I.img.l3)for(const k of Object.keys(I.img))if(/^v\d$/.test(k)){if(I.img[k].close)I.img[k].close();delete I.img[k];rel=true;}
-    for(const k of Object.keys(I.cv))if(!I.img[k.split('|')[0]])delete I.cv[k];
-    /* l'entrée du cache 2.5D ne doit garder aucune image libérée : elle est recomposée au prochain dessin */
-    if(rel){const t=terrs.find(q=>q.name===name),e=t&&R25.cache.get(t.id);if(e&&e.isBl){if(e.small!==I.img.l1)blxRestore25(e);else{e.mid=null;e.full=e.small;e.blKey='';}}}
-    /* 3D : lod0 / lod1 inutilisés, ou mode 3D inactif ; lod2 reste tant que la 3D a servi */
-    for(const lod of ['lod0','lod1']){const g=I.g3[lod];if(g&&g.st==='pret'&&(now-(I.u3[lod]||0)>C.libere||(!act3&&inactif)))blxDrop3(I,lod);}}}
+  for(const I of Object.values(BLX.isl)){
+    /* 2.5D : niveaux fins inutilisés depuis 45 s, ou mode 2.5D inactif depuis 30 s ; l1 reste (affichage de secours immédiat) */
+    blxEvict25(I,['l2','l3'].filter(l=>I.img[l]&&(now-(I.u25[l]||0)>C.libere||(act3&&inactif))));
+    /* 3D : lod0 / lod1 inutilisés depuis 45 s, ou mode 3D inactif depuis 30 s ; lod2 reste tant que la 3D a servi */
+    for(const lod of ['lod0','lod1']){const g=I.g3[lod];if(g&&g.st==='pret'&&(now-(I.u3[lod]||0)>C.libere||(!act3&&inactif)))blxDrop3(I,lod);}}
+  /* budgets : au-delà, on libère d'abord ce qui a servi il y a le plus longtemps (jamais ce qui a servi dans les 2 dernières secondes) */
+  const c25=[];for(const I of Object.values(BLX.isl))for(const l of ['l3','l2'])if(I.img[l])c25.push([I.u25[l]||0,I,l]);c25.sort((a,b)=>a[0]-b[0]);
+  for(const [u,I,l] of c25){if(blxMem25()<C.budget25||now-u<C.recent)break;blxEvict25(I,[l]);}
+  const c3=[];for(const I of Object.values(BLX.isl))for(const l of ['lod0','lod1']){const g=I.g3[l];if(g&&g.st==='pret')c3.push([I.u3[l]||0,I,l]);}c3.sort((a,b)=>a[0]-b[0]);
+  for(const [u,I,l] of c3){if(blxMem3()<C.budget3||now-u<C.recent)break;blxDrop3(I,l);}}
 setInterval(()=>{try{blxSweep();}catch(err){console.warn('libération îles Blender',err);}},2000);
 
 blxInit();

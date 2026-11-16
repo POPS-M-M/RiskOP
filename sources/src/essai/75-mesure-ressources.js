@@ -124,7 +124,7 @@ function mesMem(){
   if(typeof BLX!=='undefined')for(const [n,I] of Object.entries(BLX.isl)){for(const v of Object.values(I.img))if(v&&typeof v==='object')add(v,'blender_img',n);
     for(const v of Object.values(I.cv||{}))add(v,'blender_compose',n);
     let b=0;for(const nodes of Object.values(I.glb||{}))for(const nd of nodes)b+=(nd.P?nd.P.byteLength:0)+(nd.N?nd.N.byteLength:0)+(nd.C&&nd.C.d?nd.C.d.byteLength:0)+(nd.I?nd.I.byteLength:0);
-    if(I.Hs&&I.m.hauteurs)b+=2*I.m.hauteurs.n*I.m.hauteurs.n*4;for(const z of Object.values(I.z||{}))b+=z.size||0;gj[n]=b;gltfJS+=b;}
+    if(I.Hs&&I.m.hauteurs)b+=2*I.m.hauteurs.n*I.m.hauteurs.n*(I.m.hauteurs.fichier?2:4);for(const z of Object.values(I.z||{}))b+=z.size||0;gj[n]=b;gltfJS+=b;}
   if(typeof R25!=='undefined'){add(R25.sea,'mer');}
   if(typeof R25G!=='undefined')for(const v of Object.values(R25G))add(v,'halos');
   /* WebGL */

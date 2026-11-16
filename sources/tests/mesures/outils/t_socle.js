@@ -60,6 +60,11 @@ else if(scen==='tour'){
   const L=['Zou','Whole Cake','Water 7','Loguetown','Wano','Alabasta','Drum','Jaya','Skypiea','Dressrosa','Enies Lobby','Sabaody'];
   for(const n of L){const t0=Date.now();await cam(p,n,9);await W(9000);R.etapes.push({ile:n,mem:await mm(),req:Object.values(sumReq(st,t0)).reduce((a,v)=>a+v.n,0)});}
   await cam(p,'Drum',2.2);await W(50000);R.pause50s={mem:await mm()};
+  /* même tour en 2.5D (zoom maximal) : mémoire des images décodées */
+  await p.evaluate(()=>{document.querySelector('#z-w3').click();});R.etapes25=[];
+  const im=async()=>{const m=await memo(p);let b=0;for(const [k,v] of Object.entries(m.img))if(/^blender/.test(k))b+=v;return {imgBlenderMo:+(b/1e6).toFixed(1),glBlenderMo:+(Object.values(m.glBlender).reduce((a,c)=>a+c,0)/1e6).toFixed(1)};};
+  for(const n of L){await cam(p,n,3.5);await W(7000);R.etapes25.push({ile:n,mem:await im()});}
+  await cam(p,'Drum',1.0);await W(50000);R.pause25_50s={mem:await im()};
   const fl=await p.evaluate(()=>{const s=__MES.snap();return {lt:s.fl.lt,classes:s.fl.classes};});R.fluidite=fl;
   R.errs=st.errs;await p.close();}
 else if(scen==='liberation'){
