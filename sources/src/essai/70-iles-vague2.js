@@ -39,7 +39,7 @@ cuReg('Shells Town',{art:{trees:[['round',6]]},
     K.hold(x,y,11*s);}});
 
 /* ---------- Syrup : village paisible, grand manoir blanc sur la colline, pente côtière (disposition interprétée) ---------- */
-cuReg('Syrup',{art:{trees:[['round',12]]},relief:cuRel([{t:'peak',x:.0,y:-.3,h:5,s:.2}]),
+cuReg('Archipel des Gecko',{art:{trees:[['round',12]]},relief:cuRel([{t:'peak',x:.0,y:-.3,h:5,s:.2}]),
   build(k){const K=cuKit(k),{G,u:s,R}=K,wh=cuC('#f6f2ea'),wh2=cuC('#ddd6c6'),rf=cuC('#b5533c');const x=0,y=-.3*R,z=K.H(x,y);
     K.bc(x,y,z-.2,12*s,6*s,5*s,wh);G.pyr(x-6.4*s,y-3.4*s,z+4.8*s,12.8*s,6.8*s,3*s,rf,.32);for(const sg of [-1,1]){K.bc(x+sg*7.5*s,y+1*s,z-.2,4*s,7*s,4*s,wh2);G.pyr(x+sg*7.5*s-2.2*s,y-2.7*s,z+3.8*s,4.4*s,7.4*s,2.2*s,rf,.3);}
     w3Wins(k,x-5.5*s,y+3.01*s,x+5.5*s,y+3.01*s,z+.6*s,z+4.4*s,1.6*s,true);for(let q=0;q<5;q++)G.cyl(x-2.4*s+q*1.2*s,y+3.6*s,z,.2*s,3.2*s,wh2,6);
@@ -65,7 +65,7 @@ cuReg('Baratie',{art:{trees:[['palm',8]]},pier:0,
     cuTube(G,[[x-1*s,y-4*s,z+3*s],[x-1*s,K.rc(1.5708)*.88,1.2]],.5*s,wd,6,true);}});
 
 /* ---------- Cocoyasi : vergers de mandariniers, maisonnette, forteresse des hommes-poissons au bord de l'eau (stylisée) ---------- */
-cuReg('Cocoyasi',{art:{trees:[['palm',6]]},
+cuReg('Archipel des Konomi',{art:{trees:[['palm',6]]},
   build(k){const K=cuKit(k),{G,u:s,R}=K,leaf=cuC('#3f8a3a'),ora=cuC('#f2932a');
     /* vergers : rangées régulières de mandariniers */
     for(let r=0;r<4;r++)for(let c=0;c<7;c++){const x=(-.5+c*.08)*R+(r%2)*.04*R,y=(.05+r*.08)*R,z=K.H(x,y);if(z<.6)continue;G.cyl(x,y,z-.1,.13*s,.9*s,cuC('#6a4a2c'),5,false);G.ico(x,y,z+1.5*s,1*s,.85,leaf,K.rnd,.15);for(let q=0;q<4;q++){const a=q*1.7+c;G.ico(x+Math.cos(a)*.8*s,y+Math.sin(a)*.8*s,z+1.5*s+(q%2)*.4*s,.22*s,1,ora,null,0);}K.tops.push([x-s,y-s,x+s,y+s,z+2.5*s]);K.hold(x,y,1.1*s);}
@@ -111,7 +111,7 @@ cuReg('Flevance',{art:{b:'snow',trees:[['pine',8]],house:'snowy'},
     K.spot(10,600,.15,.9,(xx,yy,zz)=>K.tree('round',xx,yy,zz,(1+K.rnd()*.6)*s,cuC('#f4f6fa')),1.4*s);}});
 
 /* ---------- Ruskaina : île glaciaire et sauvage — pics de glace, lac gelé, ossements de bêtes géantes (interprétation) ---------- */
-cuReg('Ruskaina',{art:{trees:[['pine',12]]},
+cuReg('Rusukaina',{art:{trees:[['pine',12]]},
   build(k){const K=cuKit(k),{G,u:s,R}=K,ice=[cuC('#bfe6f6'),cuC('#a6d8f0'),cuC('#e0f4fc')];
     {const lx=.15*R,ly=.18*R,lz=K.H(lx,ly)+.08,r=.17*R;for(let q=0;q<24;q++){const a0=q/24*6.2832,a1=(q+1)/24*6.2832;G.tri([lx,ly,lz],[lx+Math.cos(a0)*r,ly+Math.sin(a0)*r*.8,lz],[lx+Math.cos(a1)*r,ly+Math.sin(a1)*r*.8,lz],cuC('#cfeefa'),[0,0,1],[0,0,1],[0,0,1]);}K.hold(lx,ly,r);}
     K.spot(16,900,.1,.9,(x,y,zz,i)=>{for(let q=0;q<3;q++){const a=q*2.1+i;G.cone(x+Math.cos(a)*.8*s,y+Math.sin(a)*.8*s,zz-.2,(.7+q*.2)*s,(3+((i*3+q)%4)*1.4)*s,ice[q],5);}K.tops.push([x-s,y-s,x+s,y+s,zz+6*s]);},2*s);
@@ -151,13 +151,13 @@ cuReg('Ohara',{art:{trees:[['dead',8],['round',4]]},
     cuRuins(K,0,0,.75*R,22,cuC('#5a524a'),cuC('#7a6e60'));}});
 
 /* ---------- Sorbet : palais royal pastel et chapelle à clocher (interprétation) ---------- */
-cuReg('Sorbet',{art:{trees:[['round',8]]},
+cuReg('Royaume de Sorbet',{art:{trees:[['round',8]]},
   build(k){const K=cuKit(k),{G,u:s,R}=K;const top=cuCastle(K,k,-.1*R,-.2*R,s,{W:9,D:6,th:6,kh:8,roof:cuC('#5ab0c8'),w:cuC('#fff4ec'),w2:cuC('#f2d8cc')});k.ban(-.1*R,-.2*R,top+s);k.top=top+2*s;
     const cx=.35*R,cy=.05*R,z=K.H(cx,cy);K.bc(cx,cy,z,4*s,7*s,4*s,cuC('#f6efe2'));G.pyr(cx-2.2*s,cy-3.7*s,z+4*s,4.4*s,7.4*s,2.6*s,cuC('#8a5aa8'),.48);K.bc(cx,cy-3*s,z,2.4*s,2.4*s,9*s,cuC('#f6efe2'));G.cone(cx,cy-3*s,z+9*s,1.8*s,4*s,cuC('#8a5aa8'),4);
     G.box(cx-.08*s,cy-1.7*s,z+13.4*s,.16*s,.1*s,1.4*s,cuC('#f0c050'));G.box(cx-.5*s,cy-1.7*s,z+14.1*s,1*s,.1*s,.16*s,cuC('#f0c050'));K.hold(cx,cy,5*s);}});
 
 /* ---------- Hachinosu : île-repaire des pirates, rocher en forme de crâne dominant un village de bicoques (élément à confirmer) ---------- */
-cuReg('Hachinosu',{art:{trees:[['dead',8]]},relief:cuRel([{t:'plat',x:0,y:-.25,r:.2,w:.12,h:3}]),
+cuReg('La Ruche',{art:{trees:[['dead',8]]},relief:cuRel([{t:'plat',x:0,y:-.25,r:.2,w:.12,h:3}]),
   build(k){const K=cuKit(k),{G,u:s,R}=K,rk=cuC('#d8d0c0'),dk=cuC('#1e1a1c');const x=0,y=-.25*R,z=K.H(x,y);
     cuEll(G,x,y,z+7*s,8*s,7*s,7.6*s,rk,14,9);cuEll(G,x,y+3*s,z+2*s,5.4*s,4*s,3.4*s,rk,12,7);
     for(const sg of [-1,1])cuEll(G,x+sg*3*s,y+6.2*s,z+8*s,2*s,1*s,2.2*s,dk,10,6);cuEll(G,x,y+6.8*s,z+4.8*s,.9*s,.6*s,1.2*s,dk,8,5);

@@ -17,7 +17,7 @@ import json, math, os, random
 
 ART = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 _d = json.load(open(os.path.join(ART, 'data', 'islands.json'), encoding='utf-8'))
-ISL = [i for i in _d['iles'] if i['nom'] == 'Cocoyasi'][0]
+ISL = [i for i in _d['iles'] if i['nom'] == 'Archipel des Konomi'][0]
 COAST = [(ISL['cote3d'][k], ISL['cote3d'][k + 1]) for k in range(0, len(ISL['cote3d']), 2)]
 R = ISL['rayon']; TAU = 2 * math.pi; D = math.radians
 

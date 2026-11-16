@@ -23,7 +23,7 @@ ART = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 args = [a for a in sys.argv[1:] if not a.startswith('--')]
 B64, FORMAT1, NETTOYER, INLINE_H = '--b64' in sys.argv, '--format1' in sys.argv, '--nettoyer' in sys.argv, '--hauteurs-incluses' in sys.argv
 dest = os.path.abspath(args[0] if args else os.path.join(ART, '..', 'dist'))
-NAMES = {'zou': 'Zou', 'whole_cake': 'Whole Cake', 'water_7': 'Water 7', 'loguetown': 'Loguetown', 'wano': 'Wano', 'alabasta': 'Alabasta', 'syrup': 'Syrup', 'cocoyasi': 'Cocoyasi'}   # îles produites par la chaîne (prototypes, Water 7, puis île par île)
+NAMES = {'zou': 'Zou', 'whole_cake': 'Whole Cake Island', 'water_7': 'Water 7', 'loguetown': 'Loguetown', 'wano': 'Pays des Wa', 'alabasta': 'Alabasta', 'syrup': 'Archipel des Gecko', 'cocoyasi': 'Archipel des Konomi'}   # îles produites par la chaîne (prototypes, Water 7, puis île par île)
 
 
 def sha(b):
@@ -78,6 +78,12 @@ def pack_v2(name, slug, src, d):
         open(os.path.join(d, nom), 'wb').write(data); tot += len(data); garder.add(nom)
         table[nom] = {'source': 'manifest.json (hauteurs)', 'octets': len(raw), 'sha256': h, 'encodage': enc, 'octets_publies': len(data)}
         m2['hauteurs'] = {'n': n, 'ext': H['ext'], 'code': H['code'], 'fichier': nom, 'sol': [0, n * n * 2], 'obstacles': [n * n * 2, n * n * 2]}
+    # le nom du jeu fait foi (NAMES) : une île renommée garde ses sorties Blender, seul son manifeste publié change de nom
+    m2['ile'] = name
+    try:
+        m2['id'] = [i for i in json.load(open(os.path.join(ART, 'data', 'islands.json'), encoding='utf-8'))['iles'] if i['nom'] == name][0]['id']
+    except (IndexError, OSError, KeyError):
+        pass
     m2['format'] = 2; m2['fichiers'] = table
     mb = jdump(m2); mh = sha(mb); mnom = 'manifest.%s.json' % mh[:8]
     open(os.path.join(d, mnom), 'wb').write(mb); tot += len(mb); garder.add(mnom)

@@ -13,7 +13,7 @@ import rk_common as C, rk_lib as L
 K_ = L.CANDY
 
 T0 = time.time(); rnd = random.Random(1210)
-isl = C.island('Whole Cake'); R = isl['rayon']
+isl = C.island('Whole Cake Island'); R = isl['rayon']
 sc = C.new_scene(); M = C.materials()
 SOL, DECOR, V2, V3, V4 = C.coll('RK_SOL'), C.coll('RK_DECOR'), C.coll('RK_VILLE_2'), C.coll('RK_VILLE_3'), C.coll('RK_VILLE_4')
 P = lambda x, y, z: C.g2b(x, y, z)

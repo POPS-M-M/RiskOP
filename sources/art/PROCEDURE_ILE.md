@@ -26,7 +26,9 @@
 cd /home/claude/riskop-essai/sources
 git fetch -q && git checkout -q essai/ile-<derniere-validee> && git checkout -q -b essai/ile-<slug> && git push -q -u origin essai/ile-<slug>
 ```
-Ordre prévu (programme `claude/risk-op-programme-production-iles.md`, vague 1 « ports d'East Blue ») : Cocoyasi, Orange Town, Foosha, Shells Town, Goa, Baratie, Jaya, Sabaody ; puis vague 2 (îles majeures uniques), vague 3 (forteresses et hiver), vague 4 (interprétation).
+Ordre (demande de l'utilisateur, 16/11/2026) : celui de sa liste de 53 îles (« Top 1 à 53 »), qui est aussi l'ordre de `I` dans `art/data/carte/carte_canon.py`, en sautant les îles déjà faites (Pays des Wa, Alabasta, Water 7, Loguetown, Archipel des Konomi, Archipel des Gecko) et les prototypes Zou et Whole Cake Island (à ne pas modifier). Suite : Laugh Tale, Mary Geoise, Elbaph, Egghead, La Ruche, Île des Hommes-Poissons, Marineford, Ohara, God Valley, Archipel des Sabaody, Royaume de Kamabakka…
+Noms : ceux de la carte 2 (`carte2.json`). Le slug Blender reste court (ex. `'syrup': 'Archipel des Gecko'`).
+(Ancien ordre, abandonné : vagues par mer du programme `claude/risk-op-programme-production-iles.md`.)
 
 ## 2. Les 7 étapes
 ### Étape 1 — Fiche canonique (`art/data/fiches/<slug>.json`)

@@ -1,0 +1,47 @@
+{
+ "ok": [
+  "nouvelle partie : carte 2, 53 îles (2, 53)",
+  "nouvelle partie : les 53 noms de la liste",
+  "capitales : Royaume de Kamabakka, Nouveau Marineford, Île de Dawn, Whisky Peak",
+  "Poneglyphes : Pays des Wa, Île des Hommes-Poissons, Whole Cake Island, Zou",
+  "sauvegarde carte 2 relue sur la carte 2 {\"m\":\"\",\"v\":2,\"mapv\":2,\"same\":true}",
+  "ancienne sauvegarde chargée sur la carte 1 (ok, carte 1, 53 îles)",
+  "ancienne sauvegarde : mêmes îles, renommées (17 noms changés)",
+  "ancienne sauvegarde : mêmes propriétaires",
+  "ancienne partie jouable et réenregistrée en carte 1 ({\"mapv\":1,\"t\":40})",
+  "aucune erreur de page (0)"
+ ],
+ "ko": [],
+ "regions": [
+  [
+   "East Blue",
+   7
+  ],
+  [
+   "West Blue",
+   2
+  ],
+  [
+   "North Blue",
+   2
+  ],
+  [
+   "South Blue",
+   2
+  ],
+  [
+   "Paradise",
+   18
+  ],
+  [
+   "Nouveau Monde",
+   17
+  ],
+  [
+   "Red Line",
+   5
+  ]
+ ],
+ "routes": 81,
+ "errs": []
+}

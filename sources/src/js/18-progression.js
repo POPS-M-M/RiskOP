@@ -285,7 +285,7 @@ function pgBandHTML(){
     +'<div class="pgn">'+(I.r<PG_MAXR?I.in+' / '+I.need+' XP · Rang '+(I.r+1)+' : '+pgRewardName(I.r+1):'Rang maximal atteint')+'</div>'
     +'<button class="btn'+(n?' primary':'')+'" data-pg="open">Progression'+(n?' <span class="pgdot" title="Déblocages disponibles">'+n+'</span>':'')+'</button></div>';
 }
-function pgLegCond(L){const r=L.rec,o=[];for(const n of r.isl||[])o.push('tenir '+n);if(r.age)o.push('âge '+AGES[r.age].n);if(r.prime)o.push('prime '+fmtPrime(r.prime));if(r.ter)o.push(r.ter+' territoires');if(r.war)o.push('être en guerre');o.push(r.cost+' ฿ environ');return o.join(' · ');}
+function pgLegCond(L){const r=L.rec,o=[];for(const n of recIsl(r))o.push('tenir '+n);if(r.age)o.push('âge '+AGES[r.age].n);if(r.prime)o.push('prime '+fmtPrime(r.prime));if(r.ter)o.push(r.ter+' territoires');if(r.war)o.push('être en guerre');o.push(r.cost+' ฿ environ');return o.join(' · ');}
 function pgMini(s,act){
   const i=pgLegIdx(s),L=LEGENDS[i],M=chMeta(i),R=RAR[M.r];
   return '<div class="pgmini" style="--rc:'+R.col+'"><div class="t"><b style="color:'+R.col+'">♛ '+esc(L.s)+'</b><span class="rar" style="border-color:'+R.col+';color:'+R.col+'">'+R.n+'</span><span class="muted">'+esc(M.role)+'</span></div>'

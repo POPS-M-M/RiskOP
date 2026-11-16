@@ -41,7 +41,7 @@ cuReg('Birka',{art:{trees:[['round',8]]},
     cuRuins(K,0,0,.7*R,10,w2,w);}});
 
 /* ---------- Kamabakka : royaume extravagant — palais rose à cœurs, scène de cabaret, jardins fleuris ---------- */
-cuReg('Kamabakka',{art:{trees:[['round',10]]},
+cuReg('Royaume de Kamabakka',{art:{trees:[['round',10]]},
   build(k){const K=cuKit(k),{G,u:s,R}=K,pk=cuC('#ff6fae'),pk2=cuC('#ffc4dc'),gold=cuC('#f0c050');
     const top=cuCastle(K,k,0,-.18*R,s,{W:10,D:7,th:7,kh:10,roof:pk,w:cuC('#ffe4f0'),w2:pk2,cone:3});
     const heart=(x,y,z,r,c)=>{cuEll(G,x-.5*r,y,z+.3*r,.6*r,.35*r,.6*r,c,8,5);cuEll(G,x+.5*r,y,z+.3*r,.6*r,.35*r,.6*r,c,8,5);G.cone(x,y,z-.9*r,.98*r,1.1*r,c,8);};
@@ -155,7 +155,7 @@ cuReg('Laugh Tale',{art:{trees:[['palm',10]]},
     cuRuins(K,0,.05*R,.6*R,18,st,st2);K.spot(10,600,.1,.8,(xx,yy,zz)=>cuEll(G,xx,yy,zz+.4*s,.25*s,.25*s,.25*s,gold,5,3),.3*s);}});
 
 /* ---------- Reverse Mountain : montagne rouge gigantesque, courants d'eau qui gravissent ses flancs, phare au pied ---------- */
-cuReg('Reverse Mountain',{art:{peaks:[],trees:[]},relief:cuRel([{t:'peak',x:0,y:-.1,h:26,s:.22}]),
+cuReg('Cap des Jumeaux',{art:{peaks:[],trees:[]},relief:cuRel([{t:'peak',x:0,y:-.1,h:26,s:.22}]),
   color(x,y,h,sl,def,c){const a=Math.atan2(y+.1*c.R,x);for(let q=0;q<4;q++){let da=Math.abs(a-(q*1.5708+.785));da=Math.min(da,6.2832-da);if(da<.09&&h>1)return cuMix(cuC('#3aa8d8'),cuC('#8ad8f0'),.5+.5*Math.sin(h*2));}if(h>1)return cuMix(cuC('#a84a2e'),cuC('#c86040'),.5+.5*Math.sin(h*1.6));return null;},
   build(k){const K=cuKit(k),{G,u:s,R}=K;const lx=-.2*R,ly=.55*R,lz=K.H(lx,ly);W3LM.lighthouse({G,x:lx,y:ly,z:lz,s:1.2*s,o:{},tops:K.tops,top:0,ban:()=>{}});K.hold(lx,ly,3*s);
     const pz=K.H(0,-.1*R);k.ban(0,-.1*R,pz+2*s);k.top=pz+4*s;

@@ -4,14 +4,16 @@
    diplomatie, âge, personnages, boss, événements) et se recharge à l'identique. Stockage : ce navigateur seulement (localStorage). */
 const SV={keys:['rk-s1','rk-s2','rk-s3'],auto:'rk-sa',open:false,confirm:'',edit:'',msg:'',autoAt:0,autoKey:'',nameDraft:''};
 /* Île renommée (Arabasta → Alabasta) : les anciennes sauvegardes sont converties à la lecture, rien d'autre ne change. */
-const svRenamed=s=>s&&s.replace(/"Arabasta"/g,'"Alabasta"');
+/* îles renommées (Alabasta, puis les noms de la liste de 53 îles) : la sauvegarde est lue avec les nouveaux noms, sur la carte où elle a été faite */
+const SV_REN={"Arabasta":"Alabasta","Elbaf":"Elbaph","Wano":"Pays des Wa","Hachinosu":"La Ruche","Fish-Man":"Île des Hommes-Poissons","Whole Cake":"Whole Cake Island","Kamabakka":"Royaume de Kamabakka","New Marineford":"Nouveau Marineford","Sabaody":"Archipel des Sabaody","Reverse Mountain":"Cap des Jumeaux","Sorbet":"Royaume de Sorbet","Sphinx":"Île de Sphinx","Drum":"Île de Drum","Cocoyasi":"Archipel des Konomi","Germa":"Royaume de Germa","Kuraigana":"Île de Kuraigana","Ruskaina":"Rusukaina","Syrup":"Archipel des Gecko"};
+const svRenamed=s=>s&&s.replace(/"([^"\\]{2,24})"/g,(m,n)=>SV_REN[n]?'"'+SV_REN[n]+'"':m);
 const svRead=k=>{try{const o=JSON.parse(svRenamed(rkLS(k))||'null');return o&&o.v===1&&o.G&&o.meta?o:null;}catch(_){return null;}};
 const svClone=x=>JSON.parse(JSON.stringify(x));
 function svCanSave(){return MODE==='solo'&&started&&!over&&players.length&&!TU.on?'':MODE!=='solo'?'Les sauvegardes ne sont pas disponibles en partie en ligne.':TU.on?'Terminez ou quittez le guide pour sauvegarder.':!started||over?'Aucune partie en cours à sauvegarder.':'Aucune partie en cours.';}
 function svBuild(name){
   const p=players[ME],cw=CREWS[p.crew||0];
   const meta={name:name||(cw.n+' · '+(TM.on?'Tour '+TM.n:Math.floor(time/60)+' min')),camp:cw.n,ic:cw.ic,color:p.color,turn:TM.on?TM.n:0,real:!TM.on,age:AG.n,terr:terrs.filter(t=>t.owner===ME).length,total:terrs.length,diff:diffKey,t:Math.round(time),date:Date.now(),pace:PK};
-  const G=svClone({seed,diffKey,PK,ME,time,speed,secAcc,TM,AG,players,terrs,armies,rel,tradeM,truce,opin,proposals,warSince,vas,vasSince,vasDomT,domKey,domT,poneKey,poneT,marineAt,marineWarned,marineTarget,huntPrimes,BS,CH,EV,evNextAt,evSeq,evLastK,ARMN,BRN,BATTLES:BATTLES.slice(-30),JOURNAL:JOURNAL.slice(-150),logs:logs.slice(-6),CAMP,rec:RK.rec,ui:{sel:ui.sel,tab:ui.tab,pct:ui.pct,stance:ui.stance},rkp:{gid:RK.gid||'',roster:RK.roster||null,disc:RK.disc||[],coal:RK.coal>=0?RK.coal:-1}});
+  const G=svClone({mapv:MAPV,seed,diffKey,PK,ME,time,speed,secAcc,TM,AG,players,terrs,armies,rel,tradeM,truce,opin,proposals,warSince,vas,vasSince,vasDomT,domKey,domT,poneKey,poneT,marineAt,marineWarned,marineTarget,huntPrimes,BS,CH,EV,evNextAt,evSeq,evLastK,ARMN,BRN,BATTLES:BATTLES.slice(-30),JOURNAL:JOURNAL.slice(-150),logs:logs.slice(-6),CAMP,rec:RK.rec,ui:{sel:ui.sel,tab:ui.tab,pct:ui.pct,stance:ui.stance},rkp:{gid:RK.gid||'',roster:RK.roster||null,disc:RK.disc||[],coal:RK.coal>=0?RK.coal:-1}});
   return {v:1,meta,G};
 }
 function svWrite(k,name){
@@ -23,7 +25,7 @@ function svRestore(o){
   try{
     leaveNet();
     MODE='solo';ME=G.ME|0;PK=G.PK;diffKey=G.diffKey;
-    setupWorld(G.seed);chReset();brReset();
+    setupWorld(G.seed,G.mapv||1);chReset();brReset();
     if(G.terrs.length!==terrs.length)throw new Error('carte différente');
     terrs.forEach((t,i)=>{Object.assign(t,G.terrs[i]);});
     players=G.players;armies=G.armies;rel=G.rel;tradeM=G.tradeM;truce=G.truce;opin=G.opin;proposals=G.proposals;warSince=G.warSince;vas=G.vas;vasSince=G.vasSince;vasDomT=G.vasDomT;

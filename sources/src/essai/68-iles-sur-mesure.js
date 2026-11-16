@@ -144,7 +144,7 @@ W3CU['Zou']={
 const WC={pink:r3c('#f7a8cc'),pinkD:r3c('#ef82b4'),cream:r3c('#fff4dc'),choc:r3c('#6b4129'),chocL:r3c('#8f5e3c'),mint:r3c('#a8e6cf'),lemon:r3c('#ffe6a0'),lav:r3c('#d4c0f0'),cherry:r3c('#d4203a'),waffle:r3c('#e5b070'),ginger:r3c('#a8683a'),ice:r3c('#ffffff'),blue:r3c('#9ad4f0')};
 const wcRiver=(R)=>[[-.02,-.02],[-.1,.14],[.06,.26],[.0,.4],[.1,.58],[.04,.78],[.08,.96]].map(p=>[p[0]*R,p[1]*R]);
 const cuDistPoly=(P,x,y)=>{let m=1e9;for(let i=0;i<P.length-1;i++){const a=P[i],b=P[i+1],vx=b[0]-a[0],vy=b[1]-a[1],t=Math.max(0,Math.min(1,((x-a[0])*vx+(y-a[1])*vy)/(vx*vx+vy*vy||1))),d=Math.hypot(x-a[0]-vx*t,y-a[1]-vy*t);if(d<m)m=d;}return m;};
-W3CU['Whole Cake']={
+W3CU['Whole Cake Island']={
   art:{lm:null,town:0,trees:[],ex:[],lake:null},
   relief(H0,c){const {rc,R,u,S0}=c,riv=wcRiver(R);
     return (x,y)=>{const r=Math.hypot(x,y),th=Math.atan2(y,x),cr=rc(th),d=r/cr;if(d>=1)return -.9*r3ss(1,1.2,d);
@@ -231,7 +231,7 @@ W3CU['Whole Cake']={
 
 /* ================= NEW MARINEFORD : le quartier général de la Marine ================= */
 const MF={wall:r3c('#e6e3da'),wall2:r3c('#c9c6bb'),stone:r3c('#a8a699'),roof:r3c('#3b62a8'),roof2:r3c('#2c4a86'),dark:r3c('#2a2f3a'),gold:r3c('#e0b04a'),flag:r3c('#f4f6fa'),pave:r3c('#cfcbbd'),pave2:r3c('#bdb9aa')};
-W3CU['New Marineford']={
+W3CU['Nouveau Marineford']={
   art:{lm:null,town:0,trees:[],ex:[],lake:null},
   pier:Math.PI/2,
   relief(H0,c){const {rc,R,u,S0}=c;
@@ -297,7 +297,7 @@ W3CU['New Marineford']={
 
 /* ================= KURAIGANA : château gothique en ruines, forêt sombre ================= */
 const KG={stone:r3c('#5a566a'),stone2:r3c('#46425a'),dk:r3c('#2e2a3c'),roof:r3c('#241f33'),roof2:r3c('#3a2f52'),glow:r3c('#ffc562'),glow2:r3c('#b48aff'),moss:r3c('#3d5440'),rock:r3c('#4a475a'),bone:r3c('#d8d2c0')};
-W3CU['Kuraigana']={
+W3CU['Île de Kuraigana']={
   art:{lm:null,town:0,trees:[],ex:[],lake:null},
   relief(H0,c){const {rc,R,u,S0}=c;
     return (x,y)=>{const r=Math.hypot(x,y),th=Math.atan2(y,x),cr=rc(th),d=r/cr;if(d>=1)return -.9*r3ss(1,1.2,d);

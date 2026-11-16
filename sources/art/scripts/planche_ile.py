@@ -113,7 +113,7 @@ row([(R_('z_zou_3d_centre.png'), 'Zou · 3D zoom 14'), (R_('z_wc_3d_centre.png')
 row([(R_('zou_3d_moyen.png'), 'Zou · 3D zoom 5', INK, CR3), (R_('wc_3d_moyen.png'), 'Whole Cake · 3D zoom 5', INK, CR3), (R_('w7_3d_moyen.png'), 'Water 7 · 3D zoom 5', INK, CR3), (C('%s_3d_moyen.png' % pre), Q['nom'] + ' · 3D zoom 5', GOLD, I3)], 565)
 row([(R_('zou_25_proche.png'), 'Zou · 2.5D zoom 3,5', INK, CR25), (R_('wc_25_proche.png'), 'Whole Cake · 2.5D zoom 3,5', INK, CR25), (R_('w7_25_proche.png'), 'Water 7 · 2.5D zoom 3,5', INK, CR25), (C('%s_25_proche.png' % pre), Q['nom'] + ' · 2.5D zoom 3,5', GOLD, I25)], 565)
 x = 40; txt(40, y, 'Rendus 2.5D au même nombre de pixels par unité (l2 = 6 px/unité)', 21, INK, True); y += 32
-for nm, s_ in (('Zou', 'zou'), ('Whole Cake', 'whole_cake'), ('Water 7', 'water_7'), (Q['nom'], slug)):
+for nm, s_ in (('Zou', 'zou'), ('Whole Cake Island', 'whole_cake'), ('Water 7', 'water_7'), (Q['nom'], slug)):
     im = Image.open(os.path.join(ART, 'out', s_, 'l2.png')).convert('RGBA'); im = im.crop(im.getbbox())
     bg = Image.new('RGB', (im.width + 40, 520), SEA); bg.paste(im, (20, 520 - im.height - 20), im); board.paste(bg, (x, y + 30)); txt(x, y, nm, 21, GOLD if s_ == slug else INK, True); x += bg.width + 24
 y += 30 + 520 + 26

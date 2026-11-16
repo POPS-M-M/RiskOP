@@ -106,7 +106,7 @@ row([(C('zou_3d_moyen.png'), JEU + ' · Zou · 3D zoom 5', INK, (380, 190, 1660,
 row([(C('zou_25_proche.png'), JEU + ' · Zou · 2.5D zoom 3,5', INK, (560, 380, 1500, 880)), (C('wc_25_proche.png'), JEU + ' · Whole Cake · 2.5D zoom 3,5', INK, (560, 380, 1500, 880)),
      (C('w7_25_proche.png'), JEU + ' · Water 7 · 2.5D zoom 3,5', GOLD, (560, 380, 1500, 880))], 760)
 x = 40; yy = y; txt(40, y, 'Rendus 2.5D au même nombre de pixels par unité (l2 = 6 px/unité)', 21, INK, True); y += 32
-for nm, slug in (('Zou', 'zou'), ('Whole Cake', 'whole_cake'), ('Water 7', 'water_7')):
+for nm, slug in (('Zou', 'zou'), ('Whole Cake Island', 'whole_cake'), ('Water 7', 'water_7')):
     im = Image.open(os.path.join(ART, 'out', slug, 'l2.png')).convert('RGBA'); im = im.crop(im.getbbox())
     bg = Image.new('RGB', (im.width + 40, 520), SEA); bg.paste(im, (20, 520 - im.height - 20), im); board.paste(bg, (x, y + 30)); txt(x, y, nm, 21, GOLD if slug == 'water_7' else INK, True); x += bg.width + 30
 y += 30 + 520 + 26
@@ -119,7 +119,7 @@ for mode, t in (('25', '2.5D'), ('3d', '3D')):
 # ---------------------------------------------------------------- 9. rapport technique
 section('9 · Rapport technique', "Mesures de cet environnement (CPU, rendu WebGL logiciel) : ordres de grandeur, pas des mesures sur ta machine")
 x0, cw = 40, [520, 400, 400, 400]
-hdr = ['', 'Zou', 'Whole Cake', 'Water 7 (G3)']
+hdr = ['', 'Zou', 'Whole Cake Island', 'Water 7 (G3)']
 for k, h in enumerate(hdr): txt(x0 + sum(cw[:k]), y, h, 21, GOLD if k == 3 else INK, True)
 y += 34
 for lab, vals in T['tableau']:

@@ -75,8 +75,8 @@ async function bancRun(){
   const keep={x:V.x,y:V.y,k:V.k,w3:typeof W3!=='undefined'&&W3.on,lod:typeof R3_LOD!=='undefined'?R3_LOD.on:true};
   const btn=document.getElementById('banc-go');btn.disabled=true;BANC.tab='mesure';BANC.t0=performance.now();BANC.snap0=mesSnap();mesReset();
   try{
-    const S3=[['Vue d\'ensemble',null,1],['Zoom moyen · Zou','Zou',3],['Zoom proche · Whole Cake','Whole Cake',9],['Zoom proche · Zou','Zou',9]];
-    const S25=[['Vue d\'ensemble',null,1],['Zoom moyen · Zou','Zou',2.2],['Zoom proche · Whole Cake','Whole Cake',3.5]];
+    const S3=[['Vue d\'ensemble',null,1],['Zoom moyen · Zou','Zou',3],['Zoom proche · Whole Cake','Whole Cake Island',9],['Zoom proche · Zou','Zou',9]];
+    const S25=[['Vue d\'ensemble',null,1],['Zoom moyen · Zou','Zou',2.2],['Zoom proche · Whole Cake','Whole Cake Island',3.5]];
     /* mode 3D */
     if(typeof W3!=='undefined'&&!W3.fail){if(!W3.on)w3Toggle();await bancWait(800);
       for(const [cuOff,vname] of [[true,'avant'],[false,'après']]){await bancRebuild(cuOff);
@@ -84,7 +84,7 @@ async function bancRun(){
           for(const [lab,nm,k] of S3){bancSt('3D · '+vname+(cuOff?'':lod?' (niveaux de détail)':' (sans niveaux de détail)')+' · '+lab);bancCam(nm,k);await bancMeasure(lab,'3D',vname+(cuOff?'':lod?'':' sans LOD'));}}
         if(typeof R3_LOD!=='undefined')R3_LOD.on=true;
         if(doSw){bancSt('3D · '+vname+' · balayage de zoom sur Zou');await bancSweep('3D',vname,'Zou',1.5,12);}
-        if(doIso&&!cuOff)for(const nm of ['Zou','Whole Cake','Alabasta']){bancSt('3D · reconstruction isolée · '+nm);await bancIso(nm);}}
+        if(doIso&&!cuOff)for(const nm of ['Zou','Whole Cake Island','Alabasta']){bancSt('3D · reconstruction isolée · '+nm);await bancIso(nm);}}
       if(typeof R3_LOD!=='undefined')R3_LOD.on=true;}
     /* mode 2.5D */
     if(typeof W3!=='undefined'&&W3.on){w3Toggle();await bancWait(800);}

@@ -1,0 +1,431 @@
+{
+ "iles": {
+  "Zou": {
+   "g3": {
+    "lod2": {
+     "st": "pret",
+     "octets": 222200,
+     "sommets": 6443,
+     "triangles": 6966
+    },
+    "lod0": {
+     "st": "pret",
+     "octets": 1757274,
+     "sommets": 45336,
+     "triangles": 81311
+    },
+    "lod1": {
+     "st": "pret",
+     "octets": 602644,
+     "sommets": 16048,
+     "triangles": 25550
+    }
+   },
+   "cuisson": [
+    {
+     "ile": "Zou",
+     "lod": "lod2",
+     "ms": 1743,
+     "sommets": 6443,
+     "triangles": 6966
+    },
+    {
+     "ile": "Zou",
+     "lod": "lod1",
+     "ms": 1343,
+     "sommets": 16048,
+     "triangles": 25550
+    },
+    {
+     "ile": "Zou",
+     "lod": "lod0",
+     "ms": 3849,
+     "sommets": 45336,
+     "triangles": 81311
+    }
+   ],
+   "conquete_ms": 5,
+   "conquete_sommets": 2946,
+   "reconstructions": 1,
+   "fail3": false
+  },
+  "Whole Cake Island": {
+   "g3": {
+    "lod2": {
+     "st": "pret",
+     "octets": 143068,
+     "sommets": 4051,
+     "triangles": 4940
+    },
+    "lod0": {
+     "st": "pret",
+     "octets": 1205450,
+     "sommets": 30692,
+     "triangles": 57679
+    },
+    "lod1": {
+     "st": "pret",
+     "octets": 408618,
+     "sommets": 10710,
+     "triangles": 18123
+    }
+   },
+   "cuisson": [
+    {
+     "ile": "Whole Cake Island",
+     "lod": "lod2",
+     "ms": 1736,
+     "sommets": 4051,
+     "triangles": 4940
+    },
+    {
+     "ile": "Whole Cake Island",
+     "lod": "lod1",
+     "ms": 1037,
+     "sommets": 10710,
+     "triangles": 18123
+    },
+    {
+     "ile": "Whole Cake Island",
+     "lod": "lod0",
+     "ms": 3882,
+     "sommets": 30692,
+     "triangles": 57679
+    }
+   ],
+   "conquete_ms": 3,
+   "conquete_sommets": 2946,
+   "reconstructions": 1,
+   "fail3": false
+  },
+  "Water 7": {
+   "g3": {
+    "lod2": {
+     "st": "pret",
+     "octets": 392882,
+     "sommets": 12467,
+     "triangles": 7301
+    },
+    "lod0": {
+     "st": "pret",
+     "octets": 4242220,
+     "sommets": 114991,
+     "triangles": 85206
+    },
+    "lod1": {
+     "st": "pret",
+     "octets": 1431874,
+     "sommets": 45400,
+     "triangles": 26779
+    }
+   },
+   "cuisson": [
+    {
+     "ile": "Water 7",
+     "lod": "lod2",
+     "ms": 2459,
+     "sommets": 12467,
+     "triangles": 7301
+    },
+    {
+     "ile": "Water 7",
+     "lod": "lod1",
+     "ms": 2305,
+     "sommets": 45400,
+     "triangles": 26779
+    },
+    {
+     "ile": "Water 7",
+     "lod": "lod0",
+     "ms": 8722,
+     "sommets": 114991,
+     "triangles": 85206
+    }
+   ],
+   "conquete_ms": 11,
+   "conquete_sommets": 2979,
+   "reconstructions": 1,
+   "fail3": false
+  },
+  "Loguetown": {
+   "g3": {
+    "lod2": {
+     "st": "pret",
+     "octets": 272226,
+     "sommets": 8682,
+     "triangles": 4855
+    },
+    "lod0": {
+     "st": "pret",
+     "octets": 3140512,
+     "sommets": 87871,
+     "triangles": 56677
+    },
+    "lod1": {
+     "st": "pret",
+     "octets": 918048,
+     "sommets": 28971,
+     "triangles": 17810
+    }
+   },
+   "cuisson": [
+    {
+     "ile": "Loguetown",
+     "lod": "lod2",
+     "ms": 1728,
+     "sommets": 8682,
+     "triangles": 4855
+    },
+    {
+     "ile": "Loguetown",
+     "lod": "lod1",
+     "ms": 1555,
+     "sommets": 28971,
+     "triangles": 17810
+    },
+    {
+     "ile": "Loguetown",
+     "lod": "lod0",
+     "ms": 5367,
+     "sommets": 87871,
+     "triangles": 56677
+    }
+   ],
+   "conquete_ms": 13,
+   "conquete_sommets": 2946,
+   "reconstructions": 1,
+   "fail3": false
+  },
+  "Pays des Wa": {
+   "g3": {
+    "lod2": {
+     "st": "pret",
+     "octets": 408106,
+     "sommets": 13279,
+     "triangles": 6049
+    },
+    "lod0": {
+     "st": "pret",
+     "octets": 3852736,
+     "sommets": 107347,
+     "triangles": 70585
+    },
+    "lod1": {
+     "st": "pret",
+     "octets": 1179782,
+     "sommets": 37382,
+     "triangles": 22181
+    }
+   },
+   "cuisson": [
+    {
+     "ile": "Pays des Wa",
+     "lod": "lod2",
+     "ms": 1682,
+     "sommets": 13279,
+     "triangles": 6049
+    },
+    {
+     "ile": "Pays des Wa",
+     "lod": "lod1",
+     "ms": 2148,
+     "sommets": 37382,
+     "triangles": 22181
+    },
+    {
+     "ile": "Pays des Wa",
+     "lod": "lod0",
+     "ms": 10441,
+     "sommets": 107347,
+     "triangles": 70585
+    }
+   ],
+   "conquete_ms": 7,
+   "conquete_sommets": 2946,
+   "reconstructions": 1,
+   "fail3": false
+  },
+  "Alabasta": {
+   "g3": {
+    "lod2": {
+     "st": "pret",
+     "octets": 254658,
+     "sommets": 8184,
+     "triangles": 4251
+    },
+    "lod0": {
+     "st": "pret",
+     "octets": 2858572,
+     "sommets": 80830,
+     "triangles": 49611
+    },
+    "lod1": {
+     "st": "en cours",
+     "octets": 0,
+     "sommets": 0,
+     "triangles": 0
+    }
+   },
+   "cuisson": [
+    {
+     "ile": "Alabasta",
+     "lod": "lod2",
+     "ms": 1319,
+     "sommets": 8184,
+     "triangles": 4251
+    },
+    {
+     "ile": "Alabasta",
+     "lod": "lod1",
+     "ms": 1640,
+     "sommets": 26596,
+     "triangles": 15588
+    },
+    {
+     "ile": "Alabasta",
+     "lod": "lod0",
+     "ms": 5682,
+     "sommets": 80830,
+     "triangles": 49611
+    }
+   ],
+   "conquete_ms": 7,
+   "conquete_sommets": 2946,
+   "reconstructions": 1,
+   "fail3": false
+  },
+  "Archipel des Gecko": {
+   "g3": {
+    "lod2": {
+     "st": "pret",
+     "octets": 266058,
+     "sommets": 8457,
+     "triangles": 4877
+    },
+    "lod0": {
+     "st": "pret",
+     "octets": 1910720,
+     "sommets": 56042,
+     "triangles": 56924
+    },
+    "lod1": {
+     "st": "pret",
+     "octets": 686206,
+     "sommets": 20674,
+     "triangles": 17889
+    }
+   },
+   "cuisson": [
+    {
+     "ile": "Archipel des Gecko",
+     "lod": "lod2",
+     "ms": 1020,
+     "sommets": 8457,
+     "triangles": 4877
+    },
+    {
+     "ile": "Archipel des Gecko",
+     "lod": "lod1",
+     "ms": 1108,
+     "sommets": 20674,
+     "triangles": 17889
+    },
+    {
+     "ile": "Archipel des Gecko",
+     "lod": "lod0",
+     "ms": 2979,
+     "sommets": 56042,
+     "triangles": 56924
+    }
+   ],
+   "conquete_ms": 6,
+   "conquete_sommets": 2946,
+   "reconstructions": 1,
+   "fail3": false
+  },
+  "Archipel des Konomi": {
+   "g3": {
+    "lod2": {
+     "st": "pret",
+     "octets": 312484,
+     "sommets": 9856,
+     "triangles": 6086
+    },
+    "lod0": {
+     "st": "pret",
+     "octets": 3308444,
+     "sommets": 87722,
+     "triangles": 71019
+    },
+    "lod1": {
+     "st": "pret",
+     "octets": 1118758,
+     "sommets": 35173,
+     "triangles": 22319
+    }
+   },
+   "cuisson": [
+    {
+     "ile": "Archipel des Konomi",
+     "lod": "lod2",
+     "ms": 1296,
+     "sommets": 9856,
+     "triangles": 6086
+    },
+    {
+     "ile": "Archipel des Konomi",
+     "lod": "lod1",
+     "ms": 1954,
+     "sommets": 35173,
+     "triangles": 22319
+    },
+    {
+     "ile": "Archipel des Konomi",
+     "lod": "lod0",
+     "ms": 5789,
+     "sommets": 87722,
+     "triangles": 71019
+    }
+   ],
+   "conquete_ms": 8,
+   "conquete_sommets": 2946,
+   "reconstructions": 1,
+   "fail3": false
+  }
+ },
+ "verif": {
+  "ok": 52,
+  "rejets": [],
+  "err": ""
+ },
+ "errs3d": [],
+ "img25": {
+  "Zou": {
+   "decode": 193900
+  },
+  "Whole Cake Island": {
+   "decode": 15382060,
+   "vu": "l3l2l1"
+  },
+  "Water 7": {
+   "decode": 131824
+  },
+  "Loguetown": {
+   "decode": 146016
+  },
+  "Pays des Wa": {
+   "decode": 15014740,
+   "vu": "l3l2l1"
+  },
+  "Alabasta": {
+   "decode": 143312
+  },
+  "Archipel des Gecko": {
+   "decode": 113960
+  },
+  "Archipel des Konomi": {
+   "decode": 110264
+  }
+ },
+ "errs25": []
+}

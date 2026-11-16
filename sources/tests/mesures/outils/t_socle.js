@@ -33,10 +33,10 @@ B=await chromium.launch({args:['--use-gl=swiftshader','--enable-unsafe-swiftshad
 try{
 if(scen==='reseau'){
   /* 1. démarrage en 2.5D, vue d'ensemble ; 2. bascule en 3D ; 3. gros plan sur Zou */
-  const [p,st]=await page('25');await cam(p,'Drum',1.0);await W(12000);
+  const [p,st]=await page('25');await cam(p,'Île de Drum',1.0);await W(12000);
   R.demarrage25={req:sumReq(st),mem:await memo(p)};let t1=Date.now();
   await cam(p,'Zou',3.5);await W(10000);R.zoom25={req:sumReq(st,t1),mem:await memo(p)};
-  t1=Date.now();await p.evaluate(()=>{document.querySelector('#z-w3').click();});await cam(p,'Drum',2.2);await W(4000);await readyBl(p,'3d','Zou',90000);await W(6000);
+  t1=Date.now();await p.evaluate(()=>{document.querySelector('#z-w3').click();});await cam(p,'Île de Drum',2.2);await W(4000);await readyBl(p,'3d','Zou',90000);await W(6000);
   R.bascule3d={req:sumReq(st,t1),mem:await memo(p),blx:await blx(p)};
   t1=Date.now();await cam(p,'Zou',9);await W(20000);R.zoom3d={req:sumReq(st,t1),mem:await memo(p),blx:await blx(p)};
   R.errs=st.errs;await p.close();}
@@ -52,26 +52,26 @@ else if(scen==='conquete'){
     R[ile]={etapes:r,errs:st.errs,blx:(await blx(p)).isl[ile]};await p.close();}}
 else if(scen==='tour'){
   /* paquet simulé de 53 îles : démarrage 2.5D, bascule 3D, gros plan successif sur 12 îles, puis pause ; mémoire après chaque étape */
-  const [p,st]=await page('25');await cam(p,'Drum',1.0);await W(15000);
+  const [p,st]=await page('25');await cam(p,'Île de Drum',1.0);await W(15000);
   const mm=async()=>{const m=await memo(p);const bl=Object.values(m.glBlender).reduce((a,b)=>a+b,0);return {mode:m.mode,glTotalMo:+(m.glTotal/1e6).toFixed(1),glBlenderMo:+(bl/1e6).toFixed(1),gltfJSMo:+(m.gltfJS/1e6).toFixed(1),iles3d:Object.keys(m.glBlender).length};};
   R.demarrage25={req:sumReq(st),mem:await mm()};let t1=Date.now();
-  await p.evaluate(()=>{document.querySelector('#z-w3').click();});await cam(p,'Drum',2.2);await W(30000);
+  await p.evaluate(()=>{document.querySelector('#z-w3').click();});await cam(p,'Île de Drum',2.2);await W(30000);
   R.bascule3d={req:sumReq(st,t1),mem:await mm()};R.etapes=[];
-  const L=['Zou','Whole Cake','Water 7','Loguetown','Wano','Alabasta','Drum','Jaya','Skypiea','Dressrosa','Enies Lobby','Sabaody'];
+  const L=['Zou','Whole Cake Island','Water 7','Loguetown','Pays des Wa','Alabasta','Île de Drum','Jaya','Skypiea','Dressrosa','Enies Lobby','Archipel des Sabaody'];
   for(const n of L){const t0=Date.now();await cam(p,n,9);await W(9000);R.etapes.push({ile:n,mem:await mm(),req:Object.values(sumReq(st,t0)).reduce((a,v)=>a+v.n,0)});}
-  await cam(p,'Drum',2.2);await W(50000);R.pause50s={mem:await mm()};
+  await cam(p,'Île de Drum',2.2);await W(50000);R.pause50s={mem:await mm()};
   /* même tour en 2.5D (zoom maximal) : mémoire des images décodées */
   await p.evaluate(()=>{document.querySelector('#z-w3').click();});R.etapes25=[];
   const im=async()=>{const m=await memo(p);let b=0;for(const [k,v] of Object.entries(m.img))if(/^blender/.test(k))b+=v;return {imgBlenderMo:+(b/1e6).toFixed(1),glBlenderMo:+(Object.values(m.glBlender).reduce((a,c)=>a+c,0)/1e6).toFixed(1)};};
   for(const n of L){await cam(p,n,3.5);await W(7000);R.etapes25.push({ile:n,mem:await im()});}
-  await cam(p,'Drum',1.0);await W(50000);R.pause25_50s={mem:await im()};
+  await cam(p,'Île de Drum',1.0);await W(50000);R.pause25_50s={mem:await im()};
   const fl=await p.evaluate(()=>{const s=__MES.snap();return {lt:s.fl.lt,classes:s.fl.classes};});R.fluidite=fl;
   R.errs=st.errs;await p.close();}
 else if(scen.startsWith('iles')){
   /* mesures par île Blender (socle) : gros plan 3D jusqu'à lod0, mémoire graphique par niveau (indexé), cuisson par niveau,
      reconstruction des drapeaux et liserés à la conquête, vérifications ; puis tailles des images 2.5D décodées */
   const L=(scen.split(':')[1]||'Zou,Whole Cake,Water 7,Loguetown,Wano,Alabasta,Syrup').split(',');
-  const [p,st]=await page('3d');await cam(p,'Drum',2.2);await W(8000);R.iles={};
+  const [p,st]=await page('3d');await cam(p,'Île de Drum',2.2);await W(8000);R.iles={};
   for(const n of L){await cam(p,n,9);for(let i=0;i<120;i++){const ok=await p.evaluate(n=>{const I=window.__BLX.isl[n];return !I||I.fail3||(I.g3.lod0&&I.g3.lod0.st!=='en cours');},n);if(ok)break;await W(500);}await W(3000);
     await p.evaluate(n=>{const t=__RK.terrs.find(q=>q.name===n);window.__k={n0:(window.__MES.isl[n]||{b:{n:0}}).b.n};t.owner=1;},n);await W(2500);
     R.iles[n]=await p.evaluate(n=>{const B=window.__BLX,I=B.isl[n],M=window.__MES.isl[n]||{b:{}};if(!I)return null;const g={};for(const [l,v] of Object.entries(I.g3))g[l]={st:v.st,octets:v.octets||0,sommets:v.nv||0,triangles:(v.ni||0)/3};

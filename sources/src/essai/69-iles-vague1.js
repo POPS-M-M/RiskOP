@@ -27,7 +27,7 @@ const cuReg=(name,spec)=>{W3CU[name]=Object.assign({},spec,{art:Object.assign({l
 const cuStripe=(x,y,s,a,b)=>((Math.floor(x/s)+Math.floor(y/s))&1)?a:b;
 
 /* ---------- Sphinx : sphinx monumental sur plateau de grès (interprétation d'après le nom de l'île) ---------- */
-cuReg('Sphinx',{art:{b:'med',peaks:[]},
+cuReg('Île de Sphinx',{art:{b:'med',peaks:[]},
   relief:cuRel([{t:'plat',x:0,y:-.04,r:.34,w:.2,h:3.2},{t:'peak',x:-.55,y:-.35,h:3,s:.1},{t:'peak',x:.55,y:-.3,h:2.4,s:.09}]),
   color(x,y,h,sl,def,c){const d=Math.hypot(x,y)/c.rc(Math.atan2(y,x));if(sl>.25)return cuMix(cuC('#b4783e'),cuC('#d69a58'),.5+.5*Math.sin(h*6));if(h>2.9)return cuMix(cuC('#e8cc8e'),cuC('#dcbc7c'),cuStripe(x,y,2.2*c.u,0,1));return null;},
   build(k){const K=cuKit(k),{G}=K,s=K.u*1.4,cx=0,cy=-.04*k.R,z=K.H(cx,cy),sa=cuC('#e0bb78'),sb=cuC('#c79a56'),gold=cuC('#e8b830'),blue=cuC('#2e5aa8');
@@ -72,7 +72,7 @@ cuReg('Little Garden',{art:{b:'jungle',peaks:[],trees:[['jungle',14]]},
     k.top=Math.max(k.top,15*s);}});
 
 /* ---------- Drum : montagne enneigée, château au sommet, escalier en lacets, cerisier en fleurs ---------- */
-cuReg('Drum',{art:{b:'snow',peaks:[],trees:[['pine',16]]},
+cuReg('Île de Drum',{art:{b:'snow',peaks:[],trees:[['pine',16]]},
   relief:cuRel([{t:'peak',x:0,y:-.1,h:15,s:.19},{t:'peak',x:-.42,y:-.05,h:6,s:.12},{t:'peak',x:.4,y:-.1,h:7,s:.12},{t:'plat',x:0,y:-.1,r:.06,w:.05,h:14.4}]),
   color(x,y,h,sl,def,c){if(sl>.34)return cuMix(cuC('#6f7a8a'),cuC('#98a2b2'),.5+.5*Math.sin(h*4));if(h>14)return cuC('#f4f8fc');return null;},
   build(k){const K=cuKit(k),{G,u:s,R}=K,cx=0,cy=-.1*R,z=K.H(cx,cy),w1=cuC('#f4f6fa'),w2=cuC('#d2d8e2'),roof=cuC('#3d64b8'),pink=cuC('#f2a6c8');
@@ -154,7 +154,7 @@ cuReg('Thriller Bark',{art:{b:'spooky',trees:[['dead',12]]},
     K.spot(14,500,.1,.85,(x,y,zz)=>cuEll(G,x,y,zz+.8*s,.2*s,.2*s,.2*s,glow,5,3),.5*s);}});
 
 /* ---------- Wano : pays des samouraïs — mont enneigé, château à toits recourbés, pagode, torii, ponts rouges, cerisiers, rizières ---------- */
-cuReg('Wano',{art:{b:'japan',peaks:[],trees:[['round',4]],house:'jp'},
+cuReg('Pays des Wa',{art:{b:'japan',peaks:[],trees:[['round',4]],house:'jp'},
   relief:cuRel([{t:'peak',x:-.05,y:-.38,h:17,s:.17},{t:'peak',x:-.5,y:-.25,h:6,s:.1},{t:'peak',x:.5,y:-.22,h:7,s:.11},{t:'plat',x:.05,y:.02,r:.12,w:.1,h:4.2}]),
   color(x,y,h,sl,def,c){const R=c.R;if(h>13)return cuC('#f6f8fc');if(sl>.32)return cuMix(cuC('#6a6a62'),cuC('#8a887c'),.5+.5*Math.sin(h*4));if(h<2.8&&h>.6&&y>.15*R){const band=Math.floor((x*.9+y*.4)/(1.6*c.u))&1;return band?cuC('#b8c860'):cuC('#9ab84c');}return null;},
   build(k){const K=cuKit(k),{G,u:s,R}=K,wh=cuC('#f4efe2'),stn=cuC('#8e8a80'),rf=cuC('#2e3a4e'),gold=cuC('#e8b830'),red=cuC('#c8352e'),pink=[cuC('#f6b6cc'),cuC('#f2a0bc'),cuC('#fbd0de')];
@@ -173,7 +173,7 @@ cuReg('Wano',{art:{b:'japan',peaks:[],trees:[['round',4]],house:'jp'},
     K.spot(5,500,.2,.85,(x,y,zz)=>{for(let q=0;q<9;q++){const a=q*2.4,d=(q%3)*.5*s;G.cyl(x+Math.cos(a)*d,y+Math.sin(a)*d,zz-.1,.09*s,(3+q%4*.6)*s,cuC('#6aa84a'),5,false);}K.tops.push([x-s,y-s,x+s,y+s,zz+5*s]);},2*s);}});
 
 /* ---------- Elbaf : pays des géants — grand arbre-monde, halle de bois à proues de dragon, pierres runiques, armes plantées (interprétation) ---------- */
-cuReg('Elbaf',{art:{b:'grass',trees:[['pine',10]]},
+cuReg('Elbaph',{art:{b:'grass',trees:[['pine',10]]},
   relief:cuRel([{t:'peak',x:-.45,y:-.3,h:7,s:.13},{t:'peak',x:.48,y:-.32,h:6,s:.12}]),
   build(k){const K=cuKit(k),{G,u:s,R}=K,bark=cuC('#6a4a30'),leaf=[cuC('#3f7a3a'),cuC('#4f8f44'),cuC('#5a9a48')],wood=cuC('#8a5a34'),wood2=cuC('#5a3a22'),stone=cuC('#8a8a84');
     /* arbre-monde : tronc massif, racines, branches porteuses, frondaison étagée */
@@ -212,7 +212,7 @@ cuReg('Mary Geoise',{art:{b:'redrock',peaks:[],town:4},pier:Math.PI/2,
     K.spot(10,600,.15,.55,(x,y,zz)=>{if(zz<9)return;G.cyl(x,y,zz-.1,.12*s,.8*s,cuC('#7a5634'),5,false);cuEll(G,x,y,zz+1.4*s,.7*s,.7*s,.9*s,cuC('#5e9a42'),8,5);},1.4*s);}});
 
 /* ---------- Sabaody : archipel de mangroves géantes, bulles de résine, grande roue du parc ---------- */
-cuReg('Sabaody',{art:{b:'grass',trees:[['round',6]]},
+cuReg('Archipel des Sabaody',{art:{b:'grass',trees:[['round',6]]},
   build(k){const K=cuKit(k),{G,u:s,R}=K,bark=cuC('#7a5a3e'),bark2=cuC('#5e4430'),leaf=[cuC('#5aa060'),cuC('#4a9070')],bub=[cuC('#e8f8ff'),cuC('#d6f0fc'),cuC('#f6e8ff')];
     /* mangroves géantes : racines aériennes en arceaux, tronc, petite couronne ; numéro de grove sur un panneau */
     const pos=[[-.45,-.35],[.1,-.5],[.5,-.25],[-.55,.15],[.45,.25],[-.15,.35],[.05,-.05]];
@@ -231,7 +231,7 @@ cuReg('Sabaody',{art:{b:'grass',trees:[['round',6]]},
      K.tops.push([wx-r,wy-1,wx+r,wy+1,hz+r]);K.hold(wx,wy,7*s);}}});
 
 /* ---------- Île des Hommes-Poissons : palais Ryugu de corail, coupoles, forêt de corail et coquillages ---------- */
-cuReg('Fish-Man',{art:{b:'coral',trees:[]},
+cuReg('Île des Hommes-Poissons',{art:{b:'coral',trees:[]},
   build(k){const K=cuKit(k),{G,u:s,R}=K,wl=cuC('#fff0f0'),wl2=cuC('#f7c6c6'),pink=cuC('#f58aa0'),aqua=cuC('#5ac8d8'),gold=cuC('#f0c050'),cor=[cuC('#ff7a6a'),cuC('#ff9ac0'),cuC('#b48aff'),cuC('#ffb04a')];
     const cx=0,cy=-.12*R,z=K.H(cx,cy);
     /* palais : corps à étages, trois grandes coupoles en bulbe, tours-coquillages en spirale */
@@ -248,7 +248,7 @@ cuReg('Fish-Man',{art:{b:'coral',trees:[]},
     K.spot(14,500,.1,.9,(x,y,zz)=>cuEll(G,x,y,zz+.5*s,.35*s,.35*s,.35*s,cuC('#f8f4f0'),6,4),.4*s);}});
 
 /* ---------- Germa : royaume technologique (Germa 66) — palais de métal rouge et noir, tours-antennes, pods hexagonaux (interprétation) ---------- */
-cuReg('Germa',{art:{b:'stone',trees:[['round',4]],house:'future'},
+cuReg('Royaume de Germa',{art:{b:'stone',trees:[['round',4]],house:'future'},
   relief:cuRel([{t:'plat',x:0,y:-.05,r:.5,w:.2,h:3}]),
   color(x,y,h,sl,def,c){if(sl>.3)return cuMix(cuC('#4a4a52'),cuC('#626270'),.5+.5*Math.sin(h*5));if(h>2.7){const g=(Math.abs(((x/(3*c.u))%1+1)%1-.5)<.04)||(Math.abs(((y/(3*c.u))%1+1)%1-.5)<.04);return g?cuC('#c8352e'):cuC('#5a5a64');}return null;},
   build(k){const K=cuKit(k),{G,u:s,R}=K,red=cuC('#c8352e'),red2=cuC('#9a2420'),blk=cuC('#2a2a32'),mt=cuC('#8a8e98'),neon=cuC('#6ad8ff');

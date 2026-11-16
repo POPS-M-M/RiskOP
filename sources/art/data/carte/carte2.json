@@ -1,0 +1,915 @@
+{
+ "I": [
+  [
+   "Laugh Tale",
+   600,
+   385,
+   31,
+   "m",
+   5
+  ],
+  [
+   "Mary Geoise",
+   700,
+   330,
+   29,
+   "m",
+   6
+  ],
+  [
+   "Elbaph",
+   200,
+   385,
+   34,
+   "m",
+   5
+  ],
+  [
+   "Egghead",
+   500,
+   370,
+   31,
+   "p",
+   5
+  ],
+  [
+   "Pays des Wa",
+   85,
+   445,
+   36,
+   "m",
+   5
+  ],
+  [
+   "La Ruche",
+   400,
+   386,
+   31,
+   "f",
+   5
+  ],
+  [
+   "Île des Hommes-Poissons",
+   700,
+   670,
+   31,
+   "p",
+   6
+  ],
+  [
+   "Whole Cake Island",
+   300,
+   530,
+   34,
+   "p",
+   5
+  ],
+  [
+   "Alabasta",
+   1100,
+   370,
+   34,
+   "p",
+   4
+  ],
+  [
+   "Marineford",
+   760,
+   620,
+   31,
+   "p",
+   6
+  ],
+  [
+   "Ohara",
+   440,
+   745,
+   34,
+   "f",
+   1
+  ],
+  [
+   "Water 7",
+   1205,
+   525,
+   31,
+   "p",
+   4
+  ],
+  [
+   "Zou",
+   400,
+   515,
+   31,
+   "f",
+   5
+  ],
+  [
+   "God Valley",
+   300,
+   650,
+   31,
+   "f",
+   1
+  ],
+  [
+   "Archipel des Sabaody",
+   700,
+   565,
+   31,
+   "f",
+   6
+  ],
+  [
+   "Royaume de Kamabakka",
+   950,
+   448,
+   29,
+   "f",
+   4
+  ],
+  [
+   "Nouveau Marineford",
+   200,
+   515,
+   34,
+   "p",
+   5
+  ],
+  [
+   "Enies Lobby",
+   1100,
+   510,
+   31,
+   "m",
+   4
+  ],
+  [
+   "Impel Down",
+   900,
+   510,
+   29,
+   "m",
+   4
+  ],
+  [
+   "Dressrosa",
+   500,
+   530,
+   34,
+   "p",
+   5
+  ],
+  [
+   "Skypiea",
+   1305,
+   370,
+   31,
+   "p",
+   4
+  ],
+  [
+   "Lodestar",
+   550,
+   448,
+   29,
+   "p",
+   5
+  ],
+  [
+   "Île de Dawn",
+   1270,
+   155,
+   38,
+   "f",
+   0
+  ],
+  [
+   "Onigashima",
+   160,
+   452,
+   24,
+   "m",
+   5
+  ],
+  [
+   "Punk Hazard",
+   600,
+   520,
+   31,
+   "m",
+   5
+  ],
+  [
+   "Karai Bari",
+   350,
+   448,
+   29,
+   "p",
+   5
+  ],
+  [
+   "Royaume de Sorbet",
+   1031,
+   655,
+   31,
+   "p",
+   3
+  ],
+  [
+   "Lulusia",
+   1051,
+   449,
+   31,
+   "f",
+   4
+  ],
+  [
+   "Amazon Lily",
+   800,
+   525,
+   31,
+   "f",
+   4
+  ],
+  [
+   "Loguetown",
+   800,
+   250,
+   34,
+   "p",
+   0
+  ],
+  [
+   "Île de Winner",
+   250,
+   448,
+   29,
+   "f",
+   5
+  ],
+  [
+   "Thriller Bark",
+   1000,
+   525,
+   31,
+   "f",
+   4
+  ],
+  [
+   "Île de Sphinx",
+   60,
+   546,
+   31,
+   "m",
+   5
+  ],
+  [
+   "Île de Drum",
+   1000,
+   390,
+   31,
+   "m",
+   4
+  ],
+  [
+   "Archipel des Konomi",
+   1170,
+   250,
+   31,
+   "f",
+   0
+  ],
+  [
+   "Royaume de Germa",
+   380,
+   250,
+   34,
+   "p",
+   2
+  ],
+  [
+   "Île de Kuraigana",
+   300,
+   370,
+   29,
+   "f",
+   5
+  ],
+  [
+   "Jaya",
+   1200,
+   390,
+   31,
+   "f",
+   4
+  ],
+  [
+   "Little Garden",
+   900,
+   370,
+   31,
+   "f",
+   4
+  ],
+  [
+   "Flevance",
+   490,
+   150,
+   31,
+   "m",
+   2
+  ],
+  [
+   "Weatheria",
+   855,
+   452,
+   29,
+   "p",
+   4
+  ],
+  [
+   "Île de Karakuri",
+   1255,
+   448,
+   29,
+   "m",
+   4
+  ],
+  [
+   "Baratie",
+   1085,
+   140,
+   29,
+   "p",
+   0
+  ],
+  [
+   "Cap des Jumeaux",
+   700,
+   445,
+   34,
+   "m",
+   6
+  ],
+  [
+   "Tequila Wolf",
+   905,
+   170,
+   31,
+   "p",
+   0
+  ],
+  [
+   "Rusukaina",
+   850,
+   600,
+   29,
+   "f",
+   4
+  ],
+  [
+   "Archipel des Boin",
+   1150,
+   448,
+   29,
+   "f",
+   4
+  ],
+  [
+   "Whisky Peak",
+   800,
+   390,
+   34,
+   "m",
+   4
+  ],
+  [
+   "Archipel des Gecko",
+   1015,
+   250,
+   31,
+   "f",
+   0
+  ],
+  [
+   "Green Bit",
+   450,
+   448,
+   29,
+   "f",
+   5
+  ],
+  [
+   "Long Ring Long Land",
+   1310,
+   510,
+   31,
+   "p",
+   4
+  ],
+  [
+   "Shells Town",
+   940,
+   70,
+   29,
+   "f",
+   0
+  ],
+  [
+   "Baterilla",
+   910,
+   765,
+   31,
+   "p",
+   3
+  ]
+ ],
+ "E": [
+  [
+   "Loguetown",
+   "Tequila Wolf"
+  ],
+  [
+   "Tequila Wolf",
+   "Shells Town"
+  ],
+  [
+   "Tequila Wolf",
+   "Archipel des Gecko"
+  ],
+  [
+   "Shells Town",
+   "Baratie"
+  ],
+  [
+   "Archipel des Gecko",
+   "Baratie"
+  ],
+  [
+   "Archipel des Gecko",
+   "Archipel des Konomi"
+  ],
+  [
+   "Baratie",
+   "Île de Dawn"
+  ],
+  [
+   "Archipel des Konomi",
+   "Île de Dawn"
+  ],
+  [
+   "Baratie",
+   "Archipel des Konomi"
+  ],
+  [
+   "Loguetown",
+   "Cap des Jumeaux"
+  ],
+  [
+   "Flevance",
+   "Cap des Jumeaux"
+  ],
+  [
+   "Flevance",
+   "Royaume de Germa"
+  ],
+  [
+   "Ohara",
+   "God Valley"
+  ],
+  [
+   "Baterilla",
+   "Royaume de Sorbet"
+  ],
+  [
+   "Whisky Peak",
+   "Little Garden"
+  ],
+  [
+   "Little Garden",
+   "Île de Drum"
+  ],
+  [
+   "Île de Drum",
+   "Alabasta"
+  ],
+  [
+   "Alabasta",
+   "Jaya"
+  ],
+  [
+   "Jaya",
+   "Skypiea"
+  ],
+  [
+   "Skypiea",
+   "Long Ring Long Land"
+  ],
+  [
+   "Long Ring Long Land",
+   "Water 7"
+  ],
+  [
+   "Water 7",
+   "Enies Lobby"
+  ],
+  [
+   "Enies Lobby",
+   "Thriller Bark"
+  ],
+  [
+   "Thriller Bark",
+   "Impel Down"
+  ],
+  [
+   "Impel Down",
+   "Amazon Lily"
+  ],
+  [
+   "Île de Drum",
+   "Thriller Bark"
+  ],
+  [
+   "Alabasta",
+   "Enies Lobby"
+  ],
+  [
+   "Weatheria",
+   "Whisky Peak"
+  ],
+  [
+   "Weatheria",
+   "Amazon Lily"
+  ],
+  [
+   "Weatheria",
+   "Royaume de Kamabakka"
+  ],
+  [
+   "Royaume de Kamabakka",
+   "Little Garden"
+  ],
+  [
+   "Royaume de Kamabakka",
+   "Impel Down"
+  ],
+  [
+   "Lulusia",
+   "Île de Drum"
+  ],
+  [
+   "Lulusia",
+   "Thriller Bark"
+  ],
+  [
+   "Archipel des Boin",
+   "Jaya"
+  ],
+  [
+   "Archipel des Boin",
+   "Enies Lobby"
+  ],
+  [
+   "Archipel des Boin",
+   "Île de Karakuri"
+  ],
+  [
+   "Île de Karakuri",
+   "Water 7"
+  ],
+  [
+   "Île de Karakuri",
+   "Long Ring Long Land"
+  ],
+  [
+   "Rusukaina",
+   "Impel Down"
+  ],
+  [
+   "Rusukaina",
+   "Marineford"
+  ],
+  [
+   "Mary Geoise",
+   "Cap des Jumeaux"
+  ],
+  [
+   "Cap des Jumeaux",
+   "Whisky Peak"
+  ],
+  [
+   "Amazon Lily",
+   "Archipel des Sabaody"
+  ],
+  [
+   "Archipel des Sabaody",
+   "Île des Hommes-Poissons"
+  ],
+  [
+   "Marineford",
+   "Archipel des Sabaody"
+  ],
+  [
+   "Marineford",
+   "Impel Down"
+  ],
+  [
+   "Île des Hommes-Poissons",
+   "Punk Hazard"
+  ],
+  [
+   "Punk Hazard",
+   "Dressrosa"
+  ],
+  [
+   "Dressrosa",
+   "Zou"
+  ],
+  [
+   "Zou",
+   "Whole Cake Island"
+  ],
+  [
+   "Whole Cake Island",
+   "Nouveau Marineford"
+  ],
+  [
+   "Nouveau Marineford",
+   "Pays des Wa"
+  ],
+  [
+   "Pays des Wa",
+   "Elbaph"
+  ],
+  [
+   "Elbaph",
+   "Île de Kuraigana"
+  ],
+  [
+   "Île de Kuraigana",
+   "La Ruche"
+  ],
+  [
+   "La Ruche",
+   "Egghead"
+  ],
+  [
+   "Egghead",
+   "Laugh Tale"
+  ],
+  [
+   "Zou",
+   "La Ruche"
+  ],
+  [
+   "Whole Cake Island",
+   "Île de Kuraigana"
+  ],
+  [
+   "Dressrosa",
+   "Egghead"
+  ],
+  [
+   "Onigashima",
+   "Pays des Wa"
+  ],
+  [
+   "Onigashima",
+   "Île de Winner"
+  ],
+  [
+   "Île de Winner",
+   "Elbaph"
+  ],
+  [
+   "Île de Winner",
+   "Nouveau Marineford"
+  ],
+  [
+   "Karai Bari",
+   "Île de Kuraigana"
+  ],
+  [
+   "Karai Bari",
+   "Whole Cake Island"
+  ],
+  [
+   "Green Bit",
+   "Dressrosa"
+  ],
+  [
+   "Green Bit",
+   "La Ruche"
+  ],
+  [
+   "Lodestar",
+   "Laugh Tale"
+  ],
+  [
+   "Lodestar",
+   "Egghead"
+  ],
+  [
+   "Lodestar",
+   "Punk Hazard"
+  ],
+  [
+   "Île de Sphinx",
+   "Nouveau Marineford"
+  ],
+  [
+   "Île de Sphinx",
+   "Pays des Wa"
+  ]
+ ],
+ "B": [
+  [
+   "Île de Dawn",
+   "Skypiea"
+  ],
+  [
+   "Archipel des Konomi",
+   "Jaya"
+  ],
+  [
+   "Royaume de Germa",
+   "Île de Kuraigana"
+  ],
+  [
+   "God Valley",
+   "Nouveau Marineford"
+  ],
+  [
+   "Royaume de Sorbet",
+   "Water 7"
+  ],
+  [
+   "Baterilla",
+   "Rusukaina"
+  ],
+  [
+   "Ohara",
+   "Punk Hazard"
+  ]
+ ],
+ "CAPS": {
+  "marine": "Nouveau Marineford",
+  "pirate": "Île de Dawn",
+  "revo": "Royaume de Kamabakka",
+  "chasseur": "Whisky Peak"
+ },
+ "PONE": [
+  "Zou",
+  "Whole Cake Island",
+  "Pays des Wa",
+  "Île des Hommes-Poissons"
+ ],
+ "LAB": [
+  [
+   1075,
+   36
+  ],
+  [
+   430,
+   838
+  ],
+  [
+   400,
+   38
+  ],
+  [
+   1075,
+   838
+  ],
+  [
+   1235,
+   312
+  ],
+  [
+   140,
+   312
+  ],
+  [
+   700,
+   150
+  ]
+ ],
+ "RENAME": {
+  "Elbaf": "Elbaph",
+  "Wano": "Pays des Wa",
+  "Hachinosu": "La Ruche",
+  "Fish-Man": "Île des Hommes-Poissons",
+  "Whole Cake": "Whole Cake Island",
+  "Kamabakka": "Royaume de Kamabakka",
+  "New Marineford": "Nouveau Marineford",
+  "Sabaody": "Archipel des Sabaody",
+  "Reverse Mountain": "Cap des Jumeaux",
+  "Sorbet": "Royaume de Sorbet",
+  "Sphinx": "Île de Sphinx",
+  "Drum": "Île de Drum",
+  "Cocoyasi": "Archipel des Konomi",
+  "Germa": "Royaume de Germa",
+  "Kuraigana": "Île de Kuraigana",
+  "Ruskaina": "Rusukaina",
+  "Syrup": "Archipel des Gecko"
+ },
+ "SHAPE_KEY": {
+  "Elbaph": "Elbaf",
+  "Pays des Wa": "Wano",
+  "La Ruche": "Hachinosu",
+  "Île des Hommes-Poissons": "Fish-Man",
+  "Whole Cake Island": "Whole Cake",
+  "Royaume de Kamabakka": "Kamabakka",
+  "Nouveau Marineford": "New Marineford",
+  "Archipel des Sabaody": "Sabaody",
+  "Cap des Jumeaux": "Reverse Mountain",
+  "Royaume de Sorbet": "Sorbet",
+  "Île de Sphinx": "Sphinx",
+  "Île de Drum": "Drum",
+  "Archipel des Konomi": "Cocoyasi",
+  "Royaume de Germa": "Germa",
+  "Île de Kuraigana": "Kuraigana",
+  "Rusukaina": "Ruskaina",
+  "Archipel des Gecko": "Syrup",
+  "Alabasta": "Arabasta"
+ },
+ "GONE": {
+  "Orange Town": "Tequila Wolf",
+  "Goa": "Île de Dawn",
+  "Foosha": "Île de Dawn",
+  "Baltigo": "Royaume de Kamabakka"
+ },
+ "mer": {
+  "Laugh Tale": "[C] Nouveau Monde",
+  "Mary Geoise": "[C] Red Line",
+  "Elbaph": "[C] Nouveau Monde",
+  "Egghead": "[C] Nouveau Monde",
+  "Pays des Wa": "[C] Nouveau Monde",
+  "La Ruche": "[C] Nouveau Monde (déplacée depuis West Blue, prend la place de Baltigo)",
+  "Île des Hommes-Poissons": "[C] sous la Red Line",
+  "Whole Cake Island": "[C] Nouveau Monde",
+  "Alabasta": "[C] Paradise",
+  "Marineford": "[C] près de Sabaody, à côté de Mary Geoise sur la Red Line",
+  "Ohara": "[C] West Blue",
+  "Water 7": "[C] Paradise",
+  "Zou": "[C] Nouveau Monde",
+  "God Valley": "[I] lieu inconnu dans l'œuvre ; placée en West Blue",
+  "Archipel des Sabaody": "[C] au pied de la Red Line",
+  "Royaume de Kamabakka": "[C] Paradise (Momoiro, déplacée depuis South Blue)",
+  "Nouveau Marineford": "[C] Nouveau Monde (G-1)",
+  "Enies Lobby": "[C] Paradise",
+  "Impel Down": "[C] Calm Belt, côté Paradise",
+  "Dressrosa": "[C] Nouveau Monde",
+  "Skypiea": "[C] Paradise (au-dessus de Jaya)",
+  "Lodestar": "[C] Nouveau Monde, dernière île avant Laugh Tale",
+  "Île de Dawn": "[C] East Blue (royaume de Goa, Fuschia)",
+  "Onigashima": "[C] Nouveau Monde, au large du Pays des Wa",
+  "Punk Hazard": "[C] Nouveau Monde",
+  "Karai Bari": "[C] Nouveau Monde",
+  "Royaume de Sorbet": "[C] South Blue (déplacé depuis West Blue)",
+  "Lulusia": "[C] Paradise, près de Momoiro (déplacée depuis North Blue)",
+  "Amazon Lily": "[C] Calm Belt, côté Paradise",
+  "Loguetown": "[C] East Blue",
+  "Île de Winner": "[C?] Nouveau Monde",
+  "Thriller Bark": "[C] Paradise (Triangle de Florian)",
+  "Île de Sphinx": "[C?] Nouveau Monde (déplacée depuis West Blue)",
+  "Île de Drum": "[C] Paradise",
+  "Archipel des Konomi": "[C] East Blue",
+  "Royaume de Germa": "[C] North Blue (royaume mobile, originaire de North Blue)",
+  "Île de Kuraigana": "[C] Grand Line ; moitié inconnue, reste dans le Nouveau Monde",
+  "Jaya": "[C] Paradise",
+  "Little Garden": "[C] Paradise",
+  "Flevance": "[C] North Blue",
+  "Weatheria": "[C] île céleste vue au-dessus de Sabaody ; [I] placée en Paradise",
+  "Île de Karakuri": "[C] Paradise",
+  "Baratie": "[C] East Blue",
+  "Cap des Jumeaux": "[C] au pied de Reverse Mountain",
+  "Tequila Wolf": "[C] East Blue",
+  "Rusukaina": "[C] Calm Belt, au nord-ouest d'Amazon Lily (déplacée depuis North Blue)",
+  "Archipel des Boin": "[C] Paradise",
+  "Whisky Peak": "[C] Paradise",
+  "Archipel des Gecko": "[C] East Blue",
+  "Green Bit": "[C] Nouveau Monde, juste au nord de Dressrosa",
+  "Long Ring Long Land": "[C] Paradise",
+  "Shells Town": "[C] East Blue",
+  "Baterilla": "[C] South Blue"
+ },
+ "sources": [
+  "https://onepiece.fandom.com/wiki/Karai_Bari_Island",
+  "https://onepiece.fandom.com/wiki/Lulusia_Kingdom",
+  "https://onepiece.fandom.com/wiki/Kuraigana_Island",
+  "https://onepiece.fandom.com/wiki/Momoiro_Island",
+  "https://onepiece.fandom.com/wiki/Karakuri_Island",
+  "https://onepiece.fandom.com/wiki/Rusukaina",
+  "https://onepiece.fandom.com/wiki/Sorbet_Kingdom",
+  "https://onepiece.fandom.com/wiki/Tequila_Wolf",
+  "https://onepiece.fandom.com/wiki/Lodestar_Island",
+  "https://onepiece.fandom.com/wiki/Boin_Archipelago",
+  "https://onepiece.fandom.com/wiki/Green_Bit",
+  "https://onepiece.fandom.com/wiki/Baterilla",
+  "https://onepiece.fandom.com/wiki/Marineford",
+  "https://onepiece.fandom.com/wiki/God_Valley",
+  "https://onepiece.fandom.com/wiki/Weatheria"
+ ]
+}

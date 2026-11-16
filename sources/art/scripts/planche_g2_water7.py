@@ -45,7 +45,7 @@ y += 34 + im.height + 40
 # ---- 2. même échelle que Zou et Whole Cake (rendus 2.5D l2, 6 px par unité ; l1 = taille réelle en vue d'ensemble)
 section('2 · Même échelle que Zou et Whole Cake', 'Rendus 2.5D de la chaîne au même nombre de pixels par unité de carte (l2 = 6 px/unité, zoom moyen ; l1 = 2 px/unité, vue d\'ensemble, agrandi ×2)')
 x = 40
-for nm, slug in (('Zou', 'zou'), ('Whole Cake', 'whole_cake'), ('Water 7 (maquette)', 'water_7')):
+for nm, slug in (('Zou', 'zou'), ('Whole Cake Island', 'whole_cake'), ('Water 7 (maquette)', 'water_7')):
     im = Image.open(os.path.join(ART, 'out', slug, 'l2.png')).convert('RGBA'); bb = im.getbbox(); im = im.crop(bb)
     bg = Image.new('RGB', (im.width + 40, 700), SEA); bg.paste(im, (20, 700 - im.height - 20), im); board.paste(bg, (x, y + 34)); label(x, y, nm, GOLD if slug == 'water_7' else INK)
     l1 = Image.open(os.path.join(ART, 'out', slug, 'l1.png')).convert('RGBA'); l1 = l1.crop(l1.getbbox()); l1 = l1.resize((l1.width * 2, l1.height * 2), Image.NEAREST)
@@ -57,7 +57,7 @@ y += 34 + 700 + 40
 # ---- 3. dans le jeu, même zoom : 3D moyen et 2.5D proche
 section('3 · Dans le jeu, au même zoom : Zou · Whole Cake · Water 7 (maquette)', '3D zoom moyen (haut) et 2.5D zoom proche (bas) · mêmes réglages de caméra pour les trois îles')
 for row, (mode, vue) in enumerate((('3d', 'moyen'), ('25', 'proche'))):
-    for k, (pre, nm) in enumerate((('zou', 'Zou'), ('wc', 'Whole Cake'), ('apres_w7', 'Water 7 (maquette)'))):
+    for k, (pre, nm) in enumerate((('zou', 'Zou'), ('wc', 'Whole Cake Island'), ('apres_w7', 'Water 7 (maquette)'))):
         p = os.path.join(CAP, '%s_%s_%s.png' % (pre, mode, vue))
         if not os.path.exists(p): continue
         im = fit(p, 770, crop=(.62, .62)); x = 40 + k * 785; board.paste(im, (x, y + 30)); label(x, y, nm + (' · 3D' if mode == '3d' else ' · 2.5D'), GOLD if pre == 'apres_w7' else INK, 20)
