@@ -108,14 +108,14 @@
    ]
   ],
   [
-   "Construction 3D en jeu (dont éclairage cuit) ¹",
+   "Construction 3D en jeu (dont éclairage cuit)",
    [
-    "400 ms (324)",
-    "445 ms (376)",
-    "369 ms (275)",
-    "426 ms (349)",
-    "352 ms (267)",
-    "344 ms (304)"
+    "441 ms (355)",
+    "425 ms (327)",
+    "484 ms (357)",
+    "294 ms (237)",
+    "437 ms (366)",
+    "265 ms (227)"
    ]
   ],
   [
@@ -131,12 +131,13 @@
   ]
  ],
  "verifs": [
-  "0 erreur de page en 2.5D et en 3D (captures, gros plans, mesures) ; 24 fichiers vérifiés par empreinte SHA-256 (format 2), 0 rejet ; Alabasta 3D construite depuis le modèle Blender (bl = vrai).",
-  "Zou, Whole Cake, Water 7, Loguetown et Wano : fichiers sources, .blend et exports identiques au commit précédent.",
-  "Une seule ligne de code du jeu modifiée, dans la copie de test (src/essai/61-monde3d.js) : le prototype 3D d'Alabasta ne sert plus que si le modèle Blender est absent ou désactivé. Build public dist/risk_op.html identique (sha256 486289c9…).",
-  "Coordonnées, rayon, contour, zones de clic, hitboxes, règles et sauvegardes : non touchés.",
-  "¹ Temps de construction mesurés pendant qu'un rendu Blender tournait en parallèle (machine chargée) : toutes les colonnes de cette ligne viennent de la même mesure ; première construction d'Alabasta 504 ms, la suivante 345 ms.",
-  "Budget provisoire : lod0 ≤ 90 000 triangles, mémoire graphique ≤ 10 Mo, images ≤ 300 Ko respectés ; construction ≤ 500 ms dépassée de 4 ms à la première construction sous charge.",
-  "Branche essai/ile-alabasta seulement ; rien sur main ni gh-pages ; rien sur le site public."
+  "0 erreur de page en 2.5D et en 3D (captures, gros plans, mesures) ; fichiers vérifiés par empreinte SHA-256 (format 2), 0 rejet ; Alabasta 3D construite depuis le modèle Blender.",
+  "Nom : « Alabasta » partout (carte, routes, recrutement d'Ace, textes, chaîne Blender). Contour identique : la graine de forme garde l'ancien nom ; islands.json identique hors nom.",
+  "Anciennes sauvegardes (« Arabasta ») converties à la lecture : testé, propriétaire et troupes restaurés, 0 erreur.",
+  "Zou, Whole Cake, Water 7, Loguetown et Wano : fichiers sources, .blend et exports inchangés.",
+  "Copie de test : le prototype 3D d'Alabasta ne sert plus que si le modèle Blender est absent ou désactivé.",
+  "Build public dist/risk_op.html reconstruit (sha256 08e04954…) : seules différences = renommage, graine de forme, conversion des sauvegardes. Rien de déployé.",
+  "Budget provisoire respecté : lod0 ≤ 90 000 triangles, mémoire graphique ≤ 10 Mo, images ≤ 300 Ko, construction ≤ 500 ms (265 ms).",
+  "Branche essai/ile-alabasta seulement ; rien sur main ni gh-pages."
  ]
 }
