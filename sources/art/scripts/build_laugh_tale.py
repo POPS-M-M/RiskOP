@@ -60,7 +60,7 @@ st = .5
 for j in range(int(-8 / st), int(10 / st)):
     for i in range(int(10 / st), int(37 / st)):
         x, y = i * st + st / 2, j * st + st / 2; d, t, w = P.fjord(x, y)
-        if d < w + .5 and math.hypot(x - P.FOND[0], y - P.FOND[1]) > 2.2 and P.pol(x, y)[2] < 1.02:
+        if d < w + .5 and math.hypot(x - P.FOND[0], y - P.FOND[1]) > 2.2 and P.pol(x, y)[2] < .995:
             vs = [BE.bm.verts.new(G(x + a, y + b, 0.0)) for a, b in ((-st / 2, -st / 2), (st / 2, -st / 2), (st / 2, st / 2), (-st / 2, st / 2))]
             BE.bm.faces.new(vs); BE.paint(vs, C.mix(H('#2a6a8a'), H('#3a7a98'), t), .03)
 ca, cb = P.RUISSEAU[-2], P.RUISSEAU[-1]
