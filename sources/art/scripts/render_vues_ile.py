@@ -56,6 +56,17 @@ def vues(slug):
             'champs': ((12, 6, 3), (60, 30), 26, 45),
             'cascade': (P.at_coast(math.atan2(P.RUISSEAU[-1][1], P.RUISSEAU[-1][0]), .95) + (2,), (20, 18), 18, 45),
         }
+    if slug == 'cocoyasi':
+        import co_plan as P
+        return {
+            'generale': ((0, 0, 3), (100, 42), 120, 45),
+            'village': ((P.VILLAGE[0], P.VILLAGE[1], 2), (80, 34), 26, 45),
+            'temple': ((P.TEMPLE[0], P.TEMPLE[1], 2), (60, 26), 16, 45),
+            'rizieres': ((P.COLLINE[0], P.COLLINE[1] + 2, 6), (100, 30), 30, 45),
+            'arlong': ((P.ARLONG[0] - 1.5, P.ARLONG[1], 1), (40, 24), 18, 45),
+            'gosa': ((P.GOSA[0], P.GOSA[1], 2), (120, 34), 20, 45),
+            'quai': (P.at_coast(P.QUAI_A, .9) + (1,), (150, 26), 20, 45),
+        }
     raise KeyError(slug)
 
 

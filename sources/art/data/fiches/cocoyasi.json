@@ -1,0 +1,153 @@
+{
+ "nom": "Cocoyasi",
+ "numero": "8",
+ "prefixe": "co",
+ "voisine": "Syrup et Alabasta",
+ "canon": [
+  "[C] Village tropical en bord de mer, avec palmiers, mandariniers et rizières ; inspiré d'Ubud, en Indonésie (Rurubu One Piece, cité par le One Piece Wiki).",
+  "[C] Simple quai en bois ; un cabinet de médecin et une librairie ; un sommet de falaise qui domine l'océan, près du village (One Piece Wiki).",
+  "[C] Îles Conomi : archipel agricole (plantations de riz et d'oranges), inspiré de l'Indonésie ; Cocoyasi est à l'ouest de Gosa et à l'est d'Arlong Park.",
+  "[C] Gosa a été détruit puis reconstruit (One Piece Wiki, Sportskeeda Wiki).",
+  "[C] Arlong Park : sur la côte, plusieurs étages ; bassin extérieur relié à la mer et fermé par deux portes d'acier ; bâtiment détruit (One Piece Wiki).",
+  "[C?] Un moulin à vent (de mémoire, non vérifié).",
+  "[I] Placements ; cours closes à porte fendue et pavillons de chaume, temple à toits superposés (inspiration Ubud) ; rizières en terrasses ; jungle ; pirogues à balancier.",
+  "Exclus : personnages, leurs maisons et le verger d'une famille, la tombe d'un personnage, pavillons pirates, monstres marins, copie de tout décor officiel."
+ ],
+ "signature": [
+  "Colline de rizières en terrasses, inondées, au nord du village",
+  "Village à cours closes : murs de brique, portes fendues, pavillons à toit de chaume",
+  "Temple à hautes tours de toits superposés",
+  "Gosa reconstruit : maisons neuves à toits bleus et rouges",
+  "Ruines d'Arlong Park sur la côte ouest, bassin et portes d'acier ; mandariniers et palmiers"
+ ],
+ "palette": [
+  [
+   "Campagne",
+   [
+    "#7cb850",
+    "#94c45a",
+    "#2f6a34"
+   ]
+  ],
+  [
+   "Rizières",
+   [
+    "#86c2b8",
+    "#9ccf6a",
+    "#6e9a48"
+   ]
+  ],
+  [
+   "Briques et pierre",
+   [
+    "#b0644a",
+    "#8f8a7c",
+    "#f2ead8"
+   ]
+  ],
+  [
+   "Toits",
+   [
+    "#8c6c3c",
+    "#3a3430",
+    "#3d64b8"
+   ]
+  ],
+  [
+   "Vergers",
+   [
+    "#2f6a2c",
+    "#f08a1c",
+    "#5a8a3a"
+   ]
+  ],
+  [
+   "Ruines et côte",
+   [
+    "#b8b4aa",
+    "#4a5058",
+    "#f0dcae"
+   ]
+  ]
+ ],
+ "zones": [
+  [
+   "village",
+   "village de Cocoyasi, cours closes"
+  ],
+  [
+   "rizieres",
+   "rizières en terrasses (vue du sud)"
+  ],
+  [
+   "temple",
+   "temple à toits superposés"
+  ],
+  [
+   "arlong",
+   "ruines d'Arlong Park et bassin (vue de l'est)"
+  ],
+  [
+   "gosa",
+   "Gosa reconstruit"
+  ],
+  [
+   "quai",
+   "quai en bois et pirogues (vue du sud-ouest)"
+  ],
+  [
+   "vergers",
+   "vergers de mandariniers"
+  ],
+  [
+   "falaise",
+   "falaise qui domine l'océan (vue de l'est)"
+  ]
+ ],
+ "vues_blender": [
+  [
+   "village",
+   "cours closes, portes fendues, pavillons"
+  ],
+  [
+   "temple",
+   "temple, cabinet du médecin et librairie"
+  ],
+  [
+   "rizieres",
+   "rizières en terrasses inondées"
+  ],
+  [
+   "arlong",
+   "ruines d'Arlong Park, bassin et portes d'acier"
+  ],
+  [
+   "gosa",
+   "Gosa reconstruit"
+  ],
+  [
+   "quai",
+   "quai en bois et pirogues"
+  ]
+ ],
+ "niveaux": [
+  "villages, temple, ruines",
+  "+ cabanes près des rizières",
+  "+ fermes isolées",
+  "+ hameaux de la côte"
+ ],
+ "differences": [
+  "Relief : colline centrale sculptée en rizières en terrasses (Syrup : plateau à falaises ; Alabasta : désert et fleuve).",
+  "Architecture : cours closes en brique à portes fendues et pavillons de chaume, temple à tours de toits superposés (Syrup : cottages anglais ; Alabasta : maisons de terre et palais).",
+  "Monuments propres : temple, ruines d'Arlong Park avec bassin et portes d'acier, moulin, belvédère de falaise.",
+  "Végétation : mandariniers en rangs, palmiers, bananiers, frangipaniers, jungle.",
+  "Kit : rk_bali.py (nouveau) ; reprises limitées (fenêtres, quai)."
+ ],
+ "limites": [],
+ "sources": [
+  "One Piece Wiki, « Cocoyasi Village » : https://onepiece.fandom.com/wiki/Cocoyasi_Village (consultée le 16/11/2026)",
+  "One Piece Wiki, « Conomi Islands » : https://onepiece.fandom.com/wiki/Conomi_Islands (consultée le 16/11/2026)",
+  "One Piece Wiki, « Arlong Park » : https://onepiece.fandom.com/wiki/Arlong_Park (consultée le 16/11/2026)",
+  "Sportskeeda Wiki, « Gosa Village » : https://wiki.sportskeeda.com/one-piece/gosa-village-in-one-pieceon (consultée le 16/11/2026)"
+ ]
+}
