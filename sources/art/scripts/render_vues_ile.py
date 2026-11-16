@@ -45,6 +45,17 @@ def vues(slug):
             'fleuve': ((-1.5, 4, 2), (90, 24), 30, 45),
             'yuba': ((P.YUBA[0], P.YUBA[1], 2), (120, 34), 20, 45),
         }
+    if slug == 'syrup':
+        import sy_plan as P
+        return {
+            'generale': ((0, 0, 3), (100, 42), 120, 45),
+            'manoir': ((P.MANOIR[0], P.MANOIR[1], 8), (120, 30), 24, 45),
+            'village': ((P.VILLAGE[0], P.VILLAGE[1], 3), (90, 34), 26, 45),
+            'pente_sud': (P.at_coast(P.PENTE_S, .8) + (2,), (60, 24), 24, 45),
+            'pente_nord': (P.at_coast(P.PENTE_N, .8) + (2,), (-60, 28), 24, 45),
+            'champs': ((12, 6, 3), (60, 30), 26, 45),
+            'cascade': (P.at_coast(math.atan2(P.RUISSEAU[-1][1], P.RUISSEAU[-1][0]), .95) + (2,), (20, 18), 18, 45),
+        }
     raise KeyError(slug)
 
 

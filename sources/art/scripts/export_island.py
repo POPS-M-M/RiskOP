@@ -11,7 +11,7 @@ import rk_common as C
 
 slug = sys.argv[1]; apercu = '--apercu' in sys.argv; T0 = time.time()
 bpy.ops.wm.open_mainfile(filepath=os.path.join(C.ART, 'blender', 'islands', slug + '.blend'))
-NAMES = {'zou': 'Zou', 'whole_cake': 'Whole Cake', 'water_7': 'Water 7', 'loguetown': 'Loguetown', 'wano': 'Wano', 'alabasta': 'Alabasta'}
+NAMES = {'zou': 'Zou', 'whole_cake': 'Whole Cake', 'water_7': 'Water 7', 'loguetown': 'Loguetown', 'wano': 'Wano', 'alabasta': 'Alabasta', 'syrup': 'Syrup'}
 isl = C.island(NAMES[slug]); out = os.path.join(C.ART, 'out', slug); os.makedirs(out, exist_ok=True)
 sc = bpy.context.scene
 cols = {n: [o for o in C.coll(n).all_objects if o.type == 'MESH'] for n in ['RK_SOL', 'RK_DECOR', 'RK_VILLE_2', 'RK_VILLE_3', 'RK_VILLE_4']}

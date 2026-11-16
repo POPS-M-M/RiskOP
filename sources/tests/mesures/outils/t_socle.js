@@ -67,6 +67,20 @@ else if(scen==='tour'){
   await cam(p,'Drum',1.0);await W(50000);R.pause25_50s={mem:await im()};
   const fl=await p.evaluate(()=>{const s=__MES.snap();return {lt:s.fl.lt,classes:s.fl.classes};});R.fluidite=fl;
   R.errs=st.errs;await p.close();}
+else if(scen.startsWith('iles')){
+  /* mesures par île Blender (socle) : gros plan 3D jusqu'à lod0, mémoire graphique par niveau (indexé), cuisson par niveau,
+     reconstruction des drapeaux et liserés à la conquête, vérifications ; puis tailles des images 2.5D décodées */
+  const L=(scen.split(':')[1]||'Zou,Whole Cake,Water 7,Loguetown,Wano,Alabasta,Syrup').split(',');
+  const [p,st]=await page('3d');await cam(p,'Drum',2.2);await W(8000);R.iles={};
+  for(const n of L){await cam(p,n,9);for(let i=0;i<120;i++){const ok=await p.evaluate(n=>{const I=window.__BLX.isl[n];return !I||I.fail3||(I.g3.lod0&&I.g3.lod0.st!=='en cours');},n);if(ok)break;await W(500);}await W(3000);
+    await p.evaluate(n=>{const t=__RK.terrs.find(q=>q.name===n);window.__k={n0:(window.__MES.isl[n]||{b:{n:0}}).b.n};t.owner=1;},n);await W(2500);
+    R.iles[n]=await p.evaluate(n=>{const B=window.__BLX,I=B.isl[n],M=window.__MES.isl[n]||{b:{}};if(!I)return null;const g={};for(const [l,v] of Object.entries(I.g3))g[l]={st:v.st,octets:v.octets||0,sommets:v.nv||0,triangles:(v.ni||0)/3};
+      return {g3:g,cuisson:B.cuis.filter(c=>c.ile===n),conquete_ms:M.b.last?Math.round(M.b.last.tot):null,conquete_sommets:M.b.last?M.b.last.sommets:null,reconstructions:M.b.n-window.__k.n0,fail3:I.fail3};},n);
+    await p.evaluate(n=>{const t=__RK.terrs.find(q=>q.name===n);t.owner=-1;},n);}
+  R.verif=await p.evaluate(()=>({ok:window.__BLX.verif.ok,rejets:window.__BLX.verif.rejets.slice(),err:window.__BLX.err}));R.errs3d=st.errs.slice();await p.close();
+  const [q,st2]=await page('25');R.img25={};
+  for(const n of L){await cam(q,n,3.5);await W(6000);R.img25[n]=await q.evaluate(n=>{const I=window.__BLX.isl[n];if(!I)return null;const px=o=>o?(o.width||0)*(o.height||0)*4:0;let b=0;for(const v of Object.values(I.img))b+=px(v);for(const v of Object.values(I.cv))b+=px(v);return {decode:b,vu:I.vu25};},n);}
+  R.errs25=st2.errs.slice();await q.close();}
 else if(scen==='liberation'){
   const [p,st]=await page('3d');await cam(p,'Zou',9);await readyBl(p,'3d','Zou',90000);await W(20000);
   R.a_gros_plan={mem:await memo(p),zou:(await blx(p)).isl.Zou};
