@@ -2,7 +2,7 @@
 
 > **Consigne à copier-coller** : « Produis l'île suivante de RISK OP en suivant exactement la procédure `sources/art/PROCEDURE_ILE.md` du dépôt RKS667/RiskOP (copie dans le projet : `claude/risk-op-procedure-ile.md`). Pars de la dernière branche d'île validée. Arrête-toi après la planche et attends ma validation. »
 
-État au 16/11/2026 : 7 îles validées (Zou, Whole Cake, Water 7, Loguetown, Wano, Alabasta, Syrup) + socle technique validé. Dernière branche validée : `essai/ile-syrup`.
+État au 16/11/2026 : îles faites (Zou, Whole Cake Island, Water 7, Loguetown, Pays des Wa, Alabasta, Archipel des Gecko, Archipel des Konomi) + socle technique validé + carte 2 des 53 îles validée. Dernière branche validée : `essai/carte-canon`.
 
 ---
 
@@ -17,7 +17,7 @@
 - **Qualité avant vitesse.** Une île à la fois. Pendant l'attente de validation, seulement la préparation documentaire des îles suivantes.
 - **Contre la répétition** : relief propre, au moins 2 monuments propres, architecture différente de l'île du même kit la plus proche (changer les couleurs ne compte pas), comparaison côte à côte sur la planche.
 - **Budget par île** : lod0 ≤ 90 000 triangles ; mémoire graphique ≤ 10 Mo ; images 2.5D ≤ 300 Ko ; conquête 3D sans gel.
-- Le build public `dist/risk_op.html` doit rester **identique** (sha256 `08e04954…` depuis le renommage d'Alabasta) sauf modification autorisée et justifiée.
+- Le build public `dist/risk_op.html` doit rester **identique** (sha256 `d7756047…` depuis la carte 2 des 53 îles, validée le 16/11/2026) sauf modification autorisée et justifiée.
 - Commit et push réguliers sur la branche de l'île (messages en français, lignes d'attribution).
 
 ## 1. Mise en place
@@ -85,7 +85,7 @@ python3 art/scripts/outils_planche.py tableau <slug> <captures> <île précéden
 ### Étape 7 — Vérifications techniques
 - 0 erreur de page en 2.5D et 3D ; fichiers vérifiés par empreinte, 0 rejet ; l'île 3D construite depuis Blender (`bx`).
 - Autres îles inchangées : `git diff --stat essai/ile-<précédente> HEAD -- art/out/<autres> src tools dist` vide.
-- Build public identique : `node tools/build.js && sha256sum dist/risk_op.html` → `08e04954…`.
+- Build public identique : `node tools/build.js && sha256sum dist/risk_op.html` → `d7756047…`.
 - Budget respecté ; mesures notées (mémoire graphique, cuisson, conquête).
 
 ## 3. Livraison puis arrêt

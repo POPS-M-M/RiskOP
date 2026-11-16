@@ -1,0 +1,67 @@
+{
+ "nom": "Laugh Tale",
+ "numero": "9",
+ "prefixe": "lt",
+ "voisine": "Archipel des Gecko et Alabasta",
+ "canon": [
+  "[C] Île au bout du Nouveau Monde, dernière île de la Grand Line ; atteinte par les Road Poneglyphs (One Piece Wiki).",
+  "[C] On en a très peu vu : « son rivage paraît fait de falaises abruptes et de beaucoup de nature sauvage » (One Piece Wiki ; Sportskeeda Wiki : « falaises acérées »).",
+  "[C] « Certains objets semblent avoir la forme de bâtiments ou de fortifications » (One Piece Wiki) ; « des bâtiments quelque part » (Slashfilm, 06/01/2026).",
+  "[C] Climat, taille et intérieur de l'île ne sont pas décrits ; au 06/01/2026, l'île n'a pas encore été montrée en détail (One Piece Wiki ; Slashfilm).",
+  "[I] Tout le reste : fjord d'accès unique, aiguilles rocheuses, massif central, forêt de très grands arbres, cascade ; ruines d'une citadelle à enceintes, quartier en terrasses, porte monumentale, chaussée et escaliers, tour brisée au sommet ;",
+  "     camp d'expédition (tentes, jetée, palissade) puis bâtiments restaurés et phare-balise : ce sont les niveaux de ville du jeu, pas l'œuvre.",
+  "Exclus : personnages, trésor (jamais montré), Poneglyphes, emblèmes, navires identifiables, copie de tout décor officiel."
+ ],
+ "signature": [
+  "Anneau de hautes falaises claires, à pic sur la mer, avec des aiguilles rocheuses au large",
+  "Une seule entrée : un fjord étroit à l'est, fermé au fond par une porte monumentale",
+  "Citadelle en ruine à enceintes et bastions ronds, envahie par la végétation, sur l'épaulement ouest",
+  "Nature sauvage : forêt sombre de très grands arbres, massif central rocheux, cascade dans le fjord",
+  "Chaussée et escaliers de pierre qui montent du fjord aux terrasses en ruine"
+ ],
+ "palette": [
+  ["Falaises", ["#cfc6b0", "#b4aa94", "#8e8676"]],
+  ["Strates", ["#9a8e78", "#6e665a", "#e2dccb"]],
+  ["Ruines", ["#a9a79c", "#8d8b82", "#c4bfae"]],
+  ["Mousse", ["#5f7d3c", "#4a6a34", "#7c9448"]],
+  ["Forêt", ["#244f2c", "#2f6034", "#3c7238"]],
+  ["Camp", ["#e6dcc2", "#a07850", "#c8562e"]]
+ ],
+ "zones": [
+  ["fjord", "fjord d'accès et porte monumentale (vue de l'est)"],
+  ["citadelle", "citadelle en ruine, enceintes et bastions (vue du sud-ouest)"],
+  ["terrasses", "quartier en terrasses et chaussée (vue du sud)"],
+  ["camp", "camp d'expédition au fond du fjord (vue de l'est)"],
+  ["sommet", "massif central et tour brisée (vue du nord)"],
+  ["falaises", "falaises et aiguilles de la côte sud (vue du sud)"],
+  ["foret", "forêt de très grands arbres (vue de l'ouest)"],
+  ["cascade", "cascade dans le fjord (vue du nord-est)"]
+ ],
+ "vues_blender": [
+  ["fjord", "fjord, porte monumentale et chaussée"],
+  ["citadelle", "citadelle : enceintes, bastions, donjon effondré"],
+  ["terrasses", "terrasses de maisons sans toit, escaliers"],
+  ["camp", "camp d'expédition, jetée et palissade"],
+  ["sommet", "massif central et tour brisée"],
+  ["falaises", "falaises à strates et aiguilles rocheuses"]
+ ],
+ "niveaux": [
+  "ruines + camp d'expédition au fond du fjord",
+  "+ maisons des terrasses restaurées",
+  "+ quartier de la citadelle relevé",
+  "+ phare-balise sur la falaise du fjord"
+ ],
+ "differences": [
+  "Relief : île de montagne en anneau de falaises très hautes, un seul fjord, massif central (Archipel des Gecko : plateau bas et deux pentes ; Alabasta : désert plat et dunes).",
+  "Architecture : pierre en gros blocs, murs à sommet déchiqueté, maisons sans toit, bastions ronds tronqués, mousse et lierre (Alabasta : maisons cubiques enduites et coupoles ; Gecko : cottages à chaume).",
+  "Monuments propres : citadelle à double enceinte, porte monumentale du fjord, tour brisée du sommet, phare-balise.",
+  "Végétation : très grands arbres à couronne large et conifères d'altitude, sans champs ni palmiers.",
+  "Kit : rk_ruines.py (nouveau) ; reprises de rk_port limitées aux pièces génériques (Frame, box, hip) et de rk_anglais à la jetée."
+ ],
+ "limites": [],
+ "sources": [
+  "One Piece Wiki, « Laugh Tale » : https://onepiece.fandom.com/wiki/Laugh_Tale (consultée le 16/11/2026)",
+  "Sportskeeda Wiki, « Laugh Tale in One Piece » : https://wiki.sportskeeda.com/one-piece/laugh-tale-in-one-piece (consultée le 16/11/2026)",
+  "Slashfilm, « One Piece: Everything We Know About Laugh Tale (So Far) », 06/01/2026 : https://www.slashfilm.com/2069347/one-piece-laugh-tale-explained (consultée le 16/11/2026)"
+ ]
+}

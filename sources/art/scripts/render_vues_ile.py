@@ -67,6 +67,17 @@ def vues(slug):
             'gosa': ((P.GOSA[0], P.GOSA[1], 2), (120, 34), 20, 45),
             'quai': (P.at_coast(P.QUAI_A, .9) + (1,), (150, 26), 20, 45),
         }
+    if slug == 'laugh_tale':
+        import lt_plan as P
+        return {
+            'generale': ((0, 0, 4), (100, 42), 130, 45),
+            'fjord': ((P.PORTE[0] + 4, P.PORTE[1], 2), (5, 20), 30, 45),
+            'citadelle': ((P.CITADELLE[0], P.CITADELLE[1], 6), (135, 30), 26, 45),
+            'terrasses': ((P.TERRASSES[0], P.TERRASSES[1], 4), (85, 30), 24, 45),
+            'camp': ((P.FOND[0] - 1, P.FOND[1], 1), (-25, 32), 16, 45),
+            'sommet': ((P.SOMMET[0], P.SOMMET[1], 10), (-80, 22), 30, 45),
+            'falaises': (P.at_coast(math.radians(80), .95) + (2,), (80, 12), 32, 45),
+        }
     raise KeyError(slug)
 
 
