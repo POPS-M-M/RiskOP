@@ -1,5 +1,8 @@
 {
- "nom": "Arabasta", "numero": "6", "prefixe": "ar", "voisine": "Loguetown, Wano et Water 7",
+ "nom": "Arabasta",
+ "numero": "6",
+ "prefixe": "ar",
+ "voisine": "Loguetown, Wano et Water 7",
  "canon": [
   "[C] Grande île désertique : le désert de Sandora couvre presque tout ce qui n'est pas près d'une oasis (One Piece Wiki).",
   "[C] Le fleuve Sandora coule au centre et coupe le pays en deux ; deux villes portuaires au sud et à l'est, dont Nanohana, port principal (One Piece Wiki).",
@@ -8,23 +11,145 @@
   "[C] Rainbase : ville prospère, casino en forme de pyramide, murs blancs « comme une ville américaine du XIXᵉ siècle » ; Yuba : bâtiments ronds à fines perches,",
   "     abandonnée à cause des tempêtes de sable ; Katorea au nord-est de Nanohana ; Erumalu en ruines ; Suiren asséchée (One Piece Wiki).",
   "[I] Toutes les positions (le sens d'écoulement du fleuve n'est pas précisé), rives cultivées, oasis, pistes, rempart d'Alubarna, phare de Nanohana.",
-  "Exclus : personnages, animaux identifiables, emblèmes royaux, emblème du casino, tombeau souterrain des rois (invisible), copie de tout décor officiel."],
- "signature": ["Rocher d'Alubarna : ville circulaire blanche, palais à dômes, tour de l'horloge, escaliers taillés", "Fleuve Sandora qui coupe l'île en deux, bordé de palmiers",
-               "Désert de dunes ocre", "Casino en pyramide de Rainbase", "Villes aux styles différents : blanche (Nanohana), western (Rainbase), terre (rives), ronde (Yuba), ruines"],
- "palette": [["Sable", ["#e8cf96", "#d6b273", "#f0dcaa"]], ["Rocher", ["#c79a6a", "#b0845a"]], ["Pierre blanche", ["#f3ede0", "#efe4cf", "#eadcc2"]],
-             ["Terre crue", ["#d9b27a", "#cfa46a", "#c89a62"]], ["Dômes", ["#2f8a9a", "#e2b33c", "#3d6ab8"]], ["Végétation", ["#7aa64a", "#4f8a3a", "#a8b86a"]]],
- "zones": [["alubarna", "Alubarna sur son rocher, palais et tour de l'horloge"], ["escaliers", "escaliers taillés (vue de l'ouest)"], ["rainbase", "Rainbase et le casino en pyramide"],
-           ["nanohana", "Nanohana, port principal (vue du sud-est)"], ["fleuve", "fleuve Sandora, rives et felouques"], ["yuba", "Yuba ensablée (vue de l'ouest)"],
-           ["erumalu", "Erumalu en ruines (vue du nord-ouest)"], ["katorea", "Katorea (vue de l'est)"]],
- "vues_blender": [["alubarna", "Alubarna : palais, tour de l'horloge, rempart"], ["escaliers", "escaliers taillés dans le rocher"], ["rainbase", "Rainbase : ville blanche et casino"],
-                  ["nanohana", "Nanohana : maisons blanches et dômes"], ["fleuve", "fleuve Sandora et felouques"], ["yuba", "Yuba : huttes rondes à perches"]],
- "niveaux": ["Alubarna et villes", "+ quartiers et villages", "+ rives et faubourgs", "+ phare de Nanohana"],
+  "Exclus : personnages, animaux identifiables, emblèmes royaux, emblème du casino, tombeau souterrain des rois (invisible), copie de tout décor officiel."
+ ],
+ "signature": [
+  "Rocher d'Alubarna : ville circulaire blanche, palais à dômes, tour de l'horloge, escaliers taillés",
+  "Fleuve Sandora qui coupe l'île en deux, bordé de palmiers",
+  "Désert de dunes ocre",
+  "Casino en pyramide de Rainbase",
+  "Villes aux styles différents : blanche (Nanohana), western (Rainbase), terre (rives), ronde (Yuba), ruines"
+ ],
+ "palette": [
+  [
+   "Sable",
+   [
+    "#e8cf96",
+    "#d6b273",
+    "#f0dcaa"
+   ]
+  ],
+  [
+   "Rocher",
+   [
+    "#c79a6a",
+    "#b0845a"
+   ]
+  ],
+  [
+   "Pierre blanche",
+   [
+    "#f3ede0",
+    "#efe4cf",
+    "#eadcc2"
+   ]
+  ],
+  [
+   "Terre crue",
+   [
+    "#d9b27a",
+    "#cfa46a",
+    "#c89a62"
+   ]
+  ],
+  [
+   "Dômes",
+   [
+    "#2f8a9a",
+    "#e2b33c",
+    "#3d6ab8"
+   ]
+  ],
+  [
+   "Végétation",
+   [
+    "#7aa64a",
+    "#4f8a3a",
+    "#a8b86a"
+   ]
+  ]
+ ],
+ "zones": [
+  [
+   "alubarna",
+   "Alubarna sur son rocher, palais et tour de l'horloge"
+  ],
+  [
+   "escaliers",
+   "escaliers taillés (vue de l'ouest)"
+  ],
+  [
+   "rainbase",
+   "Rainbase et le casino en pyramide"
+  ],
+  [
+   "nanohana",
+   "Nanohana, port principal (vue du sud-est)"
+  ],
+  [
+   "fleuve",
+   "fleuve Sandora, rives et felouques"
+  ],
+  [
+   "yuba",
+   "Yuba ensablée (vue de l'ouest)"
+  ],
+  [
+   "erumalu",
+   "Erumalu en ruines (vue du nord-ouest)"
+  ],
+  [
+   "katorea",
+   "Katorea (vue de l'est)"
+  ]
+ ],
+ "vues_blender": [
+  [
+   "alubarna",
+   "Alubarna : palais, tour de l'horloge, rempart"
+  ],
+  [
+   "escaliers",
+   "escaliers taillés dans le rocher"
+  ],
+  [
+   "rainbase",
+   "Rainbase : ville blanche et casino"
+  ],
+  [
+   "nanohana",
+   "Nanohana : maisons blanches et dômes"
+  ],
+  [
+   "fleuve",
+   "fleuve Sandora et felouques"
+  ],
+  [
+   "yuba",
+   "Yuba : huttes rondes à perches"
+  ]
+ ],
+ "niveaux": [
+  "Alubarna et villes",
+  "+ quartiers et villages",
+  "+ rives et faubourgs",
+  "+ phare de Nanohana"
+ ],
  "differences": [
   "Relief : désert de dunes, rocher-plateau isolé, fleuve unique (Wano : cuvette et murs ; Loguetown : plaine et collines ; Water 7 : terrasses et canaux).",
   "Palette : sable, ocre et pierre blanche, dômes bleu-vert et or ; aucune autre île n'est désertique.",
   "Architecture : toits plats à parapets, terre crue, arcs, dômes en bulbe, pyramide, huttes rondes, ville « western » en bois blanc.",
   "Organisation : villes dispersées et très différentes les unes des autres, reliées par des pistes ; capitale circulaire sur un rocher.",
-  "Kit : rk_desert.py (nouveau) ; reprises de rk_port limitées aux pièces génériques (fenêtres simples, navires, jetées)."],
- "limites": [],
- "sources": ["One Piece Wiki, « Arabasta Kingdom » : https://onepiece.fandom.com/wiki/Arabasta_Kingdom (consultée le 16/11/2026)"]
+  "Kit : rk_desert.py (nouveau) ; reprises de rk_port limitées aux pièces génériques (fenêtres simples, navires, jetées)."
+ ],
+ "limites": [
+  "Sol des dunes en facettes : en 3D de près, les pentes montrent des marches (grille de 0,5 et ombrage plat, même méthode que les autres îles, plus visible sur un grand sable uni).",
+  "Au zoom maximal du jeu, Alubarna reste petite : dômes, horloge et escaliers se lisent surtout dans les vues Blender ; Yuba et Erumalu se résument à des taches de petites formes brunes.",
+  "Fleuve, eau des oasis et felouques immobiles ; pas de tempête de sable ni d'effet de chaleur.",
+  "Positions des villes, sens du fleuve, rives cultivées, pistes, rempart et phare : interprétation [I], pas de carte officielle détaillée.",
+  "Copie de test : une ligne de src/essai/61-monde3d.js modifiée pour que le modèle Blender remplace l'ancien prototype 3D d'Arabasta ; le prototype reste en secours."
+ ],
+ "sources": [
+  "One Piece Wiki, « Arabasta Kingdom » : https://onepiece.fandom.com/wiki/Arabasta_Kingdom (consultée le 16/11/2026)"
+ ]
 }
