@@ -125,7 +125,7 @@ function blxApply25(t,e){
   e.small=l1||mid||full;e.mid=mid;e.full=full||mid||e.small;
   e.meta=meta;e.blob=null;e.banner=null;
   e.fx={flags:(I.m.drapeaux||[]).map(([x,y,z])=>[t.x+x,t.y+y-z]),smoke:[],glow:[],mill:[],fountain:[]};
-  e.isBl=true;e.blKey=key;dirty=true;
+  e.isBl=true;e.blKey=key;I.vu25=(full?'l3':'')+(mid?'l2':'')+(l1?'l1':'');dirty=true;
 }
 {const d0=r25Draw;r25Draw=function(t,e,now,u){try{blxApply25(t,e);}catch(err){console.warn('île Blender 2.5D',err);}return d0(t,e,now,u);};}
 
@@ -231,7 +231,7 @@ function blxDraw3(c,list,PK,near,far,fog,fd){
     const want=!L.on?'lod0':k<L.p1?'lod2':k<L.p2?'lod1':'lod0';blxWant3(m.bx,want);
     if(L.on){if(k>=.8*L.p1)blxWant3(m.bx,'lod1');if(k>=.8*L.p2)blxWant3(m.bx,'lod0');}   /* préchargement */
     const order=want==='lod0'?['lod0','lod1','lod2']:want==='lod1'?['lod1','lod2','lod0']:['lod2','lod1','lod0'];
-    let G=null;for(const l of order){const g=I.g3[l];if(g&&g.st==='pret'){G=g;I.u3[l]=now;break;}}I.u3[want]=now;
+    let G=null;for(const l of order){const g=I.g3[l];if(g&&g.st==='pret'){G=g;I.u3[l]=now;I.vu3=l;break;}}I.u3[want]=now;
     if(!G)continue;
     const lvl=Math.max(1,Math.min(4,blxLvl(t)||1)),n=G.fin[lvl];
     const own=t.owner>=0?r3c(COLORS[t.owner]):null;
