@@ -1,0 +1,67 @@
+{
+ "nom": "Elbaph",
+ "numero": "11",
+ "prefixe": "eb",
+ "voisine": "Laugh Tale et Mary Geoise",
+ "canon": [
+  "[C] Nouveau Monde. Au centre, l'Arbre au Trésor Adam, colossal, « qui écrase l'île elle-même » ; ses branches forment des étages de terre (One Piece Wiki).",
+  "[C] Trois mondes : l'Underworld (montagnes enneigées et forêts au pied de l'arbre, presque sans soleil), le Sun World (au-dessus des basses branches, forêts, plaines, villages), le Heaven World (cimes, peu connu).",
+  "[C] Villages du Sun World : maisons de bois, tours de guet, châteaux de pierre, ports ; le village de l'Ouest, principal, a un port où l'on accoste après être passé par un arc-en-ciel.",
+  "[C] Le château de Road sur une montagne enneigée de l'Underworld, relié aux terres d'en haut par un pont de corde ; le château d'Aurust, bâti dans un arbre immense au bord d'une falaise, endommagé et abandonné.",
+  "[C] La bibliothèque d'Owl sur une branche au-dessus de la Source des Guerriers (lac pris pour la mer, rive de particules de bois) ; l'école Walrus à côté ; une installation ancienne bâtie dans l'arbre.",
+  "[C] Une épée géante semble transpercer le Sun World jusqu'à l'Underworld ; des cascades tombent des branches dans des lacs et des rivières de nuage ; neige partout ; plantes et animaux géants (pins).",
+  "[C] Culture inspirée de la Scandinavie de l'âge viking (anecdotes du wiki) ; style viking des bâtiments : déduction [I].",
+  "[I] Forme et position des plateformes, des monuments, de l'arc-en-ciel et du pont de corde ; grande halle (niveau 4) ; tout l'aspect des bâtiments.",
+  "Exclus : personnages, géants, bêtes de l'Underworld, emblèmes, navires identifiables, constructions en briques de jouet, copie de tout décor officiel."
+ ],
+ "signature": [
+  "L'Arbre Adam au centre, immense, plus haut que tout le reste de la carte",
+  "Plateformes des branches (Sun World) portant villages, lac et bibliothèque, au-dessus de l'Underworld enneigé",
+  "Underworld : montagnes enneigées, pins géants, château de pierre sur un sommet relié par un pont de corde",
+  "Arc-en-ciel qui monte de la mer au port du village de l'Ouest ; cascades de nuage qui tombent des branches",
+  "Épée géante plantée à travers une plateforme jusqu'au sol"
+ ],
+ "palette": [
+  ["Écorce", ["#6a5038", "#7a5e42", "#584230"]],
+  ["Feuillage", ["#3e7a3c", "#4f8a44", "#2f6234"]],
+  ["Neige", ["#f4f6f8", "#dfe6ec", "#c8d2dc"]],
+  ["Bois viking", ["#5a3e2a", "#7a5634", "#8a6a44"]],
+  ["Pierre", ["#9a9a94", "#84847e", "#b0aea6"]],
+  ["Nuage", ["#ffffff", "#e8f0f6", "#cfdde8"]]
+ ],
+ "zones": [
+  ["arbre", "Arbre Adam et installation ancienne (vue du sud)"],
+  ["village_ouest", "village de l'Ouest, port de nuage et arc-en-ciel (vue de l'ouest)"],
+  ["source", "Source des Guerriers et bibliothèque d'Owl (vue du sud)"],
+  ["aurust", "château d'Aurust dans son arbre, au bord de la plateforme (vue de l'est)"],
+  ["road", "château de Road et pont de corde (vue du nord-ouest)"],
+  ["epee", "épée géante à travers la plateforme nord (vue du nord-est)"],
+  ["underworld", "Underworld : montagnes enneigées et pins géants (vue du sud-est)"],
+  ["cascades", "cascades de nuage depuis les branches (vue du sud-ouest)"]
+ ],
+ "vues_blender": [
+  ["arbre", "Arbre Adam, branches, installation ancienne"],
+  ["village_ouest", "village de l'Ouest, port de nuage, arc-en-ciel"],
+  ["source", "Source des Guerriers, bibliothèque d'Owl, école"],
+  ["aurust", "château d'Aurust bâti dans un arbre"],
+  ["road", "château de Road et pont de corde"],
+  ["underworld", "montagnes enneigées et pins géants"]
+ ],
+ "niveaux": [
+  "village de l'Ouest, monuments",
+  "+ maisons de la Source",
+  "+ maisons de l'est et du nord",
+  "+ grande halle"
+ ],
+ "differences": [
+  "Relief : deux étages, un sol de montagnes enneigées et des plateformes portées par un arbre géant (Laugh Tale : falaises et forêt au sol ; Mary Geoise : plateau unique sur une falaise rouge).",
+  "Architecture : longues maisons de bois à toit de gazon ou de bardeaux, tours de guet, châteaux de pierre grise (Laugh Tale : ruines ; Mary Geoise : demeures victoriennes blanches).",
+  "Monuments propres : Arbre Adam, épée géante, bibliothèque d'Owl, châteaux de Road et d'Aurust, arc-en-ciel, pont de corde.",
+  "Climat : neige sur tout le sol ; lacs et cascades de nuage ; aucune autre île n'est enneigée.",
+  "Kit : rk_nordique.py (nouveau) ; reprises de rk_port limitées aux pièces génériques (Frame, box, hip, prism_x, window)."
+ ],
+ "limites": [],
+ "sources": [
+  "One Piece Wiki, « Elbaph » : https://onepiece.fandom.com/wiki/Elbaph (consultée le 16/11/2026)"
+ ]
+}

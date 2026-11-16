@@ -90,6 +90,18 @@ def vues(slug):
             'escalier': (P.at_coast(math.radians(89), .88) + (3,), (90, 14), 26, 45),
             'foret': ((P.FORET[0], P.FORET[1], T + 1), (-135, 30), 24, 45),
         }
+    if slug == 'elbaph':
+        import eb_plan as P
+        sx, sy, sr, sz, sa = P.plateforme('source'); wx, wy, wr, wz, wa = P.plateforme('ouest'); ex, ey, er, ez, ea = P.plateforme('est')
+        return {
+            'generale': ((0, 0, 8), (100, 38), 150, 45),
+            'arbre': ((0, 3, 9), (90, 20), 50, 45),
+            'village_ouest': ((wx - 2, wy, wz + 1), (180, 30), 30, 45),
+            'source': ((sx, sy, sz + 2), (85, 30), 28, 45),
+            'aurust': ((ex + 3, ey, ez + 3), (0, 22), 24, 45),
+            'road': ((P.ROAD[0], P.ROAD[1], 8), (-135, 26), 28, 45),
+            'underworld': ((14, 12, 4), (45, 22), 30, 45),
+        }
     raise KeyError(slug)
 
 
