@@ -195,7 +195,8 @@ function w3Rings(G,rc,oc,owned){
 /* ---------- construction du modèle 3D d'une île selon son état de jeu ---------- */
 function w3BuildIsland(t){
   const CU=(typeof W3CU!=='undefined'&&!W3.cuOff&&W3CU[t.name])||null,D=CU&&CU.art?Object.assign({},ISLE_ART[t.name]||{},CU.art):(ISLE_ART[t.name]||{}),poly=w3Poly(t),owner=t.owner>=0?players[t.owner]:null,oc=owner?r3c(COLORS[t.owner]):r3c('#d8cfb0'),crew=owner?CREWS[owner.crew||0].id:'';
-  if(t.name==='Arabasta'){const e={poly25:poly,poly:poly},M=r3BuildAlabasta(t,e);
+  const blxA=t.name==='Arabasta'&&typeof BLX!=='undefined'&&!BLX.off&&!W3.cuOff&&BLX.isl[t.name]&&BLX.isl[t.name].ready3;   /* île produite par la chaîne Blender : son modèle remplace le prototype 3D */
+  if(t.name==='Arabasta'&&!blxA){const e={poly25:poly,poly:poly},M=r3BuildAlabasta(t,e);
     /* les triangles du fond marin appartiennent au 2.5D : en monde 3D, la mer est un plan */
     const G=M.G,keep=[];for(let i=0;i<G.P.length;i+=9){const v0=i/3;if(G.Cl[v0*4+3]<.99||G.Cl[(v0+1)*4+3]<.99||G.Cl[(v0+2)*4+3]<.99)continue;keep.push(i);}
     const G2=r3Geo();for(const i of keep)for(let q=0;q<3;q++){const v=i/3+q;G2.P.push(G.P[v*3],G.P[v*3+1],G.P[v*3+2]);G2.N.push(G.N[v*3],G.N[v*3+1],G.N[v*3+2]);G2.Cl.push(G.Cl[v*4],G.Cl[v*4+1],G.Cl[v*4+2],G.Cl[v*4+3]);G2.Tw.push(G.Tw[v]);}

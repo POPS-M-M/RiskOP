@@ -34,6 +34,17 @@ def vues(slug):
             'mogura': ((mx, my, 4), (-40, 30), 30, 45),
             'cascade': (P.at_q(.96, P.RIVIERES[3]) + (3,), (65, 18), 22, 45),
         }
+    if slug == 'arabasta':
+        import ar_plan as P
+        return {
+            'generale': ((0, 0, 3), (100, 42), 125, 45),
+            'alubarna': ((P.ALUBARNA[0], P.ALUBARNA[1], 8), (110, 32), 30, 45),
+            'escaliers': ((P.ALUBARNA[0] - 7, P.ALUBARNA[1], 6), (175, 26), 26, 45),
+            'rainbase': ((P.RAINBASE[0], P.RAINBASE[1], 3), (80, 32), 24, 45),
+            'nanohana': ((P.NANOHANA[0], P.NANOHANA[1], 2), (60, 32), 26, 45),
+            'fleuve': ((-1.5, 4, 2), (90, 24), 30, 45),
+            'yuba': ((P.YUBA[0], P.YUBA[1], 2), (120, 34), 20, 45),
+        }
     raise KeyError(slug)
 
 
