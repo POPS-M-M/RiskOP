@@ -1,0 +1,173 @@
+{
+ "nom": "Wano",
+ "numero": "5",
+ "prefixe": "wa",
+ "voisine": "Loguetown et Water 7",
+ "canon": [
+  "[C] Pays en cuvette : le centre et les bords sont des plateaux, l'entre-deux descend près du niveau de la mer et se remplit d'eau de pluie (One Piece Wiki).",
+  "[C] Des murs de roche (bâtis) entourent le pays ; l'eau douce sort par des cascades vers la mer, avec des tourbillons au pied (One Piece Wiki).",
+  "[C] Accès par une cascade remontée par des carpes géantes (non représentées) ou par un tunnel vers le port de Mogura, avec une télécabine (One Piece Wiki).",
+  "[C] Une rivière divise le pays en six régions : Capitale des Fleurs (centre, mont Fuji, Ebisu, cerisiers), Kuri (sud, château d'Oden détruit, Bakura),",
+  "     Ringo (nord, neige, cimetière du nord, pont Oihagi), Udon (sud-est, mine détruite, végétation), Hakumai (nord-est, automne, ports), Kibi (ouest, usines sur rochers).",
+  "[C?] Château du shogun dans la Capitale des Fleurs et grand torii de Kuri : non décrits par la page consultée ; de mémoire, à revérifier.",
+  "[I] État représenté : après le conflit (Udon reverdie). Rivière = anneau autour de la capitale + 5 bras qui sortent par 5 cascades ; positions et échelle.",
+  "Exclus : personnages, carpes géantes, Onigashima (île séparée), emblèmes, copie de tout décor officiel."
+ ],
+ "signature": [
+  "Cuvette fermée par des murs de roche, cascades vers la mer",
+  "Mont Fuji enneigé au cœur de la Capitale des Fleurs",
+  "Château à étages et ville de bois aux toits gris",
+  "Six régions aux climats différents (neige, automne, friche, forêt)",
+  "Rivière en anneau, ponts vermillon, torii"
+ ],
+ "palette": [
+  [
+   "Bois et enduit",
+   [
+    "#4e3324",
+    "#7a5638",
+    "#efe8d8"
+   ]
+  ],
+  [
+   "Tuiles",
+   [
+    "#4b5058",
+    "#5d636c",
+    "#3f4a4c"
+   ]
+  ],
+  [
+   "Vermillon",
+   [
+    "#cf432c",
+    "#b8452f",
+    "#e2b33c"
+   ]
+  ],
+  [
+   "Régions",
+   [
+    "#eef1f6",
+    "#c9944a",
+    "#5e9a48",
+    "#a8885e",
+    "#9a9488"
+   ]
+  ],
+  [
+   "Végétation",
+   [
+    "#f2b5c8",
+    "#2f5a34",
+    "#d0502a",
+    "#e08a30"
+   ]
+  ],
+  [
+   "Roche",
+   [
+    "#7e766a",
+    "#948a7c"
+   ]
+  ]
+ ],
+ "zones": [
+  [
+   "capitale",
+   "Capitale des Fleurs et château"
+  ],
+  [
+   "fuji",
+   "mont Fuji"
+  ],
+  [
+   "kuri",
+   "Kuri : ruines d'Oden, torii, Bakura"
+  ],
+  [
+   "ringo",
+   "Ringo : cimetière et pont (vue du nord)"
+  ],
+  [
+   "hakumai",
+   "Hakumai : automne et port de Mogura (vue du nord-est)"
+  ],
+  [
+   "udon",
+   "Udon : forêt et mine (vue du sud-est)"
+  ],
+  [
+   "kibi",
+   "Kibi : usines sur les rochers (vue de l'ouest)"
+  ],
+  [
+   "cascade",
+   "cascade et murs de roche"
+  ]
+ ],
+ "vues_blender": [
+  [
+   "capitale",
+   "château et ville de bois"
+  ],
+  [
+   "fuji",
+   "Fuji, Kibi et Ringo"
+  ],
+  [
+   "kuri",
+   "ruines d'Oden, torii, Bakura"
+  ],
+  [
+   "ringo",
+   "Ringo enneigé, cimetière"
+  ],
+  [
+   "mogura",
+   "port de Mogura au pied du mur"
+  ],
+  [
+   "cascade",
+   "cascade et tourbillon"
+  ]
+ ],
+ "niveaux": [
+  "capitale et villages",
+  "+ maisons",
+  "+ hameaux",
+  "+ pagode"
+ ],
+ "differences": [
+  "Relief : cuvette fermée par des murs de roche, cascades, Fuji (Loguetown : plaine et collines ; Water 7 : cône de terrasses et canaux).",
+  "Climats : six régions de couleurs différentes (neige, automne, friche, forêt, désolation) ; les autres îles n'en ont qu'un.",
+  "Architecture : bois sombre, treillis, enduit blanc, toits gris à larges avant-toits, château à étages, pagode, torii vermillon.",
+  "Organisation : capitale en damier au centre, rivière en anneau et bras rayonnants, villages dispersés dans les régions.",
+  "Kit : rk_wano.py (nouveau) ; seules quelques pièces génériques de rk_port sont reprises (fenêtres simples, navires)."
+ ],
+ "limites": [
+  "Échelle : au zoom maximal 2.5D (3,5), l'île fait environ 300 pixels réels de large ; maisons, treillis et stèles ne se lisent qu'en 3D zoomée.",
+  "Murs de roche hauts : vus du sud (caméra par défaut), le mur sud cache le pied de Kuri ; Ringo, Hakumai et Kibi se voient mieux en tournant la caméra (Q/E).",
+  "Badge d'armée : en 3D il se pose au nord de la capitale, entre le Fuji et le château (tous deux restent visibles) ; en 2.5D il couvre Bakura.",
+  "Les cascades sont des nappes inclinées : lisibles de côté, peu visibles de haut ; les carpes géantes ne sont pas représentées (créatures exclues).",
+  "Les niveaux de ville ajoutent peu de bâtiments (Wano est surtout une capitale et des villages) : la progression 1 → 4 se voit moins que sur les villes.",
+  "Château du shogun et grand torii de Kuri : [C?], la page consultée ne les décrit pas.",
+  "Données glTF gardées en mémoire JavaScript : 6,3 Mo (comme Water 7) ; à traiter dans le socle technique.",
+  "Les temps de construction varient d'une mesure à l'autre : à prendre comme ordres de grandeur."
+ ],
+ "sources": [
+  "One Piece Wiki, « Wano Country » : https://onepiece.fandom.com/wiki/Wano (consultée le 16/11/2026)"
+ ],
+ "crop25": [
+  0,
+  350,
+  940,
+  850
+ ],
+ "crop3": [
+  0,
+  300,
+  1280,
+  1110
+ ]
+}

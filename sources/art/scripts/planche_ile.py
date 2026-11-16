@@ -53,6 +53,7 @@ def row(items, w, gap=20, x0=40):
 
 C = lambda n: os.path.join(CAP, n); R_ = lambda n: os.path.join(REF, n); V = lambda n: os.path.join(OUT, 'vue_%s.png' % n)
 CR25, CR3 = (560, 380, 1500, 880), (380, 190, 1660, 1000)
+I25, I3 = tuple(Q.get('crop25', CR25)), tuple(Q.get('crop3', CR3))   # recadrage des captures de l'île (îles au bord de la carte)
 
 txt(40, y, '%s — île %s · planche de présentation' % (Q['nom'].upper(), Q['numero']), 54, INK, True); y += 72
 para(["Méthode « une île = 7 étapes, puis arrêt » : fiche canonique · identité et plan de masse · modélisation · exports 2.5D/3D · intégration test · planche · vérifications.",
@@ -78,7 +79,7 @@ row([(os.path.join(OUT, 'plan_de_masse.png'), 'Plan de masse : zones, rues, monu
 
 # ---------------------------------------------------------------- 3. vue générale
 section('3 · Vue générale', "Dans le jeu au zoom d'ensemble et au zoom maximal du mode 2.5D · à droite, le rendu Blender de contrôle")
-row([(C('%s_25_proche.png' % pre), JEU + ' · 2.5D · zoom 3,5 (maximum)', INK, CR25), (C('%s_3d_moyen.png' % pre), JEU + ' · 3D · zoom 5', INK, CR3), (V('generale'), BL + ' · vue générale', GOLD)], 760)
+row([(C('%s_25_proche.png' % pre), JEU + ' · 2.5D · zoom 3,5 (maximum)', INK, I25), (C('%s_3d_moyen.png' % pre), JEU + ' · 3D · zoom 5', INK, I3), (V('generale'), BL + ' · vue générale', GOLD)], 760)
 row([(C('%s_3d_proche.png' % pre), JEU + ' · 3D · zoom 9', INK, (300, 120, 1700, 1010)), (C('zc_%s.png' % Q['zones'][0][0]), JEU + ' · 3D · zoom 14 · ' + Q['zones'][0][1])], 1150)
 
 # ---------------------------------------------------------------- 4. gros plans
@@ -94,20 +95,21 @@ for k in range(0, len(vb), 2):
 section('5 · Niveaux de ville 1 → 4', "Image 2.5D l3 (12 px/unité) + calques de ville du jeu, cumulés")
 base = Image.open(os.path.join(ART, 'out', slug, 'l3.png')).convert('RGBA'); bb = base.getbbox(); cum = base.copy(); ims = []
 for lv in (1, 2, 3, 4):
-    if lv > 1: cum.alpha_composite(Image.open(os.path.join(ART, 'out', slug, 'ville%d.png' % lv)).convert('RGBA'))
+    pv = os.path.join(ART, 'out', slug, 'ville%d.png' % lv)
+    if lv > 1 and os.path.exists(pv): cum.alpha_composite(Image.open(pv).convert('RGBA'))
     bg = Image.new('RGB', cum.size, SEA); bg.paste(cum, (0, 0), cum); ims.append(bg.crop(bb))
 row([(im, 'Niveau %d · %s' % (k + 1, Q['niveaux'][k]), GOLD if k == 3 else INK) for k, im in enumerate(ims)], 560)
 
 # ---------------------------------------------------------------- 6. avant / après
 section('6 · Avant / après dans le jeu', "Même partie, mêmes réglages de caméra")
 row([(C('avant_%s_3d_proche.png' % pre), JEU + ' · 3D zoom 9 · avant', MUTED, (300, 120, 1700, 1010)), (C('%s_3d_proche.png' % pre), JEU + ' · 3D zoom 9 · après', GOLD, (300, 120, 1700, 1010))], 1150)
-row([(C('avant_%s_25_proche.png' % pre), JEU + ' · 2.5D zoom 3,5 · avant', MUTED, CR25), (C('%s_25_proche.png' % pre), JEU + ' · 2.5D zoom 3,5 · après', GOLD, CR25)], 1150)
+row([(C('avant_%s_25_proche.png' % pre), JEU + ' · 2.5D zoom 3,5 · avant', MUTED, I25), (C('%s_25_proche.png' % pre), JEU + ' · 2.5D zoom 3,5 · après', GOLD, I25)], 1150)
 
 # ---------------------------------------------------------------- 7. comparaison avec les références
 section('7 · Comparaison avec les références (même zoom, mêmes réglages)', "Zou (organique), Whole Cake (fantaisie), Water 7 (ville architecturée) et l'île présentée")
 row([(R_('z_zou_3d_centre.png'), 'Zou · 3D zoom 14'), (R_('z_wc_3d_centre.png'), 'Whole Cake · 3D zoom 14'), (R_('z_w7_3d_fontaine.png'), 'Water 7 · 3D zoom 14'), (C('z_%s_3d_%s.png' % (pre, Q['zones'][0][0])), Q['nom'] + ' · 3D zoom 14', GOLD)], 565)
-row([(R_('zou_3d_moyen.png'), 'Zou · 3D zoom 5', INK, CR3), (R_('wc_3d_moyen.png'), 'Whole Cake · 3D zoom 5', INK, CR3), (R_('w7_3d_moyen.png'), 'Water 7 · 3D zoom 5', INK, CR3), (C('%s_3d_moyen.png' % pre), Q['nom'] + ' · 3D zoom 5', GOLD, CR3)], 565)
-row([(R_('zou_25_proche.png'), 'Zou · 2.5D zoom 3,5', INK, CR25), (R_('wc_25_proche.png'), 'Whole Cake · 2.5D zoom 3,5', INK, CR25), (R_('w7_25_proche.png'), 'Water 7 · 2.5D zoom 3,5', INK, CR25), (C('%s_25_proche.png' % pre), Q['nom'] + ' · 2.5D zoom 3,5', GOLD, CR25)], 565)
+row([(R_('zou_3d_moyen.png'), 'Zou · 3D zoom 5', INK, CR3), (R_('wc_3d_moyen.png'), 'Whole Cake · 3D zoom 5', INK, CR3), (R_('w7_3d_moyen.png'), 'Water 7 · 3D zoom 5', INK, CR3), (C('%s_3d_moyen.png' % pre), Q['nom'] + ' · 3D zoom 5', GOLD, I3)], 565)
+row([(R_('zou_25_proche.png'), 'Zou · 2.5D zoom 3,5', INK, CR25), (R_('wc_25_proche.png'), 'Whole Cake · 2.5D zoom 3,5', INK, CR25), (R_('w7_25_proche.png'), 'Water 7 · 2.5D zoom 3,5', INK, CR25), (C('%s_25_proche.png' % pre), Q['nom'] + ' · 2.5D zoom 3,5', GOLD, I25)], 565)
 x = 40; txt(40, y, 'Rendus 2.5D au même nombre de pixels par unité (l2 = 6 px/unité)', 21, INK, True); y += 32
 for nm, s_ in (('Zou', 'zou'), ('Whole Cake', 'whole_cake'), ('Water 7', 'water_7'), (Q['nom'], slug)):
     im = Image.open(os.path.join(ART, 'out', s_, 'l2.png')).convert('RGBA'); im = im.crop(im.getbbox())

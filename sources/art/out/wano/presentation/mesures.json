@@ -1,0 +1,129 @@
+{
+ "colonnes": [
+  "Zou",
+  "Whole Cake",
+  "Water 7",
+  "Loguetown",
+  "Wano"
+ ],
+ "tableau": [
+  [
+   "Bâtiments (scène)",
+   [
+    "—",
+    "—",
+    "357",
+    "278 + 14",
+    "109 + monuments et ouvrages"
+   ]
+  ],
+  [
+   "Triangles scène Blender",
+   [
+    "—",
+    "—",
+    "121 728",
+    "80 970",
+    "100 842"
+   ]
+  ],
+  [
+   "glTF lod0 · triangles / fichier / gzip",
+   [
+    "81311 · 1.94 Mo · 1.40 Mo",
+    "57679 · 1.33 Mo · 0.78 Mo",
+    "85206 · 4.59 Mo · 1.53 Mo",
+    "56677 · 3.44 Mo · 1.08 Mo",
+    "70585 · 4.20 Mo · 1.26 Mo"
+   ]
+  ],
+  [
+   "glTF lod1 · triangles / fichier",
+   [
+    "25550 · 0.67 Mo",
+    "18123 · 0.45 Mo",
+    "26779 · 1.62 Mo",
+    "17810 · 1.04 Mo",
+    "22181 · 1.33 Mo"
+   ]
+  ],
+  [
+   "glTF lod2 · triangles / fichier",
+   [
+    "6966 · 251 Ko",
+    "4940 · 163 Ko",
+    "7301 · 446 Ko",
+    "4855 · 310 Ko",
+    "6049 · 465 Ko"
+   ]
+  ],
+  [
+   "Images 2.5D (l1+l2+l3+villes, webp)",
+   [
+    "130 Ko",
+    "171 Ko",
+    "272 Ko",
+    "280 Ko",
+    "244 Ko"
+   ]
+  ],
+  [
+   "Export Blender complet (Cycles CPU)",
+   [
+    "188 s",
+    "171 s",
+    "158 s",
+    "150 s",
+    "174 s"
+   ]
+  ],
+  [
+   "Mémoire carte graphique (3D, tous LOD)",
+   [
+    "9.45 Mo",
+    "5.43 Mo",
+    "7.86 Mo",
+    "5.55 Mo",
+    "6.74 Mo"
+   ]
+  ],
+  [
+   "glTF gardés en mémoire JavaScript",
+   [
+    "2.98 Mo",
+    "2.07 Mo",
+    "6.78 Mo",
+    "4.90 Mo",
+    "6.12 Mo"
+   ]
+  ],
+  [
+   "Construction 3D en jeu (dont éclairage cuit)",
+   [
+    "420 ms (319)",
+    "201 ms (162)",
+    "317 ms (243)",
+    "225 ms (181)",
+    "277 ms (227)"
+   ]
+  ],
+  [
+   "Sommets envoyés à la carte graphique",
+   [
+    "341127",
+    "197400",
+    "284220",
+    "201843",
+    "244242"
+   ]
+  ]
+ ],
+ "verifs": [
+  "0 erreur de page en 2.5D et en 3D (captures, gros plans, mesures) ; 20 fichiers vérifiés par empreinte SHA-256 (format 2), 0 rejet.",
+  "Zou, Whole Cake, Water 7 et Loguetown : fichiers sources, .blend et exports identiques au commit précédent (git diff vide).",
+  "Code du jeu (src/, tools/) inchangé ; build public dist/risk_op.html identique (sha256 486289c9…).",
+  "Coordonnées, rayon, contour, zones de clic, hitboxes, règles et sauvegardes : non touchés (seuls des fichiers art/ et tests/ changent).",
+  "Budget provisoire respecté : lod0 ≤ 90 000 triangles, mémoire graphique ≤ 10 Mo, images ≤ 300 Ko, construction ≤ 500 ms.",
+  "Branche essai/ile-wano seulement ; rien sur main ni gh-pages ; rien sur le site public."
+ ]
+}

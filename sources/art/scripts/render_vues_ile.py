@@ -22,6 +22,18 @@ def vues(slug):
             'villa': ((P.VILLA[0] + 2, P.VILLA[1] + 3, 3), (130, 42), 26, 45),
             'collines': ((19, -14, 4), (70, 32), 30, 45),
         }
+    if slug == 'wano':
+        import wa_plan as P
+        cx, cy = P.CHATEAU; ox, oy = P.at_q(P.ODEN[1], P.ODEN[0]); gx, gy = P.at_q(P.CIMETIERE[1], P.CIMETIERE[0]); mx, my = P.at_q(.9, P.MOGURA[0])
+        return {
+            'generale': ((0, 0, 5), (100, 42), 130, 45),
+            'capitale': ((cx - 2, cy, 10), (100, 30), 30, 45),
+            'fuji': ((P.FUJI[0], P.FUJI[1], 12), (80, 22), 42, 45),
+            'kuri': ((ox, oy - 2, 8), (95, 30), 30, 45),
+            'ringo': ((gx, gy, 7), (-90, 36), 28, 45),
+            'mogura': ((mx, my, 4), (-40, 30), 30, 45),
+            'cascade': (P.at_q(.96, P.RIVIERES[3]) + (3,), (65, 18), 22, 45),
+        }
     raise KeyError(slug)
 
 
