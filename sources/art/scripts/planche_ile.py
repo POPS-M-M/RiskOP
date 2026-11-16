@@ -51,7 +51,9 @@ def row(items, w, gap=20, x0=40):
     y += h + 26
 
 
-C = lambda n: os.path.join(CAP, n); R_ = lambda n: os.path.join(REF, n); V = lambda n: os.path.join(OUT, 'vue_%s.png' % n)
+C = lambda n: os.path.join(CAP, n)
+R_ = lambda n: os.path.join(REF, n) if os.path.exists(os.path.join(REF, n)) else os.path.join(REF, n[:-4] + '.jpg')   # références : tests/mesures/references (jpg)
+V = lambda n: os.path.join(OUT, 'vue_%s.png' % n)
 CR25, CR3 = (560, 380, 1500, 880), (380, 190, 1660, 1000)
 I25, I3 = tuple(Q.get('crop25', CR25)), tuple(Q.get('crop3', CR3))   # recadrage des captures de l'île (îles au bord de la carte)
 
