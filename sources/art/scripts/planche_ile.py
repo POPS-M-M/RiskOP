@@ -125,11 +125,11 @@ for mode, t in (('25', '2.5D'), ('3d', '3D')):
 
 # ---------------------------------------------------------------- 9. rapport technique
 section('9 · Vérifications techniques', "Mesures de cet environnement (CPU, rendu WebGL logiciel) : ordres de grandeur, pas des mesures sur ta machine")
-cols = T['colonnes']; cw = [560] + [420] * len(cols)
+cols = T['colonnes']; lw = 560 if len(cols) <= 5 else 450; cw = [lw] + [min(420, (W_ - 80 - lw) // len(cols))] * len(cols)   # 6 colonnes et plus : tableau ajusté à la largeur
 for k, h in enumerate([''] + cols): txt(40 + sum(cw[:k]), y, h, 21, GOLD if k == len(cols) else INK, True)
 y += 34
 for lab, vals in T['tableau']:
-    for k, v in enumerate([lab] + vals): txt(40 + sum(cw[:k]), y, str(v), 19, INK if k else MUTED, k == len(cols))
+    for k, v in enumerate([lab] + vals): txt(40 + sum(cw[:k]), y, str(v), 19 if len(cols) <= 5 else 18, INK if k else MUTED, k == len(cols))
     y += 28
 y += 14
 for l in T['verifs']: txt(40, y, '✔ ' + l, 19); y += 28
