@@ -284,22 +284,31 @@ function w3BuildIsland(t){
 }
 
 /* ---------- lumière cuite dans les sommets (ombres portées + occlusion), même soleil que le prototype ---------- */
-function w3Bake(M,t){
-  const G=M.G,ext=M.ext,S=200,cell=2*ext/S,hf=new Float32Array(S*S);
+/* hauteur visible (sol + toits) sur une grille 200×200 : sert aux ombres et à l'occlusion de l'éclairage cuit */
+function w3HF(M){
+  const ext=M.ext,S=200,cell=2*ext/S,hf=new Float32Array(S*S);
   for(let j=0;j<S;j++)for(let i=0;i<S;i++)hf[j*S+i]=M.H(-ext+(i+.5)*cell,-ext+(j+.5)*cell);
   for(const b of M.tops){const i0=Math.max(0,Math.floor((b[0]+ext)/cell)),i1=Math.min(S-1,Math.ceil((b[2]+ext)/cell)),j0=Math.max(0,Math.floor((b[1]+ext)/cell)),j1=Math.min(S-1,Math.ceil((b[3]+ext)/cell));
     for(let j=j0;j<=j1;j++)for(let i=i0;i<=i1;i++)if(b[4]>hf[j*S+i])hf[j*S+i]=b[4];}
-  const hAt=(x,y)=>{const i=Math.floor((x+ext)/cell),j=Math.floor((y+ext)/cell);if(i<0||j<0||i>=S||j>=S)return -9;return hf[j*S+i];};
-  const L=R3_SUN,nv=G.P.length/3,OL=[[],[],[],[]],Tt=[],LV=new Uint8Array(nv);for(const o of (G.objs||[]))LV.fill(o[2],o[0],Math.min(o[1],nv));let O;const oc3=t&&t.owner>=0?r3c(COLORS[t.owner]):null;
+  return (x,y)=>{const i=Math.floor((x+ext)/cell),j=Math.floor((y+ext)/cell);if(i<0||j<0||i>=S||j>=S)return -9;return hf[j*S+i];};}
+/* éclairage cuit d'un sommet, sans la teinte du propriétaire : o[k..k+2] = couleur, o[k+3] = composante verticale de la normale
+   effectivement éclairée (retournée pour les faces à deux côtés), qui décide de la teinte du sol */
+function w3Lit(hAt,x,y,z,nx,ny,nz,cr,cg,cb,two,o,k){
+  const L=R3_SUN;let df=nx*L[0]+ny*L[1]+nz*L[2];if(two){if(df<0){nx=-nx;ny=-ny;nz=-nz;df=-df;}}else df=Math.max(df,0);
+  let sh=1;const qx=x+nx*.38,qy=y+ny*.38,qz=z+nz*.38;for(let i=1;i<34;i++){const kk=i*.28;if(hAt(qx+L[0]*kk,qy+L[1]*kk)>qz+L[2]*kk+.12){sh=0;break;}}
+  let ao=0;for(let i=0;i<8;i++){const a=i*.785;ao+=Math.max(0,Math.min(1,(hAt(x+Math.cos(a)*1.1,y+Math.sin(a)*1.1)-z)/1.4));}ao=1-ao/8*.38*Math.max(0,Math.min(1,nz));
+  const sk=(.70+.14*Math.max(0,nz))*ao,su=df*(.5+.5*sh)*.60;
+  let r=cr*(.62*sk+1.05*su),g=cg*(.70*sk+.96*su),b=cb*(.86*sk+.82*su);
+  const lum=r*.3+g*.59+b*.11;r=lum+(r-lum)*1.16+cr*.06*(1-nz);g=lum+(g-lum)*1.16+cg*.04*(1-nz);b=lum+(b-lum)*1.16+cb*.01*(1-nz);
+  o[k]=r;o[k+1]=g;o[k+2]=b;o[k+3]=nz;}
+function w3Bake(M,t){
+  const G=M.G,hAt=w3HF(M);
+  const nv=G.P.length/3,OL=[[],[],[],[]],Tt=[],LV=new Uint8Array(nv);for(const o of (G.objs||[]))LV.fill(o[2],o[0],Math.min(o[1],nv));let O;const oc3=t&&t.owner>=0?r3c(COLORS[t.owner]):null;
+  const q=[0,0,0,0];
   for(let v=0;v<nv;v++){
-    const x=G.P[v*3],y=G.P[v*3+1],z=G.P[v*3+2],cr=G.Cl[v*4],cg=G.Cl[v*4+1],cb=G.Cl[v*4+2],ca=G.Cl[v*4+3];let nx=G.N[v*3],ny=G.N[v*3+1],nz=G.N[v*3+2];
-    if(ca<.995&&nz>.99&&z<.1){Tt.push(x,y,z,cr,cg,cb,ca);continue;}              /* anneaux au niveau de la mer : sans éclairage */
-    const two=G.Tw[v]===1;let df=nx*L[0]+ny*L[1]+nz*L[2];if(two){if(df<0){nx=-nx;ny=-ny;nz=-nz;df=-df;}}else df=Math.max(df,0);
-    let sh=1;const qx=x+nx*.38,qy=y+ny*.38,qz=z+nz*.38;for(let i=1;i<34;i++){const k=i*.28;if(hAt(qx+L[0]*k,qy+L[1]*k)>qz+L[2]*k+.12){sh=0;break;}}
-    let ao=0;for(let i=0;i<8;i++){const a=i*.785;ao+=Math.max(0,Math.min(1,(hAt(x+Math.cos(a)*1.1,y+Math.sin(a)*1.1)-z)/1.4));}ao=1-ao/8*.38*Math.max(0,Math.min(1,nz));
-    const sk=(.70+.14*Math.max(0,nz))*ao,su=df*(.5+.5*sh)*.60;
-    let r=cr*(.62*sk+1.05*su),g=cg*(.70*sk+.96*su),b=cb*(.86*sk+.82*su);
-    const lum=r*.3+g*.59+b*.11;r=lum+(r-lum)*1.16+cr*.06*(1-nz);g=lum+(g-lum)*1.16+cg*.04*(1-nz);b=lum+(b-lum)*1.16+cb*.01*(1-nz);
+    const x=G.P[v*3],y=G.P[v*3+1],z=G.P[v*3+2],cr=G.Cl[v*4],cg=G.Cl[v*4+1],cb=G.Cl[v*4+2],ca=G.Cl[v*4+3];const nz0=G.N[v*3+2];
+    if(ca<.995&&nz0>.99&&z<.1){Tt.push(x,y,z,cr,cg,cb,ca);continue;}              /* anneaux au niveau de la mer : sans éclairage */
+    w3Lit(hAt,x,y,z,G.N[v*3],G.N[v*3+1],nz0,cr,cg,cb,G.Tw[v]===1,q,0);let r=q[0],g=q[1],b=q[2];const nz=q[3];
     /* île conquise : le sol (faces tournées vers le haut) prend la couleur du joueur, plus fortement pour nos propres îles */
     if(oc3&&nz>.55){const k=(t.owner===ME?.30:.15)*Math.min(1,(nz-.55)/.3),lm=r*.3+g*.59+b*.11,lo=Math.max(.15,oc3[0]*.3+oc3[1]*.59+oc3[2]*.11),f=lm/lo;r+=(oc3[0]*f-r)*k;g+=(oc3[1]*f-g)*k;b+=(oc3[2]*f-b)*k;}
     O=OL[LV[v]];O.push(x,y,z,r,g,b,1);
@@ -346,9 +355,10 @@ function w3Upload(t,key){
   const bo=gl.createBuffer(),bt=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,bo);gl.bufferData(gl.ARRAY_BUFFER,B.O,gl.STATIC_DRAW);gl.bindBuffer(gl.ARRAY_BUFFER,bt);gl.bufferData(gl.ARRAY_BUFFER,B.T,gl.STATIC_DRAW);
   /* étendue du modèle vers le sud (tête de Zunesha, navires…) : l'étiquette du nom se place en dessous */
   let ys=0;for(let i=0;i<B.O.length;i+=7)if(B.O[i+2]>.4&&B.O[i+1]>ys)ys=B.O[i+1];
+  if(M.bx&&typeof blxYs==='function')ys=Math.max(ys,blxYs(M.bx));   /* île Blender : son modèle (envoyé à part) compte aussi */
   /* modèles à niveaux de détail séparés (glTF Blender : lod1, lod2) */
   let alt=null;if(M.alts){alt=M.alts.map(G2=>{const B2=w3Bake({G:G2,H:M.H,tops:M.tops,ext:M.ext},t),b2=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b2);gl.bufferData(gl.ARRAY_BUFFER,B2.O,gl.STATIC_DRAW);return {bo:b2,no:B2.O.length/7};});}
-  W3.models.set(t.id,{key,bo,bt,ys,alt,bl:!!M.bl,no:B.O.length/7,n0:B.n0,n1:B.n1,n2:B.n2,nt:B.T.length/7,top:M.top,rc:M.A.rc,pa:M.A.pa,H:M.H,ms:Math.round(performance.now()-t0)});W3.built++;
+  W3.models.set(t.id,{key,bo,bt,ys,alt,bl:!!M.bl,bx:M.bx||null,no:B.O.length/7,n0:B.n0,n1:B.n1,n2:B.n2,nt:B.T.length/7,top:M.top,rc:M.A.rc,pa:M.A.pa,H:M.H,ms:Math.round(performance.now()-t0)});W3.built++;
 }
 function w3Queue(){
   for(const t of terrs){const k=r3Key(t),m=W3.models.get(t.id);if((!m||m.key!==k)&&!W3.q.some(q=>q.id===t.id))W3.q.push({id:t.id,key:k});}
@@ -371,8 +381,10 @@ function w3Draw(c,now){
   const vis=new Set(),PK=new Map();for(const t of terrs){const p=w3Proj(t.x,t.y,4,c);if(!p)continue;const mg=(1.7*t.rad+22)*p.k;if(p.sx>-mg&&p.sx<cv.width+mg&&p.sy>-mg*1.3&&p.sy<cv.height+mg){vis.add(t.id);PK.set(t.id,p.k);}}
   /* niveau de détail selon la taille de l'île à l'écran (pixels par unité de carte) : les petits objets n'apparaissent que lorsqu'ils dépassent ~2 pixels */
   const cnt=(m,id)=>{if(!R3_LOD.on||m.n0===undefined)return m.no;const k=PK.get(id)||9;return k<R3_LOD.p1?m.n0:k<R3_LOD.p2?m.n1:k<R3_LOD.p3?m.n2:m.no;};
-  W3.nvis=vis.size;
-  for(const t of terrs){if(!vis.has(t.id))continue;const m=W3.models.get(t.id);if(!m||!m.no)continue;gl.uniform3f(offL,t.x,t.y,0);let bb=m.bo,nn;if(m.alt&&R3_LOD.on){const k=PK.get(t.id)||9,a=k<R3_LOD.p1?m.alt[1]:k<R3_LOD.p2?m.alt[0]:null;if(a){bb=a.bo;nn=a.no;}else nn=m.no;}else nn=cnt(m,t.id);bind(pr,bb);gl.drawArrays(gl.TRIANGLES,0,nn);tris+=nn/3;}
+  W3.nvis=vis.size;const BX=[];
+  for(const t of terrs){if(!vis.has(t.id))continue;const m=W3.models.get(t.id);if(m&&m.bx)BX.push(t);if(!m||!m.no)continue;gl.uniform3f(offL,t.x,t.y,0);let bb=m.bo,nn;if(m.alt&&R3_LOD.on){const k=PK.get(t.id)||9,a=k<R3_LOD.p1?m.alt[1]:k<R3_LOD.p2?m.alt[0]:null;if(a){bb=a.bo;nn=a.no;}else nn=m.no;}else nn=cnt(m,t.id);bind(pr,bb);gl.drawArrays(gl.TRIANGLES,0,nn);tris+=nn/3;}
+  /* îles Blender : modèle fixe (éclairage cuit une fois, teinte du propriétaire et niveau de ville au dessin), programme dédié */
+  if(BX.length&&typeof blxDraw3==='function'){tris+=blxDraw3(c,BX,PK,near,far,fog,fd);gl.useProgram(pr);}
   gl.enable(gl.BLEND);gl.blendFunc(gl.ONE,gl.ONE_MINUS_SRC_ALPHA);gl.depthMask(false);
   for(const t of terrs){if(!vis.has(t.id))continue;const m=W3.models.get(t.id);if(!m||!m.nt)continue;gl.uniform3f(offL,t.x,t.y,0);bind(pr,m.bt);gl.drawArrays(gl.TRIANGLES,0,m.nt);}
   gl.depthMask(true);W3.tris=tris;

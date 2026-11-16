@@ -55,7 +55,7 @@ function mesPatchGL(gl,cv){
   const bb=gl.bindBuffer.bind(gl),bd=gl.bufferData.bind(gl),db=gl.deleteBuffer.bind(gl),bt=gl.bindTexture.bind(gl),ti=gl.texImage2D.bind(gl),dt=gl.deleteTexture.bind(gl),gm=gl.generateMipmap.bind(gl);
   gl.bindBuffer=function(tg,b){cur[tg]=b;return bb(tg,b);};
   gl.bufferData=function(tg,d,us){const b=cur[tg];if(b){const n=typeof d==='number'?d:(d&&d.byteLength)||0;let r=MES.gl.get(b);
-      if(!r){r={C,octets:0,role:us===gl.DYNAMIC_DRAW?'dynamique':'autre',ile:'',bl:false};const u=MES.up;if(u){r.ile=u.ile;r.bl=u.bl;r.role=MES_ROLE[u.seq]||'autre';u.seq++;}MES.gl.set(b,r);}
+      if(!r){r={C,octets:0,role:us===gl.DYNAMIC_DRAW?'dynamique':'autre',ile:'',bl:false};const u=MES.up;if(MES.tag){r.ile=MES.tag.ile;r.bl=true;r.role=MES.tag.role+(tg===gl.ELEMENT_ARRAY_BUFFER?' indices':' sommets');}else if(u){r.ile=u.ile;r.bl=u.bl;r.role=MES_ROLE[u.seq]||'autre';u.seq++;}MES.gl.set(b,r);}
       if(MES.up&&r.ile===MES.up.ile)MES.up.octets+=n-r.octets;r.octets=n;}
     return bd(tg,d,us);};
   gl.deleteBuffer=function(b){MES.gl.delete(b);return db(b);};
@@ -80,6 +80,7 @@ if(typeof W3!=='undefined'&&W3.gl)mesPatchGL(W3.gl,W3.cv);   /* contexte déjà 
 function mesLodOf(t){
   if(typeof W3!=='undefined'&&W3.act&&W3.c&&typeof w3Proj==='function'){const p=w3Proj(t.x,t.y,4,W3.c);if(!p)return null;const cvw=W3.cv?W3.cv.width:0,cvh=W3.cv?W3.cv.height:0,mg=(1.7*t.rad+22)*p.k;
     if(!(p.sx>-mg&&p.sx<cvw+mg&&p.sy>-mg*1.3&&p.sy<cvh+mg))return null;const m=W3.models.get(t.id);if(!m)return '3D:attente';const L=R3_LOD;
+    if(m.bx&&typeof BLX!=='undefined'&&BLX.isl[m.bx]){const g=BLX.isl[m.bx].g3,want=!L.on?'lod0':p.k<L.p1?'lod2':p.k<L.p2?'lod1':'lod0',o=want==='lod0'?['lod0','lod1','lod2']:want==='lod1'?['lod1','lod2','lod0']:['lod2','lod1','lod0'];for(const l of o)if(g[l]&&g[l].st==='pret')return '3D:'+l;return '3D:attente';}
     if(!L.on)return '3D:complet';if(m.alt)return '3D:'+(p.k<L.p1?'lod2':p.k<L.p2?'lod1':'lod0');return '3D:objets'+(p.k<L.p1?0:p.k<L.p2?1:p.k<L.p3?2:3);}
   if(t.x<V.x-40||t.x>V.x+W/V.k+40||t.y<V.y-40||t.y>V.y+H/V.k+40)return null;
   const e=R25.cache.get(t.id);if(!e||e.st!=='ready')return '2.5D:attente';const px=S*V.k;
@@ -121,8 +122,9 @@ function mesMem(){
     if(e.banner)add(e.banner,'origine');}
   let gltfJS=0;const gj={};
   if(typeof BLX!=='undefined')for(const [n,I] of Object.entries(BLX.isl)){for(const v of Object.values(I.img))if(v&&typeof v==='object')add(v,'blender_img',n);
+    for(const v of Object.values(I.cv||{}))add(v,'blender_compose',n);
     let b=0;for(const nodes of Object.values(I.glb||{}))for(const nd of nodes)b+=(nd.P?nd.P.byteLength:0)+(nd.N?nd.N.byteLength:0)+(nd.C&&nd.C.d?nd.C.d.byteLength:0)+(nd.I?nd.I.byteLength:0);
-    if(I.Hs&&I.m.hauteurs)b+=2*I.m.hauteurs.n*I.m.hauteurs.n*4;gj[n]=b;gltfJS+=b;}
+    if(I.Hs&&I.m.hauteurs)b+=2*I.m.hauteurs.n*I.m.hauteurs.n*4;for(const z of Object.values(I.z||{}))b+=z.size||0;gj[n]=b;gltfJS+=b;}
   if(typeof R25!=='undefined'){add(R25.sea,'mer');}
   if(typeof R25G!=='undefined')for(const v of Object.values(R25G))add(v,'halos');
   /* WebGL */
@@ -132,7 +134,7 @@ function mesMem(){
   const ilesO=new Set();
   for(const r of MES.gl.values()){if(r.ile){if(r.bl){const B=g.blender[r.ile]=g.blender[r.ile]||{};B[r.role]=(B[r.role]||0)+r.octets;}else{g.origine+=r.octets;ilesO.add(r.ile);}}else if(r.role==='dynamique')g.dyn+=r.octets;else g.autre+=r.octets;}
   g.origineN=ilesO.size;
-  const vis={};if(typeof W3!=='undefined')for(const t of (typeof terrs!=='undefined'?terrs:[])){const m=W3.models.get(t.id);if(m)vis[t.name]={sommets:m.no,lod1:m.alt?m.alt[0].no:0,lod2:m.alt?m.alt[1].no:0};}
+  const vis={};if(typeof W3!=='undefined')for(const t of (typeof terrs!=='undefined'?terrs:[])){const m=W3.models.get(t.id);if(m&&m.bx&&typeof BLX!=='undefined'&&BLX.isl[m.bx]){const g=BLX.isl[m.bx].g3,nv=l=>g[l]&&g[l].st==='pret'?g[l].nv:0;vis[t.name]={sommets:nv('lod0'),lod1:nv('lod1'),lod2:nv('lod2'),indexe:true,dyn:m.no};}else if(m)vis[t.name]={sommets:m.no,lod1:m.alt?m.alt[0].no:0,lod2:m.alt?m.alt[1].no:0};}
   return {img:cat,imgIle:per,blobO,blobK,gltfJS,gltfIle:gj,gl:g,sommets:vis,
     js:performance.memory?{utilise:performance.memory.usedJSHeapSize,total:performance.memory.totalJSHeapSize,limite:performance.memory.jsHeapSizeLimit}:null};}
 function mesSnap(){

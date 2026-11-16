@@ -11,16 +11,17 @@ Format 2 (par défaut, étape P4 : versionnage du cache)
     le SHA-256 et la version de son manifeste.
 Format 1 (--format1) : ancienne copie à noms fixes, conservée pour les tests de compatibilité.
 
-Usage : python3 art/scripts/pack_for_game.py [dossier_cible] [--b64] [--format1] [--nettoyer]
+Usage : python3 art/scripts/pack_for_game.py [dossier_cible] [--b64] [--format1] [--nettoyer] [--hauteurs-incluses]
   dossier_cible : défaut dist/ ; --b64 : glTF publiés en base64 (.glb.txt) pour les hébergeurs sans type glTF (artefact de test) ;
   --nettoyer : retire du dossier de chaque île les fichiers que le nouveau manifeste ne cite plus.
+  --hauteurs-incluses : garde les cartes de hauteurs en base64 dans le manifeste (paquet d'avant le socle technique, pour comparaison).
 Les sorties Blender (art/out/<île>/) ne sont jamais modifiées ; les PNG maîtres n'y sont pas copiés.
 """
 import os, sys, json, shutil, hashlib, base64, copy
 
 ART = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 args = [a for a in sys.argv[1:] if not a.startswith('--')]
-B64, FORMAT1, NETTOYER = '--b64' in sys.argv, '--format1' in sys.argv, '--nettoyer' in sys.argv
+B64, FORMAT1, NETTOYER, INLINE_H = '--b64' in sys.argv, '--format1' in sys.argv, '--nettoyer' in sys.argv, '--hauteurs-incluses' in sys.argv
 dest = os.path.abspath(args[0] if args else os.path.join(ART, '..', 'dist'))
 NAMES = {'zou': 'Zou', 'whole_cake': 'Whole Cake', 'water_7': 'Water 7', 'loguetown': 'Loguetown', 'wano': 'Wano', 'alabasta': 'Alabasta'}   # îles produites par la chaîne (prototypes, Water 7, puis île par île)
 
@@ -65,6 +66,18 @@ def pack_v2(name, slug, src, d):
     for grp in ('images25d', 'ville25d', 'glb'):
         for ref in (m2.get(grp) or {}).values():
             publie(ref)
+    # socle technique (chargement progressif) : les cartes de hauteurs, utiles à la 3D seulement, sortent du manifeste
+    # (≈ 87 Ko de texte par île lus au démarrage même en 2.5D) vers un fichier binaire à empreinte, lu avec le premier modèle 3D.
+    H = m2.get('hauteurs')
+    if H and 'sol' in H and not INLINE_H:
+        n = H['n']; sol = base64.b64decode(H['sol']); obs = base64.b64decode(H['obstacles'])
+        assert len(sol) == len(obs) == n * n * 2, 'cartes de hauteurs de taille inattendue'
+        raw = sol + obs; h = sha(raw); nom = 'hauteurs.%s.bin' % h[:8]; enc = 'binaire'; data = raw
+        if B64:
+            nom += '.txt'; enc = 'base64'; data = base64.b64encode(raw)
+        open(os.path.join(d, nom), 'wb').write(data); tot += len(data); garder.add(nom)
+        table[nom] = {'source': 'manifest.json (hauteurs)', 'octets': len(raw), 'sha256': h, 'encodage': enc, 'octets_publies': len(data)}
+        m2['hauteurs'] = {'n': n, 'ext': H['ext'], 'code': H['code'], 'fichier': nom, 'sol': [0, n * n * 2], 'obstacles': [n * n * 2, n * n * 2]}
     m2['format'] = 2; m2['fichiers'] = table
     mb = jdump(m2); mh = sha(mb); mnom = 'manifest.%s.json' % mh[:8]
     open(os.path.join(d, mnom), 'wb').write(mb); tot += len(mb); garder.add(mnom)
