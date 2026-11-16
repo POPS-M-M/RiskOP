@@ -191,8 +191,9 @@ function blxProg(){
   const sh=(ty,src)=>{const s=gl.createShader(ty);gl.shaderSource(s,src);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw new Error(gl.getShaderInfoLog(s));return s;};
   const p=gl.createProgram();gl.attachShader(p,sh(gl.VERTEX_SHADER,BLX_VS));gl.attachShader(p,sh(gl.FRAGMENT_SHADER,W3_FS));gl.linkProgram(p);if(!gl.getProgramParameter(p,gl.LINK_STATUS))throw new Error(gl.getProgramInfoLog(p));
   const U={};for(const n of ['eye','cr','cu','cf','off','oc','P','os','olo','fogc','fogd'])U[n]=gl.getUniformLocation(p,n);
-  /* contexte neuf (premier usage ou contexte perdu puis recréé) : les modèles envoyés à l'ancien contexte n'existent plus */
-  for(const I of Object.values(BLX.isl)){I.g3={};I.ready3=false;}
+  /* contexte recréé après une perte : les modèles envoyés à l'ancien contexte n'existent plus (au premier usage, rien à oublier :
+     des niveaux peuvent déjà être en cours de chargement) */
+  if(BLX.gl)for(const [n,I] of Object.entries(BLX.isl)){I.g3={};if(I.ready3){I.ready3=false;blxRefresh(n);}}
   BLX.gl={gl,p,U,lp:gl.getAttribLocation(p,'p'),lc:gl.getAttribLocation(p,'c'),u32:!!gl.getExtension('OES_element_index_uint')};return BLX.gl;}
 /* un niveau 3D : téléchargement, lecture, cuisson en tranches, envoi ; les données lues sont libérées ensuite */
 function blxWant3(name,lod){
@@ -220,14 +221,14 @@ function blxWant3(name,lod){
     catch(err){G.st='echec';
       /* plus aucun niveau possible : rendu d'origine */
       if(['lod2','lod1','lod0'].every(l=>I.g3[l]&&I.g3[l].st==='echec')||!I.Hs){I.fail3=true;if(I.ready3){I.ready3=false;blxRefresh(name);}}
-      else if(lod==='lod2'&&!I.ready3)blxWant3(name,'lod1');}})();}
+      else if(!I.ready3){const nx=lod==='lod2'?'lod1':lod==='lod1'?'lod0':null;if(nx)blxWant3(name,nx);}}})();}
 function blxDrop3(I,lod){const G=I.g3[lod];if(!G)return;if(G.st==='pret'&&W3.gl){try{W3.gl.deleteBuffer(G.vb);if(G.ib)W3.gl.deleteBuffer(G.ib);}catch(_){}BLX.stat.liberes3++;}delete I.g3[lod];}
 const blxYs=name=>{const I=BLX.isl[name];return I?I.ys:0;};
 /* dessin des îles Blender visibles ; niveau voulu selon la taille à l'écran, sinon le plus proche déjà prêt (secours) */
 function blxDraw3(c,list,PK,near,far,fog,fd){
   const P=blxProg(),gl=P.gl,U=P.U,now=blxNow();let tris=0;
   gl.useProgram(P.p);gl.uniform3fv(U.eye,c.eye);gl.uniform3fv(U.cr,c.r);gl.uniform3fv(U.cu,c.u);gl.uniform3fv(U.cf,c.f);gl.uniform4f(U.P,1/c.tx,1/c.ty,near,far);gl.uniform3fv(U.fogc,fog);gl.uniform1f(U.fogd,fd);
-  for(const t of list){const m=W3.models.get(t.id),I=BLX.isl[m.bx];if(!I)continue;const k=PK.get(t.id)||9,L=R3_LOD;
+  for(const t of list){const m=W3.models.get(t.id),I=BLX.isl[m.bx];if(!I)continue;if(I.ys>m.ys)m.ys=I.ys;   /* étiquette du nom : sous le modèle le plus détaillé arrivé */const k=PK.get(t.id)||9,L=R3_LOD;
     const want=!L.on?'lod0':k<L.p1?'lod2':k<L.p2?'lod1':'lod0';blxWant3(m.bx,want);
     if(L.on){if(k>=.8*L.p1)blxWant3(m.bx,'lod1');if(k>=.8*L.p2)blxWant3(m.bx,'lod0');}   /* préchargement */
     const order=want==='lod0'?['lod0','lod1','lod2']:want==='lod1'?['lod1','lod2','lod0']:['lod2','lod1','lod0'];

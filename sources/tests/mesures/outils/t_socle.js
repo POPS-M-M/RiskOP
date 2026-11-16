@@ -26,7 +26,7 @@ const memo=p=>p.evaluate(()=>{const s=__MES.snap(),g=s.mem.gl;const bl={};for(co
   return {mode:s.mode,glTotal:g.total,glBlender:bl,glOrigine:g.origine,gltfJS:s.mem.gltfJS,img:s.mem.img,sommets:s.mem.sommets};});
 const sumReq=(st,since)=>{const r=st.req.filter(x=>!since||x.t>=since);const g={};for(const x of r){const k=x.f.replace(/^[^/]+\//,'').replace(/\.[0-9a-f]{8}\./,'.');const c=/manifest/.test(k)?'manifestes':/^l1/.test(k)?'l1':/^l[23]|^ville/.test(k)?'2.5D fin':/^lod2/.test(k)?'lod2':/^lod[01]/.test(k)?'lod1/lod0':/hauteurs/.test(k)?'hauteurs':k==='index.json'?'index':'autre';
   g[c]=g[c]||{n:0,o:0,f:[]};g[c].n++;g[c].o+=x.o||0;g[c].f.push(x.f);}return g;};
-async function readyBl(p,mode,ile,ms){for(let i=0;i<(ms||60000)/500;i++){const ok=await p.evaluate(([m,ile])=>{const X=__RK,B=window.__BLX,I=B.isl[ile];if(!I)return true;if(m==='3d')return X.W3.models.size>=X.terrs.length&&(I.ready3||I.fail3);return !!I.vu25||I.img_ld.l1==='echec';},[mode,ile]);if(ok)return true;await W(500);}return false;}
+async function readyBl(p,mode,ile,ms){for(let i=0;i<(ms||60000)/500;i++){const ok=await p.evaluate(([m,ile])=>{const X=__RK,B=window.__BLX,I=B.isl[ile];if(!I)return true;if(m==='3d')return X.W3.models.size>=X.terrs.length&&(I.ready3||I.fail3);const t=X.terrs.find(q=>q.name===ile),e=X.R25.cache.get(t.id);return !!I.vu25||(I.img_ld.l1==='echec'&&e&&e.st==='ready');},[mode,ile]);if(ok)return true;await W(500);}return false;}
 const R={};
 (async()=>{const srv=spawn('python3',['-m','http.server',String(port),'--bind','127.0.0.1'],{cwd:dir,stdio:'ignore'});await W(800);
 B=await chromium.launch({args:['--use-gl=swiftshader','--enable-unsafe-swiftshader','--ignore-gpu-blocklist']});
@@ -78,7 +78,7 @@ else if(scen.startsWith('pixels')){
       await p.evaluate(([ile,f])=>{const t=__RK.terrs.find(q=>q.name===ile);(0,eval)('('+f+')')(t);},[ile,fn.toString()]);await W(6000);
       await (await p.$('#mapwrap')).screenshot({path:`${pre}_${ile.replace(/ /g,'_')}_${lab}.png`});}
     R[ile]={errs:st.errs};await p.close();}}
-else if(scen==='pannes'){
+else if(scen.startsWith('pannes')){const seul=(scen.split(':')[1]||'').split(',').filter(Boolean);
   const nf=(re)=>r=>re.test(r.request().url())?r.fulfill({status:404,body:'absent'}):r.continue();
   let once=0;
   const C=[
@@ -96,7 +96,7 @@ else if(scen==='pannes'){
     ['lod2_absent',[['**/iles/zou/lod2.*',r=>r.fulfill({status:404})]],'3d',9,0],
     ['hauteurs_absentes',[['**/iles/zou/hauteurs.*',r=>r.fulfill({status:404})]],'3d',9,0],
     ['tous_glb_absents',[['**/iles/zou/lod*',r=>r.fulfill({status:404})]],'3d',9,0]];
-  for(const [nom,routes,mode,k,lvl] of C){once=0;const [p,st]=await page(mode,routes);
+  for(const [nom,routes,mode,k,lvl] of C){if(seul.length&&!seul.includes(nom))continue;once=0;const [p,st]=await page(mode,routes);
     if(lvl)await p.evaluate(l=>{const t=__RK.terrs.find(q=>q.name==='Zou');t.city={lvl:l,b:[]};},lvl);
     await cam(p,'Zou',k);await W(mode==='3d'?6000:4000);await readyBl(p,mode,'Zou',60000);await W(mode==='3d'?25000:12000);
     const b=await blx(p),z=b.isl.Zou||null;
