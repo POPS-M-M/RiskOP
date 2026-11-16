@@ -134,7 +134,7 @@ nb = 0; cnt = {}
 lotw = {(round(cx, 2), round(cy, 2)): w for cx, cy, w in LOTS}
 for b in P.batiments():
     lv = b['niveau']; typ = b['type']
-    if typ == 'demeure': V.demeure(B[lv], b['x'], b['y'], TOP, b['ang'], b['w'], b['d'], b['lot'], rnd)
+    if typ == 'demeure': V.demeure(B[lv], b['x'], b['y'], TOP, b['ang'], b['w'], b['d'], b['lot'], rnd, B[1])      # parc clos dès le niveau 1, demeure à son niveau
     elif typ == 'pavillon': V.pavillon(B[lv], b['x'], b['y'], TOP, b['ang'], b['w'], b['d'], rnd)
     else: V.hangar(B[lv], b['x'], b['y'], zg(b['x'], b['y']), b['ang'], b['w'], b['d'], rnd)
     nb += 1; cnt[typ] = cnt.get(typ, 0) + 1

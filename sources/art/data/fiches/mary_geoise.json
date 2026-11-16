@@ -22,45 +22,135 @@
   "Red Ports au pied de la falaise (est et ouest), bondolas-bulles sur leurs câbles, escalier à statues au sud"
  ],
  "palette": [
-  ["Red Line", ["#b0483a", "#8e3a30", "#c86a52"]],
-  ["Pierre", ["#f2ede2", "#e4dccb", "#d2c8b2"]],
-  ["Ardoise", ["#4a5a70", "#5a6b84", "#3a4658"]],
-  ["Ors", ["#d4a83c", "#e8c46a", "#b88a2a"]],
-  ["Jardins", ["#5f9a4a", "#78ae58", "#3e7a3c"]],
-  ["Nuages", ["#ffffff", "#eef2f6", "#d8e2ea"]]
+  [
+   "Red Line",
+   [
+    "#b0483a",
+    "#8e3a30",
+    "#c86a52"
+   ]
+  ],
+  [
+   "Pierre",
+   [
+    "#f2ede2",
+    "#e4dccb",
+    "#d2c8b2"
+   ]
+  ],
+  [
+   "Ardoise",
+   [
+    "#4a5a70",
+    "#5a6b84",
+    "#3a4658"
+   ]
+  ],
+  [
+   "Ors",
+   [
+    "#d4a83c",
+    "#e8c46a",
+    "#b88a2a"
+   ]
+  ],
+  [
+   "Jardins",
+   [
+    "#5f9a4a",
+    "#78ae58",
+    "#3e7a3c"
+   ]
+  ],
+  [
+   "Nuages",
+   [
+    "#ffffff",
+    "#eef2f6",
+    "#d8e2ea"
+   ]
+  ]
  ],
  "zones": [
-  ["chateau", "château de Pangaea, douves et ponts (vue du sud-ouest)"],
-  ["carrefour", "carrefour principal et trottoirs roulants (vue du sud)"],
-  ["domaine", "Domaine des Dieux : demeures et parcs (vue de l'ouest)"],
-  ["porte_nord", "porte nord dans le mur d'enceinte (vue du nord)"],
-  ["port_est", "Red Port est, palétuviers et bondolas (vue de l'est)"],
-  ["escalier", "escalier à statues de la falaise sud (vue du sud)"],
-  ["foret", "forêt plantée et rivière (vue du nord-ouest)"],
-  ["port_ouest", "Red Port ouest (vue de l'ouest)"]
+  [
+   "chateau",
+   "château de Pangaea, douves et ponts (vue du sud-ouest)"
+  ],
+  [
+   "carrefour",
+   "carrefour principal et trottoirs roulants (vue du sud)"
+  ],
+  [
+   "domaine",
+   "Domaine des Dieux : demeures et parcs (vue de l'ouest)"
+  ],
+  [
+   "porte_nord",
+   "porte nord dans le mur d'enceinte (vue du nord)"
+  ],
+  [
+   "port_est",
+   "Red Port est, palétuviers et bondolas (vue de l'est)"
+  ],
+  [
+   "escalier",
+   "escalier à statues de la falaise sud (vue du sud)"
+  ],
+  [
+   "foret",
+   "forêt plantée et rivière (vue du nord-ouest)"
+  ],
+  [
+   "port_ouest",
+   "Red Port ouest (vue de l'ouest)"
+  ]
  ],
  "vues_blender": [
-  ["chateau", "château de Pangaea : tours, douves, ponts"],
-  ["domaine", "demeures, parcs clos, fontaines"],
-  ["carrefour", "carrefour et grandes portes"],
-  ["port_est", "Red Port, palétuviers, bondolas et câbles"],
-  ["escalier", "escalier taillé dans la falaise et statues"],
-  ["foret", "forêt plantée, rivière, serre"]
+  [
+   "chateau",
+   "château de Pangaea : tours, douves, ponts"
+  ],
+  [
+   "domaine",
+   "demeures, parcs clos, fontaines"
+  ],
+  [
+   "carrefour",
+   "carrefour et grandes portes"
+  ],
+  [
+   "port_est",
+   "Red Port, palétuviers, bondolas et câbles"
+  ],
+  [
+   "escalier",
+   "escalier taillé dans la falaise et statues"
+  ],
+  [
+   "foret",
+   "forêt plantée, rivière, serre"
+  ]
  ],
  "niveaux": [
-  "château, enceinte, ports, cœur du Domaine",
+  "château, enceinte, ports",
   "+ demeures du Domaine",
-  "+ demeures et pavillons des parcs",
-  "+ serre victorienne de la forêt"
+  "+ demeures et pavillons",
+  "+ serre victorienne"
  ],
  "differences": [
   "Relief : plateau plat perché très haut sur une falaise rouge, ceinture de nuages, ports au pied (Loguetown : plaine au ras de l'eau ; Water 7 : ville sur l'eau et canaux).",
-  "Architecture : demeures victoriennes isolées dans des parcs, pierre blanche, toits mansardés d'ardoise bleue, lucarnes, tourelles à poivrière (Loguetown : rues serrées toscanes en terre cuite ; Water 7 : maisons hautes colorées serrées).",
+  "Architecture : demeures victoriennes isolées dans des parcs, pierre blanche, toits mansardés d'ardoise, tourelles (Loguetown : rues toscanes serrées ; Water 7 : maisons hautes colorées).",
   "Monuments propres : château de Pangaea et ses douves, enceinte à quatre portes, bondolas-bulles, escalier à statues, serre.",
   "Urbanisme : damier régulier de parcs clos, carrefour en croix, trottoirs roulants ; aucune autre île n'a ce plan.",
   "Kit : rk_victorien.py (nouveau) ; reprises de rk_port limitées aux pièces génériques (Frame, box, hip, mansard, prism_x, window)."
  ],
- "limites": [],
+ "limites": [
+  "Au départ (niveau 1), le Domaine montre surtout des parcs clos et 8 demeures : les autres demeures arrivent aux niveaux 2 et 3, ce qui laisse des jardins vides en début de partie.",
+  "Le château de Pangaea, le damier des parcs, les couleurs et les positions sont une interprétation [I] : l'œuvre donne le style (victorien, européen) mais pas le plan.",
+  "La Red Port ouest (côté Nouveau Monde) n'a jamais été montrée : elle copie la Red Port est [I]. Le grand navire-figure de proue et le restaurant de la vraie Red Port ne sont pas reproduits.",
+  "Statues de l'escalier abstraites (silhouettes sans visage) ; escalier en marches simples posées sur la falaise ; nuages en boules, brume absente.",
+  "Eau des douves et de la rivière, bondolas et bulles immobiles ; trottoirs roulants figurés par des bandes à lattes."
+ ],
  "sources": [
   "One Piece Wiki, « Mary Geoise » : https://onepiece.fandom.com/wiki/Mary_Geoise (consultée le 16/11/2026)",
   "One Piece Wiki, « Pangaea Castle » : https://onepiece.fandom.com/wiki/Pangaea_Castle (consultée le 16/11/2026)",

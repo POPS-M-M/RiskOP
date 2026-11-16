@@ -151,7 +151,7 @@ def batiments(seed=1010):
     """une demeure par parc (niveau selon la distance au carrefour) ; pavillons de jardin (niveau 3) ; bâtiments du port (niveau 1)"""
     rnd = random.Random(seed); out = []
     for cx, cy, w in lots():
-        d_ = math.hypot(cx, cy); lv = 1 if d_ < 9.0 else (2 if d_ < 13.5 else 3)
+        d_ = math.hypot(cx, cy); lv = 1 if d_ < 12.5 else (2 if d_ < 15.2 else 3)
         face = math.atan2(-cy, -cx) if rnd.random() < .5 else (0 if abs(cx) > abs(cy) else math.pi / 2)
         face = round(face / (math.pi / 2)) * math.pi / 2                                   # façade vers la rue la plus proche du centre
         mw, md = w * (.48 + .1 * rnd.random()), w * (.36 + .08 * rnd.random())
@@ -183,7 +183,7 @@ def arbres(seed=37):
         for k in range(rnd.randint(2, 4)):
             u, v = rnd.choice((-1, 1)) * w * rnd.uniform(.3, .42), rnd.uniform(-1, 1) * w * .4
             if rnd.random() < .5: u, v = v, u
-            out.append((cx + u, cy + v, .6 + .3 * rnd.random(), rnd.choice(('rond', 'taille', 'cypres')), 1 if math.hypot(cx, cy) < 9.5 else 2))
+            out.append((cx + u, cy + v, .6 + .3 * rnd.random(), rnd.choice(('rond', 'taille', 'cypres')), 1))
     return out
 
 
