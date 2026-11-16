@@ -1040,7 +1040,7 @@ const ISLE_FX={
    - fx : bonus passif de tout le camp ; lead : bonus quand il est affecté à une île (troupes qui en partent, garnison qui la défend).
    Les valeurs sont des choix d'équilibrage, pas des chiffres de l'œuvre. */
 const LEGENDS=[
-  {n:'Portgas D. Ace',s:'Ace',t:'Poing Ardent',fx:{atk:.04,spd:.04},camps:['pirate','revo'],rec:{cost:80,isl:['Arabasta']},lead:{atk:.12,def:.03},w:'Fils de Gol D. Roger, ancien commandant de la 2e division de Barbe Blanche. Fruit Mera Mera (feu).'},
+  {n:'Portgas D. Ace',s:'Ace',t:'Poing Ardent',fx:{atk:.04,spd:.04},camps:['pirate','revo'],rec:{cost:80,isl:['Alabasta']},lead:{atk:.12,def:.03},w:'Fils de Gol D. Roger, ancien commandant de la 2e division de Barbe Blanche. Fruit Mera Mera (feu).'},
   {n:'Monkey D. Garp',s:'Garp',t:'Héros de la Marine',fx:{def:.05,recruit:.08},aff:'marine',camps:['marine'],rec:{cost:130,isl:['Loguetown'],ter:4},lead:{atk:.05,def:.13},w:'Vice-amiral, « héros de la Marine », grand-père de Luffy. Il a longtemps traqué Gol D. Roger.'},
   {n:'Silvers Rayleigh',s:'Rayleigh',t:'Roi des Ténèbres',fx:{atk:.05,def:.04,faith:.06},camps:['pirate','revo','chasseur'],rec:{cost:150,isl:['Sabaody'],age:1},lead:{atk:.08,def:.08},w:'Ancien second de Gol D. Roger, maître du Haki. Il vit à Sabaody.'},
   {n:'Dracule Mihawk',s:'Mihawk',t:'Œil de Faucon',fx:{atk:.08},camps:['marine','pirate','revo','chasseur'],rec:{cost:160,isl:['Baratie'],age:1,prime:600},lead:{atk:.05,big:.20},w:'Considéré comme le plus grand sabreur du monde. Il ne sert personne par devoir : il suit les plus forts.'},
@@ -1194,18 +1194,20 @@ const FOUND_COST=40,FERV_COST=120,CONV_NEUTRAL=25,CONV_ENEMY=45,CONV_MAX_UNITS=6
 /* ================= Génération de la carte ================= */
 /* Carte fixe inspirée du monde de One Piece, simplifiée pour le jeu : la Red Line au centre, la Grand Line en travers, quatre Blues, Paradise à droite, le Nouveau Monde à gauche.
    Les îles sont des taches séparées reliées par des routes maritimes ; les positions exactes sont une interprétation. */
-const MAP_I=[["Loguetown",800,250,34,"p",0],["Orange Town",905,170,31,"p",0],["Shells Town",940,70,29,"f",0],["Syrup",1015,250,31,"f",0],["Baratie",1085,140,29,"p",0],["Cocoyasi",1170,250,31,"f",0],["Goa",1225,105,34,"p",0],["Foosha",1315,200,36,"p",0],["Lvneel",600,250,34,"m",2],["Flevance",490,150,31,"m",2],["Germa",380,250,34,"p",2],["Ruskaina",350,100,29,"m",2],["Lulusia",235,175,31,"f",2],["Spider Miles",110,95,31,"p",2],["Mirrorball",590,660,34,"p",1],["Ohara",440,745,34,"f",1],["Sphinx",300,650,31,"m",1],["Sorbet",235,775,31,"p",1],["Hachinosu",110,690,31,"f",1],["Raijin",130,800,29,"m",1],["Karate",815,660,34,"m",3],["Baterilla",910,765,31,"p",3],["Briss",1030,655,31,"f",3],["Torino",1135,770,31,"p",3],["Birka",1245,660,31,"f",3],["Kamabakka",1320,780,29,"f",3],["Whisky Peak",800,390,34,"m",4],["Little Garden",900,370,31,"f",4],["Drum",1000,390,31,"m",4],["Arabasta",1100,370,34,"p",4],["Jaya",1200,390,31,"f",4],["Skypiea",1305,370,31,"p",4],["Long Ring Long Land",1310,510,31,"p",4],["Water 7",1205,525,31,"p",4],["Enies Lobby",1100,510,31,"m",4],["Thriller Bark",1000,525,31,"f",4],["Impel Down",900,510,29,"m",4],["Amazon Lily",800,525,31,"f",4],["Punk Hazard",600,520,31,"m",5],["Dressrosa",500,530,34,"p",5],["Zou",400,515,31,"f",5],["Whole Cake",300,530,34,"p",5],["New Marineford",200,515,34,"p",5],["Wano",85,445,36,"m",5],["Elbaf",200,385,34,"m",5],["Kuraigana",300,370,29,"f",5],["Baltigo",400,385,34,"p",5],["Egghead",500,370,31,"p",5],["Laugh Tale",600,385,31,"m",5],["Mary Geoise",700,330,29,"m",6],["Reverse Mountain",700,445,34,"m",6],["Sabaody",700,565,31,"f",6],["Fish-Man",700,670,31,"p",6]];
-const MAP_E=[["Loguetown","Orange Town"],["Orange Town","Shells Town"],["Orange Town","Syrup"],["Shells Town","Baratie"],["Syrup","Baratie"],["Syrup","Cocoyasi"],["Baratie","Goa"],["Cocoyasi","Foosha"],["Goa","Foosha"],["Baratie","Cocoyasi"],["Lvneel","Flevance"],["Lvneel","Germa"],["Flevance","Germa"],["Flevance","Ruskaina"],["Germa","Lulusia"],["Ruskaina","Lulusia"],["Lulusia","Spider Miles"],["Mirrorball","Ohara"],["Ohara","Sphinx"],["Ohara","Sorbet"],["Sphinx","Hachinosu"],["Sorbet","Raijin"],["Hachinosu","Raijin"],["Sphinx","Sorbet"],["Karate","Baterilla"],["Karate","Briss"],["Baterilla","Briss"],["Briss","Torino"],["Baterilla","Torino"],["Briss","Birka"],["Torino","Kamabakka"],["Birka","Kamabakka"],["Whisky Peak","Little Garden"],["Little Garden","Drum"],["Drum","Arabasta"],["Arabasta","Jaya"],["Jaya","Skypiea"],["Skypiea","Long Ring Long Land"],["Long Ring Long Land","Water 7"],["Water 7","Enies Lobby"],["Enies Lobby","Thriller Bark"],["Thriller Bark","Impel Down"],["Impel Down","Amazon Lily"],["Drum","Thriller Bark"],["Arabasta","Enies Lobby"],["Fish-Man","Punk Hazard"],["Punk Hazard","Dressrosa"],["Dressrosa","Zou"],["Zou","Whole Cake"],["Whole Cake","New Marineford"],["New Marineford","Wano"],["Wano","Elbaf"],["Elbaf","Kuraigana"],["Kuraigana","Baltigo"],["Baltigo","Egghead"],["Egghead","Laugh Tale"],["Zou","Baltigo"],["Whole Cake","Kuraigana"],["Dressrosa","Egghead"],["Reverse Mountain","Whisky Peak"],["Amazon Lily","Sabaody"],["Sabaody","Fish-Man"],["Mary Geoise","Reverse Mountain"],["Loguetown","Reverse Mountain"],["Lvneel","Reverse Mountain"]];
+const MAP_I=[["Loguetown",800,250,34,"p",0],["Orange Town",905,170,31,"p",0],["Shells Town",940,70,29,"f",0],["Syrup",1015,250,31,"f",0],["Baratie",1085,140,29,"p",0],["Cocoyasi",1170,250,31,"f",0],["Goa",1225,105,34,"p",0],["Foosha",1315,200,36,"p",0],["Lvneel",600,250,34,"m",2],["Flevance",490,150,31,"m",2],["Germa",380,250,34,"p",2],["Ruskaina",350,100,29,"m",2],["Lulusia",235,175,31,"f",2],["Spider Miles",110,95,31,"p",2],["Mirrorball",590,660,34,"p",1],["Ohara",440,745,34,"f",1],["Sphinx",300,650,31,"m",1],["Sorbet",235,775,31,"p",1],["Hachinosu",110,690,31,"f",1],["Raijin",130,800,29,"m",1],["Karate",815,660,34,"m",3],["Baterilla",910,765,31,"p",3],["Briss",1030,655,31,"f",3],["Torino",1135,770,31,"p",3],["Birka",1245,660,31,"f",3],["Kamabakka",1320,780,29,"f",3],["Whisky Peak",800,390,34,"m",4],["Little Garden",900,370,31,"f",4],["Drum",1000,390,31,"m",4],["Alabasta",1100,370,34,"p",4],["Jaya",1200,390,31,"f",4],["Skypiea",1305,370,31,"p",4],["Long Ring Long Land",1310,510,31,"p",4],["Water 7",1205,525,31,"p",4],["Enies Lobby",1100,510,31,"m",4],["Thriller Bark",1000,525,31,"f",4],["Impel Down",900,510,29,"m",4],["Amazon Lily",800,525,31,"f",4],["Punk Hazard",600,520,31,"m",5],["Dressrosa",500,530,34,"p",5],["Zou",400,515,31,"f",5],["Whole Cake",300,530,34,"p",5],["New Marineford",200,515,34,"p",5],["Wano",85,445,36,"m",5],["Elbaf",200,385,34,"m",5],["Kuraigana",300,370,29,"f",5],["Baltigo",400,385,34,"p",5],["Egghead",500,370,31,"p",5],["Laugh Tale",600,385,31,"m",5],["Mary Geoise",700,330,29,"m",6],["Reverse Mountain",700,445,34,"m",6],["Sabaody",700,565,31,"f",6],["Fish-Man",700,670,31,"p",6]];
+const MAP_E=[["Loguetown","Orange Town"],["Orange Town","Shells Town"],["Orange Town","Syrup"],["Shells Town","Baratie"],["Syrup","Baratie"],["Syrup","Cocoyasi"],["Baratie","Goa"],["Cocoyasi","Foosha"],["Goa","Foosha"],["Baratie","Cocoyasi"],["Lvneel","Flevance"],["Lvneel","Germa"],["Flevance","Germa"],["Flevance","Ruskaina"],["Germa","Lulusia"],["Ruskaina","Lulusia"],["Lulusia","Spider Miles"],["Mirrorball","Ohara"],["Ohara","Sphinx"],["Ohara","Sorbet"],["Sphinx","Hachinosu"],["Sorbet","Raijin"],["Hachinosu","Raijin"],["Sphinx","Sorbet"],["Karate","Baterilla"],["Karate","Briss"],["Baterilla","Briss"],["Briss","Torino"],["Baterilla","Torino"],["Briss","Birka"],["Torino","Kamabakka"],["Birka","Kamabakka"],["Whisky Peak","Little Garden"],["Little Garden","Drum"],["Drum","Alabasta"],["Alabasta","Jaya"],["Jaya","Skypiea"],["Skypiea","Long Ring Long Land"],["Long Ring Long Land","Water 7"],["Water 7","Enies Lobby"],["Enies Lobby","Thriller Bark"],["Thriller Bark","Impel Down"],["Impel Down","Amazon Lily"],["Drum","Thriller Bark"],["Alabasta","Enies Lobby"],["Fish-Man","Punk Hazard"],["Punk Hazard","Dressrosa"],["Dressrosa","Zou"],["Zou","Whole Cake"],["Whole Cake","New Marineford"],["New Marineford","Wano"],["Wano","Elbaf"],["Elbaf","Kuraigana"],["Kuraigana","Baltigo"],["Baltigo","Egghead"],["Egghead","Laugh Tale"],["Zou","Baltigo"],["Whole Cake","Kuraigana"],["Dressrosa","Egghead"],["Reverse Mountain","Whisky Peak"],["Amazon Lily","Sabaody"],["Sabaody","Fish-Man"],["Mary Geoise","Reverse Mountain"],["Loguetown","Reverse Mountain"],["Lvneel","Reverse Mountain"]];
 const MAP_B=[["Foosha","Skypiea"],["Cocoyasi","Jaya"],["Germa","Kuraigana"],["Sphinx","New Marineford"],["Birka","Water 7"],["Karate","Amazon Lily"],["Mirrorball","Punk Hazard"]];
 const MAP_CAPS={"marine":"New Marineford","pirate":"Foosha","revo":"Baltigo","chasseur":"Whisky Peak"};
 const MAP_PONE=["Zou","Whole Cake","Wano","Fish-Man"];
 const MAP_LAB=[[1075,36],[430,838],[400,38],[1075,838],[1000,458],[400,458],[700,150]];
 const TCODE={p:'plaine',f:'foret',m:'montagne'};
 const RL_X=700,RL_HW=17,BELTS=[[290, 335], [550, 595]];
+/* Graine de forme : une île renommée garde la graine de son ancien nom, donc exactement le même contour (zones de clic, hitboxes, modèle Blender). */
+const SHAPE_KEY={Alabasta:'Arabasta'},shapeKey=n=>SHAPE_KEY[n]||n;
 function nameHash(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
 function generateMap(seed){
   const rng=mulberry32(seed*31+977),idx=new Map(MAP_I.map((d,i)=>[d[0],i]));
-  const shape=MAP_I.map(d=>{const r=mulberry32(nameHash(d[0]));return {a2:.04+r()*.04,p2:r()*6.28,a3:.02+r()*.03,p3:r()*6.28,a5:.01+r()*.02,p5:r()*6.28};});
+  const shape=MAP_I.map(d=>{const r=mulberry32(nameHash(shapeKey(d[0])));return {a2:.04+r()*.04,p2:r()*6.28,a3:.02+r()*.03,p3:r()*6.28,a5:.01+r()*.02,p5:r()*6.28};});
   const grid=new Int16Array(GW*GH).fill(-1),score=new Float32Array(GW*GH).fill(9);
   MAP_I.forEach((d,id)=>{
     const cx=d[1],cy=d[2],R=d[3],sh=shape[id],B=Math.ceil(R*1.25/CELL)+2;
@@ -2543,7 +2545,7 @@ function marineTick(){
 
 /* ================= Âges (Civilization VII) ================= */
 const AGES=[
-  {n:'East Blue',sub:'de Romance Dawn à Skypiea (sagas East Blue, Arabasta et Skypiea)',len:190,eff:150,cr:'Baroque Works'},
+  {n:'East Blue',sub:'de Romance Dawn à Skypiea (sagas East Blue, Alabasta et Skypiea)',len:190,eff:150,cr:'Baroque Works'},
   {n:'Sommet',sub:'de Water 7 à Marineford (sagas Water 7, Thriller Bark et Guerre au sommet)',len:185,eff:120,cr:'La Guerre au sommet'},
   {n:'Nouveau Monde',sub:'de l\'île des Hommes-Poissons à Elbaph (sagas du Nouveau Monde)',len:330,eff:120,cr:null}
 ];
@@ -5869,7 +5871,9 @@ function rkStartTutorial(){
    Maintenant : 3 emplacements nommés + 1 emplacement automatique. Une sauvegarde contient tout l'état de la partie solo (îles, armées, camps,
    diplomatie, âge, personnages, boss, événements) et se recharge à l'identique. Stockage : ce navigateur seulement (localStorage). */
 const SV={keys:['rk-s1','rk-s2','rk-s3'],auto:'rk-sa',open:false,confirm:'',edit:'',msg:'',autoAt:0,autoKey:'',nameDraft:''};
-const svRead=k=>{try{const o=JSON.parse(rkLS(k)||'null');return o&&o.v===1&&o.G&&o.meta?o:null;}catch(_){return null;}};
+/* Île renommée (Arabasta → Alabasta) : les anciennes sauvegardes sont converties à la lecture, rien d'autre ne change. */
+const svRenamed=s=>s&&s.replace(/"Arabasta"/g,'"Alabasta"');
+const svRead=k=>{try{const o=JSON.parse(svRenamed(rkLS(k))||'null');return o&&o.v===1&&o.G&&o.meta?o:null;}catch(_){return null;}};
 const svClone=x=>JSON.parse(JSON.stringify(x));
 function svCanSave(){return MODE==='solo'&&started&&!over&&players.length&&!TU.on?'':MODE!=='solo'?'Les sauvegardes ne sont pas disponibles en partie en ligne.':TU.on?'Terminez ou quittez le guide pour sauvegarder.':!started||over?'Aucune partie en cours à sauvegarder.':'Aucune partie en cours.';}
 function svBuild(name){
@@ -6739,7 +6743,7 @@ const TREE={
 };
 /* ---------- monuments ---------- */
 const LM={
-  domePalace(g,x,y){/* palais à dôme (Arabasta) */
+  domePalace(g,x,y){/* palais à dôme (Alabasta) */
     const c=g.cx,bx=x-58,by=y-6;LMK.shadow(g,bx,by,116,46,16);LMK.box(g,bx,by,116,46,12,'#ead9b0','#c4a26c','#a98a56');
     c.fillStyle='rgba(120,80,40,.5)';for(let i=0;i<9;i++)c.fillRect(bx+5+i*12.4,by+46-12+3,6,7);
     const mx=x-40,my=by-12+4;LMK.shadow(g,mx,my,80,30,28);LMK.box(g,mx,my,80,30,28,'#f3e6c8','#cdb184','#b0935f');
@@ -6829,7 +6833,7 @@ const LM={
    (5e valeur 1 = cratère de volcan), lake = [dx, dy, rayon], ex = éléments en plus [[dessin, dx, dy, échelle, options]], fx = effets animés.
    Ces fiches ne décrivent que l'apparence : aucune règle de jeu n'en dépend. */
 const ISLE_ART={
-  'Arabasta':{layout:'arabasta',b:'desert',seed:41,fx:{sand:1}},
+  'Alabasta':{layout:'alabasta',b:'desert',seed:41,fx:{sand:1}},
   'Loguetown':{b:'tropical',lm:'fountain',town:18,house:'gable',roof:['#b5533c','#3d64b8','#c9842c'],trees:[['round',8],['palm',4]],ex:[['lighthouse',.55,-.35,1.3]]},
   'Orange Town':{b:'tropical',lm:'fountain',town:14,house:'gable',roof:['#e07b2c','#c9842c','#b5533c'],trees:[['orange',10],['round',4]]},
   'Shells Town':{b:'tropical',lm:'fortress',lmo:{roof:'#3c5f9e'},town:8,house:'gable',roof:['#3d64b8','#b5533c'],trees:[['round',12]]},
@@ -6899,9 +6903,9 @@ const r25Ready=t=>{const e=R25.cache.get(t.id);return !!(e&&e.st==='ready');};
 const r25Art=t=>R25.on&&ISLE_ART[t.name]&&r25Ready(t)?ISLE_ART[t.name]:null;
 /* ---------- construction d'une île (générateur découpé en tranches) ---------- */
 function* r25Build(t,D){
-  const B=BIOMES[D.b]||BIOMES.tropical,P=B.pal,K=R25.K,Z=K/6,R=t.rad,S=D.seed||(nameHash(t.name)%997)+11,u=R*K,arab=D.layout==='arabasta';
+  const B=BIOMES[D.b]||BIOMES.tropical,P=B.pal,K=R25.K,Z=K/6,R=t.rad,S=D.seed||(nameHash(shapeKey(t.name))%997)+11,u=R*K,arab=D.layout==='alabasta';
   const rng=mulberry32(S*7+3),rnd=()=>rng();
-  const r0=mulberry32(nameHash(t.name));const sh={a2:.04+r0()*.04,p2:r0()*6.28,a3:.02+r0()*.03,p3:r0()*6.28,a5:.01+r0()*.02,p5:r0()*6.28};
+  const r0=mulberry32(nameHash(shapeKey(t.name)));const sh={a2:.04+r0()*.04,p2:r0()*6.28,a3:.02+r0()*.03,p3:r0()*6.28,a5:.01+r0()*.02,p5:r0()*6.28};
   const NA=720,LUT=new Float32Array(NA+1);for(let i=0;i<=NA;i++){const th=i/NA*6.2832-Math.PI;LUT[i]=1+.05*(fbm2(Math.cos(th)*3+9,Math.sin(th)*3+9,S,4)-.5)*2;}
   const CLF=new Float32Array(NA+1);for(let i=0;i<=NA;i++){const th=i/NA*6.2832-Math.PI;CLF[i]=fbm2(Math.cos(th)*2+4,Math.sin(th)*2+4,S+5,3)-.5;}
   const rdAt=th=>{const i=Math.round((th+Math.PI)/6.2832*NA);return R*(1+sh.a2*Math.cos(2*th+sh.p2)+sh.a3*Math.cos(3*th+sh.p3)+sh.a5*Math.cos(5*th+sh.p5))*LUT[i];};
@@ -7008,7 +7012,7 @@ function* r25Build(t,D){
     mill(x,y){FX.mill.push([...toW(...G.map(x,y)),(G.cur?G.cur.k:1)*Z/K]);},fountain(x,y){FX.fountain.push([...toW(...G.map(x,y)),(G.cur?G.cur.k:1)*Z/K]);}};
   const add=(gy,a,k,f)=>items.push({y:gy,a,k,f});
   const okSpot=(gx,gy,minQ)=>{const i=(gy|0)*Wc+(gx|0);if(!(Q[i]<minQ))return false;for(const l of L.lakes)if(Math.hypot(gx-l.x,gy-l.y)<l.r*1.15)return false;for(const s of L.canals)if(segD(gx,gy,s)<8*Z)return false;return true;};
-  if(arab)r25Arabasta(G,L,{u,Z,Q,Wc,C,CY,R,K,el,scr,add,rnd,okSpot,cx});
+  if(arab)r25Alabasta(G,L,{u,Z,Q,Wc,C,CY,R,K,el,scr,add,rnd,okSpot,cx});
   else{
     if(L.lm&&LM[D.lm]){const [sx,sy]=scr(L.lm[0],L.lm[1]);add(L.lm[1]+30*Z,[sx,sy],D.lmS||1.5,()=>LM[D.lm](G,sx,sy,D.lmo));}
     for(const e of D.ex||[]){const [gx,gy]=at(e[1],e[2]);if(!okSpot(gx,gy,.95))continue;const [sx,sy]=scr(gx,gy);add(gy+10*Z,[sx,sy],e[3]||1,()=>LM[e[0]](G,sx,sy,e[4]));}
@@ -7057,8 +7061,8 @@ function r25Pier(G,px,py){const c=G.cx;c.fillStyle='#7b5733';c.fillRect(px-3,py-
   c.fillStyle='#6b4423';c.beginPath();c.moveTo(bx-14,by-3);c.lineTo(bx+14,by-3);c.lineTo(bx+9,by+3);c.lineTo(bx-9,by+3);c.closePath();c.fill();
   c.strokeStyle='#5a3b1e';c.lineWidth=1.4;c.beginPath();c.moveTo(bx,by-3);c.lineTo(bx-2,by-28);c.stroke();
   c.fillStyle='#f7efe0';c.beginPath();c.moveTo(bx-2,by-28);c.quadraticCurveTo(bx+12,by-16,bx+3,by-5);c.lineTo(bx-1,by-6);c.closePath();c.fill();}
-/* Arabasta (référence validée) : ville blanche, remparts, palais à dôme, oasis, mesas, rochers épars */
-function r25Arabasta(G,L,E){
+/* Alabasta (référence validée) : ville blanche, remparts, palais à dôme, oasis, mesas, rochers épars */
+function r25Alabasta(G,L,E){
   const {u,Z,Q,Wc,R,K,scr,add,rnd,cx,C,CY}=E;
   const town=[];
   for(let k=0;k<90&&town.length<16;k++){const a=rnd()*6.283,d=R*K*(.2+rnd()*.26),gx=L.lm[0]+Math.cos(a)*d*1.25,gy=L.lm[1]+18*Z+Math.sin(a)*d*.8;
@@ -7188,7 +7192,7 @@ function r25Pass(now,u){
 }
 /* le jeton (garnison, couronne, alertes) d'une île détaillée est réduit et posé au bord de l'île pour ne pas masquer le décor */
 function r25TokenOpen(t){
-  const A=r25Art(t);if(!A)return false;const b=A.badge||{dx:A.layout==='arabasta'?.1:0,dy:.55};
+  const A=r25Art(t);if(!A)return false;const b=A.badge||{dx:A.layout==='alabasta'?.1:0,dy:.55};
   ctx.save();const bx=t.x+t.rad*b.dx,by=t.y+t.rad*b.dy;ctx.translate(bx,by);ctx.scale(.8,.8);ctx.translate(-t.x,-t.y);
   return true;
 }

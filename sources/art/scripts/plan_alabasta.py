@@ -1,11 +1,11 @@
-"""Arabasta — plan de masse (vue de dessus) depuis ar_plan.py : désert, fleuve Sandora, rocher d'Alubarna, villes, oasis,
-pistes, monuments légendés, bâtiments par niveau, emprise du badge d'armée du jeu. → art/out/arabasta/presentation/plan_de_masse.png"""
+"""Alabasta — plan de masse (vue de dessus) depuis al_plan.py : désert, fleuve Sandora, rocher d'Alubarna, villes, oasis,
+pistes, monuments légendés, bâtiments par niveau, emprise du badge d'armée du jeu. → art/out/alabasta/presentation/plan_de_masse.png"""
 import os, sys, math
 sys.path.insert(0, os.path.dirname(__file__))
 from PIL import Image, ImageDraw, ImageFont
-import ar_plan as P
+import al_plan as P
 
-OUT = os.path.join(P.ART, 'out', 'arabasta', 'presentation'); os.makedirs(OUT, exist_ok=True)
+OUT = os.path.join(P.ART, 'out', 'alabasta', 'presentation'); os.makedirs(OUT, exist_ok=True)
 F = lambda s, b=False: ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans%s.ttf' % ('-Bold' if b else ''), s)
 S, N = 15, 38; W = 2 * N * S
 im = Image.new('RGB', (W + 540, W), (246, 241, 230)); d = ImageDraw.Draw(im); d.rectangle((0, 0, W, W), fill=(88, 150, 186))
@@ -41,7 +41,7 @@ for (x, y, lab) in ((0, -9.0, '3D'), (0, .55 * P.R, '2.5D')):
     d.ellipse((X(x - 2.6), X(y - 2.6), X(x + 2.6), X(y + 2.6)), outline=(220, 40, 40), width=4); d.text((X(x) + 44, X(y) - 12), 'badge ' + lab, font=F(20, True), fill=(220, 40, 40))
 d.text((X(-3) - 140, X(-30)), 'fleuve Sandora', font=F(22, True), fill=(29, 42, 54)); d.text((20, 18), 'N ↑', font=F(36, True), fill=(255, 255, 255))
 x0 = W + 30; y = 30
-d.text((x0, y), 'ARABASTA', font=F(40, True), fill=(29, 42, 54)); y += 56
+d.text((x0, y), 'ALABASTA', font=F(40, True), fill=(29, 42, 54)); y += 56
 d.text((x0, y), 'Plan de masse (vue de dessus)', font=F(24), fill=(93, 107, 120)); y += 50
 for k, t in (('1', "Palais royal blanc [C]"), ('2', "Tour de l'horloge [C]"), ('3', 'Place centrale [C]'), ('4', 'Escaliers taillés [C]'), ('5', 'Tombeau royal boisé [C]'),
              ('6', 'Casino en pyramide, Rainbase [C]'), ('7', 'Nanohana, port principal [C]'), ('8', 'Katorea [C]'), ('9', 'Yuba, ville ronde ensablée [C]'),

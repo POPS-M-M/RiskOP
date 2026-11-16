@@ -34,8 +34,8 @@ def vues(slug):
             'mogura': ((mx, my, 4), (-40, 30), 30, 45),
             'cascade': (P.at_q(.96, P.RIVIERES[3]) + (3,), (65, 18), 22, 45),
         }
-    if slug == 'arabasta':
-        import ar_plan as P
+    if slug == 'alabasta':
+        import al_plan as P
         return {
             'generale': ((0, 0, 3), (100, 42), 125, 45),
             'alubarna': ((P.ALUBARNA[0], P.ALUBARNA[1], 8), (110, 32), 30, 45),

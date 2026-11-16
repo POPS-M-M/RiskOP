@@ -1,4 +1,4 @@
-"""RISK OP — kit architectural DÉSERT (Arabasta, île 6 ; réutilisable pour d'autres îles désertiques, ex. Sphinx).
+"""RISK OP — kit architectural DÉSERT (Alabasta, île 6 ; réutilisable pour d'autres îles désertiques, ex. Sphinx).
 Pièces : maisons de terre crue à toits plats (parapets, poutres saillantes), maisons blanches à arcs et dômes (Alubarna,
 Nanohana), maisons de bois blanches à fausses façades et vérandas (Rainbase [C : « ville américaine du XIXᵉ siècle »]),
 huttes rondes à perches (Yuba [C]), ruines, palais blanc à dômes [C], tour de l'horloge [C : rappelle Big Ben], pyramide

@@ -59,7 +59,7 @@ const TREE={
 };
 /* ---------- monuments ---------- */
 const LM={
-  domePalace(g,x,y){/* palais à dôme (Arabasta) */
+  domePalace(g,x,y){/* palais à dôme (Alabasta) */
     const c=g.cx,bx=x-58,by=y-6;LMK.shadow(g,bx,by,116,46,16);LMK.box(g,bx,by,116,46,12,'#ead9b0','#c4a26c','#a98a56');
     c.fillStyle='rgba(120,80,40,.5)';for(let i=0;i<9;i++)c.fillRect(bx+5+i*12.4,by+46-12+3,6,7);
     const mx=x-40,my=by-12+4;LMK.shadow(g,mx,my,80,30,28);LMK.box(g,mx,my,80,30,28,'#f3e6c8','#cdb184','#b0935f');

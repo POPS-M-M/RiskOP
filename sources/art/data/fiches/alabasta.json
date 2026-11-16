@@ -1,9 +1,10 @@
 {
- "nom": "Arabasta",
+ "nom": "Alabasta",
  "numero": "6",
  "prefixe": "ar",
  "voisine": "Loguetown, Wano et Water 7",
  "canon": [
+  "[C] Nom : « Arabasta » dans la version originale (One Piece Wiki), « Alabasta » dans la version française (titre du film « Épisode d'Alabasta ») ; le jeu affiche « Alabasta ».",
   "[C] Grande île désertique : le désert de Sandora couvre presque tout ce qui n'est pas près d'une oasis (One Piece Wiki).",
   "[C] Le fleuve Sandora coule au centre et coupe le pays en deux ; deux villes portuaires au sud et à l'est, dont Nanohana, port principal (One Piece Wiki).",
   "[C] Alubarna : bâtie sur un énorme rocher, escaliers taillés et pavés, ville très circulaire, palais royal blanc, place centrale devant le palais,",
@@ -147,9 +148,10 @@
   "Au zoom maximal du jeu, Alubarna reste petite : dômes, horloge et escaliers se lisent surtout dans les vues Blender ; Yuba et Erumalu se résument à des taches de petites formes brunes.",
   "Fleuve, eau des oasis et felouques immobiles ; pas de tempête de sable ni d'effet de chaleur.",
   "Positions des villes, sens du fleuve, rives cultivées, pistes, rempart et phare : interprétation [I], pas de carte officielle détaillée.",
-  "Copie de test : une ligne de src/essai/61-monde3d.js modifiée pour que le modèle Blender remplace l'ancien prototype 3D d'Arabasta ; le prototype reste en secours."
+  "Copie de test : une ligne de src/essai/61-monde3d.js modifiée pour que le modèle Blender remplace l'ancien prototype 3D d'Alabasta ; le prototype reste en secours."
  ],
  "sources": [
-  "One Piece Wiki, « Arabasta Kingdom » : https://onepiece.fandom.com/wiki/Arabasta_Kingdom (consultée le 16/11/2026)"
+  "One Piece Wiki, « Arabasta Kingdom » : https://onepiece.fandom.com/wiki/Arabasta_Kingdom (consultée le 16/11/2026)",
+  "Nom français « Alabasta » : titre français du film « One Piece : Épisode d'Alabasta – Les pirates et la princesse du désert » (2007) : https://comicbooks.com/series/one-piece-pisode-d-alabasta-les-pirates-et-la-princesse-du-d-sert-2018"
  ]
 }

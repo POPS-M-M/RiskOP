@@ -4,7 +4,7 @@
    (5e valeur 1 = cratère de volcan), lake = [dx, dy, rayon], ex = éléments en plus [[dessin, dx, dy, échelle, options]], fx = effets animés.
    Ces fiches ne décrivent que l'apparence : aucune règle de jeu n'en dépend. */
 const ISLE_ART={
-  'Arabasta':{layout:'arabasta',b:'desert',seed:41,fx:{sand:1}},
+  'Alabasta':{layout:'alabasta',b:'desert',seed:41,fx:{sand:1}},
   'Loguetown':{b:'tropical',lm:'fountain',town:18,house:'gable',roof:['#b5533c','#3d64b8','#c9842c'],trees:[['round',8],['palm',4]],ex:[['lighthouse',.55,-.35,1.3]]},
   'Orange Town':{b:'tropical',lm:'fountain',town:14,house:'gable',roof:['#e07b2c','#c9842c','#b5533c'],trees:[['orange',10],['round',4]]},
   'Shells Town':{b:'tropical',lm:'fortress',lmo:{roof:'#3c5f9e'},town:8,house:'gable',roof:['#3d64b8','#b5533c'],trees:[['round',12]]},

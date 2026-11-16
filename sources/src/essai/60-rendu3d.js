@@ -6,7 +6,7 @@
    Le décor bâti suit l'état réel : niveau de ville, bâtiments existants, camp propriétaire. Une nouvelle photo n'est prise
    que quand cet état change. Sans WebGL (ou en cas d'erreur), l'île garde son rendu 2.5D.
    Prototype : Alabasta seulement. Architecture inventée pour le jeu (palais du désert générique), aucun décor de l'œuvre reproduit. */
-const R3D={on:true,facet:false,isl:{Arabasta:1},gl:null,prog:null,fail:'',ms:0,bakes:0,SS:2,pend:new Set()};
+const R3D={on:true,facet:false,isl:{Alabasta:1},gl:null,prog:null,fail:'',ms:0,bakes:0,SS:2,pend:new Set()};
 try{if(localStorage.getItem('rk-3d')==='0')R3D.on=false;}catch(_){}
 /* soleil haut, venant du sud-ouest : les façades visibles (sud, ouest) sont éclairées, les ombres partent vers le haut de l'écran */
 const R3_SUN=(()=>{const v=[-.55,.42,.72],n=Math.hypot(...v);return v.map(x=>x/n);})();

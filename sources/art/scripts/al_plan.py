@@ -1,5 +1,5 @@
-"""Arabasta — plan de masse et plan de production (île 6, méthode d'industrialisation, 16/11/2026).
-Fiche canonique : art/data/fiches/arabasta.json. Source : One Piece Wiki, « Arabasta Kingdom » (consultée le 16/11/2026).
+"""Alabasta — plan de masse et plan de production (île 6, méthode d'industrialisation, 16/11/2026).
+Fiche canonique : art/data/fiches/alabasta.json. Source : One Piece Wiki, « Alabasta Kingdom » (consultée le 16/11/2026).
   [C] grande île désertique : le désert de Sandora couvre presque tout ce qui n'est pas près d'une oasis
   [C] le fleuve Sandora coule au centre et coupe le pays en deux (sens d'écoulement non précisé)
   [C] deux villes portuaires au sud et à l'est ; Nanohana (port principal, commerce, parfum, bâtiments hauts proches d'Alubarna)
@@ -19,7 +19,7 @@ import json, math, os, random
 
 ART = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 _d = json.load(open(os.path.join(ART, 'data', 'islands.json'), encoding='utf-8'))
-ISL = [i for i in _d['iles'] if i['nom'] == 'Arabasta'][0]
+ISL = [i for i in _d['iles'] if i['nom'] == 'Alabasta'][0]
 COAST = [(ISL['cote3d'][k], ISL['cote3d'][k + 1]) for k in range(0, len(ISL['cote3d']), 2)]
 R = ISL['rayon']; TAU = 2 * math.pi; D = math.radians
 

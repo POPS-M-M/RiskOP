@@ -5,7 +5,7 @@
   "Water 7",
   "Loguetown",
   "Wano",
-  "Arabasta"
+  "Alabasta"
  ],
  "tableau": [
   [
@@ -131,12 +131,12 @@
   ]
  ],
  "verifs": [
-  "0 erreur de page en 2.5D et en 3D (captures, gros plans, mesures) ; 24 fichiers vérifiés par empreinte SHA-256 (format 2), 0 rejet ; Arabasta 3D construite depuis le modèle Blender (bl = vrai).",
+  "0 erreur de page en 2.5D et en 3D (captures, gros plans, mesures) ; 24 fichiers vérifiés par empreinte SHA-256 (format 2), 0 rejet ; Alabasta 3D construite depuis le modèle Blender (bl = vrai).",
   "Zou, Whole Cake, Water 7, Loguetown et Wano : fichiers sources, .blend et exports identiques au commit précédent.",
-  "Une seule ligne de code du jeu modifiée, dans la copie de test (src/essai/61-monde3d.js) : le prototype 3D d'Arabasta ne sert plus que si le modèle Blender est absent ou désactivé. Build public dist/risk_op.html identique (sha256 486289c9…).",
+  "Une seule ligne de code du jeu modifiée, dans la copie de test (src/essai/61-monde3d.js) : le prototype 3D d'Alabasta ne sert plus que si le modèle Blender est absent ou désactivé. Build public dist/risk_op.html identique (sha256 486289c9…).",
   "Coordonnées, rayon, contour, zones de clic, hitboxes, règles et sauvegardes : non touchés.",
-  "¹ Temps de construction mesurés pendant qu'un rendu Blender tournait en parallèle (machine chargée) : toutes les colonnes de cette ligne viennent de la même mesure ; première construction d'Arabasta 504 ms, la suivante 345 ms.",
+  "¹ Temps de construction mesurés pendant qu'un rendu Blender tournait en parallèle (machine chargée) : toutes les colonnes de cette ligne viennent de la même mesure ; première construction d'Alabasta 504 ms, la suivante 345 ms.",
   "Budget provisoire : lod0 ≤ 90 000 triangles, mémoire graphique ≤ 10 Mo, images ≤ 300 Ko respectés ; construction ≤ 500 ms dépassée de 4 ms à la première construction sous charge.",
-  "Branche essai/ile-arabasta seulement ; rien sur main ni gh-pages ; rien sur le site public."
+  "Branche essai/ile-alabasta seulement ; rien sur main ni gh-pages ; rien sur le site public."
  ]
 }

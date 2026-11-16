@@ -3,7 +3,9 @@
    Maintenant : 3 emplacements nommés + 1 emplacement automatique. Une sauvegarde contient tout l'état de la partie solo (îles, armées, camps,
    diplomatie, âge, personnages, boss, événements) et se recharge à l'identique. Stockage : ce navigateur seulement (localStorage). */
 const SV={keys:['rk-s1','rk-s2','rk-s3'],auto:'rk-sa',open:false,confirm:'',edit:'',msg:'',autoAt:0,autoKey:'',nameDraft:''};
-const svRead=k=>{try{const o=JSON.parse(rkLS(k)||'null');return o&&o.v===1&&o.G&&o.meta?o:null;}catch(_){return null;}};
+/* Île renommée (Arabasta → Alabasta) : les anciennes sauvegardes sont converties à la lecture, rien d'autre ne change. */
+const svRenamed=s=>s&&s.replace(/"Arabasta"/g,'"Alabasta"');
+const svRead=k=>{try{const o=JSON.parse(svRenamed(rkLS(k))||'null');return o&&o.v===1&&o.G&&o.meta?o:null;}catch(_){return null;}};
 const svClone=x=>JSON.parse(JSON.stringify(x));
 function svCanSave(){return MODE==='solo'&&started&&!over&&players.length&&!TU.on?'':MODE!=='solo'?'Les sauvegardes ne sont pas disponibles en partie en ligne.':TU.on?'Terminez ou quittez le guide pour sauvegarder.':!started||over?'Aucune partie en cours à sauvegarder.':'Aucune partie en cours.';}
 function svBuild(name){

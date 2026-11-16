@@ -121,7 +121,7 @@ ax.annotate('', xy=(31, -33.5), xytext=(31, -28), arrowprops=dict(arrowstyle='-|
 
 # ---- situation sur la carte
 ax2 = fig.add_axes([.605, .62, .185, .30]); ax2.set_facecolor(SEA); ax2.set_title('Situation sur la carte du jeu', fontsize=13, color=INK, loc='left', fontweight='bold')
-NB = [('Water 7', 0, 0), ('Enies Lobby', -105, -15), ('Long Ring\nLong Land', 105, -15), ('Jaya', -5, -135), ('Birka', 40, 135), ('Skypiea', 100, -155), ('Arabasta', -105, -155), ('Briss', -175, 130), ('Thriller Bark', -205, 0)]
+NB = [('Water 7', 0, 0), ('Enies Lobby', -105, -15), ('Long Ring\nLong Land', 105, -15), ('Jaya', -5, -135), ('Birka', 40, 135), ('Skypiea', 100, -155), ('Alabasta', -105, -155), ('Briss', -175, 130), ('Thriller Bark', -205, 0)]
 for nm, dx, dy in NB:
     ax2.add_patch(Circle((dx, dy), 31, fc='#e7d6b6' if nm != 'Water 7' else '#e0a43c', ec=INK, lw=.8))
     ax2.text(dx, dy + (48 if nm not in ('Water 7',) else 0), nm, ha='center', va='center', fontsize=9 if nm != 'Water 7' else 10, fontweight='bold' if nm == 'Water 7' else 'normal', color=INK)

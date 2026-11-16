@@ -12,9 +12,9 @@ const r25Ready=t=>{const e=R25.cache.get(t.id);return !!(e&&e.st==='ready');};
 const r25Art=t=>R25.on&&ISLE_ART[t.name]&&r25Ready(t)?ISLE_ART[t.name]:null;
 /* ---------- construction d'une île (générateur découpé en tranches) ---------- */
 function* r25Build(t,D){
-  const B=BIOMES[D.b]||BIOMES.tropical,P=B.pal,K=R25.K,Z=K/6,R=t.rad,S=D.seed||(nameHash(t.name)%997)+11,u=R*K,arab=D.layout==='arabasta';
+  const B=BIOMES[D.b]||BIOMES.tropical,P=B.pal,K=R25.K,Z=K/6,R=t.rad,S=D.seed||(nameHash(shapeKey(t.name))%997)+11,u=R*K,arab=D.layout==='alabasta';
   const rng=mulberry32(S*7+3),rnd=()=>rng();
-  const r0=mulberry32(nameHash(t.name));const sh={a2:.04+r0()*.04,p2:r0()*6.28,a3:.02+r0()*.03,p3:r0()*6.28,a5:.01+r0()*.02,p5:r0()*6.28};
+  const r0=mulberry32(nameHash(shapeKey(t.name)));const sh={a2:.04+r0()*.04,p2:r0()*6.28,a3:.02+r0()*.03,p3:r0()*6.28,a5:.01+r0()*.02,p5:r0()*6.28};
   const NA=720,LUT=new Float32Array(NA+1);for(let i=0;i<=NA;i++){const th=i/NA*6.2832-Math.PI;LUT[i]=1+.05*(fbm2(Math.cos(th)*3+9,Math.sin(th)*3+9,S,4)-.5)*2;}
   const CLF=new Float32Array(NA+1);for(let i=0;i<=NA;i++){const th=i/NA*6.2832-Math.PI;CLF[i]=fbm2(Math.cos(th)*2+4,Math.sin(th)*2+4,S+5,3)-.5;}
   const rdAt=th=>{const i=Math.round((th+Math.PI)/6.2832*NA);return R*(1+sh.a2*Math.cos(2*th+sh.p2)+sh.a3*Math.cos(3*th+sh.p3)+sh.a5*Math.cos(5*th+sh.p5))*LUT[i];};
@@ -121,7 +121,7 @@ function* r25Build(t,D){
     mill(x,y){FX.mill.push([...toW(...G.map(x,y)),(G.cur?G.cur.k:1)*Z/K]);},fountain(x,y){FX.fountain.push([...toW(...G.map(x,y)),(G.cur?G.cur.k:1)*Z/K]);}};
   const add=(gy,a,k,f)=>items.push({y:gy,a,k,f});
   const okSpot=(gx,gy,minQ)=>{const i=(gy|0)*Wc+(gx|0);if(!(Q[i]<minQ))return false;for(const l of L.lakes)if(Math.hypot(gx-l.x,gy-l.y)<l.r*1.15)return false;for(const s of L.canals)if(segD(gx,gy,s)<8*Z)return false;return true;};
-  if(arab)r25Arabasta(G,L,{u,Z,Q,Wc,C,CY,R,K,el,scr,add,rnd,okSpot,cx});
+  if(arab)r25Alabasta(G,L,{u,Z,Q,Wc,C,CY,R,K,el,scr,add,rnd,okSpot,cx});
   else{
     if(L.lm&&LM[D.lm]){const [sx,sy]=scr(L.lm[0],L.lm[1]);add(L.lm[1]+30*Z,[sx,sy],D.lmS||1.5,()=>LM[D.lm](G,sx,sy,D.lmo));}
     for(const e of D.ex||[]){const [gx,gy]=at(e[1],e[2]);if(!okSpot(gx,gy,.95))continue;const [sx,sy]=scr(gx,gy);add(gy+10*Z,[sx,sy],e[3]||1,()=>LM[e[0]](G,sx,sy,e[4]));}
@@ -170,8 +170,8 @@ function r25Pier(G,px,py){const c=G.cx;c.fillStyle='#7b5733';c.fillRect(px-3,py-
   c.fillStyle='#6b4423';c.beginPath();c.moveTo(bx-14,by-3);c.lineTo(bx+14,by-3);c.lineTo(bx+9,by+3);c.lineTo(bx-9,by+3);c.closePath();c.fill();
   c.strokeStyle='#5a3b1e';c.lineWidth=1.4;c.beginPath();c.moveTo(bx,by-3);c.lineTo(bx-2,by-28);c.stroke();
   c.fillStyle='#f7efe0';c.beginPath();c.moveTo(bx-2,by-28);c.quadraticCurveTo(bx+12,by-16,bx+3,by-5);c.lineTo(bx-1,by-6);c.closePath();c.fill();}
-/* Arabasta (référence validée) : ville blanche, remparts, palais à dôme, oasis, mesas, rochers épars */
-function r25Arabasta(G,L,E){
+/* Alabasta (référence validée) : ville blanche, remparts, palais à dôme, oasis, mesas, rochers épars */
+function r25Alabasta(G,L,E){
   const {u,Z,Q,Wc,R,K,scr,add,rnd,cx,C,CY}=E;
   const town=[];
   for(let k=0;k<90&&town.length<16;k++){const a=rnd()*6.283,d=R*K*(.2+rnd()*.26),gx=L.lm[0]+Math.cos(a)*d*1.25,gy=L.lm[1]+18*Z+Math.sin(a)*d*.8;
@@ -301,7 +301,7 @@ function r25Pass(now,u){
 }
 /* le jeton (garnison, couronne, alertes) d'une île détaillée est réduit et posé au bord de l'île pour ne pas masquer le décor */
 function r25TokenOpen(t){
-  const A=r25Art(t);if(!A)return false;const b=A.badge||{dx:A.layout==='arabasta'?.1:0,dy:.55};
+  const A=r25Art(t);if(!A)return false;const b=A.badge||{dx:A.layout==='alabasta'?.1:0,dy:.55};
   ctx.save();const bx=t.x+t.rad*b.dx,by=t.y+t.rad*b.dy;ctx.translate(bx,by);ctx.scale(.8,.8);ctx.translate(-t.x,-t.y);
   return true;
 }

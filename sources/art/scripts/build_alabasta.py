@@ -1,13 +1,13 @@
-"""Arabasta — scène Blender détaillée (île 6), kit désert rk_desert.py (+ pièces génériques de rk_port), plan ar_plan.py.
-Canon [C] / [I] : voir ar_plan.py et art/data/fiches/arabasta.json. Exclus : personnages, animaux identifiables, emblèmes royaux,
+"""Alabasta — scène Blender détaillée (île 6), kit désert rk_desert.py (+ pièces génériques de rk_port), plan al_plan.py.
+Canon [C] / [I] : voir al_plan.py et art/data/fiches/alabasta.json. Exclus : personnages, animaux identifiables, emblèmes royaux,
 emblème du casino, copie de tout décor officiel.
-Usage : python3 build_arabasta.py → art/blender/islands/arabasta.blend   (puis export_island.py arabasta)
+Usage : python3 build_alabasta.py → art/blender/islands/alabasta.blend   (puis export_island.py alabasta)
 """
 import sys, os, math, random, time
 sys.path.insert(0, os.path.dirname(__file__))
 import bpy, bmesh
 import rk_common as C, rk_lib as L, rk_port as K, rk_desert as D
-import ar_plan as P
+import al_plan as P
 
 T0 = time.time(); rnd = random.Random(1305)
 sc = C.new_scene(); M = C.materials()
@@ -146,6 +146,6 @@ for k in range(30):                                                             
 
 for Bt in list(B.values()) + list(BV.values()) + [BM, BE]: Bt.done()
 os.makedirs(os.path.join(C.ART, 'blender', 'islands'), exist_ok=True)
-bpy.ops.wm.save_as_mainfile(filepath=os.path.join(C.ART, 'blender', 'islands', 'arabasta.blend'))
+bpy.ops.wm.save_as_mainfile(filepath=os.path.join(C.ART, 'blender', 'islands', 'alabasta.blend'))
 tris = sum(sum(len(p.vertices) - 2 for p in o.data.polygons) for o in bpy.data.objects if o.type == 'MESH')
-print('ARABASTA ok', round(time.time() - T0, 1), 's · bâtiments', nb, cnt, '· triangles', tris, '· palais', round(zp + top, 1))
+print('ALABASTA ok', round(time.time() - T0, 1), 's · bâtiments', nb, cnt, '· triangles', tris, '· palais', round(zp + top, 1))

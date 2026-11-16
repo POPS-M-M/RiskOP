@@ -84,7 +84,7 @@ async function bancRun(){
           for(const [lab,nm,k] of S3){bancSt('3D · '+vname+(cuOff?'':lod?' (niveaux de détail)':' (sans niveaux de détail)')+' · '+lab);bancCam(nm,k);await bancMeasure(lab,'3D',vname+(cuOff?'':lod?'':' sans LOD'));}}
         if(typeof R3_LOD!=='undefined')R3_LOD.on=true;
         if(doSw){bancSt('3D · '+vname+' · balayage de zoom sur Zou');await bancSweep('3D',vname,'Zou',1.5,12);}
-        if(doIso&&!cuOff)for(const nm of ['Zou','Whole Cake','Arabasta']){bancSt('3D · reconstruction isolée · '+nm);await bancIso(nm);}}
+        if(doIso&&!cuOff)for(const nm of ['Zou','Whole Cake','Alabasta']){bancSt('3D · reconstruction isolée · '+nm);await bancIso(nm);}}
       if(typeof R3_LOD!=='undefined')R3_LOD.on=true;}
     /* mode 2.5D */
     if(typeof W3!=='undefined'&&W3.on){w3Toggle();await bancWait(800);}
