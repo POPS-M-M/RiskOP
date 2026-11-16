@@ -16,36 +16,120 @@
  ],
  "signature": [
   "L'Arbre Adam au centre, immense, plus haut que tout le reste de la carte",
-  "Plateformes des branches (Sun World) portant villages, lac et bibliothèque, au-dessus de l'Underworld enneigé",
-  "Underworld : montagnes enneigées, pins géants, château de pierre sur un sommet relié par un pont de corde",
+  "Plateformes des branches (Sun World) : villages, lac, bibliothèque",
+  "Underworld : sommets enneigés, pins géants, château de Road et son pont de corde",
   "Arc-en-ciel qui monte de la mer au port du village de l'Ouest ; cascades de nuage qui tombent des branches",
   "Épée géante plantée à travers une plateforme jusqu'au sol"
  ],
  "palette": [
-  ["Écorce", ["#6a5038", "#7a5e42", "#584230"]],
-  ["Feuillage", ["#3e7a3c", "#4f8a44", "#2f6234"]],
-  ["Neige", ["#f4f6f8", "#dfe6ec", "#c8d2dc"]],
-  ["Bois viking", ["#5a3e2a", "#7a5634", "#8a6a44"]],
-  ["Pierre", ["#9a9a94", "#84847e", "#b0aea6"]],
-  ["Nuage", ["#ffffff", "#e8f0f6", "#cfdde8"]]
+  [
+   "Écorce",
+   [
+    "#6a5038",
+    "#7a5e42",
+    "#584230"
+   ]
+  ],
+  [
+   "Feuillage",
+   [
+    "#3e7a3c",
+    "#4f8a44",
+    "#2f6234"
+   ]
+  ],
+  [
+   "Neige",
+   [
+    "#f4f6f8",
+    "#dfe6ec",
+    "#c8d2dc"
+   ]
+  ],
+  [
+   "Bois viking",
+   [
+    "#5a3e2a",
+    "#7a5634",
+    "#8a6a44"
+   ]
+  ],
+  [
+   "Pierre",
+   [
+    "#9a9a94",
+    "#84847e",
+    "#b0aea6"
+   ]
+  ],
+  [
+   "Nuage",
+   [
+    "#ffffff",
+    "#e8f0f6",
+    "#cfdde8"
+   ]
+  ]
  ],
  "zones": [
-  ["arbre", "Arbre Adam et installation ancienne (vue du sud)"],
-  ["village_ouest", "village de l'Ouest, port de nuage et arc-en-ciel (vue de l'ouest)"],
-  ["source", "Source des Guerriers et bibliothèque d'Owl (vue du sud)"],
-  ["aurust", "château d'Aurust dans son arbre, au bord de la plateforme (vue de l'est)"],
-  ["road", "château de Road et pont de corde (vue du nord-ouest)"],
-  ["epee", "épée géante à travers la plateforme nord (vue du nord-est)"],
-  ["underworld", "Underworld : montagnes enneigées et pins géants (vue du sud-est)"],
-  ["cascades", "cascades de nuage depuis les branches (vue du sud-ouest)"]
+  [
+   "arbre",
+   "Arbre Adam et installation ancienne (vue du sud)"
+  ],
+  [
+   "village_ouest",
+   "village de l'Ouest, port de nuage et arc-en-ciel (vue de l'ouest)"
+  ],
+  [
+   "source",
+   "Source des Guerriers et bibliothèque d'Owl (vue du sud)"
+  ],
+  [
+   "aurust",
+   "château d'Aurust dans son arbre, au bord de la plateforme (vue de l'est)"
+  ],
+  [
+   "road",
+   "château de Road et pont de corde (vue du nord-ouest)"
+  ],
+  [
+   "epee",
+   "épée géante à travers la plateforme nord (vue du nord-est)"
+  ],
+  [
+   "underworld",
+   "Underworld : montagnes enneigées et pins géants (vue du sud-est)"
+  ],
+  [
+   "cascades",
+   "cascades de nuage depuis les branches (vue du sud-ouest)"
+  ]
  ],
  "vues_blender": [
-  ["arbre", "Arbre Adam, branches, installation ancienne"],
-  ["village_ouest", "village de l'Ouest, port de nuage, arc-en-ciel"],
-  ["source", "Source des Guerriers, bibliothèque d'Owl, école"],
-  ["aurust", "château d'Aurust bâti dans un arbre"],
-  ["road", "château de Road et pont de corde"],
-  ["underworld", "montagnes enneigées et pins géants"]
+  [
+   "arbre",
+   "Arbre Adam, branches, installation ancienne"
+  ],
+  [
+   "village_ouest",
+   "village de l'Ouest, port de nuage, arc-en-ciel"
+  ],
+  [
+   "source",
+   "Source des Guerriers, bibliothèque d'Owl, école"
+  ],
+  [
+   "aurust",
+   "château d'Aurust bâti dans un arbre"
+  ],
+  [
+   "road",
+   "château de Road et pont de corde"
+  ],
+  [
+   "underworld",
+   "montagnes enneigées et pins géants"
+  ]
  ],
  "niveaux": [
   "village de l'Ouest, monuments",
@@ -60,7 +144,13 @@
   "Climat : neige sur tout le sol ; lacs et cascades de nuage ; aucune autre île n'est enneigée.",
   "Kit : rk_nordique.py (nouveau) ; reprises de rk_port limitées aux pièces génériques (Frame, box, hip, prism_x, window)."
  ],
- "limites": [],
+ "limites": [
+  "L'Arbre Adam est réduit à l'échelle du jeu : il domine l'île (27 unités de haut) mais ne « l'écrase » pas comme dans l'œuvre ; ses cimes cachent en partie la plateforme nord en 2.5D.",
+  "Au niveau 1, seules la plateforme ouest (village) et les monuments sont bâtis ; les plateformes est et nord restent vides jusqu'au niveau 3.",
+  "Plateformes en disques plats et épais : les branches réelles sont des terres irrégulières ; leurs formes, positions et hauteurs sont une interprétation [I], comme l'aspect viking des bâtiments.",
+  "Le Heaven World n'est figuré que par la couronne de l'arbre (l'œuvre en montre très peu) ; aucune bête de l'Underworld, aucune brique de jouet.",
+  "Eau du lac, cascades et arc-en-ciel immobiles ; forêt de pins très dense et répétée ; pont de corde simplifié."
+ ],
  "sources": [
   "One Piece Wiki, « Elbaph » : https://onepiece.fandom.com/wiki/Elbaph (consultée le 16/11/2026)"
  ]
