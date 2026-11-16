@@ -143,7 +143,13 @@
   "Campagne : champs en mosaïque et haies vives, meules ; aucune autre île n'a ce parcellaire.",
   "Kit : rk_anglais.py (nouveau) ; reprises de rk_port limitées aux pièces génériques (fenêtres, barques, pont)."
  ],
- "limites": [],
+ "limites": [
+  "En 3D, le badge d'armée se pose au bord nord du hameau et cache quelques toits au zoom proche (en 2.5D, il tombe dans les champs du sud).",
+  "Les haies vives forment des lignes sombres très visibles à la vue d'ensemble ; le parcellaire suit une grille décalée régulière [I].",
+  "Au zoom maximal du jeu, le manoir reste petit : portique, lucarnes et grille se lisent surtout dans les vues Blender.",
+  "Falaises lisses sans strates ; la cascade est fine et peu visible en jeu ; eau, cascade et barques immobiles.",
+  "Plan du hameau en rond autour du pré communal, positions des pentes, du manoir et des fermes : interprétation [I] ; aspect du manoir [I] / [C?]."
+ ],
  "sources": [
   "One Piece Wiki, « Syrup Village » : https://onepiece.fandom.com/wiki/Syrup_Village (consultée le 16/11/2026)",
   "One Piece Wiki, « Gecko Islands » : https://onepiece.fandom.com/wiki/Gecko_Islands (consultée le 16/11/2026)",
