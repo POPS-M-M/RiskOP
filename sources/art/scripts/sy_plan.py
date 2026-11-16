@@ -68,7 +68,7 @@ MESHI = (-2.4, 4.6)                               # [C] restaurant Meshi, face a
 CHAPELLE = (-10.5, -1.0)                          # [I] chapelle de pierre (village anglais)
 FORET = [(-19.0, -6.0, 8.5), (-15.0, 9.0, 7.0), (-9.0, -19.0, 5.5)]   # [C : une forêt] positions [I]
 PHARE = D(-160)                                   # [I] phare sur le cap ouest (niveau 4)
-RUISSEAU = [(5.0, -8.6), (9.0, -6.0), (13.5, -4.5), (18.0, -2.0), (22.5, .5), (27.5, 1.6)]    # [I] ruisseau, cascade dans la falaise est
+RUISSEAU = [(5.0, -8.6), (9.0, -6.0), (13.5, -4.5), (18.0, -2.0), (22.5, .5), (27.5, 1.6), (32.0, 2.1)]    # [I] ruisseau, cascade dans la falaise est
 FERMES = [(14.0, 8.0), (-14.5, 18.5), (19.0, -10.0), (4.0, 15.0), (-21.0, 4.5)]                # [I] fermes isolées
 
 
@@ -125,13 +125,13 @@ def height(x, y):
         ramp = Z_P * ss(.97, .62, q) + .25
         h = h * (1 - t) + ramp * t
     rd = ruisseau_d(x, y)
-    if rd < .9 and q < .955: h -= .45 * ss(.9, .2, rd)                          # lit du ruisseau
+    if rd < .9 and q < .985: h -= .45 * ss(.9, .2, rd)                          # lit du ruisseau (entaille jusqu'au bord de la falaise)
     return h
 
 
 def water_at(x, y):
     r, th, q = pol(x, y)
-    if q >= 1 or q > .955: return None
+    if q >= 1 or q > .975: return None
     if ruisseau_d(x, y) < .32: return height(x, y) + .12
     return None
 

@@ -58,20 +58,23 @@ for (ax, ay), (bx, by) in zip(P.RUISSEAU, P.RUISSEAU[1:]):
     for k in range(6): pts.append((ax + (bx - ax) * k / 6, ay + (by - ay) * k / 6))
 prev = None
 for k, (x, y) in enumerate(pts):
-    if P.dcoast(x, y) > .955: break
+    if P.dcoast(x, y) > .968: break
     x2, y2 = pts[min(k + 1, len(pts) - 1)]; x0, y0 = pts[max(k - 1, 0)]; tx, ty = x2 - x0, y2 - y0; ln = math.hypot(tx, ty) or 1
     nx, ny = -ty / ln * .34, tx / ln * .34; wz = zg(x, y) + .14
     cur = (BE.bm.verts.new(G(x - nx, y - ny, wz)), BE.bm.verts.new(G(x + nx, y + ny, wz)))
     if prev: BE.bm.faces.new((prev[0], prev[1], cur[1], cur[0])); BE.paint(list(prev) + list(cur), H('#3a8ab0'), .04)
     prev = cur; last = (x, y, wz, tx / ln, ty / ln)
-x, y, wz, ux, uy = last                                                                       # cascade : nappe qui épouse la falaise jusqu'à la mer
-prev = None
-for k in range(16):
-    t = k * .2; px, py = x + ux * t, y + uy * t; pz = max(zg(px, py), -.35) + .1
-    cur = (BE.bm.verts.new(G(px - uy * .32, py + ux * .32, pz)), BE.bm.verts.new(G(px + uy * .32, py - ux * .32, pz)))
-    if prev: BE.bm.faces.new((prev[0], prev[1], cur[1], cur[0])); BE.paint(list(prev) + list(cur), H('#bfe2f0') if pz > .3 else H('#e8f4f8'), .05)
-    prev = cur
-    if pz < -.2: break
+x, y, wz, ux, uy = last                                                                       # cascade [I] : rebord, puis rideau vertical devant la falaise
+d = 0.0
+while P.dcoast(x + ux * d, y + uy * d) < 1.0 and d < 6: d += .05
+ex, ey = x + ux * (d + .25), y + uy * (d + .25); wx, wy = -uy * .4, ux * .4
+lip = [BE.bm.verts.new(G(px + sx * wx, py + sx * wy, wz)) for (px, py) in ((x, y), (ex, ey)) for sx in (-1, 1)]
+BE.bm.faces.new((lip[0], lip[1], lip[3], lip[2])); BE.paint(lip, H('#bfe2f0'), .04)
+for k in range(5):
+    za, zb = wz - (wz + .3) * k / 5, wz - (wz + .3) * (k + 1) / 5; ka, kb = .25 * k / 5, .25 * (k + 1) / 5
+    q = [BE.bm.verts.new(G(ex + ux * kk + sx * wx * (1 + kk), ey + uy * kk + sx * wy * (1 + kk), zz)) for (zz, kk) in ((za, ka), (zb, kb)) for sx in (-1, 1)]
+    BE.bm.faces.new((q[0], q[1], q[3], q[2])); BE.paint(q, H('#d6eef6') if k < 4 else H('#eef8fb'), .05)
+px, py = ex + ux * .4, ey + uy * .4
 for k in range(6):
     vs = C.bm_ico(BM.bm, G(px + rnd.uniform(-.5, .5), py + rnd.uniform(-.5, .5), -.25), .25 + .2 * rnd.random(), 1, (1, 1, .5)); BM.paint(vs, H('#f4f8fa'), .04)
 for (x0, y0) in [P.RUISSEAU[2]]:                                                              # pont de pierre là où le chemin croise le ruisseau [I]
