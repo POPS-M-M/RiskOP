@@ -1,0 +1,71 @@
+{
+ "nom": "Mary Geoise",
+ "numero": "10",
+ "prefixe": "mg",
+ "voisine": "Loguetown et Water 7",
+ "canon": [
+  "[C] Au sommet de la Red Line, faite d'un minéral rougeâtre, à mi-chemin de la Grand Line ; si haute qu'elle est entourée de nuages et de brume (One Piece Wiki).",
+  "[C] On y monte depuis la Red Port par des bondolas, grandes cabines-bulles reliées par des câbles ; de longs escaliers taillés dans la Red Line, bordés de statues, montent aussi à la ville.",
+  "[C] Un carrefour principal relie les deux Red Ports, le château de Pangaea et le Domaine des Dieux ; une grande porte dans chacune des quatre directions, dans le mur d'enceinte.",
+  "[C] Style européen des XVIIIe et XIXe siècles, ville tenue impeccable ; forêts et rivières plantées artificiellement ; trottoirs roulants le long des voies.",
+  "[C] Château de Pangaea : immense, au moins six étages, tours dont une sur le toit, style victorien ; mur fortifié ; deux douves franchies par des ponts.",
+  "[C] Domaine des Dieux : la plus grande partie de la ville, grandes demeures, rues bordées d'arbres, fontaine.",
+  "[C] Red Port (côté Paradise) : bâtie sur deux grands palétuviers, bulles qui flottent, bâtiments bas à toits en cylindre.",
+  "[I] Couleurs (pierre blanche, toits d'ardoise bleue, ors), plan en damier, positions du château, des ports, des escaliers, de la forêt et de la rivière ; port côté Nouveau Monde copié sur l'autre ; serre victorienne (niveau 4).",
+  "Exclus : personnages, symboles et insignes (Gouvernement mondial, Dragons célestes), intérieurs (trône, salles), esclaves, navires identifiables, copie de tout décor officiel."
+ ],
+ "signature": [
+  "Plateau très haut sur une falaise rouge à strates, ceinturé de nuages",
+  "Château de Pangaea au centre-est : bloc immense à tours et flèches, deux douves et leurs ponts",
+  "Mur d'enceinte et quatre grandes portes, carrefour principal en croix",
+  "Domaine des Dieux : demeures blanches à toits d'ardoise dans des parcs clos, fontaines, allées d'arbres",
+  "Red Ports au pied de la falaise (est et ouest), bondolas-bulles sur leurs câbles, escalier à statues au sud"
+ ],
+ "palette": [
+  ["Red Line", ["#b0483a", "#8e3a30", "#c86a52"]],
+  ["Pierre", ["#f2ede2", "#e4dccb", "#d2c8b2"]],
+  ["Ardoise", ["#4a5a70", "#5a6b84", "#3a4658"]],
+  ["Ors", ["#d4a83c", "#e8c46a", "#b88a2a"]],
+  ["Jardins", ["#5f9a4a", "#78ae58", "#3e7a3c"]],
+  ["Nuages", ["#ffffff", "#eef2f6", "#d8e2ea"]]
+ ],
+ "zones": [
+  ["chateau", "château de Pangaea, douves et ponts (vue du sud-ouest)"],
+  ["carrefour", "carrefour principal et trottoirs roulants (vue du sud)"],
+  ["domaine", "Domaine des Dieux : demeures et parcs (vue de l'ouest)"],
+  ["porte_nord", "porte nord dans le mur d'enceinte (vue du nord)"],
+  ["port_est", "Red Port est, palétuviers et bondolas (vue de l'est)"],
+  ["escalier", "escalier à statues de la falaise sud (vue du sud)"],
+  ["foret", "forêt plantée et rivière (vue du nord-ouest)"],
+  ["port_ouest", "Red Port ouest (vue de l'ouest)"]
+ ],
+ "vues_blender": [
+  ["chateau", "château de Pangaea : tours, douves, ponts"],
+  ["domaine", "demeures, parcs clos, fontaines"],
+  ["carrefour", "carrefour et grandes portes"],
+  ["port_est", "Red Port, palétuviers, bondolas et câbles"],
+  ["escalier", "escalier taillé dans la falaise et statues"],
+  ["foret", "forêt plantée, rivière, serre"]
+ ],
+ "niveaux": [
+  "château, enceinte, ports, cœur du Domaine",
+  "+ demeures du Domaine",
+  "+ demeures et pavillons des parcs",
+  "+ serre victorienne de la forêt"
+ ],
+ "differences": [
+  "Relief : plateau plat perché très haut sur une falaise rouge, ceinture de nuages, ports au pied (Loguetown : plaine au ras de l'eau ; Water 7 : ville sur l'eau et canaux).",
+  "Architecture : demeures victoriennes isolées dans des parcs, pierre blanche, toits mansardés d'ardoise bleue, lucarnes, tourelles à poivrière (Loguetown : rues serrées toscanes en terre cuite ; Water 7 : maisons hautes colorées serrées).",
+  "Monuments propres : château de Pangaea et ses douves, enceinte à quatre portes, bondolas-bulles, escalier à statues, serre.",
+  "Urbanisme : damier régulier de parcs clos, carrefour en croix, trottoirs roulants ; aucune autre île n'a ce plan.",
+  "Kit : rk_victorien.py (nouveau) ; reprises de rk_port limitées aux pièces génériques (Frame, box, hip, mansard, prism_x, window)."
+ ],
+ "limites": [],
+ "sources": [
+  "One Piece Wiki, « Mary Geoise » : https://onepiece.fandom.com/wiki/Mary_Geoise (consultée le 16/11/2026)",
+  "One Piece Wiki, « Pangaea Castle » : https://onepiece.fandom.com/wiki/Pangaea_Castle (consultée le 16/11/2026)",
+  "One Piece Wiki, « Red Line » : https://onepiece.fandom.com/wiki/Red_Line (consultée le 16/11/2026)",
+  "One Piece Wiki, « Red Port » : https://onepiece.fandom.com/wiki/Red_Port (consultée le 16/11/2026)",
+  "Sportskeeda Wiki, « Domain of the Gods » : https://wiki.sportskeeda.com/one-piece/domain-gods-one-piece (consultée le 16/11/2026)"
+ ]
+}

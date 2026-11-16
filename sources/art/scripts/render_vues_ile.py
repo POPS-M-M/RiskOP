@@ -78,6 +78,18 @@ def vues(slug):
             'sommet': ((P.SOMMET[0], P.SOMMET[1], 10), (-80, 22), 30, 45),
             'falaises': (P.at_coast(math.radians(80), .95) + (2,), (80, 12), 32, 45),
         }
+    if slug == 'mary_geoise':
+        import mg_plan as P
+        T = P.TOP
+        return {
+            'generale': ((0, 0, 5), (100, 42), 120, 45),
+            'chateau': ((P.CHATEAU[0], P.CHATEAU[1], T + 3), (135, 30), 26, 45),
+            'domaine': ((-8, -8, T + 1), (180, 34), 22, 45),
+            'carrefour': ((0, 0, T + 1), (90, 30), 22, 45),
+            'port_est': (P.at_coast(0, .85) + (3,), (0, 22), 28, 45),
+            'escalier': (P.at_coast(math.radians(89), .88) + (3,), (90, 14), 26, 45),
+            'foret': ((P.FORET[0], P.FORET[1], T + 1), (-135, 30), 24, 45),
+        }
     raise KeyError(slug)
 
 
