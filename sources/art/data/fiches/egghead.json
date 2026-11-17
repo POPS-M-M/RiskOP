@@ -1,0 +1,155 @@
+{
+ "nom": "Egghead",
+ "numero": "12",
+ "prefixe": "eg",
+ "voisine": "Mary Geoise et Elbaph",
+ "canon": [
+  "[C] « Île du futur », île d'hiver du Nouveau Monde rendue tropicale par un système de climatisation de l'île ; petite, parsemée d'arbres ; icebergs et tourbillons d'eau chaude en colonnes autour (One Piece Wiki).",
+  "[C] Un œuf géant fendu, posé au-dessus des nuages, abrite le laboratoire (Labophase) : trois bâtiments reliés (A, le plus haut, à coupole et trois salles en branches ; B ; C), sur un nuage d'île fabriqué.",
+  "[C] Niveau bas (Fabriophase) : la Ville du futur, bâtiments en forme de dômes de verre, de fusées et de manettes de jeu, panneaux holographiques, distributeurs de repas, usine centrale.",
+  "[C] Frontier Dome : deux bandes laser qui encerclent le nuage entre les deux niveaux ; Vacuum Rocket : tube de verre entre les deux niveaux.",
+  "[C] Style rétrofuturiste « Raygun Gothic » (science-fiction japonaise des années 1950-60).",
+  "[I] Positions, couleurs pastel, soucoupes sur pied, plan circulaire de la ville, colonne de nuage sous l'œuf, pas de tir à fusée géante (niveau 4) ; île montée intacte, avant l'incident.",
+  "Exclus : personnages, Séraphins et robots, monstres des hologrammes, symboles, navires identifiables, copie de tout décor officiel."
+ ],
+ "signature": [
+  "Œuf géant blanc fendu au sommet, posé sur un nuage au-dessus de l'île",
+  "Laboratoire visible par la fente : tour à coupole et deux bâtiments",
+  "Deux anneaux laser autour du nuage, tube de verre jusqu'au sol",
+  "Ville du futur : dômes de verre, tours-fusées, soucoupes sur pied, usine",
+  "Île tropicale verte entourée d'icebergs et de colonnes d'eau chaude"
+ ],
+ "palette": [
+  [
+   "Coque",
+   [
+    "#f6f2ea",
+    "#e8e2d6",
+    "#c8c2b6"
+   ]
+  ],
+  [
+   "Verre",
+   [
+    "#a8dcec",
+    "#8ccce2",
+    "#d4f0f8"
+   ]
+  ],
+  [
+   "Pastels",
+   [
+    "#f2a6b8",
+    "#9ad0c2",
+    "#f4d27a"
+   ]
+  ],
+  [
+   "Fusées",
+   [
+    "#e04a3a",
+    "#f6f6f6",
+    "#3a5aa8"
+   ]
+  ],
+  [
+   "Jungle",
+   [
+    "#3e8a3c",
+    "#5aa04a",
+    "#2f6a34"
+   ]
+  ],
+  [
+   "Glaces",
+   [
+    "#ffffff",
+    "#d8eef6",
+    "#b8dcec"
+   ]
+  ]
+ ],
+ "zones": [
+  [
+   "oeuf",
+   "œuf géant et laboratoire (vue du sud)"
+  ],
+  [
+   "frontier",
+   "anneaux laser et nuage (vue de l'est)"
+  ],
+  [
+   "tube",
+   "tube de verre jusqu'au sol (vue du sud-est)"
+  ],
+  [
+   "ville",
+   "Ville du futur, place centrale (vue du sud)"
+  ],
+  [
+   "usine",
+   "usine centrale (vue de l'est)"
+  ],
+  [
+   "fusee",
+   "pas de tir (vue du nord-est)"
+  ],
+  [
+   "icebergs",
+   "icebergs et colonnes d'eau (vue de l'ouest)"
+  ],
+  [
+   "jungle",
+   "jungle de l'ouest (vue de l'ouest)"
+  ]
+ ],
+ "vues_blender": [
+  [
+   "oeuf",
+   "œuf fendu, laboratoire A, B, C"
+  ],
+  [
+   "frontier",
+   "nuage, anneaux laser, tube de verre"
+  ],
+  [
+   "ville",
+   "dômes, fusées, soucoupes, hologrammes"
+  ],
+  [
+   "usine",
+   "usine centrale et cheminées"
+  ],
+  [
+   "fusee",
+   "pas de tir et fusée"
+  ],
+  [
+   "icebergs",
+   "icebergs et colonnes d'eau chaude"
+  ]
+ ],
+ "niveaux": [
+  "œuf, laboratoire, cœur de la ville",
+  "+ dômes et fusées",
+  "+ soucoupes et hologrammes",
+  "+ pas de tir"
+ ],
+ "differences": [
+  "Relief : île basse et verte, tout l'intérêt est en hauteur (œuf sur nuage) ; Mary Geoise : plateau perché ; Elbaph : arbre et plateformes.",
+  "Architecture : rétrofuturiste, formes rondes (dômes, fusées, soucoupes), pastels et verre ; Mary Geoise : pierre blanche victorienne ; Elbaph : bois viking.",
+  "Monuments propres : œuf fendu et laboratoire, anneaux laser, tube de verre, usine, pas de tir.",
+  "Mer : icebergs et colonnes d'eau autour de l'île ; aucune autre île n'en a.",
+  "Kit : rk_retrofutur.py (nouveau) ; reprises génériques de rk_port (Frame, box) et de rk_lib (palmier)."
+ ],
+ "limites": [
+  "L'œuf et son nuage sont réduits à l'échelle du jeu : le bord cassé culmine vers 16 unités ; l'œuf masque en partie le nord-ouest de l'île en 2.5D.",
+  "La colonne de nuage qui porte le laboratoire est une interprétation [I] : le wiki ne dit pas comment le nuage tient au-dessus de l'île.",
+  "Ville du futur simplifiée : 60 bâtiments de cinq formes (dômes de verre, fusées, manettes, soucoupes sur pied, panneaux) ; plan circulaire, couleurs pastel et soucoupes inventés [I] ; distributeurs de repas non représentés.",
+  "Hologrammes et anneaux laser rendus comme des surfaces lumineuses unies et immobiles : aucune image, aucun monstre, aucun personnage ; en 3D (sans matériaux), seule la couleur reste.",
+  "Île montrée intacte, avant les combats ; icebergs et colonnes d'eau chaude petits et figés ; pas de tir (niveau 4) inventé [I]."
+ ],
+ "sources": [
+  "One Piece Wiki, « Egghead » : https://onepiece.fandom.com/wiki/Egghead (consultée le 17/11/2026)"
+ ]
+}

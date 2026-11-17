@@ -102,6 +102,18 @@ def vues(slug):
             'road': ((P.ROAD[0], P.ROAD[1], 8), (-135, 26), 28, 45),
             'underworld': ((14, 12, 4), (45, 22), 30, 45),
         }
+    if slug == 'egghead':
+        import eg_plan as P
+        nx, ny, nr, nz = P.NUAGE; px, py, pr = P.PLACE; ux, uy = P.USINE; lx, ly = P.PAS_DE_TIR
+        return {
+            'generale': ((0, 0, 6), (100, 42), 140, 45),
+            'oeuf': ((nx, ny, 11), (90, 24), 36, 45),
+            'frontier': ((nx, ny, 7), (10, 14), 36, 45),
+            'ville': ((px, py, 1.5), (90, 34), 32, 45),
+            'usine': ((ux, uy, 2), (0, 28), 20, 45),
+            'fusee': ((lx, ly, 4), (-45, 22), 24, 45),
+            'icebergs': (P.at_coast(math.radians(180), 1.0) + (2,), (180, 18), 34, 45),
+        }
     raise KeyError(slug)
 
 
