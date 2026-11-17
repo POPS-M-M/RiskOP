@@ -1,0 +1,208 @@
+{
+ "Zou": {
+  "etapes": {
+   "proprietaire = moi": {
+    "reconstructions": 1,
+    "derniere_ms": 14,
+    "sommets_reconstruits": 2964,
+    "taches_longues_ms": [
+     352,
+     331,
+     418,
+     428,
+     429,
+     383,
+     425
+    ],
+    "evenements": [
+     "construction 3D 14 ms"
+    ]
+   },
+   "proprietaire = adversaire": {
+    "reconstructions": 1,
+    "derniere_ms": 5,
+    "sommets_reconstruits": 2946,
+    "taches_longues_ms": [
+     352,
+     387,
+     374,
+     365,
+     349,
+     367,
+     413,
+     355
+    ],
+    "evenements": [
+     "construction 3D 5 ms"
+    ]
+   },
+   "ville niveau 3": {
+    "reconstructions": 1,
+    "derniere_ms": 9,
+    "sommets_reconstruits": 2946,
+    "taches_longues_ms": [
+     376,
+     371,
+     339,
+     338,
+     363,
+     329,
+     353,
+     399
+    ],
+    "evenements": [
+     "construction 3D 9 ms"
+    ]
+   },
+   "neutre": {
+    "reconstructions": 1,
+    "derniere_ms": 5,
+    "sommets_reconstruits": 1728,
+    "taches_longues_ms": [
+     349,
+     358,
+     339,
+     352,
+     339,
+     329,
+     379,
+     339
+    ],
+    "evenements": [
+     "construction 3D 5 ms"
+    ]
+   }
+  },
+  "errs": [],
+  "blx": {
+   "ready3": true,
+   "fail3": false,
+   "g3": {
+    "lod2": "pret",
+    "lod0": "pret",
+    "lod1": "en cours"
+   },
+   "vu3": "lod0",
+   "vu25": "",
+   "img": [
+    "l1"
+   ],
+   "img_ld": {
+    "l1": ""
+   },
+   "cv": []
+  }
+ },
+ "Alabasta": {
+  "etapes": {
+   "proprietaire = moi": {
+    "reconstructions": 1,
+    "derniere_ms": 8,
+    "sommets_reconstruits": 2964,
+    "taches_longues_ms": [
+     253,
+     310,
+     272,
+     232,
+     234,
+     228,
+     237,
+     234,
+     240,
+     253,
+     242,
+     235,
+     253
+    ],
+    "evenements": [
+     "construction 3D 8 ms"
+    ]
+   },
+   "proprietaire = adversaire": {
+    "reconstructions": 1,
+    "derniere_ms": 3,
+    "sommets_reconstruits": 2946,
+    "taches_longues_ms": [
+     227,
+     242,
+     228,
+     229,
+     250,
+     244,
+     216,
+     227,
+     226,
+     227,
+     248,
+     255
+    ],
+    "evenements": [
+     "construction 3D 3 ms"
+    ]
+   },
+   "ville niveau 3": {
+    "reconstructions": 1,
+    "derniere_ms": 4,
+    "sommets_reconstruits": 2946,
+    "taches_longues_ms": [
+     236,
+     240,
+     248,
+     239,
+     283,
+     265,
+     237,
+     249,
+     229,
+     235,
+     239,
+     237
+    ],
+    "evenements": [
+     "construction 3D 4 ms"
+    ]
+   },
+   "neutre": {
+    "reconstructions": 1,
+    "derniere_ms": 12,
+    "sommets_reconstruits": 1728,
+    "taches_longues_ms": [
+     240,
+     237,
+     260,
+     222,
+     222,
+     232,
+     260,
+     249,
+     228,
+     294,
+     223,
+     220
+    ],
+    "evenements": [
+     "construction 3D 12 ms"
+    ]
+   }
+  },
+  "errs": [],
+  "blx": {
+   "ready3": true,
+   "fail3": false,
+   "g3": {
+    "lod2": "pret",
+    "lod0": "pret",
+    "lod1": "pret"
+   },
+   "vu3": "lod0",
+   "vu25": "",
+   "img": [
+    "l1"
+   ],
+   "img_ld": {
+    "l1": ""
+   },
+   "cv": []
+  }
+ }
+}

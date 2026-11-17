@@ -1,0 +1,5 @@
+local-preview/
+node_modules
+__pycache__/
+*.pyc
+*.blend1

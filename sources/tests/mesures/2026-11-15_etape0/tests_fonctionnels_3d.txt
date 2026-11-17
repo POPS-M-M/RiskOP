@@ -1,0 +1,32 @@
+OK   tampons des îles comptés 118813800 o = calcul indépendant depuis les modèles 118813800 o
+OK   Zou : lod0 6718908/6718908 · lod1 2111592/2111592 · lod2 575904/575904 · translucide 48384/48384
+OK   Whole Cake : lod0 3844428/3844428 · lod1 1208172/1208172 · lod2 329448/329448 · translucide 48384/48384
+OK   Zou : temps de construction mesuré 397 ms ≈ champ ms du moteur 397 ms (géométrie 85, conversion 83, éclairage 309, envoi 2)
+OK   Whole Cake : temps de construction mesuré 220 ms ≈ champ ms du moteur 220 ms (géométrie 44, conversion 35, éclairage 172, envoi 4)
+OK   événements « construction 3D » : 53
+OK   fichiers iles/ vus par Resource Timing : 17 → index.json:200 zou/manifest.json:200 zou/l1.webp:200 whole_cake/manifest.json:200 zou/lod2.glb:404 zou/lod2.glb.txt:200 whole_cake/l1.webp:200 whole_cake/lod2.glb:404 whole_cake/lod2.glb.txt:200 zou/lod1.glb:404 zou/lod1.glb.txt:200 whole_cake/lod1.glb.txt:200 whole_cake/lod1.glb:404 zou/lod0.glb:404 zou/lod0.glb.txt:200 whole_cake/lod0.glb:404 whole_cake/lod0.glb.txt:200
+     jalons Zou : {"manifeste lu":3226,"image l1 prête":3785,"glTF lod2 lu":5229,"glTF lod1 lu":7270,"glTF lod0 lu":10548,"modèles 3D prêts":10556,"premier modèle 3D construit":31287} | glTF Zou : {"lod2":{"b64":7.7999999998137355,"lecture":0.40000000037252903,"octets":251400,"tri":6966},"lod1":{"b64":4.5,"lecture":0.5,"octets":670292,"tri":25550},"lod0":{"b64":13.100000000093132,"lecture":4.800000000279397,"octets":1942076,"tri":81311}}
+     contextes WebGL : [{"nom":"monde 3D","tampons":118814016,"textures":1204000,"perdu":false}] | jalons moteur {"w3":48839}
+OK   gel artificiel de 300 ms détecté : [[1383,""],[1467,""],[1417,""]]
+OK   tâche longue détectée (max 1562 ms)
+OK   gel pendant la reconstruction attribué à Zou : [[1667,""],[1417,""],[667,"dessin de l'image (3D) (441 ms) ; construction 3D · Zou (413 ms)"],[217,"changement de niveau · Spider Miles ; changement de niveau · Lulusia ; changement de niveau · Ruskaina"]]
+OK   après suppression/reconstruction, comptes Zou cohérents (pas de double compte) : [{"principal":6718908,"translucide":48384,"lod1":2111592,"lod2":575904},112]
+     entrée 2.5D de Zou après passage 3D → 2.5D : ready après 42 s (l'île d'origine doit être générée avant d'afficher les images Blender)
+OK   canevas composés de Zou = 8664708 o (l3 seul = 6930440)
+OK   changements de niveau 2.5D de Zou enregistrés : petite → l1 ; l1 → l2 ; l2 → l3
+     compositions : Zou 523×829 · 1.7 Mo 3ms | Whole Cake 506×752 · 1.5 Mo 1ms | Zou 523×829 · 1.7 Mo 1ms | Zou 1045×1658 · 6.6 Mo 4ms | Whole Cake 506×752 · 1.5 Mo 1ms | Whole Cake 1012×1503 · 5.8 Mo 3ms
+     images par catégorie (Mo) : {
+  'origine|alloué': '32.3',
+  'blender_compose|alloué': '15.5',
+  'blender_img|img': '53.1',
+  'origine_gardee|alloué': '4.5',
+  'mer|alloué': '1.1',
+  'halos|alloué': '0.0'
+}
+OK   onglet Mémoire affiché (1891 caractères)
+OK   onglet Chargement et fluidité affiché (7039 caractères)
+OK   copie texte (presse-papiers ou zone de sélection) : 9056 caractères, 10 sections
+OK   copie JSON valide version,res,balayage,reconstruction,isolee,debut,fin
+     coût moyen du moniteur par image : 87.9 µs
+OK   erreurs de page : 0 
+FINI

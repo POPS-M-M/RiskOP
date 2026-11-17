@@ -1,0 +1,110 @@
+{
+ "demarrage25": {
+  "req": {
+   "index": {
+    "n": 1,
+    "o": 1129,
+    "f": [
+     "index.json"
+    ]
+   },
+   "manifestes": {
+    "n": 6,
+    "o": 541857,
+    "f": [
+     "zou/manifest.29ba9d9d.json",
+     "whole_cake/manifest.111c88de.json",
+     "water_7/manifest.9e71fa94.json",
+     "loguetown/manifest.da918296.json",
+     "wano/manifest.1897d74a.json",
+     "alabasta/manifest.d7ba6570.json"
+    ]
+   },
+   "l1": {
+    "n": 6,
+    "o": 42444,
+    "f": [
+     "zou/l1.dcf65261.webp",
+     "whole_cake/l1.2e098db0.webp",
+     "water_7/l1.16e9682e.webp",
+     "loguetown/l1.a06b98ad.webp",
+     "wano/l1.9832f284.webp",
+     "alabasta/l1.d959eb30.webp"
+    ]
+   },
+   "lod2": {
+    "n": 6,
+    "o": 1926284,
+    "f": [
+     "zou/lod2.e08a7bcb.glb",
+     "whole_cake/lod2.81e57e46.glb",
+     "water_7/lod2.3527af93.glb",
+     "loguetown/lod2.83100bd4.glb",
+     "wano/lod2.ca031565.glb",
+     "alabasta/lod2.96e4377a.glb"
+    ]
+   },
+   "lod1/lod0": {
+    "n": 12,
+    "o": 24686136,
+    "f": [
+     "zou/lod1.f33c3b30.glb",
+     "zou/lod0.0fb618eb.glb",
+     "whole_cake/lod1.3e451f38.glb",
+     "whole_cake/lod0.3ae22724.glb",
+     "water_7/lod1.46b4e717.glb",
+     "water_7/lod0.6db8269b.glb",
+     "loguetown/lod1.2ba5c065.glb",
+     "loguetown/lod0.e91c1059.glb",
+     "wano/lod1.776242ca.glb",
+     "alabasta/lod1.708ac3fd.glb",
+     "wano/lod0.247d57ad.glb",
+     "alabasta/lod0.7e2d992e.glb"
+    ]
+   }
+  },
+  "mem": {
+   "mode": "2.5D",
+   "glTotal": 0,
+   "glBlender": {},
+   "glOrigine": 0,
+   "gltfJS": 27336418,
+   "img": {
+    "blender_img|img": 950124,
+    "origine_gardee|alloué": 2551956,
+    "origine|alloué": 2595660
+   },
+   "sommets": {}
+  }
+ },
+ "zoom25": {
+  "req": {
+   "2.5D fin": {
+    "n": 5,
+    "o": 162334,
+    "f": [
+     "whole_cake/l2.c6e3ecd4.webp",
+     "whole_cake/ville2.ebe98288.webp",
+     "whole_cake/ville3.703e517f.webp",
+     "whole_cake/ville4.647f511e.webp",
+     "whole_cake/l3.5ca8736d.webp"
+    ]
+   }
+  },
+  "mem": {
+   "mode": "2.5D",
+   "glTotal": 0,
+   "glBlender": {},
+   "glOrigine": 0,
+   "gltfJS": 27336418,
+   "img": {
+    "origine|alloué": 7246712,
+    "blender_compose|alloué": 7606192,
+    "blender_img|img": 26808748,
+    "origine_gardee|alloué": 2551956
+   },
+   "sommets": {}
+  }
+ },
+ "exception": "page.evaluate: TypeError: Cannot convert undefined or null to object\n    at Object.entries (<anonymous>)\n    at eval (eval at evaluate (:311:30), <anonymous>:1:138)\n    at UtilityScript.evaluate (<anonymous>:313:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)\n    at blx (/tmp/claude-0/-home-claude/e9fea69d-d6d1-5bce-8c4e-46780dac9b28/scratchpad/so/t_socle.js:23:16)\n    at /tmp/claude-0/-home-claude/e9fea69d-d6d1-5bce-8c4e-46780dac9b28/scratchpad/so/t_socle.js:40:62"
+}

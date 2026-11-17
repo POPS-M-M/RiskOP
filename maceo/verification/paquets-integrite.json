@@ -1,0 +1,83 @@
+{
+  "islands": {
+    "Zou": {
+      "files": 10,
+      "bytes": 3059802,
+      "valid": true
+    },
+    "Whole Cake": {
+      "files": 10,
+      "bytes": 2185550,
+      "valid": true
+    },
+    "Water 7": {
+      "files": 10,
+      "bytes": 6994252,
+      "valid": true
+    },
+    "Loguetown": {
+      "files": 10,
+      "bytes": 5129568,
+      "valid": true
+    },
+    "Wano": {
+      "files": 10,
+      "bytes": 6310856,
+      "valid": true
+    },
+    "Alabasta": {
+      "files": 10,
+      "bytes": 4637882,
+      "valid": true
+    },
+    "Syrup": {
+      "files": 10,
+      "bytes": 3474438,
+      "valid": true
+    },
+    "Cocoyasi": {
+      "files": 10,
+      "bytes": 5536500,
+      "valid": true
+    }
+  },
+  "failures": [],
+  "previous_seven": [
+    {
+      "name": "Zou",
+      "same": true,
+      "changed": []
+    },
+    {
+      "name": "Whole Cake",
+      "same": true,
+      "changed": []
+    },
+    {
+      "name": "Water 7",
+      "same": true,
+      "changed": []
+    },
+    {
+      "name": "Loguetown",
+      "same": true,
+      "changed": []
+    },
+    {
+      "name": "Wano",
+      "same": true,
+      "changed": []
+    },
+    {
+      "name": "Alabasta",
+      "same": true,
+      "changed": []
+    },
+    {
+      "name": "Syrup",
+      "same": true,
+      "changed": []
+    }
+  ],
+  "result": "PASS"
+}

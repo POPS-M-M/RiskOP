@@ -1,0 +1,8 @@
+# fichiers générés localement (Python, sauvegardes automatiques de Blender)
+__pycache__/
+*.blend1
+
+# Dépendances et sorties de vérification locales
+node_modules/
+playwright-report/
+test-results/

@@ -1,0 +1,1 @@
+pack_for_game.py lancé deux fois sur les mêmes sorties Blender : dossiers identiques (diff -r vide). --nettoyer retire un fichier non cité (testé).

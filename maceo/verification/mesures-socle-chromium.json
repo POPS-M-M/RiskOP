@@ -1,0 +1,65 @@
+{
+ "iles": {
+  "Cocoyasi": {
+   "g3": {
+    "lod2": {
+     "st": "pret",
+     "octets": 312484,
+     "sommets": 9856,
+     "triangles": 6086
+    },
+    "lod0": {
+     "st": "pret",
+     "octets": 3308444,
+     "sommets": 87722,
+     "triangles": 71019
+    },
+    "lod1": {
+     "st": "pret",
+     "octets": 1118758,
+     "sommets": 35173,
+     "triangles": 22319
+    }
+   },
+   "cuisson": [
+    {
+     "ile": "Cocoyasi",
+     "lod": "lod2",
+     "ms": 78,
+     "sommets": 9856,
+     "triangles": 6086
+    },
+    {
+     "ile": "Cocoyasi",
+     "lod": "lod1",
+     "ms": 879,
+     "sommets": 35173,
+     "triangles": 22319
+    },
+    {
+     "ile": "Cocoyasi",
+     "lod": "lod0",
+     "ms": 1023,
+     "sommets": 87722,
+     "triangles": 71019
+    }
+   ],
+   "conquete_ms": 3,
+   "conquete_sommets": 2946,
+   "reconstructions": 1,
+   "fail3": false
+  }
+ },
+ "verif": {
+  "ok": 36,
+  "rejets": [],
+  "err": ""
+ },
+ "errs3d": [],
+ "img25": {
+  "Cocoyasi": {
+   "decode": 110264
+  }
+ },
+ "errs25": []
+}

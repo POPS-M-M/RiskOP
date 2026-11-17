@@ -1,0 +1,125 @@
+{
+ "scene": {
+  "decalage_nord": 3.5,
+  "batiments": 357,
+  "detail_bat": "330 maisons et entrepôts accolés + 13 cabanes + 14 édifices",
+  "viaduc_avant": 18,
+  "viaduc_apres": 8.5
+ },
+ "tableau": [
+  [
+   "Bâtiments (scène)",
+   [
+    "—",
+    "—",
+    "357"
+   ]
+  ],
+  [
+   "Triangles scène Blender",
+   [
+    "—",
+    "—",
+    "121 728"
+   ]
+  ],
+  [
+   "glTF lod0 · triangles / fichier / gzip",
+   [
+    "81311 · 1.94 Mo · 1.40 Mo",
+    "57679 · 1.33 Mo · 0.78 Mo",
+    "85206 · 4.59 Mo · 1.54 Mo"
+   ]
+  ],
+  [
+   "glTF lod1 · triangles / fichier / gzip",
+   [
+    "25550 · 0.67 Mo · 496 Ko",
+    "18123 · 0.45 Mo · 347 Ko",
+    "26779 · 1.62 Mo · 677 Ko"
+   ]
+  ],
+  [
+   "glTF lod2 · triangles / fichier / gzip",
+   [
+    "6966 · 251 Ko · 167 Ko",
+    "4940 · 163 Ko · 125 Ko",
+    "7301 · 446 Ko · 226 Ko"
+   ]
+  ],
+  [
+   "Images 2.5D (l1+l2+l3+villes, webp)",
+   [
+    "130 Ko",
+    "171 Ko",
+    "272 Ko"
+   ]
+  ],
+  [
+   "Export Blender complet (Cycles CPU)",
+   [
+    "188 s",
+    "171 s",
+    "158 s"
+   ]
+  ],
+  [
+   "Mémoire carte graphique (3D, tous LOD)",
+   [
+    "9.45 Mo",
+    "5.43 Mo",
+    "7.86 Mo"
+   ]
+  ],
+  [
+   "glTF gardés en mémoire JavaScript",
+   [
+    "2.98 Mo",
+    "2.07 Mo",
+    "6.78 Mo"
+   ]
+  ],
+  [
+   "Construction 3D dans le jeu (dont éclairage cuit)",
+   [
+    "351 ms (263)",
+    "272 ms (195)",
+    "486 ms (409)"
+   ]
+  ],
+  [
+   "Sommets envoyés à la carte graphique",
+   [
+    "341127",
+    "197400",
+    "284220"
+   ]
+  ]
+ ],
+ "verifs": [
+  "0 erreur de page en 2.5D et en 3D (captures, gros plans, mesures) ; 12 fichiers vérifiés par empreinte SHA-256 (format 2), 0 rejet.",
+  "Zou et Whole Cake : fichiers sources, .blend et exports identiques au commit précédent (git diff vide).",
+  "Code du jeu (src/, tools/) inchangé ; build public dist/risk_op.html identique (sha256 486289c9…).",
+  "Coordonnées, zones de clic, hitboxes, règles et sauvegardes : non touchées (seuls les fichiers art/ de Water 7 changent).",
+  "Branche essai/pilote-water7 seulement ; rien sur main ni gh-pages ; rien déployé."
+ ],
+ "canon": [
+  "[C] Ville en gradins « en forme de fontaine géante », canaux de transport avec trottoirs, Yagara Bulls (non représentés) — Sportskeeda.",
+  "[C] Sept chantiers d'origine réunis par Iceburg dans la Galley-La Company ; Dock 1 le plus réputé — Sportskeeda.",
+  "[C] Gare du train des mers (Blue Station), lignes vers Pucci, St. Poplar, San Faldo et Enies Lobby — Sportskeeda ; train Puffing Tom — Bandai Namco.",
+  "[C?] Bas quartiers inondés, dépôt de ferraille, ville qui s'enfonce et Aqua Laguna : de mémoire, non vérifié dans une source ouverte ici.",
+  "[I] 3 terrasses + plateau à colonnade, kiosques, campaniles, 4 canaux rayonnants + 2 anneaux, 3 chantiers visibles (n° 1 à 3), gare à l'ouest, port au sud,",
+  "     bas quartiers au nord-ouest, siège de compagnie générique, train générique. Exclus : personnages, logo Galley-La, locomotive officielle, Franky House."
+ ],
+ "limites": [
+  "Échelle du jeu : au zoom maximal 2.5D (3,5), l'île fait environ 300 × 300 pixels réels ; façades, fenêtres et balcons n'y sont pas lisibles — seulement en 3D zoomée.",
+  "Caméra 3D par défaut (vue du sud) : les bas quartiers (nord-ouest) et le haut de la ville nord sont cachés derrière les terrasses ; il faut tourner la caméra (Q/E).",
+  "Vu de l'est en 3D, un seul hangar des chantiers se lit bien ; les deux autres sont en partie masqués par les maisons du port.",
+  "Le badge d'armée « 16 » se pose désormais sur la colonnade, au pied sud de la fontaine (la vasque et le jet restent visibles) ; il n'est pas déplaçable sans toucher au jeu.",
+  "Les filets d'eau de la fontaine se lisent comme des colonnes claires en vue rapprochée ; à revoir si tu veux une eau plus fluide.",
+  "Fichiers glTF de Water 7 plus lourds que Zou (lod0 4,6 Mo contre 1,9 Mo ; 1,5 Mo contre 1,4 Mo en gzip) et 6,8 Mo gardés en mémoire JavaScript (Zou 3,0 Mo) ;",
+  "     en revanche la mémoire carte graphique est plus basse que Zou (7,9 Mo contre 9,5 Mo). Construction 3D la plus longue des trois (486 ms) : à suivre dans le socle technique.",
+  "Les marches des grands escaliers sont en partie noyées dans la rampe du sol : on lit une rampe plus qu'un escalier.",
+  "Captures et mesures faites dans mon environnement sans carte graphique (WebGL logiciel) : couleurs et temps peuvent différer sur ta machine."
+ ]
+}

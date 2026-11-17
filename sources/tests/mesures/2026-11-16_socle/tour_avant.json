@@ -1,0 +1,523 @@
+{
+ "demarrage25": {
+  "req": {
+   "index": {
+    "n": 1,
+    "o": 10467,
+    "f": [
+     "index.json"
+    ]
+   },
+   "manifestes": {
+    "n": 53,
+    "o": 4786475,
+    "f": [
+     "zou/manifest.407f23b5.json",
+     "whole_cake/manifest.27bb9c85.json",
+     "water_7/manifest.06f1e7f1.json",
+     "loguetown/manifest.b2bff2e2.json",
+     "wano/manifest.aed65b34.json",
+     "alabasta/manifest.738b4c1b.json",
+     "zou/manifest.440602c6.json",
+     "whole_cake/manifest.3ce620ae.json",
+     "water_7/manifest.a7c40a78.json",
+     "loguetown/manifest.874c38d0.json",
+     "wano/manifest.a659c0e5.json",
+     "alabasta/manifest.eee9ef5c.json",
+     "zou/manifest.a55ed138.json",
+     "whole_cake/manifest.1c661190.json",
+     "water_7/manifest.78b77e0b.json",
+     "loguetown/manifest.906117a7.json",
+     "wano/manifest.6dcc4f62.json",
+     "alabasta/manifest.8b6efae3.json",
+     "zou/manifest.5a3967be.json",
+     "whole_cake/manifest.d3e43c41.json",
+     "water_7/manifest.64fb912a.json",
+     "loguetown/manifest.5b96d5af.json",
+     "wano/manifest.54840612.json",
+     "alabasta/manifest.23f3e688.json",
+     "zou/manifest.ec2de1c9.json",
+     "whole_cake/manifest.a733ffa0.json",
+     "water_7/manifest.55ea4ad2.json",
+     "loguetown/manifest.42ef685b.json",
+     "wano/manifest.f3563cbb.json",
+     "alabasta/manifest.d7ba6570.json",
+     "zou/manifest.b39e8090.json",
+     "whole_cake/manifest.eaa76280.json",
+     "water_7/manifest.6e8a1e55.json",
+     "loguetown/manifest.6df4d68d.json",
+     "wano/manifest.38ecb49c.json",
+     "alabasta/manifest.3d3ac0c3.json",
+     "zou/manifest.02ccb978.json",
+     "whole_cake/manifest.8bcb075f.json",
+     "water_7/manifest.f479de56.json",
+     "loguetown/manifest.162c0f15.json",
+     "wano/manifest.2502a53a.json",
+     "alabasta/manifest.3d0e1720.json",
+     "zou/manifest.d02e85d3.json",
+     "whole_cake/manifest.9e708ccd.json",
+     "water_7/manifest.73218ac5.json",
+     "loguetown/manifest.36f8cb54.json",
+     "wano/manifest.696770b6.json",
+     "alabasta/manifest.b5c459a9.json",
+     "zou/manifest.7a9d45ce.json",
+     "whole_cake/manifest.83b3a37c.json",
+     "water_7/manifest.7e38aa0b.json",
+     "loguetown/manifest.7b53c847.json",
+     "wano/manifest.8b8c5d2b.json"
+    ]
+   },
+   "l1": {
+    "n": 6,
+    "o": 42444,
+    "f": [
+     "zou/l1.dcf65261.webp",
+     "whole_cake/l1.2e098db0.webp",
+     "water_7/l1.16e9682e.webp",
+     "loguetown/l1.a06b98ad.webp",
+     "wano/l1.9832f284.webp",
+     "alabasta/l1.d959eb30.webp"
+    ]
+   },
+   "lod2": {
+    "n": 53,
+    "o": 17045704,
+    "f": [
+     "zou/lod2.e08a7bcb.glb",
+     "whole_cake/lod2.81e57e46.glb",
+     "water_7/lod2.3527af93.glb",
+     "loguetown/lod2.83100bd4.glb",
+     "wano/lod2.ca031565.glb",
+     "alabasta/lod2.96e4377a.glb",
+     "zou/lod2.e08a7bcb.glb",
+     "whole_cake/lod2.81e57e46.glb",
+     "water_7/lod2.3527af93.glb",
+     "loguetown/lod2.83100bd4.glb",
+     "wano/lod2.ca031565.glb",
+     "alabasta/lod2.96e4377a.glb",
+     "zou/lod2.e08a7bcb.glb",
+     "whole_cake/lod2.81e57e46.glb",
+     "water_7/lod2.3527af93.glb",
+     "loguetown/lod2.83100bd4.glb",
+     "wano/lod2.ca031565.glb",
+     "alabasta/lod2.96e4377a.glb",
+     "zou/lod2.e08a7bcb.glb",
+     "whole_cake/lod2.81e57e46.glb",
+     "water_7/lod2.3527af93.glb",
+     "loguetown/lod2.83100bd4.glb",
+     "wano/lod2.ca031565.glb",
+     "alabasta/lod2.96e4377a.glb",
+     "zou/lod2.e08a7bcb.glb",
+     "whole_cake/lod2.81e57e46.glb",
+     "water_7/lod2.3527af93.glb",
+     "loguetown/lod2.83100bd4.glb",
+     "wano/lod2.ca031565.glb",
+     "alabasta/lod2.96e4377a.glb",
+     "zou/lod2.e08a7bcb.glb",
+     "whole_cake/lod2.81e57e46.glb",
+     "water_7/lod2.3527af93.glb",
+     "loguetown/lod2.83100bd4.glb",
+     "wano/lod2.ca031565.glb",
+     "alabasta/lod2.96e4377a.glb",
+     "zou/lod2.e08a7bcb.glb",
+     "whole_cake/lod2.81e57e46.glb",
+     "water_7/lod2.3527af93.glb",
+     "loguetown/lod2.83100bd4.glb",
+     "wano/lod2.ca031565.glb",
+     "alabasta/lod2.96e4377a.glb",
+     "zou/lod2.e08a7bcb.glb",
+     "whole_cake/lod2.81e57e46.glb",
+     "water_7/lod2.3527af93.glb",
+     "loguetown/lod2.83100bd4.glb",
+     "wano/lod2.ca031565.glb",
+     "alabasta/lod2.96e4377a.glb",
+     "zou/lod2.e08a7bcb.glb",
+     "whole_cake/lod2.81e57e46.glb",
+     "water_7/lod2.3527af93.glb",
+     "loguetown/lod2.83100bd4.glb",
+     "wano/lod2.ca031565.glb"
+    ]
+   },
+   "lod1/lod0": {
+    "n": 106,
+    "o": 218108276,
+    "f": [
+     "zou/lod1.f33c3b30.glb",
+     "zou/lod0.0fb618eb.glb",
+     "whole_cake/lod1.3e451f38.glb",
+     "whole_cake/lod0.3ae22724.glb",
+     "water_7/lod1.46b4e717.glb",
+     "water_7/lod0.6db8269b.glb",
+     "loguetown/lod1.2ba5c065.glb",
+     "loguetown/lod0.e91c1059.glb",
+     "wano/lod1.776242ca.glb",
+     "wano/lod0.247d57ad.glb",
+     "alabasta/lod1.708ac3fd.glb",
+     "zou/lod1.f33c3b30.glb",
+     "alabasta/lod0.7e2d992e.glb",
+     "zou/lod0.0fb618eb.glb",
+     "whole_cake/lod1.3e451f38.glb",
+     "whole_cake/lod0.3ae22724.glb",
+     "water_7/lod1.46b4e717.glb",
+     "water_7/lod0.6db8269b.glb",
+     "loguetown/lod1.2ba5c065.glb",
+     "loguetown/lod0.e91c1059.glb",
+     "wano/lod1.776242ca.glb",
+     "wano/lod0.247d57ad.glb",
+     "alabasta/lod1.708ac3fd.glb",
+     "alabasta/lod0.7e2d992e.glb",
+     "zou/lod1.f33c3b30.glb",
+     "zou/lod0.0fb618eb.glb",
+     "whole_cake/lod1.3e451f38.glb",
+     "whole_cake/lod0.3ae22724.glb",
+     "water_7/lod1.46b4e717.glb",
+     "water_7/lod0.6db8269b.glb",
+     "loguetown/lod1.2ba5c065.glb",
+     "loguetown/lod0.e91c1059.glb",
+     "wano/lod1.776242ca.glb",
+     "wano/lod0.247d57ad.glb",
+     "alabasta/lod1.708ac3fd.glb",
+     "alabasta/lod0.7e2d992e.glb",
+     "zou/lod1.f33c3b30.glb",
+     "zou/lod0.0fb618eb.glb",
+     "whole_cake/lod1.3e451f38.glb",
+     "whole_cake/lod0.3ae22724.glb",
+     "water_7/lod1.46b4e717.glb",
+     "water_7/lod0.6db8269b.glb",
+     "loguetown/lod1.2ba5c065.glb",
+     "loguetown/lod0.e91c1059.glb",
+     "wano/lod1.776242ca.glb",
+     "wano/lod0.247d57ad.glb",
+     "alabasta/lod1.708ac3fd.glb",
+     "alabasta/lod0.7e2d992e.glb",
+     "zou/lod1.f33c3b30.glb",
+     "zou/lod0.0fb618eb.glb",
+     "whole_cake/lod1.3e451f38.glb",
+     "whole_cake/lod0.3ae22724.glb",
+     "water_7/lod1.46b4e717.glb",
+     "water_7/lod0.6db8269b.glb",
+     "loguetown/lod1.2ba5c065.glb",
+     "loguetown/lod0.e91c1059.glb",
+     "wano/lod1.776242ca.glb",
+     "wano/lod0.247d57ad.glb",
+     "alabasta/lod1.708ac3fd.glb",
+     "alabasta/lod0.7e2d992e.glb",
+     "zou/lod1.f33c3b30.glb",
+     "zou/lod0.0fb618eb.glb",
+     "whole_cake/lod1.3e451f38.glb",
+     "whole_cake/lod0.3ae22724.glb",
+     "water_7/lod1.46b4e717.glb",
+     "water_7/lod0.6db8269b.glb",
+     "loguetown/lod1.2ba5c065.glb",
+     "loguetown/lod0.e91c1059.glb",
+     "wano/lod1.776242ca.glb",
+     "wano/lod0.247d57ad.glb",
+     "alabasta/lod1.708ac3fd.glb",
+     "alabasta/lod0.7e2d992e.glb",
+     "zou/lod1.f33c3b30.glb",
+     "zou/lod0.0fb618eb.glb",
+     "whole_cake/lod1.3e451f38.glb",
+     "whole_cake/lod0.3ae22724.glb",
+     "water_7/lod1.46b4e717.glb",
+     "water_7/lod0.6db8269b.glb",
+     "loguetown/lod1.2ba5c065.glb",
+     "loguetown/lod0.e91c1059.glb",
+     "wano/lod1.776242ca.glb",
+     "wano/lod0.247d57ad.glb",
+     "alabasta/lod1.708ac3fd.glb",
+     "alabasta/lod0.7e2d992e.glb",
+     "zou/lod1.f33c3b30.glb",
+     "zou/lod0.0fb618eb.glb",
+     "whole_cake/lod1.3e451f38.glb",
+     "whole_cake/lod0.3ae22724.glb",
+     "water_7/lod1.46b4e717.glb",
+     "water_7/lod0.6db8269b.glb",
+     "loguetown/lod1.2ba5c065.glb",
+     "loguetown/lod0.e91c1059.glb",
+     "wano/lod1.776242ca.glb",
+     "wano/lod0.247d57ad.glb",
+     "alabasta/lod1.708ac3fd.glb",
+     "alabasta/lod0.7e2d992e.glb",
+     "zou/lod1.f33c3b30.glb",
+     "zou/lod0.0fb618eb.glb",
+     "whole_cake/lod1.3e451f38.glb",
+     "whole_cake/lod0.3ae22724.glb",
+     "water_7/lod1.46b4e717.glb",
+     "water_7/lod0.6db8269b.glb",
+     "loguetown/lod1.2ba5c065.glb",
+     "loguetown/lod0.e91c1059.glb",
+     "wano/lod1.776242ca.glb",
+     "wano/lod0.247d57ad.glb"
+    ]
+   }
+  },
+  "mem": {
+   "mode": "2.5D",
+   "glTotalMo": 0,
+   "glBlenderMo": 0,
+   "gltfJSMo": 241.5,
+   "iles3d": 0
+  }
+ },
+ "bascule3d": {
+  "req": {},
+  "mem": {
+   "mode": "3D",
+   "glTotalMo": 233.2,
+   "glBlenderMo": 233.2,
+   "gltfJSMo": 241.5,
+   "iles3d": 35
+  }
+ },
+ "etapes": [
+  {
+   "ile": "Zou",
+   "mem": {
+    "mode": "3D",
+    "glTotalMo": 352.2,
+    "glBlenderMo": 352.2,
+    "gltfJSMo": 241.5,
+    "iles3d": 53
+   },
+   "req": 0
+  },
+  {
+   "ile": "Whole Cake",
+   "mem": {
+    "mode": "3D",
+    "glTotalMo": 352.2,
+    "glBlenderMo": 352.2,
+    "gltfJSMo": 241.5,
+    "iles3d": 53
+   },
+   "req": 0
+  },
+  {
+   "ile": "Water 7",
+   "mem": {
+    "mode": "3D",
+    "glTotalMo": 352.2,
+    "glBlenderMo": 352.2,
+    "gltfJSMo": 241.5,
+    "iles3d": 53
+   },
+   "req": 0
+  },
+  {
+   "ile": "Loguetown",
+   "mem": {
+    "mode": "3D",
+    "glTotalMo": 352.2,
+    "glBlenderMo": 352.2,
+    "gltfJSMo": 241.5,
+    "iles3d": 53
+   },
+   "req": 0
+  },
+  {
+   "ile": "Wano",
+   "mem": {
+    "mode": "3D",
+    "glTotalMo": 352.2,
+    "glBlenderMo": 352.2,
+    "gltfJSMo": 241.5,
+    "iles3d": 53
+   },
+   "req": 0
+  },
+  {
+   "ile": "Alabasta",
+   "mem": {
+    "mode": "3D",
+    "glTotalMo": 352.2,
+    "glBlenderMo": 352.2,
+    "gltfJSMo": 241.5,
+    "iles3d": 53
+   },
+   "req": 0
+  },
+  {
+   "ile": "Drum",
+   "mem": {
+    "mode": "3D",
+    "glTotalMo": 352.2,
+    "glBlenderMo": 352.2,
+    "gltfJSMo": 241.5,
+    "iles3d": 53
+   },
+   "req": 0
+  },
+  {
+   "ile": "Jaya",
+   "mem": {
+    "mode": "3D",
+    "glTotalMo": 352.2,
+    "glBlenderMo": 352.2,
+    "gltfJSMo": 241.5,
+    "iles3d": 53
+   },
+   "req": 0
+  },
+  {
+   "ile": "Skypiea",
+   "mem": {
+    "mode": "3D",
+    "glTotalMo": 352.2,
+    "glBlenderMo": 352.2,
+    "gltfJSMo": 241.5,
+    "iles3d": 53
+   },
+   "req": 0
+  },
+  {
+   "ile": "Dressrosa",
+   "mem": {
+    "mode": "3D",
+    "glTotalMo": 352.2,
+    "glBlenderMo": 352.2,
+    "gltfJSMo": 241.5,
+    "iles3d": 53
+   },
+   "req": 0
+  },
+  {
+   "ile": "Enies Lobby",
+   "mem": {
+    "mode": "3D",
+    "glTotalMo": 352.2,
+    "glBlenderMo": 352.2,
+    "gltfJSMo": 241.5,
+    "iles3d": 53
+   },
+   "req": 0
+  },
+  {
+   "ile": "Sabaody",
+   "mem": {
+    "mode": "3D",
+    "glTotalMo": 352.2,
+    "glBlenderMo": 352.2,
+    "gltfJSMo": 241.5,
+    "iles3d": 53
+   },
+   "req": 0
+  }
+ ],
+ "pause50s": {
+  "mem": {
+   "mode": "3D",
+   "glTotalMo": 352.2,
+   "glBlenderMo": 352.2,
+   "gltfJSMo": 241.5,
+   "iles3d": 53
+  }
+ },
+ "etapes25": [
+  {
+   "ile": "Zou",
+   "mem": {
+    "imgBlenderMo": 100.8,
+    "glBlenderMo": 352.2
+   }
+  },
+  {
+   "ile": "Whole Cake",
+   "mem": {
+    "imgBlenderMo": 162.2,
+    "glBlenderMo": 352.2
+   }
+  },
+  {
+   "ile": "Water 7",
+   "mem": {
+    "imgBlenderMo": 190.5,
+    "glBlenderMo": 352.2
+   }
+  },
+  {
+   "ile": "Loguetown",
+   "mem": {
+    "imgBlenderMo": 261.2,
+    "glBlenderMo": 352.2
+   }
+  },
+  {
+   "ile": "Wano",
+   "mem": {
+    "imgBlenderMo": 294.7,
+    "glBlenderMo": 352.2
+   }
+  },
+  {
+   "ile": "Alabasta",
+   "mem": {
+    "imgBlenderMo": 332.8,
+    "glBlenderMo": 352.2
+   }
+  },
+  {
+   "ile": "Drum",
+   "mem": {
+    "imgBlenderMo": 395,
+    "glBlenderMo": 352.2
+   }
+  },
+  {
+   "ile": "Jaya",
+   "mem": {
+    "imgBlenderMo": 420.6,
+    "glBlenderMo": 352.2
+   }
+  },
+  {
+   "ile": "Skypiea",
+   "mem": {
+    "imgBlenderMo": 453.2,
+    "glBlenderMo": 352.2
+   }
+  },
+  {
+   "ile": "Dressrosa",
+   "mem": {
+    "imgBlenderMo": 511.5,
+    "glBlenderMo": 352.2
+   }
+  },
+  {
+   "ile": "Enies Lobby",
+   "mem": {
+    "imgBlenderMo": 536.5,
+    "glBlenderMo": 352.2
+   }
+  },
+  {
+   "ile": "Sabaody",
+   "mem": {
+    "imgBlenderMo": 614.6,
+    "glBlenderMo": 352.2
+   }
+  }
+ ],
+ "pause25_50s": {
+  "mem": {
+   "imgBlenderMo": 602.6,
+   "glBlenderMo": 352.2
+  }
+ },
+ "fluidite": {
+  "lt": {
+   "n": 500,
+   "max": 84,
+   "total": 27458
+  },
+  "classes": [
+   0,
+   256,
+   1330,
+   1093,
+   32,
+   376
+  ]
+ },
+ "errs": []
+}

@@ -1,0 +1,2 @@
+{"root":true,"env":{"browser":true,"es2022":true},"parserOptions":{"ecmaVersion":2022},
+"rules":{"no-redeclare":"error","no-unused-vars":["warn",{"args":"none"}],"no-undef":"error","no-dupe-keys":"error","no-unreachable":"warn","no-func-assign":"error","no-const-assign":"error","no-dupe-args":"error","use-isnan":"error","no-self-assign":"warn","no-constant-condition":["warn",{"checkLoops":false}]}}

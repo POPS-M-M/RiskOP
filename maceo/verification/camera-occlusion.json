@@ -1,0 +1,24 @@
+{
+  "name": "Cocoyasi",
+  "selectionMs": 1023,
+  "camera": {
+    "position": [
+      -3.3187498522915915,
+      1.937040705855761,
+      8.344073576080845
+    ],
+    "focus": [
+      -5.910896259458173,
+      0.5391542970138847,
+      7.522958875674039
+    ],
+    "source": "heightfield-and-mesh",
+    "height": 6.4,
+    "yaw": 0.30677040162927227
+  },
+  "oldOcclusionsOf200": 85,
+  "clearChecks": 1000,
+  "readOnlyGeometry": "PASS",
+  "sixPhases": "unchanged",
+  "result": "PASS"
+}

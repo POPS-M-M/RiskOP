@@ -1,0 +1,20 @@
+{
+  "planche": "/workspace/repos/RiskOP-maceo/sources/art/out/cocoyasi/presentation/planche_cocoyasi.jpg",
+  "size": [
+    2400,
+    17417
+  ],
+  "bytes": 5983214,
+  "sha256": "a610461e240c498691451cbbfd9ac176ea8454b688ccf30c3bd7f7ddb640ecd8",
+  "mesures": "/workspace/repos/RiskOP-maceo/sources/art/out/cocoyasi/presentation/mesures.json",
+  "mesures_identiques_tech_qa": true,
+  "inspection": "9 bandes vues intégralement",
+  "captures_date": "2026-11-17",
+  "sources_rendus_blender": "Exports existants Cocoyasi/Syrup, inchangés",
+  "limites": [
+    "Badge d’armée masque une partie des rizières en gros plan dans le socle historique.",
+    "Éclairage de sol sombre sous les bosquets et eau de terrasses immobile : limites héritées du modèle, non régénéré.",
+    "Le moulin demeure [C?] et les sources canoniques datées du 16/11 sont reprises, non revalidées ici.",
+    "Planche du socle WebGL historique : ne pas la présenter comme un aperçu de l’intégration Three.js de maceo."
+  ]
+}

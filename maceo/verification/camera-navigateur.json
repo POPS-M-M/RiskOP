@@ -1,0 +1,22 @@
+{
+  "info": {
+    "phase": "battle",
+    "progress": 0.5416749999999995,
+    "scenery": {
+      "source": "blender",
+      "reason": "",
+      "camera": {
+        "source": "heightfield-and-mesh",
+        "sampleCount": 80,
+        "visibleSamples": 80,
+        "height": 6.4
+      },
+      "soldiers": {
+        "attackers": 20,
+        "defenders": 20
+      }
+    }
+  },
+  "errors": [],
+  "result": "PASS"
+}

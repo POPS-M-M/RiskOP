@@ -1,0 +1,119 @@
+{
+  "models": [
+    {
+      "name": "Loguetown",
+      "triangles": 17810,
+      "city": 1
+    },
+    {
+      "name": "Syrup",
+      "triangles": 17889,
+      "city": 1
+    },
+    {
+      "name": "Cocoyasi",
+      "triangles": 22319,
+      "city": 1
+    },
+    {
+      "name": "Alabasta",
+      "triangles": 15588,
+      "city": 1
+    },
+    {
+      "name": "Water 7",
+      "triangles": 26779,
+      "city": 1
+    },
+    {
+      "name": "Zou",
+      "triangles": 25550,
+      "city": 1
+    },
+    {
+      "name": "Whole Cake",
+      "triangles": 18123,
+      "city": 1
+    },
+    {
+      "name": "Wano",
+      "triangles": 22181,
+      "city": 1
+    }
+  ],
+  "coordinates": true,
+  "order": {
+    "from": 42,
+    "to": 41,
+    "before": 0,
+    "after": {
+      "count": 1,
+      "route": [
+        [
+          42,
+          41
+        ]
+      ]
+    }
+  },
+  "exploration": {
+    "paused": true,
+    "domainSame": true,
+    "footer": "Des mandariniers, un petit village et une côte douce évoquent le village de Nami. Décor stylisé de fan inspiré de One Piece. Modèle Blender du projet.",
+    "source": "Cocoyasi",
+    "restored": true
+  },
+  "battle": {
+    "before": [
+      45,
+      36
+    ],
+    "after": [
+      24,
+      0
+    ],
+    "scenery": {
+      "source": "blender",
+      "reason": "",
+      "soldiers": {
+        "attackers": 20,
+        "defenders": 20
+      },
+      "phase": "sea",
+      "paused": true,
+      "domainSame": true,
+      "reportSame": true,
+      "legacyNotPlaying": true
+    },
+    "groundPhase": {
+      "phase": "battle",
+      "progress": 0.5253359999999998,
+      "caption": "L’affrontementLes deux camps s’affrontent sur l’île."
+    },
+    "resumed": true
+  },
+  "cancellation": {
+    "busy": false,
+    "queued": 0,
+    "dialogs": 0
+  },
+  "mode2d": {
+    "want": false,
+    "board": false,
+    "legacy": false,
+    "hostHidden": true
+  },
+  "errors": [],
+  "warnings": [
+    "Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID",
+    "Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID",
+    "Failed to load resource: the server responded with a status of 404 (File not found)",
+    "Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID",
+    "Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID",
+    "THREE.WebGLShadowMap: PCFSoftShadowMap has been removed. Using PCFShadowMap instead.",
+    "THREE.WebGLShadowMap: PCFSoftShadowMap has been removed. Using PCFShadowMap instead.",
+    "Failed to load resource: the server responded with a status of 404 (File not found)",
+    "THREE.WebGLShadowMap: PCFSoftShadowMap has been removed. Using PCFShadowMap instead."
+  ],
+  "result": "PASS"
+}

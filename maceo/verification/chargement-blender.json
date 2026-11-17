@@ -1,0 +1,79 @@
+{
+  "results": [
+    {
+      "name": "Zou",
+      "triangles": 81311,
+      "lod2": 6966,
+      "gpuBytes": 1938618,
+      "radius": 1.43,
+      "grounded": 494,
+      "obstacles": 309
+    },
+    {
+      "name": "Whole Cake",
+      "triangles": 57679,
+      "lod2": 4940,
+      "gpuBytes": 1328218,
+      "radius": 1.353,
+      "grounded": 648,
+      "obstacles": 275
+    },
+    {
+      "name": "Water 7",
+      "triangles": 85206,
+      "lod2": 7301,
+      "gpuBytes": 4589576,
+      "radius": 1.213,
+      "grounded": 534,
+      "obstacles": 355
+    },
+    {
+      "name": "Loguetown",
+      "triangles": 56677,
+      "lod2": 4855,
+      "gpuBytes": 3432884,
+      "radius": 1.345,
+      "grounded": 635,
+      "obstacles": 358
+    },
+    {
+      "name": "Wano",
+      "triangles": 70585,
+      "lod2": 6049,
+      "gpuBytes": 4200128,
+      "radius": 1.34,
+      "grounded": 670,
+      "obstacles": 162
+    },
+    {
+      "name": "Alabasta",
+      "triangles": 49611,
+      "lod2": 4251,
+      "gpuBytes": 3115388,
+      "radius": 1.302,
+      "grounded": 653,
+      "obstacles": 62
+    },
+    {
+      "name": "Syrup",
+      "triangles": 56924,
+      "lod2": 4877,
+      "gpuBytes": 2134888,
+      "radius": 1.168,
+      "grounded": 602,
+      "obstacles": 205
+    },
+    {
+      "name": "Cocoyasi",
+      "triangles": 71019,
+      "lod2": 6086,
+      "gpuBytes": 3619492,
+      "radius": 1.228,
+      "grounded": 612,
+      "obstacles": 96
+    }
+  ],
+  "totalTriangles": 529012,
+  "requests": 33,
+  "verdict": "PASS"
+}

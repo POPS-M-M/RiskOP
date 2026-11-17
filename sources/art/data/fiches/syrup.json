@@ -1,0 +1,158 @@
+{
+ "nom": "Syrup",
+ "numero": "7",
+ "prefixe": "sy",
+ "voisine": "Loguetown et Water 7",
+ "canon": [
+  "[C] Le village (Syrup) est sur les îles Gecko ; « deux pentes de part et d'autre de l'île sont les seuls accès au village » (One Piece Wiki).",
+  "[C] De hautes falaises bordent tout le reste de l'île ; les îles Gecko ont deux pentes, une forêt et une colline remarquable (One Piece Wiki).",
+  "[C] Village inspiré des villages anglais (Rurubu One Piece, cité par le One Piece Wiki) ; « petit hameau » ; restaurant Meshi (One Piece Wiki).",
+  "[C] Pentes au nord et au sud ; maisons modestes ; grand manoir élégant au sommet d'une colline, domaine clôturé et gardé ;",
+  "     prairies ondulées, chemins de terre, collines et forêts (One Place, site de fans).",
+  "[C?] Manoir aux murs clairs et toits rouges (de mémoire, non vérifié).",
+  "[I] Toutes les positions, criques et jetées, cottages à chaume ou ardoise, colombages, chapelle, fermes, champs et haies, ruisseau et cascade, phare.",
+  "Exclus : personnages et leurs maisons nommées, gardes, animaux identifiables, navires de pirates identifiables, copie de tout décor officiel."
+ ],
+ "signature": [
+  "Manoir blanc à toits rouges au sommet de la colline, domaine clos d'une grille",
+  "Plateau vert entouré de hautes falaises, ouvert seulement par deux pentes (nord et sud) et leurs criques",
+  "Hameau anglais : cottages de pierre à chaume ou ardoise, colombages, pré communal, chapelle",
+  "Campagne : champs en mosaïque bordés de haies, chemins de terre, fermes et meules",
+  "Forêt de chênes à l'ouest ; ruisseau qui finit en cascade dans la falaise est"
+ ],
+ "palette": [
+  [
+   "Prairie",
+   [
+    "#86b85a",
+    "#a2c86a",
+    "#7cb058"
+   ]
+  ],
+  [
+   "Champs",
+   [
+    "#b9c468",
+    "#cdb86c",
+    "#8cb45a"
+   ]
+  ],
+  [
+   "Pierre",
+   [
+    "#d9c08a",
+    "#c9bea6",
+    "#efe8d8"
+   ]
+  ],
+  [
+   "Toits",
+   [
+    "#b39a66",
+    "#5f6a74",
+    "#a8503a"
+   ]
+  ],
+  [
+   "Manoir",
+   [
+    "#f2eee4",
+    "#c0563a",
+    "#2f3336"
+   ]
+  ],
+  [
+   "Falaises",
+   [
+    "#a49884",
+    "#8e8472",
+    "#e8d6a6"
+   ]
+  ]
+ ],
+ "zones": [
+  [
+   "manoir",
+   "manoir sur la colline et domaine clos (vue du sud-ouest)"
+  ],
+  [
+   "village",
+   "hameau et pré communal"
+  ],
+  [
+   "pente_sud",
+   "pente sud et crique (vue du sud)"
+  ],
+  [
+   "pente_nord",
+   "pente nord et crique (vue du nord)"
+  ],
+  [
+   "champs",
+   "champs, haies et fermes (vue du sud-est)"
+  ],
+  [
+   "cascade",
+   "ruisseau et cascade de la falaise est"
+  ],
+  [
+   "foret",
+   "forêt de chênes (vue de l'ouest)"
+  ],
+  [
+   "chapelle",
+   "chapelle et maisons à colombages"
+  ]
+ ],
+ "vues_blender": [
+  [
+   "manoir",
+   "manoir géorgien, portique et grille du domaine"
+  ],
+  [
+   "village",
+   "cottages à chaume et ardoise, colombages, puits"
+  ],
+  [
+   "pente_sud",
+   "pente sud, crique et jetée"
+  ],
+  [
+   "pente_nord",
+   "pente nord et crique"
+  ],
+  [
+   "champs",
+   "champs, haies, fermes et meules"
+  ],
+  [
+   "cascade",
+   "cascade dans la falaise est"
+  ]
+ ],
+ "niveaux": [
+  "hameau, manoir et fermes",
+  "+ maisons des chemins",
+  "+ hameaux des champs",
+  "+ phare du cap ouest"
+ ],
+ "differences": [
+  "Relief : plateau vert ceinturé de falaises, deux pentes seulement (Loguetown : plaine ouverte et port ; Water 7 : terrasses et canaux ; Wano : cuvette et murs).",
+  "Architecture : cottages bas en pierre, toits de chaume épais ou d'ardoise, colombages en encorbellement (Loguetown : palais toscans, tours, terre cuite ; Water 7 : maisons hautes colorées).",
+  "Monuments propres : manoir géorgien à portique et sa grille, chapelle à tour crénelée, auberge, cascade de falaise.",
+  "Campagne : champs en mosaïque et haies vives, meules ; aucune autre île n'a ce parcellaire.",
+  "Kit : rk_anglais.py (nouveau) ; reprises de rk_port limitées aux pièces génériques (fenêtres, barques, pont)."
+ ],
+ "limites": [
+  "En 3D, le badge d'armée se pose au bord nord du hameau et cache quelques toits au zoom proche (en 2.5D, il tombe dans les champs du sud).",
+  "Les haies vives forment des lignes sombres très visibles à la vue d'ensemble ; le parcellaire suit une grille décalée régulière [I].",
+  "Au zoom maximal du jeu, le manoir reste petit : portique, lucarnes et grille se lisent surtout dans les vues Blender.",
+  "Falaises lisses sans strates ; la cascade est fine et peu visible en jeu ; eau, cascade et barques immobiles.",
+  "Plan du hameau en rond autour du pré communal, positions des pentes, du manoir et des fermes : interprétation [I] ; aspect du manoir [I] / [C?]."
+ ],
+ "sources": [
+  "One Piece Wiki, « Syrup Village » : https://onepiece.fandom.com/wiki/Syrup_Village (consultée le 16/11/2026)",
+  "One Piece Wiki, « Gecko Islands » : https://onepiece.fandom.com/wiki/Gecko_Islands (consultée le 16/11/2026)",
+  "One Place (site de fans), « Syrup Village » : https://oneplacethreads.com/list-of-locations/syrup-village/ (consultée le 16/11/2026)"
+ ]
+}

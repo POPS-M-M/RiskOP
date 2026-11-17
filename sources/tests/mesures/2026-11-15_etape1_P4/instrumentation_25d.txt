@@ -1,0 +1,9 @@
+OK   canevas composés de Zou : 8664708 o (l3 seul = 6930440 ; l2 = 1734268 : le canevas moyen a pu être libéré par le cache d'origine)
+ÉCHEC changements de niveau 2.5D de Zou : grande → l3 ; l3 → l2 ; l2 → l1
+     compositions Zou : 523×829 · 1.7 Mo 1.0 ms | 1045×1658 · 6.6 Mo 4.9 ms
+ÉCHEC jalon « toutes les îles 2.5D prêtes » : undefined ms
+     jalons Zou : {"manifeste lu":1210,"image l1 prête":1333,"glTF lod2 lu":1390,"glTF lod1 lu":1570,"glTF lod0 lu":1853,"modèles 3D prêts":1856,"image l2 prête":30890,"image l3 prête":30890}
+OK   erreurs internes du moniteur : 0 
+OK   aucun contexte WebGL en 2.5D pur (0)
+     2.5D génération : construites 9 depuis cache 0 tranche max 20.8 ms · gels récents [[100,""],[67,""],[67,""],[67,""],[150,""]]
+OK   erreurs de page : 0

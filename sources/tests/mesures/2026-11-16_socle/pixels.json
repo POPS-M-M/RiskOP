@@ -1,0 +1,122 @@
+{
+ "Zou · neutre": {
+  "apres_vs_avant": {
+   "ecart_moyen_sur_255": 2.72,
+   "px_ecart_sup_16_pct": 3.92
+  },
+  "bruit_avant_vs_avant": {
+   "ecart_moyen_sur_255": 2.99,
+   "px_ecart_sup_16_pct": 4.23
+  }
+ },
+ "Zou · moi": {
+  "apres_vs_avant": {
+   "ecart_moyen_sur_255": 2.78,
+   "px_ecart_sup_16_pct": 3.4
+  },
+  "bruit_avant_vs_avant": {
+   "ecart_moyen_sur_255": 2.75,
+   "px_ecart_sup_16_pct": 3.6
+  }
+ },
+ "Zou · adv": {
+  "apres_vs_avant": {
+   "ecart_moyen_sur_255": 2.58,
+   "px_ecart_sup_16_pct": 3.42
+  },
+  "bruit_avant_vs_avant": {
+   "ecart_moyen_sur_255": 2.85,
+   "px_ecart_sup_16_pct": 3.3
+  }
+ },
+ "Zou · ville3": {
+  "apres_vs_avant": {
+   "ecart_moyen_sur_255": 2.77,
+   "px_ecart_sup_16_pct": 3.67
+  },
+  "bruit_avant_vs_avant": {
+   "ecart_moyen_sur_255": 2.63,
+   "px_ecart_sup_16_pct": 3.37
+  }
+ },
+ "Alabasta · neutre": {
+  "apres_vs_avant": {
+   "ecart_moyen_sur_255": 2.35,
+   "px_ecart_sup_16_pct": 3.56
+  },
+  "bruit_avant_vs_avant": {
+   "ecart_moyen_sur_255": 2.02,
+   "px_ecart_sup_16_pct": 2.98
+  }
+ },
+ "Alabasta · moi": {
+  "apres_vs_avant": {
+   "ecart_moyen_sur_255": 1.77,
+   "px_ecart_sup_16_pct": 2.23
+  },
+  "bruit_avant_vs_avant": {
+   "ecart_moyen_sur_255": 1.96,
+   "px_ecart_sup_16_pct": 2.56
+  }
+ },
+ "Alabasta · adv": {
+  "apres_vs_avant": {
+   "ecart_moyen_sur_255": 1.75,
+   "px_ecart_sup_16_pct": 2.06
+  },
+  "bruit_avant_vs_avant": {
+   "ecart_moyen_sur_255": 1.81,
+   "px_ecart_sup_16_pct": 2.26
+  }
+ },
+ "Alabasta · ville3": {
+  "apres_vs_avant": {
+   "ecart_moyen_sur_255": 1.61,
+   "px_ecart_sup_16_pct": 2.22
+  },
+  "bruit_avant_vs_avant": {
+   "ecart_moyen_sur_255": 1.64,
+   "px_ecart_sup_16_pct": 2.25
+  }
+ },
+ "Water_7 · neutre": {
+  "apres_vs_avant": {
+   "ecart_moyen_sur_255": 3.07,
+   "px_ecart_sup_16_pct": 4.4
+  },
+  "bruit_avant_vs_avant": {
+   "ecart_moyen_sur_255": 2.07,
+   "px_ecart_sup_16_pct": 3.09
+  }
+ },
+ "Water_7 · moi": {
+  "apres_vs_avant": {
+   "ecart_moyen_sur_255": 3.5,
+   "px_ecart_sup_16_pct": 4.41
+  },
+  "bruit_avant_vs_avant": {
+   "ecart_moyen_sur_255": 2.8,
+   "px_ecart_sup_16_pct": 4.4
+  }
+ },
+ "Water_7 · adv": {
+  "apres_vs_avant": {
+   "ecart_moyen_sur_255": 1.93,
+   "px_ecart_sup_16_pct": 2.26
+  },
+  "bruit_avant_vs_avant": {
+   "ecart_moyen_sur_255": 2.89,
+   "px_ecart_sup_16_pct": 3.73
+  }
+ },
+ "Water_7 · ville3": {
+  "apres_vs_avant": {
+   "ecart_moyen_sur_255": 2.69,
+   "px_ecart_sup_16_pct": 2.92
+  },
+  "bruit_avant_vs_avant": {
+   "ecart_moyen_sur_255": 3.06,
+   "px_ecart_sup_16_pct": 3.82
+  }
+ }
+}

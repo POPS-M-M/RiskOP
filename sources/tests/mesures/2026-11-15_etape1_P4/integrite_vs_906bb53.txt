@@ -1,0 +1,10 @@
+territoires | 53 | 53
+champs d'un territoire | identiques | 13 | 13
+géométrie (x,y,rayon,nom,propriétaire,voisins,contour) | IDENTIQUE | 66e20426d217 | 66e20426d217 | 5505
+grille de clic terrAt (285156 points) | IDENTIQUE | fc7fb47c2fbe | fc7fb47c2fbe | 2564212
+ISLE_ART | IDENTIQUE | 40457d165fcb | 40457d165fcb | 7432
+armées/jetons | IDENTIQUE | 97d170e1550e | 97d170e1550e | 2
+joueurs | IDENTIQUE | a3a27069d075 | a3a27069d075 | 140
+sauvegarde svBuild | DIFFÉRENT | d936fc12a403 | e9ef3501c3c3 | 20741
+erreurs page A [] B []
+sv diff @ 168 :0,"terr":1,"total":53,"diff":"normal","t":0,"date":1794766045251,"pace":3},"G":{"seed":2024,"diffKey":"normal","PK":3,"ME":0,"time":0,"spee || :0,"terr":1,"total":53,"diff":"normal","t":0,"date":1794766050103,"pace":3},"G":{"seed":2024,"diffKey":"normal","PK":3,"ME":0,"time":0,"spee

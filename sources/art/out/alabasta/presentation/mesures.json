@@ -1,0 +1,143 @@
+{
+ "colonnes": [
+  "Zou",
+  "Whole Cake",
+  "Water 7",
+  "Loguetown",
+  "Wano",
+  "Alabasta"
+ ],
+ "tableau": [
+  [
+   "Bâtiments (scène)",
+   [
+    "—",
+    "—",
+    "357",
+    "278 + 14",
+    "109 + monuments et ouvrages",
+    "171 + monuments"
+   ]
+  ],
+  [
+   "Triangles scène Blender",
+   [
+    "—",
+    "—",
+    "121 728",
+    "80 970",
+    "100 842",
+    "70 880"
+   ]
+  ],
+  [
+   "glTF lod0 · triangles / fichier / gzip",
+   [
+    "81311 · 1.94 Mo · 1.40 Mo",
+    "57679 · 1.33 Mo · 0.78 Mo",
+    "85206 · 4.59 Mo · 1.53 Mo",
+    "56677 · 3.44 Mo · 1.08 Mo",
+    "70585 · 4.20 Mo · 1.26 Mo",
+    "49611 · 3.12 Mo · 0.99 Mo"
+   ]
+  ],
+  [
+   "glTF lod1 · triangles / fichier",
+   [
+    "25550 · 0.67 Mo",
+    "18123 · 0.45 Mo",
+    "26779 · 1.62 Mo",
+    "17810 · 1.04 Mo",
+    "22181 · 1.33 Mo",
+    "15588 · 0.95 Mo"
+   ]
+  ],
+  [
+   "glTF lod2 · triangles / fichier",
+   [
+    "6966 · 251 Ko",
+    "4940 · 163 Ko",
+    "7301 · 446 Ko",
+    "4855 · 310 Ko",
+    "6049 · 465 Ko",
+    "4251 · 291 Ko"
+   ]
+  ],
+  [
+   "Images 2.5D (l1+l2+l3+villes, webp)",
+   [
+    "130 Ko",
+    "171 Ko",
+    "272 Ko",
+    "280 Ko",
+    "244 Ko",
+    "215 Ko"
+   ]
+  ],
+  [
+   "Export Blender complet (Cycles CPU)",
+   [
+    "188 s",
+    "171 s",
+    "158 s",
+    "150 s",
+    "174 s",
+    "137 s"
+   ]
+  ],
+  [
+   "Mémoire carte graphique (3D, tous LOD)",
+   [
+    "9.45 Mo",
+    "5.43 Mo",
+    "7.86 Mo",
+    "5.55 Mo",
+    "6.74 Mo",
+    "4.58 Mo"
+   ]
+  ],
+  [
+   "glTF gardés en mémoire JavaScript",
+   [
+    "2.98 Mo",
+    "2.07 Mo",
+    "6.78 Mo",
+    "4.90 Mo",
+    "6.12 Mo",
+    "4.48 Mo"
+   ]
+  ],
+  [
+   "Construction 3D en jeu (dont éclairage cuit)",
+   [
+    "441 ms (355)",
+    "425 ms (327)",
+    "484 ms (357)",
+    "294 ms (237)",
+    "437 ms (366)",
+    "265 ms (227)"
+   ]
+  ],
+  [
+   "Sommets envoyés à la carte graphique",
+   [
+    "341127",
+    "197400",
+    "284220",
+    "201843",
+    "244242",
+    "166992"
+   ]
+  ]
+ ],
+ "verifs": [
+  "0 erreur de page en 2.5D et en 3D (captures, gros plans, mesures) ; fichiers vérifiés par empreinte SHA-256 (format 2), 0 rejet ; Alabasta 3D construite depuis le modèle Blender.",
+  "Nom : « Alabasta » partout (carte, routes, recrutement d'Ace, textes, chaîne Blender). Contour identique : la graine de forme garde l'ancien nom ; islands.json identique hors nom.",
+  "Anciennes sauvegardes (« Arabasta ») converties à la lecture : testé, propriétaire et troupes restaurés, 0 erreur.",
+  "Zou, Whole Cake, Water 7, Loguetown et Wano : fichiers sources, .blend et exports inchangés.",
+  "Copie de test : le prototype 3D d'Alabasta ne sert plus que si le modèle Blender est absent ou désactivé.",
+  "Build public dist/risk_op.html reconstruit (sha256 08e04954…) : seules différences = renommage, graine de forme, conversion des sauvegardes. Rien de déployé.",
+  "Budget provisoire respecté : lod0 ≤ 90 000 triangles, mémoire graphique ≤ 10 Mo, images ≤ 300 Ko, construction ≤ 500 ms (265 ms).",
+  "Branche essai/ile-alabasta seulement ; rien sur main ni gh-pages."
+ ]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "risk-op-sources",
+  "private": true,
+  "scripts": {
+    "build": "node tools/build.js",
+    "build:test": "node tools/build.js essai-test"
+  },
+  "devDependencies": {
+    "acorn": "8.15.0"
+  }
+}

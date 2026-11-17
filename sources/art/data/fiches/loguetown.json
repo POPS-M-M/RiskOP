@@ -1,0 +1,162 @@
+{
+ "nom": "Loguetown",
+ "numero": "4",
+ "prefixe": "lg",
+ "voisine": "Water 7",
+ "canon": [
+  "[C] Ville d'East Blue sur Polestar Island : elle occupe presque toute l'île, à part quelques collines escarpées (Sportskeeda).",
+  "[C] Ville modelée sur Florence : tour rappelant le Palazzo Vecchio, édifice dans le style de la cathédrale de Florence, villa de type Médicis (Sportskeeda).",
+  "[C] L'échafaud se dresse au milieu de la ville : Gol D. Roger y a été exécuté (Sportskeeda ; Netflix Tudum, « la ville du début et de la fin »).",
+  "[C] Base de la Marine, boutiques, marché aux poissons (Sportskeeda) ; opéra (Netflix Tudum).",
+  "[C?] Forme exacte de l'échafaud, de la base de la Marine et du port : non décrites par les sources ouvertes consultées.",
+  "[I] Place décalée au sud du centre (badge du jeu), rues en étoile, enceinte et portes, port tourné vers Reverse Mountain,",
+  "     phare sur la jetée, collines au nord-est, villa sur la colline nord-ouest, loggia, chapelle, oliveraies.",
+  "Exclus : personnages, emblème de la Marine, copie de tout décor officiel (formes génériques d'inspiration toscane)."
+ ],
+ "signature": [
+  "Place centrale et échafaud",
+  "Palais massif à haute tour crénelée",
+  "Cathédrale à dôme côtelé et campanile de marbres polychromes",
+  "Mer de toits de tuiles rouges dans une enceinte crénelée",
+  "Port rond avec jetée et phare, base de la Marine blanche"
+ ],
+ "palette": [
+  [
+   "Enduits",
+   [
+    "#e6c27a",
+    "#d39a5f",
+    "#efdcb4",
+    "#e3b49a",
+    "#ead39a"
+   ]
+  ],
+  [
+   "Tuiles",
+   [
+    "#b85a3a",
+    "#a94d33",
+    "#c4673f",
+    "#9c4a30"
+   ]
+  ],
+  [
+   "Pierre",
+   [
+    "#c9a56e",
+    "#8f9089",
+    "#d2bd92"
+   ]
+  ],
+  [
+   "Marbres",
+   [
+    "#f1ede4",
+    "#4d7a5e",
+    "#d9a3a0"
+   ]
+  ],
+  [
+   "Persiennes",
+   [
+    "#4f6b3a",
+    "#5d7a45",
+    "#3e5530"
+   ]
+  ],
+  [
+   "Marine",
+   [
+    "#f2f0ea",
+    "#4a6a8a"
+   ]
+  ]
+ ],
+ "zones": [
+  [
+   "place",
+   "place de l'échafaud, palais et cathédrale"
+  ],
+  [
+   "cathedrale",
+   "cathédrale, dôme et campanile"
+  ],
+  [
+   "palais",
+   "palais à tour crénelée"
+  ],
+  [
+   "port",
+   "port, jetée et phare"
+  ],
+  [
+   "marine",
+   "base de la Marine (vue de l'ouest)"
+  ],
+  [
+   "villa",
+   "villa et jardins (vue du nord-ouest)"
+  ],
+  [
+   "collines",
+   "collines escarpées et chapelle (vue du nord-est)"
+  ],
+  [
+   "nord",
+   "faubourgs nord (vue du nord)"
+  ]
+ ],
+ "vues_blender": [
+  [
+   "place",
+   "place et échafaud"
+  ],
+  [
+   "cathedrale",
+   "cathédrale et campanile"
+  ],
+  [
+   "port",
+   "port rond, navires, quais"
+  ],
+  [
+   "villa",
+   "villa, jardins en terrasses, cyprès"
+  ],
+  [
+   "ville",
+   "remparts, villa et faubourgs"
+  ],
+  [
+   "collines",
+   "collines escarpées"
+  ]
+ ],
+ "niveaux": [
+  "ville et monuments",
+  "+ faubourgs",
+  "+ campagne, villa, chapelle",
+  "+ loggia et opéra"
+ ],
+ "differences": [
+  "Relief : plaine sans terrasses ni canaux, collines rocheuses au nord-est (Water 7 : cône de terrasses, canaux en cascade).",
+  "Monuments : palais à tour crénelée et cathédrale à dôme côtelé (Water 7 : fontaine géante, chantiers navals, gare).",
+  "Architecture : toits de tuiles bas à corniches débordantes, bossages, fenêtres cintrées, persiennes vertes (Water 7 : toits bleus et sarcelle, mansardes, balcons fleuris).",
+  "Organisation : rues en étoile vers une place, enceinte crénelée à portes, port rond à jetée (Water 7 : anneaux de terrasses, quais de canaux).",
+  "Kit : rk_toscane.py (nouveau) ; seules quelques pièces génériques de rk_port sont reprises (fenêtres simples, cyprès, navires, barques, lampadaires)."
+ ],
+ "limites": [
+  "Échelle : au zoom maximal 2.5D (3,5), l'île fait environ 300 pixels réels de large ; façades, persiennes et marbres ne se lisent qu'en 3D zoomée.",
+  "Badge d'armée : en 3D il se pose entre le palais et la cathédrale ; la place et l'échafaud restent visibles. En 2.5D il est au sud, sur le marché du port.",
+  "Caméra 3D par défaut (vue du sud) : les faubourgs nord, la villa et les collines se voient mieux en tournant la caméra (Q/E).",
+  "En 3D, la bande côtière (champs, oliveraies) paraît terne et tachée : effet de la simplification du maillage du sol sur les couleurs.",
+  "La ville couvrant presque toute l'île [C], il reste très peu de campagne (pas de vignes visibles) ; c'est voulu.",
+  "Formes de l'échafaud, de la base de la Marine et du port : génériques [I], faute de description dans les sources ouvertes.",
+  "La passe du port traverse la plage en ligne droite : lisible, mais un peu raide.",
+  "Les temps de construction varient d'une mesure à l'autre (Water 7 : 486 ms puis 344 ms) : à prendre comme ordres de grandeur."
+ ],
+ "sources": [
+  "Sportskeeda, « Loguetown » : https://wiki.sportskeeda.com/one-piece/loguetown-in-one-piece",
+  "Netflix Tudum, « ONE PIECE Season 2 Locations » : https://www.netflix.com/tudum/articles/one-piece-season-2-locations"
+ ]
+}

@@ -1,0 +1,6 @@
+îles copiées (format 1) : Zou, Whole Cake 6.58 Mo → /tmp/claude-0/-home-claude/e9fea69d-d6d1-5bce-8c4e-46780dac9b28/scratchpad/p4/maj/web_v1
+ouverture 1 (état 1)         {"version":"202611150516","l3":"zou/l3.webp","pixels":"b75bb086","l3_depuis_cache":false,"format":1}
+îles copiées (format 1) : Zou, Whole Cake 6.58 Mo → /tmp/claude-0/-home-claude/e9fea69d-d6d1-5bce-8c4e-46780dac9b28/scratchpad/p4/maj/web_v1
+ouverture 2 (état 2, même cache) {"version":"202611151830","l3":"zou/l3.webp","pixels":"b75bb086","l3_depuis_cache":true,"format":1}
+témoin (état 2, cache vide)   {"version":"202611151830","l3":"zou/l3.webp","pixels":"cfa9cd0a","l3_depuis_cache":false,"format":1}
+v1 : ouverture 2 → manifeste NOUVEAU (version 202611151830), image l3 ANCIENNE (cache) → INCOHÉRENT : ancien fichier en cache utilisé avec le nouveau manifeste
