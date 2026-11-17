@@ -126,6 +126,17 @@ def vues(slug):
             'palmiers': ((cx - 8, cy, 6), (180, 18), 30, 45),
             'arene': ((ax, ay, 2), (-90, 34), 20, 45),
         }
+    if slug == 'hommes_poissons':
+        import hp_plan as P
+        ax, ay, ar = P.PALAIS; az = P.z_bulle(ax, ay); px, py, pr = P.PLACE
+        return {
+            'generale': ((0, 0, 6), (100, 42), 140, 45),
+            'palais': ((ax, ay, az + 2), (80, 18), 30, 45),
+            'place': ((px, py, 2), (90, 34), 30, 45),
+            'port': (P.at_coast(P.PORT_A, .82) + (1,), (90, 26), 26, 45),
+            'moulins': ((P.MOULINS[0], P.MOULINS[1], 1.5), (-90, 30), 26, 45),
+            'recif': ((-23, 8, 1), (180, 22), 26, 45),
+        }
     raise KeyError(slug)
 
 

@@ -11,13 +11,15 @@ import rk_common as C
 
 slug = sys.argv[1]; apercu = '--apercu' in sys.argv; T0 = time.time()
 bpy.ops.wm.open_mainfile(filepath=os.path.join(C.ART, 'blender', 'islands', slug + '.blend'))
-NAMES = {'zou': 'Zou', 'whole_cake': 'Whole Cake Island', 'water_7': 'Water 7', 'loguetown': 'Loguetown', 'wano': 'Pays des Wa', 'alabasta': 'Alabasta', 'syrup': 'Archipel des Gecko', 'cocoyasi': 'Archipel des Konomi', 'laugh_tale': 'Laugh Tale', 'mary_geoise': 'Mary Geoise', 'elbaph': 'Elbaph', 'egghead': 'Egghead', 'la_ruche': 'La Ruche'}
+NAMES = {'zou': 'Zou', 'whole_cake': 'Whole Cake Island', 'water_7': 'Water 7', 'loguetown': 'Loguetown', 'wano': 'Pays des Wa', 'alabasta': 'Alabasta', 'syrup': 'Archipel des Gecko', 'cocoyasi': 'Archipel des Konomi', 'laugh_tale': 'Laugh Tale', 'mary_geoise': 'Mary Geoise', 'elbaph': 'Elbaph', 'egghead': 'Egghead', 'la_ruche': 'La Ruche', 'hommes_poissons': 'Île des Hommes-Poissons'}
 isl = C.island(NAMES[slug]); out = os.path.join(C.ART, 'out', slug); os.makedirs(out, exist_ok=True)
 sc = bpy.context.scene
 cols = {n: [o for o in C.coll(n).all_objects if o.type == 'MESH'] for n in ['RK_SOL', 'RK_DECOR', 'RK_VILLE_2', 'RK_VILLE_3', 'RK_VILLE_4']}
 base = cols['RK_SOL'] + cols['RK_DECOR']; allo = base + cols['RK_VILLE_2'] + cols['RK_VILLE_3'] + cols['RK_VILLE_4']
+SEUL25 = {o.name for o in allo if o.get('rk_25d_seul')}                 # objets « 2.5D seulement » (ex. bulles de verre) : hors glTF, hors cartes de hauteur
+base3d = [o for o in base if o.name not in SEUL25]; allo3d = [o for o in allo if o.name not in SEUL25]
 man = {'ile': isl['nom'], 'id': isl['id'], 'version': time.strftime('%Y%m%d%H%M'), 'repere': 'x est, y sud, z haut, unités de carte', 'genere': {}}
-fr1 = C.frame_info(isl, allo, 1); man['cadre'] = {'ext': fr1['ext'], 'zmax': fr1['zmax']}
+fr1 = C.frame_info(isl, allo3d, 1); man['cadre'] = {'ext': fr1['ext'], 'zmax': fr1['zmax']}
 
 # ------------------------------------------------------------------ 2.5D
 for n in ['RK_SOL', 'RK_DECOR', 'RK_VILLE_2', 'RK_VILLE_3', 'RK_VILLE_4', 'RK_REPERES']: C.coll(n).hide_render = True
@@ -34,7 +36,7 @@ def show_level(only=None):
     for c in copies:
         lv = lvl_of.get(c.name, 1)
         if only is None: c.hide_render = lv != 1; c.is_holdout = False
-        else: c.hide_render = False; c.is_holdout = lv != only
+        else: c.hide_render = c.name[:-4] in SEUL25; c.is_holdout = lv != only
 if apercu:
     sc.render.engine = 'BLENDER_WORKBENCH'; sc.display.shading.color_type = 'VERTEX'; sc.display.shading.light = 'STUDIO'
     sc.display.shading.show_shadows = True; sc.render.film_transparent = True
@@ -64,9 +66,9 @@ bpy.data.collections.remove(rc)
 # ------------------------------------------------------------------ 3D (glTF) : niveaux de détail par réduction de polygones
 glb = {}
 for lod, ratio in (('lod0', .7), ('lod1', .22), ('lod2', .06)):
-    nodes = {'BASE': base}
+    nodes = {'BASE': base3d}
     for k in (2, 3, 4):
-        if cols['RK_VILLE_%d' % k]: nodes['VILLE_%d' % k] = cols['RK_VILLE_%d' % k]
+        if cols['RK_VILLE_%d' % k]: nodes['VILLE_%d' % k] = [o for o in cols['RK_VILLE_%d' % k] if o.name not in SEUL25]
     t = time.time(); tris, sz = C.export_glb(nodes, os.path.join(out, lod + '.glb'), ratio)
     glb[lod] = {'fichier': lod + '.glb', 'triangles': tris, 'octets': sz, 'export_s': round(time.time() - t, 1)}
     print(lod, tris, 'tri', sz, 'o')
@@ -74,9 +76,9 @@ man['glb'] = glb
 
 # ------------------------------------------------------------------ hauteurs et repères
 ext = fr1['ext']; t = time.time()
-man['hauteurs'] = {'n': 128, 'ext': ext, 'code': 'Uint16 (h+4)/96*65535, ligne par ligne du nord au sud', 'sol': C.heightfield(cols['RK_SOL'], ext), 'obstacles': C.heightfield(allo, ext)}
+man['hauteurs'] = {'n': 128, 'ext': ext, 'code': 'Uint16 (h+4)/96*65535, ligne par ligne du nord au sud', 'sol': C.heightfield(cols['RK_SOL'], ext), 'obstacles': C.heightfield(allo3d, ext)}
 man.update(C.flags_and_marks()); man['ponton_angle'] = isl['ponton']
-zt = max((o.matrix_world @ __import__('mathutils').Vector(c)).z for o in base for c in o.bound_box); man['sommet'] = round(zt, 2)
+zt = max((o.matrix_world @ __import__('mathutils').Vector(c)).z for o in base3d for c in o.bound_box); man['sommet'] = round(zt, 2)
 man['genere']['duree_s'] = round(time.time() - T0, 1)
 json.dump(man, open(os.path.join(out, 'manifest.json'), 'w'), ensure_ascii=False)
 print('EXPORT ok', slug, round(time.time() - T0, 1), 's')

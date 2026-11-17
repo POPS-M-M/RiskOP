@@ -1,0 +1,156 @@
+{
+ "nom": "Île des Hommes-Poissons",
+ "numero": "14",
+ "prefixe": "hp",
+ "voisine": "Egghead et La Ruche",
+ "canon": [
+  "[C] Île à 10 000 m sous la mer, dans une bulle géante à double couche, à moitié remplie d'eau et de récif, à moitié d'air ; éclairée par les racines de l'Arbre Eve (One Piece Wiki, « Fish-Man Island »).",
+  "[C] Palais Ryugu dans une petite bulle au sommet de la bulle principale ; seul accès : le couloir de liaison ; tour de la Coquille dure au nord-est ; tour-prison (wiki « Ryugu Palace »).",
+  "[C] Lieux : place Gyoncorde au centre ; Coral Hill, ville portuaire ; Moulins à eau (nord) ; Usine de bonbons (nord-ouest) ; centre commercial (ouest) ; salle de réunion (sud-ouest) ; collines Gyoverly ; crique des Sirènes ; dojo.",
+  "[C?] De mémoire, à vérifier : maisons rondes en forme de coquillages et de bulles, coraux colorés et algues à la place des arbres, palais de style « palais du dragon » aux toits courbes roses et blancs.",
+  "[I] Positions des quartiers non situés par le wiki, forme du relief, plan de la place, aspect de tous les bâtiments, du palais et du dojo (niveau 4), roues à aubes, cheminées rayées de l'usine.",
+  "Exclus : personnages, sirènes et hommes-poissons, monstres marins, navires identifiables (l'arche Noah n'est pas représentée), Poneglyph, symboles, copie de tout décor officiel."
+ ],
+ "signature": [
+  "Bulle géante de verre au-dessus de l'île (2.5D), bord de bulle en anneaux (3D)",
+  "Palais Ryugu dans sa petite bulle au sommet, couloir de liaison jusqu'à l'île",
+  "Maisons rondes en coquillages et en bulles, tours en conques, couleurs de récif",
+  "Coraux et algues géants à la place des arbres",
+  "Place Gyoncorde au centre, port de Coral Hill au sud, moulins à eau au nord"
+ ],
+ "palette": [
+  [
+   "Corail",
+   [
+    "#f58aa0",
+    "#f7b2a0",
+    "#e86a7a"
+   ]
+  ],
+  [
+   "Nacre",
+   [
+    "#fff0f0",
+    "#f7e6dc",
+    "#e8d4c8"
+   ]
+  ],
+  [
+   "Récif",
+   [
+    "#ffb04a",
+    "#c86ad8",
+    "#f4d84a"
+   ]
+  ],
+  [
+   "Algues",
+   [
+    "#3a9a6a",
+    "#5ab47a",
+    "#2a7a5a"
+   ]
+  ],
+  [
+   "Bulle",
+   [
+    "#bfefff",
+    "#e8fbff",
+    "#8ad8f0"
+   ]
+  ],
+  [
+   "Sable",
+   [
+    "#f4e4c0",
+    "#e8d4a8",
+    "#d8c090"
+   ]
+  ]
+ ],
+ "zones": [
+  [
+   "palais",
+   "palais Ryugu et sa bulle (vue du sud)"
+  ],
+  [
+   "couloir",
+   "couloir de liaison (vue de l'est)"
+  ],
+  [
+   "place",
+   "place Gyoncorde (vue du sud)"
+  ],
+  [
+   "port",
+   "Coral Hill et son port (vue du sud)"
+  ],
+  [
+   "moulins",
+   "ville des Moulins à eau (vue du nord)"
+  ],
+  [
+   "usine",
+   "ville de l'Usine de bonbons (vue de l'ouest)"
+  ],
+  [
+   "crique",
+   "crique des Sirènes (vue de l'est)"
+  ],
+  [
+   "dojo",
+   "dojo (niveau 4, vue du sud-est)"
+  ]
+ ],
+ "vues_blender": [
+  [
+   "generale",
+   "l'île sous sa bulle"
+  ],
+  [
+   "palais",
+   "palais Ryugu, tour de la Coquille dure"
+  ],
+  [
+   "place",
+   "place Gyoncorde et maisons-coquillages"
+  ],
+  [
+   "port",
+   "Coral Hill et le port"
+  ],
+  [
+   "moulins",
+   "moulins à eau"
+  ],
+  [
+   "recif",
+   "récif, coraux et algues"
+  ]
+ ],
+ "niveaux": [
+  "palais, place, port de Coral Hill",
+  "+ maisons-coquillages du centre",
+  "+ quartiers (moulins, usine, collines)",
+  "+ dojo"
+ ],
+ "differences": [
+  "Relief : butte de récif en terrasses sous une bulle de verre ; La Ruche : roche brune et crâne ; Egghead : île verte et œuf sur un nuage.",
+  "Architecture : maisons rondes en coquillages et en bulles, tours en conques, nacre et corail ; La Ruche : cubes de briques ; Egghead : dômes et fusées.",
+  "Monuments propres : palais Ryugu dans sa bulle, couloir de liaison, place Gyoncorde, moulins à eau, usine de bonbons, dojo.",
+  "Végétation : coraux et algues, aucun arbre ; seule île sous une bulle.",
+  "Kit : rk_corail.py (nouveau) ; reprises génériques de rk_port (Frame, box, quad) et de rk_retrofutur (anneau, révolution)."
+ ],
+ "limites": [
+  "Bulles de verre seulement en 2.5D : le mode 3D n'a pas de transparence, la bulle géante et celle du palais y sont figurées par leurs anneaux de bord (outil d'export modifié pour exclure ces volumes du glTF, sans effet sur les autres îles).",
+  "Le wiki ne décrit ni le relief, ni les maisons, ni le palais : coquillages, bulles, coraux et toits roses viennent de mémoire [C?] ; formes, plan circulaire et positions des quartiers non situés sont inventés [I].",
+  "L'île est rendue à l'air libre, au-dessus de la mer du jeu : la moitié « eau et récif » de la bulle se réduit à un récif peu profond ; l'Arbre Eve et ses racines ne sont pas représentés.",
+  "Palais flottant au sommet de la bulle, relié par le couloir de liaison ; aspect du palais, du dojo (niveau 4), de l'usine et des moulins inventés [I].",
+  "Aucun personnage, aucune sirène, aucun navire (arche Noah absente) ; crique des Sirènes vide."
+ ],
+ "sources": [
+  "One Piece Wiki, « Fish-Man Island » : https://onepiece.fandom.com/wiki/Fish-Man_Island (consultée le 17/11/2026)",
+  "One Piece Wiki, « Ryugu Palace » : https://onepiece.fandom.com/wiki/Ryugu_Palace (consultée le 17/11/2026)",
+  "One Piece Wiki, « Gyoncorde Plaza », « Coral Hill », « Sunlight Tree Eve » (consultées le 17/11/2026)"
+ ]
+}
