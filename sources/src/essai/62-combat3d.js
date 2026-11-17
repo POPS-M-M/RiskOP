@@ -95,7 +95,7 @@ function b3Start(r){
   let dx=f.x-t.x,dy=f.y-t.y;const dl=Math.hypot(dx,dy)||1;dx/=dl;dy/=dl;
   const ang=Math.atan2(dy,dx),rcb=m.rc(ang),cnt=(a)=>Array.isArray(a)?a:[brCnt(a),0,0,0,0];
   const A0=brCnt(r.au),A1=brCnt(r.au2),D0=r.bs?1:brCnt(r.du),D1=r.bs?(r.bs.end==='kill'?0:1):brCnt(r.du2);
-  const atk=b3Roster(cnt(r.au),seed),def=r.bs?[{kind:5}]:b3Roster(cnt(r.du),seed+99);
+  const atk=b3Roster(cnt(r.au),seed),def=r.bs?[{kind:9}]:b3Roster(cnt(r.du),seed+99);
   if(!def.length&&!r.bs)for(let i=0;i<4;i++)def.push({kind:0});     /* île sans garnison : quelques habitants */
   const sa=Math.round(atk.length*(A0>0?A1/A0:0)),sd=r.bs?(D1>0?1:0):Math.round(def.length*(D0>0?D1/D0:0));
   const place=(list,surv,side)=>{const n=list.length,cols=Math.min(8,n);list.forEach((u,i)=>{u.side=side;u.lane=((i%cols)-(cols-1)/2)*2.7*(R/30);u.row=Math.floor(i/cols);u.ph=b3h(seed+i*13+side*5);u.fallT=Infinity;});
@@ -169,7 +169,7 @@ function b3Scene(c,now){
       if(tau>4.4&&fall<1){const j=Math.sin(tau*5+u.ph*9)*.45*(R/30);x+=Rn.dx*j*(side===0?1:-1);y+=Rn.dy*j*(side===0?1:-1);}
       /* retraite du perdant à la fin */
       const z=H(x,y)*kz+dZ*(1-kz);
-      if(u.kind===5){/* boss : silhouette géante */ continue;}
+      if(u.kind===9){/* boss : silhouette géante */ continue;}
       if(fall>=.99)continue;
       const pxOn=typeof pxNew!=='undefined'&&pxNew(),pxFull=pxOn&&PXS.combat,pxLand=pxOn&&side===0&&tau<4.7;
       /* débarquement : les nouveaux personnages (jusqu'au contact, fondu 4,4 → 4,7 s) ; la mêlée garde les soldats d'origine */

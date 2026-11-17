@@ -1,7 +1,7 @@
 /* ---------- onglets regroupés : 5 entrées au lieu de 8 ---------- */
 RK.last={};
-const GROUPS=[['army','Île','⚑',['army']],['eco','Économie','฿',['eco','city','tech']],['leg','Équipe','♛',['leg']],['dip','Diplo','⚖',['dip']],['world','Monde','◎',['obj','age','jrn','rel']]];
-const LEAF={army:'Île',eco:'Berrys',city:'Villes',tech:'Techno',leg:'Lieutenants',dip:'Diplomatie',obj:'Objectifs',age:'Âge',jrn:'Journal',rel:'Voie'};
+const GROUPS=[['army','Île','⚑',['army']],['eco','Économie','฿',['eco','city','tech']],['leg','Équipe','♛',['leg']],['dip','Diplo','⚖',['dip']],['world','Monde','◎',['rel','obj','age','jrn']]];
+const LEAF={army:'Île',eco:'Berrys',city:'Villes',tech:'Techno',leg:'Lieutenants',dip:'Diplomatie',obj:'Objectifs',age:'Âge',jrn:'Journal',rel:'Haki'};
 const groupOf=leaf=>GROUPS.find(g=>g[3].includes(leaf))||GROUPS[0];
 const rkHireReady=()=>{const p=players[ME];return !!p&&p.alive&&chOwnedBy(ME).length<chSlots()&&LEGENDS.some((L,i)=>!hireReason(p,i));};
 function pTurn2(){
@@ -37,7 +37,7 @@ function panelHTML(){
     const bdg=(G[0]==='dip'&&proposals.some(x=>x.to===ME))||(G[0]==='world'&&(agAlert()||RK.unread>0))||(G[0]==='leg'&&rkHireReady());
     return '<button role="tab" class="tab '+(on?'on':'')+'" data-act="tab" data-v="'+leaf+'" title="'+G[1]+'"><span class="ti">'+G[2]+'</span><span>'+G[1]+(bdg?'<i class="bdg"></i>':'')+'</span></button>';
   }).join('')+'</div>';
-  const leaves=g[3].filter(l=>l!=='rel'||ADV()||ui.tab==='rel');
+  const leaves=g[3];
   const sub=leaves.length>1?'<div class="subtabs">'+leaves.map(l=>'<button data-act="tab" data-v="'+l+'" class="'+(ui.tab===l?'on':'')+'">'+LEAF[l]+(l==='age'&&agAlert()?' •':'')+'</button>').join('')+'</div>':'';
   RK.last[g[0]]=ui.tab;
   const body={army:pArmy2,eco:pEco,city:pCity,tech:pTech,rel:pRel,dip:pDiplo,age:pAge2,leg:pLeg4,jrn:pJournal,obj:pObj}[ui.tab]||pArmy2;

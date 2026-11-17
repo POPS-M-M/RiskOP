@@ -56,11 +56,11 @@ function pCity(){
     +(c.q?'<div class="mqline"><span>En construction : '+esc(defOfBuild(c.q.id).n)+'</span><b>'+Math.ceil(c.q.dur-c.q.t)+' s</b></div>':'')
     +(c.lvl<3?'<div class="mqact"><div><b>Agrandir la ville</b><small>Niveau '+(c.lvl+1)+' : +1 emplacement, revenus ×'+String(1+.35*c.lvl).replace('.',',')+'</small></div>'+btn('upcity',t.id,upc+' ฿',p.gold<upc)+'</div>':'<p class="note">Niveau maximal atteint.</p>')+'</section>';
   /* bâtiments : constructibles d'abord, les verrouillés repliés avec leur condition */
-  const ids=Object.keys(BUILDINGS).filter(id=>!c.b.includes(id));
-  const lockedB=id=>{const r=buildReason(p,t,id,true);return !!r&&(r.startsWith('Techno')||r.startsWith('Une Voie'));};
+  const ids=Object.keys(BUILDINGS).filter(id=>!hasB(t,id)&&(!BUILDINGS[id].up||c.b.includes(BUILDINGS[id].up)||!famOf(id).slice(famOf(id).indexOf(id)).some(z=>c.b.includes(z))));
+  const lockedB=id=>{const r=buildReason(p,t,id,true);return !!r&&(r.startsWith('Techno')||r.startsWith('Nécessite'));};
   const okB=ids.filter(id=>!lockedB(id)),noB=ids.filter(lockedB);
   h+='<section class="mqs"><h4><em>2</em>Construire ici</h4>'+(okB.length?okB.map(id=>bRow(p,t,id,'b')).join(''):'<p class="note">Aucun bâtiment débloqué : achète une technologie (Techno).</p>')
-    +(noB.length?mqFold('bLock','Verrouillés ('+noB.length+')',noB.map(id=>{const d=BUILDINGS[id];return '<div class="mqline lk"><span>'+bico(id)+' '+esc(d.n)+' <small>'+esc(bDesc(id,p))+'</small></span><b>'+(d.tech&&!p.techs[d.tech]?'◈ '+esc(TECH[d.tech].n):'')+(d.rel&&!p.religion?' · Voie':'')+'</b></div>';}).join('')):'')+'</section>';
+    +(noB.length?mqFold('bLock','Verrouillés ('+noB.length+')',noB.map(id=>{const d=BUILDINGS[id];return '<div class="mqline lk"><span>'+bico(id)+' '+esc(d.n)+' <small>'+esc(bDesc(id,p))+'</small></span><b>'+(d.tech&&!p.techs[d.tech]?'◈ '+esc(TECH[d.tech].n):'')+(d.up&&!c.b.includes(d.up)?' · après '+esc(BUILDINGS[d.up].n):'')+(d.haki?' · Haki rang '+d.haki:'')+'</b></div>';}).join('')):'')+'</section>';
   /* lieux légendaires */
   const W=WONDERS.map(w=>({w,ow:wonderOwner(w.id),bd:wonderBuilding(w.id),lk:lockedB('w:'+w.id)}));
   const wOk=W.filter(x=>x.ow===null&&!x.lk&&!x.bd);

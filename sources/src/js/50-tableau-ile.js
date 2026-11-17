@@ -65,7 +65,7 @@ function terrSheet(t){
     /* recruter : seulement les unités disponibles ; les autres repliées */
     const okU=UK.filter(k=>unitOK(p,k)),noU=UK.filter(k=>!unitOK(p,k));
     s2+='<div class="mqsub">Recruter</div><div class="mqrec">'+okU.map(k=>{const U=UNITS[k],c=recruitCost(p,t,k);
-      return '<div class="mqu'+(ui.flash&&ui.flash.key==='u:'+k&&performance.now()<ui.flash.until?' flash':'')+'" title="'+esc(U.pl+' — '+U.d)+'"><b>'+U.pl+'</b><small>Att. '+U.atk+' · Déf. '+U.def+' · Vit. '+U.spd+'</small>'+btn('recruit',k,'+'+U.batch+' · '+c+' ฿',p.gold<c)+'</div>';}).join('')+'</div>';
+      return '<div class="mqu'+(ui.flash&&ui.flash.key==='u:'+k&&performance.now()<ui.flash.until?' flash':'')+'" title="'+esc(U.pl+' — '+U.d)+'"><b>'+U.pl+'</b><small>Att. '+U.atk+' · Déf. '+U.def+' · Vit. '+U.spd+'</small>'+btn('recruit',k,'+'+U.batch+' · '+c+' ฿ + '+recruitMen(p,t,k)+' ⚔',p.gold<c||p.faith<recruitMen(p,t,k))+'</div>';}).join('')+'</div>';
     if(noU.length)s2+=mqFold('lockU','Unités verrouillées ('+noU.length+')',noU.map(k=>'<div class="mqu locked"><b>'+UNITS[k].pl+'</b><small>Requiert '+TECH[UNITS[k].tech].n+'</small></div>').join(''));
     /* envoyer : même réglage que la carte « Envoyer des troupes » */
     s2+='<div class="mqsub">Envoyer depuis cette île</div><div class="segs">'+[25,50,75,100].map(v=>btn('pct',v/100,v+' %',false,Math.round(ui.pct*100)===v?'on':'')).join('')+'</div>'

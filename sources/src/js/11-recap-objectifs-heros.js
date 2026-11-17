@@ -49,7 +49,7 @@ function bossSheet(t){
   if(st.dead)return h+'<p class="note">Vaincu'+(st.by>=0?' par '+esc(players[st.by].name):'')+'. Trophée : '+esc(b.rew.nm)+' ('+fxText2(b.rew.fx)+').</p>';
   const ph=bossPhaseIdx(b,st.hp),g=rkBossGold(b,p),need=rkBossNeed(i);
   let best=0,bf=null;
-  for(const n of t.nb){const o=terrs[n];if(o.owner!==ME)continue;const A=attTotal(ME,o.u,t,true,o.id,undefined,0);if(A>best){best=A;bf=o;}}
+  for(const n of t.nb){const o=terrs[n];if(o.owner!==ME)continue;const A=attTotal(ME,o.u,t,false,o.id,undefined,0);if(A>best){best=A;bf=o;}}
   const ratio=need===Infinity?0:best/need;
   const verdict=need===Infinity?'Hors de portée.':!bf?'Aucune de vos îles n’est voisine : prenez d’abord une île adjacente.':ratio>=1.15?'<b style="color:var(--good)">Réalisable maintenant</b> avec l’armée de '+esc(bf.name)+'.':ratio>=.7?'<b style="color:#f2c75c">Presque</b> : rassemblez plus de troupes (ou affectez un lieutenant) avant d’attaquer.':'<b style="color:#ff9a8f">Trop tôt</b> : il vous faut environ '+Math.ceil(need/Math.max(1,best)*100)+' % de votre meilleure armée voisine.';
   h+='<div class="bossob"><b>Pourquoi l’attaquer ?</b>'

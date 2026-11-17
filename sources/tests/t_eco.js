@@ -35,7 +35,7 @@ const s0=await R(()=>__RK.players[0].sci);const tb=await click('.mqu [data-act="
 ok(vp.tag+' Technologie : achetée (savoir débité)',tb&&t1.n===3&&t1.s<s0,JSON.stringify(t1));
 const all=await R(()=>{const X=__RK;let n=0;for(const k of Object.keys(X.RK.mq.open))X.RK.mq.open[k]=true;for(const br of ['Militaire','Défense','Économie','Savoir','Mer'])X.RK.mq.open['tL'+br]=true;X.RK.mq.open.tOwn=true;X.renderPanel(true);const s=document.querySelector('#side');
  return X.TECHS.filter(t=>s.textContent.includes(t.n)).length;});
-ok(vp.tag+' Techno : les 26 technologies restent consultables (replis ouverts)',all===26,all);
+ok(vp.tag+' Techno : les '+all+' technologies restent consultables (replis ouverts)',all===await R(()=>__RK.TECHS.length),all);
 const ma=await click('[data-act="mast"]');ok(vp.tag+' Maîtrise : bouton existant toujours là',ma);
 ok(vp.tag+' Pas de défilement horizontal',await R(()=>document.documentElement.scrollWidth<=innerWidth+1));
 ok(vp.tag+' Aucune erreur JS',!errs.length,errs.join(' | '));

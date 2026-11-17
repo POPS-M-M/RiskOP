@@ -71,7 +71,7 @@ rep("return '<div class=\"card rpt\">'+btn('repback','','← Retour au journal')
 rep("function islandArt(t){","function islandArt_o(t){");
 rep("ctx.drawImage(off,0,0,W,H);","if(!r25SeaDraw())ctx.drawImage(off,0,0,W,H);");
 /* 12. couche RISK OP */
-const MODS=['10-economie-phases-ia.js','11-recap-objectifs-heros.js','12-interface-onglets-minicarte.js','13-tutoriel.js','14-sauvegardes.js','15-ages.js','16-multijoueur-factions.js','17-multijoueur-web.js','18-progression.js','20-rendu25d-biomes.js','21-rendu25d-decors.js','22-rendu25d-iles.js','23-rendu25d-moteur.js','30-illustrations.js','40-menu-boutons.js','50-tableau-ile.js','51-economie.js','52-musique-medievale.js'];
+const MODS=['10-economie-phases-ia.js','11-recap-objectifs-heros.js','12-interface-onglets-minicarte.js','13-tutoriel.js','14-sauvegardes.js','15-ages.js','16-multijoueur-factions.js','17-multijoueur-web.js','18-progression.js','20-rendu25d-biomes.js','21-rendu25d-decors.js','22-rendu25d-iles.js','23-rendu25d-moteur.js','30-illustrations.js','40-menu-boutons.js','50-tableau-ile.js','51-economie.js','52-musique-medievale.js','90-op-adventure.js'];
 const block='/* ================= RISK OP : couche d\'expérience (audit, tutoriel, phases, économie, sauvegardes, sons, âges) ================= */\n'
   +MODS.map(f=>'/* ─────────── module : '+f+' ─────────── */\n'+rd(f)).join('\n')
   +(essai?fs.readdirSync(SRC+'essai').filter(f=>f.endsWith('.js')).sort().map(f=>'\n/* ─────────── PROTOTYPE (version test) : '+f+' ─────────── */\n'+fs.readFileSync(SRC+'essai/'+f,'utf8')).join(''):'');
@@ -142,6 +142,15 @@ if(essai){
   rep("V.k=clamp(V.k*f,1,3.5);","V.k=clamp(V.k*f,1,(typeof W3!=='undefined'&&W3.act)?18:3.5);");
   rep('<button id="z-3d"','<button id="z-w3" class="on" aria-pressed="true" title="Monde 3D : caméra libre (clic droit : tourner et incliner, Q/E : tourner)">🌍</button><button id="z-3d"');
 }
+/* 26. OP Adventure : la Volonté devient ⚔ Recrues (textes affichés), les « recrues naturelles » deviennent des renforts naturels.
+       Ce remplacement porte sur les textes ; les identifiants internes (faith, rate.f) ne contiennent ni « Volonté » ni « ✹ ». */
+/* textes : l'unité de base s'appelle désormais « Recrues » (avant : Pirates) — seulement là où « pirates » désigne l'unité, pas le camp */
+for(const [x,y] of [["' de Pirates à la garnison","' de Recrues à la garnison"],["+' pirates sur vos territoires.'","+' Recrues sur vos territoires.'"],["'+25 pirates et +60 ฿","'+25 Recrues et +60 ฿"],
+  ["pirates ajoutés partout","Recrues ajoutées partout"],["'Lot de Pirates (+'","'Lot de Recrues (+'"],["ajoute des Pirates partout","ajoute des Recrues partout"],["Recrute un lot de Pirates.","Recrute un lot de Recrues."],
+  ["Les Pirates sont les moins chers et n’ont pas d’entretien","Les Recrues sont les moins chères et n’ont pas d’entretien (mais chaque lot consomme des ⚔ Recrues)"],["+' Pirates : garnison","+' Recrues : garnison"],
+  ["autres que les Pirates coûtent","autres que les Recrues coûtent"],["+CITY_UNITS+' pirates de plus que","+CITY_UNITS+' Recrues de plus que"],["+CITY_UNITS+' pirates de la garnison","+CITY_UNITS+' Recrues de la garnison"],["+CITY_UNITS+' pirates',","+CITY_UNITS+' Recrues',"]]){
+  if(!h.includes(x))throw new Error('texte OP Adventure introuvable : '+x);h=h.split(x).join(y);}
+h=h.replace(/Recrues naturelles/g,'Renforts naturels').replace(/recrues naturelles/g,'renforts naturels').replace(/Volonté/g,'Recrues').replace(/✹/g,'⚔');
 /* 16. nettoyage : anciennes versions de fonctions et fonctions mortes */
 h=require('./shake.js')(h,true);
 /* 17. sommaire en tête du script principal */
