@@ -114,6 +114,18 @@ def vues(slug):
             'fusee': ((lx, ly, 4), (-45, 22), 24, 45),
             'icebergs': (P.at_coast(math.radians(180), 1.0) + (2,), (180, 18), 34, 45),
         }
+    if slug == 'la_ruche':
+        import lr_plan as P
+        cx, cy, Rk = P.CRANE; ax, ay, ar = P.ARENE
+        return {
+            'generale': ((0, 0, 6), (100, 42), 140, 45),
+            'crane': ((cx, cy, 9), (90, 16), 38, 45),
+            'mer': ((cx, cy, 6.5), (80, 4), 62, 45),
+            'fissure': ((cx, cy, 12), (15, 34), 26, 45),
+            'ville': ((10, 12, 2), (55, 32), 28, 45),
+            'palmiers': ((cx - 8, cy, 6), (180, 18), 30, 45),
+            'arene': ((ax, ay, 2), (-90, 34), 20, 45),
+        }
     raise KeyError(slug)
 
 

@@ -1,0 +1,152 @@
+{
+ "nom": "La Ruche",
+ "numero": "13",
+ "prefixe": "lr",
+ "voisine": "Egghead et Elbaph",
+ "canon": [
+  "[C] Île petite à moyenne du Nouveau Monde, repaire de pirates ; socle de roche gris sombre ; constructions de roche jaunâtre (One Piece Wiki, « Hachinosu »).",
+  "[C] Au centre, une formation en forme de crâne domine tout le reste ; l'intérieur est une forteresse ; le « nez » est une baie vitrée géante, de petites fenêtres parsèment le crâne, les deux orbites traversent toute la structure.",
+  "[C] Autour du crâne, une ville de nombreux petits bâtiments, tous carrés et grossièrement bâtis en briques ; une série de palmiers démesurés entoure le crâne.",
+  "[C] Le crâne a été fendu par une attaque ; la ville, en partie détruite, a été remise en place et le crâne rafistolé avec des pansements.",
+  "[C] Crâne sculpté comme s'il portait un bandana, saillie en bouts de nœud à gauche : rendue par trois bosses de roche ; bandana non représenté (trop proche d'un emblème).",
+  "[I] D'après la photo fournie par l'utilisateur : crâne en dalle plate, roche brun-ocre (wiki : « jaunâtre »), maisons en terrasses au pied du crâne, aiguilles.",
+  "[I] Forme exacte du crâne et du socle, nombre et place des maisons, quais et jetées (le wiki ne mentionne pas de port), couleurs des briques et des toits, arène (niveau 4).",
+  "Exclus : personnages, pavillons et emblèmes pirates, bandana et nœud sculptés, navires identifiables, Poneglyph, gisement d'or, bar, copie de tout décor officiel."
+ ],
+ "signature": [
+  "Crâne de roche plat et géant au centre, fendu et couvert de pansements",
+  "Baie vitrée dans le nez, orbites qui traversent la roche, petites fenêtres",
+  "Maisons de briques en terrasses au pied du crâne, ville carrée autour",
+  "Palmiers démesurés autour du crâne",
+  "Socle de roche brune, falaises et aiguilles, quais"
+ ],
+ "palette": [
+  [
+   "Roche",
+   [
+    "#7a5a44",
+    "#8c6c52",
+    "#5e4636"
+   ]
+  ],
+  [
+   "Crâne",
+   [
+    "#b89470",
+    "#a07a5a",
+    "#7e5c44"
+   ]
+  ],
+  [
+   "Briques",
+   [
+    "#c49a6c",
+    "#b08460",
+    "#9a7050"
+   ]
+  ],
+  [
+   "Toits",
+   [
+    "#7a5a3a",
+    "#8a4a32",
+    "#5a4a3a"
+   ]
+  ],
+  [
+   "Pansements",
+   [
+    "#e8c8a0",
+    "#f0dcc0",
+    "#c8a07a"
+   ]
+  ],
+  [
+   "Palmiers",
+   [
+    "#4a8a3a",
+    "#5a9a44",
+    "#3a6a30"
+   ]
+  ]
+ ],
+ "zones": [
+  [
+   "crane",
+   "crâne-forteresse plat (vue du sud)"
+  ],
+  [
+   "nez",
+   "baie vitrée du nez et porte (vue du sud, de près)"
+  ],
+  [
+   "fissure",
+   "fissure et pansements (vue de l'est)"
+  ],
+  [
+   "ville",
+   "ville carrée de briques (vue du sud-est)"
+  ],
+  [
+   "palmiers",
+   "palmiers démesurés et terrasses (vue de l'ouest)"
+  ],
+  [
+   "port",
+   "quais et jetées (vue de l'ouest)"
+  ],
+  [
+   "arene",
+   "arène (niveau 4, vue du nord)"
+  ]
+ ],
+ "vues_blender": [
+  [
+   "mer",
+   "crâne et terrasses vus de la mer"
+  ],
+  [
+   "crane",
+   "crâne plat, orbites, nœud de roche"
+  ],
+  [
+   "fissure",
+   "fissure et pansements"
+  ],
+  [
+   "ville",
+   "maisons de briques"
+  ],
+  [
+   "palmiers",
+   "palmiers démesurés"
+  ],
+  [
+   "arene",
+   "arène (niveau 4)"
+  ]
+ ],
+ "niveaux": [
+  "crâne, terrasses, quais",
+  "+ maisons de briques",
+  "+ faubourgs",
+  "+ arène"
+ ],
+ "differences": [
+  "Relief : socle de roche brune, butte portant un monolithe plat en crâne ; Egghead : île verte basse, œuf sur un nuage ; Elbaph : arbre et plateformes.",
+  "Architecture : maisons carrées de briques jaunâtres, toits plats ou bas, grossières ; Egghead : dômes et fusées pastel ; Mary Geoise : demeures victoriennes blanches.",
+  "Monuments propres : crâne-forteresse plat, fendu et pansé, baie vitrée, orbites traversantes, bosses de nœud, palmiers démesurés, aiguilles de roche, quais.",
+  "Ambiance : roche brune et nue d'un seul ton, de la côte au crâne ; aucune autre île n'a de monolithe sculpté.",
+  "Kit : rk_repaire.py (nouveau) ; reprises génériques de rk_port (Frame, box, quad) et de rk_lib (Batch)."
+ ],
+ "limites": [
+  "Crâne plat, île entière brun-ocre, terrasses et aiguilles : [I] d'après la photo et les demandes de l'utilisateur ; le wiki dit socle « gris sombre », roche « jaunâtre ».",
+  "Le bandana sculpté n'est pas représenté ; la saillie en bouts de nœud est réduite à trois bosses de roche.",
+  "L'intérieur de la forteresse n'est pas modélisé : les orbites laissent voir le ciel, la baie vitrée est une vitre opaque ; fissure et pansements sont des rubans plats.",
+  "Ville en damier régulier et maisons répétitives [I] ; quais, jetées, entrepôts et arène (niveau 4) inventés : le wiki ne parle ni de port ni d'arène.",
+  "Crâne réduit à l'échelle du jeu (environ 15 unités de haut) ; en 2.5D il cache une partie des terrasses du nord."
+ ],
+ "sources": [
+  "One Piece Wiki, « Hachinosu » : https://onepiece.fandom.com/wiki/Hachinosu (consultée le 17/11/2026)"
+ ]
+}

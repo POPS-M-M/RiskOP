@@ -23,7 +23,7 @@ ART = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 args = [a for a in sys.argv[1:] if not a.startswith('--')]
 B64, FORMAT1, NETTOYER, INLINE_H = '--b64' in sys.argv, '--format1' in sys.argv, '--nettoyer' in sys.argv, '--hauteurs-incluses' in sys.argv
 dest = os.path.abspath(args[0] if args else os.path.join(ART, '..', 'dist'))
-NAMES = {'zou': 'Zou', 'whole_cake': 'Whole Cake Island', 'water_7': 'Water 7', 'loguetown': 'Loguetown', 'wano': 'Pays des Wa', 'alabasta': 'Alabasta', 'syrup': 'Archipel des Gecko', 'cocoyasi': 'Archipel des Konomi', 'laugh_tale': 'Laugh Tale', 'mary_geoise': 'Mary Geoise', 'elbaph': 'Elbaph', 'egghead': 'Egghead'}   # îles produites par la chaîne (prototypes, Water 7, puis île par île)
+NAMES = {'zou': 'Zou', 'whole_cake': 'Whole Cake Island', 'water_7': 'Water 7', 'loguetown': 'Loguetown', 'wano': 'Pays des Wa', 'alabasta': 'Alabasta', 'syrup': 'Archipel des Gecko', 'cocoyasi': 'Archipel des Konomi', 'laugh_tale': 'Laugh Tale', 'mary_geoise': 'Mary Geoise', 'elbaph': 'Elbaph', 'egghead': 'Egghead', 'la_ruche': 'La Ruche'}   # îles produites par la chaîne (prototypes, Water 7, puis île par île)
 
 
 def sha(b):
