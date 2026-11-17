@@ -81,5 +81,4 @@ Revues : Tactiques d'assaut (I, ex-« Fruits artificiels » II), Granit marin (u
 
 ## Limites connues
 - Multijoueur : un client ne voit pas l'état « en mer / blessé » des commandants (non transmis par la vue réseau) ; les règles s'appliquent quand même chez l'hôte.
-- Loki : type de Fruit non précisé (aucun bonus de type).
 - L'IA accumule beaucoup de ⚔ en fin de partie (elle manque de Berrys avant de manquer de Recrues).
