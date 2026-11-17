@@ -2,7 +2,7 @@
 
 > **Consigne à copier-coller** : « Produis l'île suivante de RISK OP en suivant exactement la procédure `sources/art/PROCEDURE_ILE.md` du dépôt RKS667/RiskOP (copie dans le projet : `claude/risk-op-procedure-ile.md`). Pars de la dernière branche d'île validée. Arrête-toi après la planche et attends ma validation. »
 
-État au 17/11/2026 : îles faites (Zou, Whole Cake Island, Water 7, Loguetown, Pays des Wa, Alabasta, Archipel des Gecko, Archipel des Konomi, Laugh Tale, Mary Geoise, Elbaph, Egghead, La Ruche, Île des Hommes-Poissons) + socle technique validé + carte 2 des 53 îles validée. Dernière branche validée : `essai/ile-hommes-poissons`.
+État au 17/11/2026 : îles faites (Zou, Whole Cake Island, Water 7, Loguetown, Pays des Wa, Alabasta, Archipel des Gecko, Archipel des Konomi, Laugh Tale, Mary Geoise, Elbaph, Egghead, La Ruche, Île des Hommes-Poissons, Marineford) + socle technique validé + carte 2 des 53 îles validée. Dernière branche validée : `essai/ile-marineford`.
 
 ---
 

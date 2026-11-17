@@ -1,0 +1,260 @@
+{
+ "colonnes": [
+  "Zou",
+  "W. Cake",
+  "Water 7",
+  "Logue.",
+  "Wa",
+  "Alabasta",
+  "Gecko",
+  "Konomi",
+  "Laugh T.",
+  "Mary G.",
+  "Elbaph",
+  "Egghead",
+  "La Ruche",
+  "H.-Poiss.",
+  "Marinef.",
+  "Ohara"
+ ],
+ "tableau": [
+  [
+   "Bâtiments (scène)",
+   [
+    "—",
+    "—",
+    "357",
+    "278 + 14",
+    "109 + monuments",
+    "171 + monuments",
+    "98 + monuments",
+    "101 + monuments",
+    "72 + monuments",
+    "45 + monuments",
+    "56 + monuments",
+    "60 + monuments",
+    "298 + monuments",
+    "136 + monuments",
+    "251 + monuments",
+    "121 + arbre"
+   ]
+  ],
+  [
+   "Triangles scène Blender",
+   [
+    "—",
+    "—",
+    "121 728",
+    "80 970",
+    "100 842",
+    "70 880",
+    "81 325",
+    "101 462",
+    "74 600",
+    "73 030",
+    "104 196",
+    "77 242",
+    "51 292",
+    "109 474",
+    "60 698",
+    "56 069"
+   ]
+  ],
+  [
+   "lod0 · triangles / gzip",
+   [
+    "81311 · 1.40 Mo",
+    "57679 · 0.78 Mo",
+    "85206 · 1.53 Mo",
+    "56677 · 1.08 Mo",
+    "70585 · 1.26 Mo",
+    "49611 · 0.99 Mo",
+    "56924 · 0.86 Mo",
+    "71019 · 1.30 Mo",
+    "52218 · 982 Ko",
+    "51117 · 741 Ko",
+    "72934 · 1.40 Mo",
+    "54065 · 1.07 Mo",
+    "35871 · 0.79 Mo",
+    "76627 · 1.34 Mo",
+    "42485 · 0.73 Mo",
+    "39246 · 0.81 Mo"
+   ]
+  ],
+  [
+   "lod1 · triangles / fichier",
+   [
+    "25550 · 0.67 Mo",
+    "18123 · 0.45 Mo",
+    "26779 · 1.62 Mo",
+    "17810 · 1.04 Mo",
+    "22181 · 1.33 Mo",
+    "15588 · 0.95 Mo",
+    "17889 · 0.77 Mo",
+    "22319 · 1.26 Mo",
+    "16407 · 727 Ko",
+    "16061 · 703 Ko",
+    "22919 · 977 Ko",
+    "17111 · 754 Ko",
+    "11271 · 599 Ko",
+    "24082 · 986 Ko",
+    "13351 · 717 Ko",
+    "12615 · 566 Ko"
+   ]
+  ],
+  [
+   "lod2 · triangles / fichier",
+   [
+    "6966 · 251 Ko",
+    "4940 · 163 Ko",
+    "7301 · 446 Ko",
+    "4855 · 310 Ko",
+    "6049 · 465 Ko",
+    "4251 · 291 Ko",
+    "4877 · 304 Ko",
+    "6086 · 355 Ko",
+    "4482 · 262 Ko",
+    "4440 · 266 Ko",
+    "6274 · 342 Ko",
+    "6972 · 277 Ko",
+    "3123 · 190 Ko",
+    "6566 · 325 Ko",
+    "3887 · 248 Ko",
+    "4440 · 210 Ko"
+   ]
+  ],
+  [
+   "Images 2.5D (webp, total)",
+   [
+    "130 Ko",
+    "171 Ko",
+    "272 Ko",
+    "280 Ko",
+    "244 Ko",
+    "215 Ko",
+    "195 Ko",
+    "230 Ko",
+    "161 Ko",
+    "162 Ko",
+    "177 Ko",
+    "224 Ko",
+    "139 Ko",
+    "264 Ko",
+    "188 Ko",
+    "180 Ko"
+   ]
+  ],
+  [
+   "Export Blender (Cycles CPU)",
+   [
+    "188 s",
+    "171 s",
+    "158 s",
+    "150 s",
+    "174 s",
+    "137 s",
+    "126 s",
+    "115 s",
+    "137 s",
+    "114 s",
+    "167 s",
+    "166 s",
+    "104 s",
+    "156 s",
+    "108 s",
+    "148 s"
+   ]
+  ],
+  [
+   "Mémoire graphique 3D ¹",
+   [
+    "2.58 Mo",
+    "1.76 Mo ‡",
+    "6.07 Mo",
+    "4.33 Mo ‡",
+    "5.44 Mo ‡",
+    "3.95 Mo",
+    "2.86 Mo",
+    "4.74 Mo",
+    "2.77 Mo ‡",
+    "1.93 Mo ‡",
+    "3.57 Mo",
+    "2.90 Mo",
+    "2.62 Mo",
+    "4.05 Mo ‡",
+    "3.34 Mo ‡",
+    "3.01 Mo"
+   ]
+  ],
+  [
+   "Sommets indexés envoyés",
+   [
+    "67827",
+    "45453 ‡",
+    "172858",
+    "125524 ‡",
+    "158008 ‡",
+    "115610",
+    "85173",
+    "132751",
+    "83176 ‡",
+    "56919 ‡",
+    "94851",
+    "86790",
+    "82832",
+    "105274 ‡",
+    "97535 ‡",
+    "86931"
+   ]
+  ],
+  [
+   "Cuisson lod0, en tranches ²",
+   [
+    "2.5 s",
+    "1.6 s ‡",
+    "7.3 s",
+    "4.1 s ‡",
+    "6.9 s ‡",
+    "5.0 s",
+    "2.9 s",
+    "6.3 s",
+    "2.2 s ‡",
+    "2.2 s ‡",
+    "6.2 s",
+    "3.5 s",
+    "4.3 s",
+    "4.8 s ‡",
+    "4.5 s ‡",
+    "2.4 s"
+   ]
+  ],
+  [
+   "Conquête 3D : reconstruction",
+   [
+    "3 ms",
+    "3 ms ‡",
+    "8 ms",
+    "8 ms ‡",
+    "4 ms ‡",
+    "5 ms",
+    "4 ms",
+    "3 ms",
+    "3 ms ‡",
+    "4 ms ‡",
+    "4 ms",
+    "8 ms",
+    "7 ms",
+    "3 ms ‡",
+    "3 ms ‡",
+    "9 ms"
+   ]
+  ]
+ ],
+ "verifs": [
+  "¹ Avec le socle : trois niveaux gardés indexés sur la carte graphique. ² Temps écoulé, tranches et images comprises (rendu logiciel) : ce n'est pas un gel. ‡ Valeur de la mesure précédente (île pas entièrement chargée pendant celle-ci).",
+  "Mesures faites avec le socle, sur la carte 2 (53 îles) ; 0 erreur de page en 2.5D et en 3D ; 118 fichiers vérifiés par empreinte SHA-256, 0 rejet ; Ohara 3D construite depuis le modèle Blender (lod2 → lod1 → lod0).",
+  "Les quinze autres îles Blender inchangées ; src/, tools/ et build public dist/risk_op.html inchangés (sha256 d7756047…).",
+  "Coordonnées, rayon, contour, zones de clic, règles et sauvegardes : non touchés.",
+  "Budget : lod0 39246 triangles (≤ 90 000 triangles) ; images 2.5D 180 Ko (≤ 300 Ko) ; mémoire graphique 3.01 Mo (≤ 10 Mo) ; conquête 3D 9 ms."
+ ]
+}

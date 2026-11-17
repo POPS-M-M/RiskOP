@@ -148,6 +148,17 @@ def vues(slug):
             'ville': ((15, 0, 1.5), (0, 30), 26, 45),
             'canons': ((-24, 6, 1), (180, 20), 22, 45),
         }
+    if slug == 'ohara':
+        import oh_plan as P
+        ax, ay, ar, ah = P.ARBRE; lx, ly, lr = P.LAC
+        return {
+            'generale': ((0, 0, 6), (100, 42), 145, 45),
+            'arbre': ((ax, ay, 9), (90, 14), 42, 45),
+            'bibliotheque': ((ax, ay + 3, 4), (90, 8), 20, 45),
+            'lac': ((lx, ly, 1), (0, 30), 26, 45),
+            'village': ((ax - 9, ay + 8, 1.5), (135, 30), 24, 45),
+            'port': (P.at_coast(P.PORT_A, .85) + (1,), (90, 26), 26, 45),
+        }
     raise KeyError(slug)
 
 

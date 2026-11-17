@@ -1,0 +1,151 @@
+{
+ "nom": "Ohara",
+ "numero": "16",
+ "prefixe": "oh",
+ "voisine": "Marineford et Île des Hommes-Poissons",
+ "canon": [
+  "[C] Petite île de West Blue ; l'Arbre de la Connaissance, arbre géant de 5 000 ans, entouré de maisons ; trop petite pour avoir d'autres lieux (One Piece Wiki, « Ohara »).",
+  "[C] L'arbre abritait une bibliothèque, la plus vieille construction connue, centre des archéologues du monde entier, avec des milliers de documents (wiki « Tree of Knowledge »).",
+  "[C] Un lac près de l'arbre, où les archéologues jetèrent les livres pendant l'incendie ; l'île fut ensuite entièrement détruite par un Buster Call.",
+  "[C?] De mémoire, à vérifier : portes et fenêtres percées dans le tronc, large couronne au-dessus du village.",
+  "[I] Île montrée intacte, avant le Buster Call ; maisons à colombages et toits de tuiles, chemins, champs, petit port, balcons et escaliers autour du tronc ; phare (niveau 4).",
+  "Exclus : personnages, géants, navires de la Marine, Poneglyph, copie de tout décor officiel."
+ ],
+ "signature": [
+  "Arbre de la Connaissance géant au centre, couronne immense",
+  "Tronc percé de fenêtres et de portes, balcons de la bibliothèque",
+  "Village de maisons serrées autour de l'arbre",
+  "Lac près de l'arbre",
+  "Campagne verte, petit port, phare (niveau 4)"
+ ],
+ "palette": [
+  [
+   "Écorce",
+   [
+    "#7a5a3e",
+    "#8a6a4a",
+    "#5e4430"
+   ]
+  ],
+  [
+   "Feuillage",
+   [
+    "#4f8e3e",
+    "#62a04a",
+    "#3a7034"
+   ]
+  ],
+  [
+   "Murs",
+   [
+    "#f2e8d4",
+    "#e8dcc0",
+    "#d8c8a8"
+   ]
+  ],
+  [
+   "Toits",
+   [
+    "#c0603e",
+    "#a84e34",
+    "#d8784e"
+   ]
+  ],
+  [
+   "Lac",
+   [
+    "#4a90c0",
+    "#5aa0d0",
+    "#3a7aa8"
+   ]
+  ],
+  [
+   "Champs",
+   [
+    "#c8b860",
+    "#a8c068",
+    "#d8c878"
+   ]
+  ]
+ ],
+ "zones": [
+  [
+   "arbre",
+   "Arbre de la Connaissance (vue du sud)"
+  ],
+  [
+   "bibliotheque",
+   "porte et balcons de la bibliothèque (vue du sud, de près)"
+  ],
+  [
+   "lac",
+   "lac et rive (vue de l'est)"
+  ],
+  [
+   "village",
+   "village autour de l'arbre (vue du sud-ouest)"
+  ],
+  [
+   "port",
+   "petit port (vue du sud)"
+  ],
+  [
+   "campagne",
+   "champs et bosquets (vue de l'ouest)"
+  ],
+  [
+   "phare",
+   "côte nord-est (le phare n'apparaît qu'au niveau de ville 4)"
+  ]
+ ],
+ "vues_blender": [
+  [
+   "generale",
+   "l'île et son arbre"
+  ],
+  [
+   "arbre",
+   "Arbre de la Connaissance, couronne"
+  ],
+  [
+   "bibliotheque",
+   "tronc, portes, fenêtres, balcons"
+  ],
+  [
+   "lac",
+   "lac et village"
+  ],
+  [
+   "village",
+   "maisons autour de l'arbre"
+  ],
+  [
+   "port",
+   "port et phare"
+  ]
+ ],
+ "niveaux": [
+  "arbre, cœur du village, port",
+  "+ maisons autour de l'arbre",
+  "+ fermes et hameaux",
+  "+ phare"
+ ],
+ "differences": [
+  "Relief : île verte et vallonnée, un seul arbre géant au centre ; Marineford : île plate pavée en croissant ; Elbaph : arbre portant des plateformes et montagnes enneigées.",
+  "Architecture : petites maisons à colombages et toits de tuiles orangées ; Marineford : immeubles de briques et d'acier ; Elbaph : longues maisons de bois.",
+  "Monuments propres : Arbre de la Connaissance et sa bibliothèque, lac, port, phare.",
+  "Arbre : tronc percé de fenêtres sur plusieurs étages, sans plateformes ; couronne d'un vert clair, au-dessus du village.",
+  "Kit : rk_savoir.py (nouveau) ; reprises génériques de rk_port (Frame, box, quad, prism_x) et de rk_retrofutur (anneau, révolution)."
+ ],
+ "limites": [
+  "Île montrée intacte, avant le Buster Call (choix [I], comme Marineford et Egghead) ; l'ancienne image du jeu montrait l'arbre brûlé et des ruines.",
+  "Le wiki ne décrit ni l'arbre (taille, forme) ni les maisons : portes, fenêtres, galeries, couronne, colombages et toits de tuiles sont de mémoire [C?] ou inventés [I].",
+  "Arbre réduit à l'échelle du jeu (environ 22 unités) ; sa couronne cache le cœur du village en 2.5D.",
+  "Champs, fermes, port et phare (niveau 4) inventés : le wiki dit l'île trop petite pour avoir d'autres lieux.",
+  "Aucun personnage, aucun géant, aucun navire de la Marine ; ni livres ni intérieur de la bibliothèque."
+ ],
+ "sources": [
+  "One Piece Wiki, « Ohara » : https://onepiece.fandom.com/wiki/Ohara (consultée le 17/11/2026)",
+  "One Piece Wiki, « Tree of Knowledge » : https://onepiece.fandom.com/wiki/Tree_of_Knowledge (consultée le 17/11/2026)"
+ ]
+}
