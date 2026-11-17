@@ -2,7 +2,7 @@
 
 > **Consigne à copier-coller** : « Produis l'île suivante de RISK OP en suivant exactement la procédure `sources/art/PROCEDURE_ILE.md` du dépôt RKS667/RiskOP (copie dans le projet : `claude/risk-op-procedure-ile.md`). Pars de la dernière branche d'île validée. Arrête-toi après la planche et attends ma validation. »
 
-État au 17/11/2026 : îles faites (Zou, Whole Cake Island, Water 7, Loguetown, Pays des Wa, Alabasta, Archipel des Gecko, Archipel des Konomi, Laugh Tale, Mary Geoise, Elbaph, Egghead, La Ruche) + socle technique validé + carte 2 des 53 îles validée. Dernière branche validée : `essai/ile-la-ruche`.
+État au 17/11/2026 : îles faites (Zou, Whole Cake Island, Water 7, Loguetown, Pays des Wa, Alabasta, Archipel des Gecko, Archipel des Konomi, Laugh Tale, Mary Geoise, Elbaph, Egghead, La Ruche, Île des Hommes-Poissons) + socle technique validé + carte 2 des 53 îles validée. Dernière branche validée : `essai/ile-hommes-poissons`.
 
 ---
 
@@ -49,6 +49,7 @@ Noms : ceux de la carte 2 (`carte2.json`). Le slug Blender reste court (ex. `'sy
 - Collections : `RK_SOL`, `RK_DECOR` (niveau 1), `RK_VILLE_2..4` ; marques `DRAPEAU_*` et `PONTON` (`C.mark`).
 - Éviter les faces superposées (taches noires dans Cycles).
 - **Objets 2.5D seulement** : le glTF n'a pas de matériaux (couleurs de sommets opaques). Un volume transparent (bulle de verre…) se marque `obj['rk_25d_seul'] = True` : `export_island.py` le garde dans les images 2.5D (Cycles) mais l'exclut du glTF, des cartes de hauteur et des calques de ville ; en 3D, le figurer autrement (anneaux, bord).
+- **Île sans fiche 2.5D d'origine** (nouvelle île de la carte 2, ex. Marineford) : le moteur 2.5D ne lui crée pas d'entrée ; depuis Marineford, `src/essai/73-iles-blender.js` lui donne une fiche sobre au chargement de son paquet (version test seulement, build public inchangé). Vérifier dans la capture 2.5D que l'image Blender s'affiche bien (avant / après différents).
 - **Niveau 1 vu en jeu** : vérifier dans la capture 3D que la ville du niveau 1 n'est pas vide (leçon La Ruche, Hommes-Poissons) ; terrain lisse (le relief bruité fait des taches grises dans le rendu 3D).
 - `python3 art/scripts/build_<slug>.py` → `art/blender/islands/<slug>.blend`.
 - Contrôle rapide : ajouter les vues de l'île dans `render_vues_ile.py` (fonction des vues), puis

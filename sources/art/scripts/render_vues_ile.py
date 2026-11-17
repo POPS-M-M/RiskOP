@@ -137,6 +137,17 @@ def vues(slug):
             'moulins': ((P.MOULINS[0], P.MOULINS[1], 1.5), (-90, 30), 26, 45),
             'recif': ((-23, 8, 1), (180, 22), 26, 45),
         }
+    if slug == 'marineford':
+        import mf_plan as P
+        qx, qy = P.QG; ex, ey = P.ECHAFAUD; bx, by, br, bg = P.BAIE
+        return {
+            'generale': ((0, 0, 6), (100, 42), 140, 45),
+            'qg': ((qx, qy, 5), (90, 16), 30, 45),
+            'echafaud': ((ex, ey + 2, 2.5), (90, 22), 22, 45),
+            'baie': ((bx, by, 1), (90, 34), 34, 45),
+            'ville': ((15, 0, 1.5), (0, 30), 26, 45),
+            'canons': ((-24, 6, 1), (180, 20), 22, 45),
+        }
     raise KeyError(slug)
 
 

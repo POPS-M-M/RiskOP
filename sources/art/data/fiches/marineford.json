@@ -1,0 +1,152 @@
+{
+ "nom": "Marineford",
+ "numero": "15",
+ "prefixe": "mf",
+ "voisine": "Île des Hommes-Poissons et La Ruche",
+ "canon": [
+  "[C] Île en forme de croissant, entièrement faite de briques et d'acier, avec des canons sur les bords ; près de l'archipel des Sabaody, contre la Red Line (One Piece Wiki, « Marineford »).",
+  "[C] Au fond, le QG : grand bâtiment en forteresse surmonté d'une haute tour à étages de style pagode ; une petite montagne à chaque coin, avec un petit bâtiment (wiki « Marine Headquarters »).",
+  "[C] Au centre, l'échafaud d'exécution entouré d'une petite ville arborée ; devant lui, la place Oris, vide, avec la cloche Ox à l'avant ; la ville couvre la plus grande partie de l'île.",
+  "[C] Baie fermée par le Mur d'encerclement : épais et hauts murs d'acier qui sortent de la mer, canons tirant par des fenêtres au sommet.",
+  "[I] Île montrée intacte, avant la guerre ; formes, couleurs (murs blancs, toits bleu-gris), plan en damier, quais de la baie ; Mur d'encerclement dressé au niveau 4.",
+  "Exclus : personnages, inscriptions, kanji et symbole de la Marine, drapeaux, navires identifiables, Portes de la Justice, copie de tout décor officiel."
+ ],
+ "signature": [
+  "Île en croissant autour d'une baie ouverte au sud",
+  "Quartier général au fond : forteresse et haute tour-pagode, quatre petites montagnes aux coins",
+  "Échafaud au centre, place Oris vide devant, cloche à l'avant",
+  "Ville de briques et d'acier sur toute l'île, canons sur les bords",
+  "Mur d'encerclement d'acier autour de la baie (niveau 4)"
+ ],
+ "palette": [
+  [
+   "Briques",
+   [
+    "#b07a64",
+    "#c08a70",
+    "#9a6a56"
+   ]
+  ],
+  [
+   "Acier",
+   [
+    "#8a96a4",
+    "#6c7886",
+    "#a8b2bc"
+   ]
+  ],
+  [
+   "Murs",
+   [
+    "#f2f0ea",
+    "#e4e0d6",
+    "#d0ccc2"
+   ]
+  ],
+  [
+   "Toits",
+   [
+    "#3c5f9e",
+    "#4a6aa8",
+    "#2e4a7e"
+   ]
+  ],
+  [
+   "Pierre",
+   [
+    "#d8d0c4",
+    "#c4bcb0",
+    "#b0a89c"
+   ]
+  ],
+  [
+   "Arbres",
+   [
+    "#4a8a44",
+    "#5a9a50",
+    "#3a7038"
+   ]
+  ]
+ ],
+ "zones": [
+  [
+   "qg",
+   "quartier général et tour-pagode (vue du sud)"
+  ],
+  [
+   "montagnes",
+   "montagnes des coins (vue de l'ouest)"
+  ],
+  [
+   "echafaud",
+   "échafaud et place Oris (vue du sud)"
+  ],
+  [
+   "baie",
+   "baie et quais (vue du sud)"
+  ],
+  [
+   "ville",
+   "ville de briques (vue de l'est)"
+  ],
+  [
+   "canons",
+   "canons des bords (vue de l'ouest)"
+  ],
+  [
+   "mur",
+   "Mur d'encerclement (niveau 4, vue du sud-est)"
+  ]
+ ],
+ "vues_blender": [
+  [
+   "generale",
+   "l'île en croissant et sa baie"
+  ],
+  [
+   "qg",
+   "quartier général, tour-pagode, montagnes"
+  ],
+  [
+   "echafaud",
+   "échafaud, place Oris, cloche"
+  ],
+  [
+   "baie",
+   "baie, quais, Mur d'encerclement"
+  ],
+  [
+   "ville",
+   "ville de briques et d'acier"
+  ],
+  [
+   "canons",
+   "canons des bords"
+  ]
+ ],
+ "niveaux": [
+  "QG, échafaud, place, cœur de la ville",
+  "+ immeubles du centre",
+  "+ bras du croissant",
+  "+ Mur d'encerclement"
+ ],
+ "differences": [
+  "Relief : île plate en croissant autour d'une baie, QG sur une terrasse au fond ; Hommes-Poissons : butte de récif sous une bulle ; La Ruche : roche brune et crâne.",
+  "Architecture : immeubles de briques et d'acier, toits bleu-gris, forteresse et pagode ; Hommes-Poissons : coquillages et bulles ; La Ruche : cubes de briques jaunes.",
+  "Monuments propres : QG et tour-pagode, quatre montagnes, échafaud, place Oris, cloche, canons, Mur d'encerclement.",
+  "Seule île militaire : canons sur tout le pourtour, sol pavé, aucune nature hors de la petite ville arborée.",
+  "Kit : rk_marine.py (nouveau) ; reprises génériques de rk_port (Frame, box, quad, hip) et de rk_retrofutur (révolution)."
+ ],
+ "limites": [
+  "Le croissant est creusé à l'intérieur du contour du jeu (zones de clic inchangées) : la baie y est une échancrure au sud, sa forme exacte est une interprétation [I].",
+  "Ni inscription, ni kanji, ni symbole, ni drapeau : la façade du QG et les pavillons des montagnes restent nus ; aucun navire dans la baie.",
+  "Couleurs (murs blancs, toits bleu-gris, briques), plan en damier, quais, piliers de l'échafaud et cloche : interprétation [I] ; le wiki ne donne aucune couleur.",
+  "Mur d'encerclement montré dressé au niveau 4 seulement ; il fait le tour de la baie et longe le goulet, sans les Portes de la Justice.",
+  "Île intacte, avant la guerre : ni glace, ni fissure, ni ruines."
+ ],
+ "sources": [
+  "One Piece Wiki, « Marineford » : https://onepiece.fandom.com/wiki/Marineford (consultée le 17/11/2026)",
+  "One Piece Wiki, « Marine Headquarters » : https://onepiece.fandom.com/wiki/Marine_Headquarters (consultée le 17/11/2026)",
+  "One Piece Wiki, « Summit War of Marineford » : https://onepiece.fandom.com/wiki/Summit_War_of_Marineford (consultée le 17/11/2026)"
+ ]
+}

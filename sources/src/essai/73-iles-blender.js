@@ -65,6 +65,10 @@ function blxFetch(name,nom){
 async function blxInit(){
   if(typeof fetch!=='function'||location.protocol==='file:'){BLX.err='fichiers d\'îles non accessibles (page ouverte en local)';return;}
   const add=(name,slug,m)=>{BLX.isl[name]={slug,m,f:{},img:{},cv:{},z:{},u25:{},img_ld:{},g3:{},u3:{},ready3:false,fail3:false,Hs:null,Ho:null,ys:0};blxImg(name,'l1');
+    /* île de la carte 2 sans fiche 2.5D d'origine (ex. Marineford) : le moteur 2.5D ne lui crée aucune entrée, donc les images Blender ne
+       seraient jamais posées ; on lui donne une fiche sobre (rendu d'attente et de secours) et on crée son entrée si la file est déjà lancée */
+    if(typeof ISLE_ART!=='undefined'&&!ISLE_ART[name]){ISLE_ART[name]={b:'stone',town:8,house:'stone',trees:[['round',4]]};
+      if(typeof R25!=='undefined'&&R25.order&&typeof terrs!=='undefined'){const t=terrs.find(x=>x.name===name);if(t)r25Entry(t);}}
     /* manifeste arrivé après la construction de l'île en 3D (partie ouverte directement en 3D) : demander son modèle */
     if(typeof W3!=='undefined'&&W3.gl&&!BLX.off&&!W3.cuOff)blxWant3(name,'lod2');};
   try{const r=await fetch(BLX.base+'index.json',{cache:'no-cache'});if(!r.ok)throw new Error('index.json introuvable ('+r.status+')');const idx=await r.json();

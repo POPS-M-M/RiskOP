@@ -11,7 +11,7 @@ import rk_common as C
 
 slug = sys.argv[1]; apercu = '--apercu' in sys.argv; T0 = time.time()
 bpy.ops.wm.open_mainfile(filepath=os.path.join(C.ART, 'blender', 'islands', slug + '.blend'))
-NAMES = {'zou': 'Zou', 'whole_cake': 'Whole Cake Island', 'water_7': 'Water 7', 'loguetown': 'Loguetown', 'wano': 'Pays des Wa', 'alabasta': 'Alabasta', 'syrup': 'Archipel des Gecko', 'cocoyasi': 'Archipel des Konomi', 'laugh_tale': 'Laugh Tale', 'mary_geoise': 'Mary Geoise', 'elbaph': 'Elbaph', 'egghead': 'Egghead', 'la_ruche': 'La Ruche', 'hommes_poissons': 'Île des Hommes-Poissons'}
+NAMES = {'zou': 'Zou', 'whole_cake': 'Whole Cake Island', 'water_7': 'Water 7', 'loguetown': 'Loguetown', 'wano': 'Pays des Wa', 'alabasta': 'Alabasta', 'syrup': 'Archipel des Gecko', 'cocoyasi': 'Archipel des Konomi', 'laugh_tale': 'Laugh Tale', 'mary_geoise': 'Mary Geoise', 'elbaph': 'Elbaph', 'egghead': 'Egghead', 'la_ruche': 'La Ruche', 'hommes_poissons': 'Île des Hommes-Poissons', 'marineford': 'Marineford'}
 isl = C.island(NAMES[slug]); out = os.path.join(C.ART, 'out', slug); os.makedirs(out, exist_ok=True)
 sc = bpy.context.scene
 cols = {n: [o for o in C.coll(n).all_objects if o.type == 'MESH'] for n in ['RK_SOL', 'RK_DECOR', 'RK_VILLE_2', 'RK_VILLE_3', 'RK_VILLE_4']}
