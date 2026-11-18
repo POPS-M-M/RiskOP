@@ -1,0 +1,174 @@
+{
+ "troupe": "marine_recrue",
+ "unite_du_jeu": "guerrier (kind 0) : « Recrues » dans OP Adventure, « Pirates » dans le jeu d'origine",
+ "source": "marine_recrues_.png",
+ "sha256": "2ade8b942b54c24c9384723159ae2b0e48fc87453defe1d7323f8d0653a87b3e",
+ "atlas": [
+  1024,
+  1024
+ ],
+ "convention": {
+  "version": 1,
+  "hauteur_ref_u": 0.54,
+  "image_ref": "garde_1",
+  "hauteur_ref_px": 177,
+  "u_par_px": 0.0030508,
+  "regard": "droite",
+  "note": "1 unité du monde ≈ 3,3 m (portes des kits Blender 0,55–0,70 u, étages 0,80–0,95 u) ; soldat de 1,80 m casquette comprise = 0,54 u, de la semelle au sommet de la casquette dans la pose de garde. Toutes les images gardent le même nombre d'unités par pixel."
+ },
+ "poses": {
+  "garde_1": {
+   "centre_approx": [
+    101,
+    119
+   ],
+   "role": "attente",
+   "note": "garde, poings levés ; appuis identiques à garde_2 et garde_3"
+  },
+  "garde_2": {
+   "centre_approx": [
+    294,
+    120
+   ],
+   "role": "attente",
+   "note": "même garde, tête et buste un peu plus bas"
+  },
+  "garde_3": {
+   "centre_approx": [
+    486,
+    120
+   ],
+   "role": "attente",
+   "note": "même garde, buste le plus bas : respiration garde_1 → garde_3"
+  },
+  "course": {
+   "centre_approx": [
+    105,
+    382
+   ],
+   "role": "deplacement",
+   "note": "course vers la droite, un seul appui ; image unique, pas de cycle de course dans la planche"
+  },
+  "accroupi_1": {
+   "centre_approx": [
+    93,
+    636
+   ],
+   "role": "reaction",
+   "note": "accroupi, une main sur le genou"
+  },
+  "accroupi_2": {
+   "centre_approx": [
+    287,
+    638
+   ],
+   "role": "reaction",
+   "note": "même position, tête plus basse : presque identique à accroupi_1"
+  },
+  "cri": {
+   "centre_approx": [
+    492,
+    628
+   ],
+   "role": "reaction",
+   "note": "penché en arrière, poing levé, yeux fermés : cri de guerre ou de victoire (interprétation)"
+  },
+  "attaque_1": {
+   "centre_approx": [
+    84,
+    918
+   ],
+   "role": "preparation",
+   "note": "poing droit armé au-dessus de l'épaule, pieds rapprochés : pose isolée. Le coup suivant (attaque_2) part du bras gauche, donc attaque_1 n'est pas l'armé de ce coup ; utilisée seule, une fois, à l'entrée en mêlée"
+  },
+  "attaque_2": {
+   "centre_approx": [
+    301,
+    917
+   ],
+   "role": "attaque",
+   "note": "coup de poing gauche à mi-course, pas en avant"
+  },
+  "attaque_3": {
+   "centre_approx": [
+    540,
+    919
+   ],
+   "role": "attaque",
+   "note": "coup de poing gauche bras tendu, buste penché"
+  },
+  "attaque_4": {
+   "centre_approx": [
+    792,
+    920
+   ],
+   "role": "attaque",
+   "note": "retour : bras baissés, mêmes appuis que attaque_2 et attaque_3"
+  },
+  "ombre": {
+   "centre_approx": [
+    960,
+    31
+   ],
+   "role": "ombre",
+   "note": "ellipse grise fournie avec la planche : ombre de contact"
+  }
+ },
+ "animations": {
+  "garde": {
+   "images": [
+    "garde_1",
+    "garde_2",
+    "garde_3",
+    "garde_2"
+   ],
+   "ips": 4,
+   "boucle": true,
+   "note": "séquence réelle : mêmes appuis, seul le haut du corps descend puis remonte"
+  },
+  "deplacement": {
+   "images": [
+    "course"
+   ],
+   "ips": 0,
+   "boucle": true,
+   "note": "image fixe : la planche ne contient qu'une pose de course"
+  },
+  "preparation": {
+   "images": [
+    "attaque_1"
+   ],
+   "ips": 0,
+   "boucle": false,
+   "note": "pose isolée (voir la note de attaque_1)"
+  },
+  "attaque": {
+   "images": [
+    "attaque_2",
+    "attaque_3",
+    "attaque_4"
+   ],
+   "ips": 8,
+   "boucle": false,
+   "note": "coup de poing gauche : départ → bras tendu → retour ; mêmes appuis sur les trois images (séquence réelle)"
+  },
+  "reaction": {
+   "images": [
+    "accroupi_1",
+    "accroupi_2"
+   ],
+   "ips": 5,
+   "boucle": false,
+   "note": "touché / à terre (interprétation) : on reste sur accroupi_2"
+  },
+  "cri": {
+   "images": [
+    "cri"
+   ],
+   "ips": 0,
+   "boucle": false,
+   "note": "image fixe (fin de débarquement, victoire)"
+  }
+ },
+ "marge": 16
+}

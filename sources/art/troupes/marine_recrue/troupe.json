@@ -1,0 +1,456 @@
+{
+ "troupe": "marine_recrue",
+ "source": {
+  "fichier": "marine_recrues_.png",
+  "sha256": "2ade8b942b54c24c9384723159ae2b0e48fc87453defe1d7323f8d0653a87b3e",
+  "octets": 196219,
+  "taille": [
+   1024,
+   1024
+  ]
+ },
+ "convention": {
+  "version": 1,
+  "hauteur_ref_u": 0.54,
+  "image_ref": "garde_1",
+  "hauteur_ref_px": 177,
+  "u_par_px": 0.0030508,
+  "regard": "droite",
+  "note": "1 unité du monde ≈ 3,3 m (portes des kits Blender 0,55–0,70 u, étages 0,80–0,95 u) ; soldat de 1,80 m casquette comprise = 0,54 u, de la semelle au sommet de la casquette dans la pose de garde. Toutes les images gardent le même nombre d'unités par pixel."
+ },
+ "images": {
+  "garde_1": {
+   "planche": [
+    51,
+    31,
+    101,
+    177
+   ],
+   "atlas": [
+    16,
+    16,
+    101,
+    177
+   ],
+   "role": "attente",
+   "note": "garde, poings levés ; appuis identiques à garde_2 et garde_3",
+   "appuis": [
+    {
+     "x0": 1,
+     "x1": 37,
+     "bas": 176,
+     "px": 618
+    },
+    {
+     "x0": 63,
+     "x1": 98,
+     "bas": 160,
+     "px": 455
+    }
+   ],
+   "ancre": [
+    49.8,
+    169.0
+   ]
+  },
+  "garde_2": {
+   "planche": [
+    245,
+    33,
+    100,
+    175
+   ],
+   "atlas": [
+    149,
+    16,
+    100,
+    175
+   ],
+   "role": "attente",
+   "note": "même garde, tête et buste un peu plus bas",
+   "appuis": [
+    {
+     "x0": 0,
+     "x1": 38,
+     "bas": 174,
+     "px": 652
+    },
+    {
+     "x0": 61,
+     "x1": 96,
+     "bas": 158,
+     "px": 457
+    }
+   ],
+   "ancre": [
+    48.8,
+    167.0
+   ]
+  },
+  "garde_3": {
+   "planche": [
+    437,
+    34,
+    100,
+    174
+   ],
+   "atlas": [
+    281,
+    16,
+    100,
+    174
+   ],
+   "role": "attente",
+   "note": "même garde, buste le plus bas : respiration garde_1 → garde_3",
+   "appuis": [
+    {
+     "x0": 0,
+     "x1": 40,
+     "bas": 173,
+     "px": 661
+    },
+    {
+     "x0": 61,
+     "x1": 96,
+     "bas": 157,
+     "px": 457
+    }
+   ],
+   "ancre": [
+    49.2,
+    166.0
+   ]
+  },
+  "course": {
+   "planche": [
+    32,
+    297,
+    147,
+    172
+   ],
+   "atlas": [
+    413,
+    16,
+    147,
+    172
+   ],
+   "role": "deplacement",
+   "note": "course vers la droite, un seul appui ; image unique, pas de cycle de course dans la planche",
+   "appuis": [
+    {
+     "x0": 76,
+     "x1": 128,
+     "bas": 171,
+     "px": 854
+    }
+   ],
+   "ancre": [
+    102.0,
+    172.0
+   ]
+  },
+  "accroupi_1": {
+   "planche": [
+    46,
+    561,
+    96,
+    152
+   ],
+   "atlas": [
+    592,
+    16,
+    96,
+    152
+   ],
+   "role": "reaction",
+   "note": "accroupi, une main sur le genou",
+   "appuis": [
+    {
+     "x0": 16,
+     "x1": 81,
+     "bas": 151,
+     "px": 1361
+    }
+   ],
+   "ancre": [
+    48.5,
+    152.0
+   ]
+  },
+  "accroupi_2": {
+   "planche": [
+    239,
+    564,
+    98,
+    149
+   ],
+   "atlas": [
+    720,
+    16,
+    98,
+    149
+   ],
+   "role": "reaction",
+   "note": "même position, tête plus basse : presque identique à accroupi_1",
+   "appuis": [
+    {
+     "x0": 15,
+     "x1": 80,
+     "bas": 148,
+     "px": 1350
+    }
+   ],
+   "ancre": [
+    47.5,
+    149.0
+   ]
+  },
+  "cri": {
+   "planche": [
+    430,
+    540,
+    125,
+    178
+   ],
+   "atlas": [
+    850,
+    16,
+    125,
+    178
+   ],
+   "role": "reaction",
+   "note": "penché en arrière, poing levé, yeux fermés : cri de guerre ou de victoire (interprétation)",
+   "appuis": [
+    {
+     "x0": 36,
+     "x1": 76,
+     "bas": 177,
+     "px": 660
+    },
+    {
+     "x0": 91,
+     "x1": 120,
+     "bas": 164,
+     "px": 328
+    }
+   ],
+   "ancre": [
+    80.8,
+    171.5
+   ]
+  },
+  "attaque_1": {
+   "planche": [
+    29,
+    830,
+    111,
+    177
+   ],
+   "atlas": [
+    16,
+    226,
+    111,
+    177
+   ],
+   "role": "preparation",
+   "note": "poing droit armé au-dessus de l'épaule, pieds rapprochés : pose isolée. Le coup suivant (attaque_2) part du bras gauche, donc attaque_1 n'est pas l'armé de ce coup ; utilisée seule, une fois, à l'entrée en mêlée",
+   "appuis": [
+    {
+     "x0": 25,
+     "x1": 53,
+     "bas": 176,
+     "px": 607
+    },
+    {
+     "x0": 76,
+     "x1": 110,
+     "bas": 163,
+     "px": 487
+    }
+   ],
+   "ancre": [
+    66.0,
+    170.5
+   ]
+  },
+  "attaque_2": {
+   "planche": [
+    245,
+    829,
+    113,
+    178
+   ],
+   "atlas": [
+    159,
+    226,
+    113,
+    178
+   ],
+   "role": "attaque",
+   "note": "coup de poing gauche à mi-course, pas en avant",
+   "appuis": [
+    {
+     "x0": 1,
+     "x1": 37,
+     "bas": 177,
+     "px": 624
+    },
+    {
+     "x0": 69,
+     "x1": 103,
+     "bas": 162,
+     "px": 458
+    }
+   ],
+   "ancre": [
+    52.5,
+    170.5
+   ]
+  },
+  "attaque_3": {
+   "planche": [
+    470,
+    833,
+    142,
+    174
+   ],
+   "atlas": [
+    304,
+    226,
+    142,
+    174
+   ],
+   "role": "attaque",
+   "note": "coup de poing gauche bras tendu, buste penché",
+   "appuis": [
+    {
+     "x0": 0,
+     "x1": 35,
+     "bas": 173,
+     "px": 619
+    },
+    {
+     "x0": 67,
+     "x1": 102,
+     "bas": 158,
+     "px": 463
+    }
+   ],
+   "ancre": [
+    51.0,
+    166.5
+   ]
+  },
+  "attaque_4": {
+   "planche": [
+    726,
+    835,
+    133,
+    172
+   ],
+   "atlas": [
+    478,
+    226,
+    133,
+    172
+   ],
+   "role": "attaque",
+   "note": "retour : bras baissés, mêmes appuis que attaque_2 et attaque_3",
+   "appuis": [
+    {
+     "x0": 0,
+     "x1": 35,
+     "bas": 171,
+     "px": 620
+    },
+    {
+     "x0": 67,
+     "x1": 102,
+     "bas": 155,
+     "px": 458
+    }
+   ],
+   "ancre": [
+    51.0,
+    164.0
+   ]
+  },
+  "ombre": {
+   "planche": [
+    919,
+    10,
+    82,
+    43
+   ],
+   "atlas": [
+    643,
+    226,
+    82,
+    43
+   ],
+   "role": "ombre",
+   "note": "ellipse grise fournie avec la planche : ombre de contact",
+   "ancre": [
+    41.0,
+    21.5
+   ]
+  }
+ },
+ "animations": {
+  "garde": {
+   "images": [
+    "garde_1",
+    "garde_2",
+    "garde_3",
+    "garde_2"
+   ],
+   "ips": 4,
+   "boucle": true,
+   "note": "séquence réelle : mêmes appuis, seul le haut du corps descend puis remonte"
+  },
+  "deplacement": {
+   "images": [
+    "course"
+   ],
+   "ips": 0,
+   "boucle": true,
+   "note": "image fixe : la planche ne contient qu'une pose de course"
+  },
+  "preparation": {
+   "images": [
+    "attaque_1"
+   ],
+   "ips": 0,
+   "boucle": false,
+   "note": "pose isolée (voir la note de attaque_1)"
+  },
+  "attaque": {
+   "images": [
+    "attaque_2",
+    "attaque_3",
+    "attaque_4"
+   ],
+   "ips": 8,
+   "boucle": false,
+   "note": "coup de poing gauche : départ → bras tendu → retour ; mêmes appuis sur les trois images (séquence réelle)"
+  },
+  "reaction": {
+   "images": [
+    "accroupi_1",
+    "accroupi_2"
+   ],
+   "ips": 5,
+   "boucle": false,
+   "note": "touché / à terre (interprétation) : on reste sur accroupi_2"
+  },
+  "cri": {
+   "images": [
+    "cri"
+   ],
+   "ips": 0,
+   "boucle": false,
+   "note": "image fixe (fin de débarquement, victoire)"
+  }
+ },
+ "ombre": "ombre"
+}

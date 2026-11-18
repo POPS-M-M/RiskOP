@@ -2,7 +2,7 @@
    La scène n'invente rien : elle rejoue le rapport de bataille déjà calculé par le jeu (troupes engagées par type, pertes, vainqueur,
    boss, fortin). Aucune règle n'est modifiée : le calcul a eu lieu avant, la scène n'est qu'une mise en images, ~9 s, que l'on peut passer.
    En partie solo, le temps de jeu est suspendu pendant la scène ; en ligne il continue. Sans monde 3D actif, le comportement d'origine est conservé. */
-const B3={on:true,run:null,q:[],DUR:10.5};
+const B3={on:true,run:null,q:[],DUR:10.5,sp:1,camD:1,fx:1};   /* sp, camD, fx : écart des rangs, distance de la caméra et taille des effets (1 = d'origine ; réglés par 77-troupes-sprites.js quand les troupes sont à l'échelle) */
 try{if(localStorage.getItem('rk-b3')==='0')B3.on=false;}catch(_){}
 const b3Tau=now=>B3.freeze!==undefined?B3.freeze:(now-B3.run.t0)/1000;
 {const st=document.createElement('style');st.textContent='body.b3run .selcard{display:none!important}';document.head.appendChild(st);}
@@ -98,7 +98,7 @@ function b3Start(r){
   const atk=b3Roster(cnt(r.au),seed),def=r.bs?[{kind:9}]:b3Roster(cnt(r.du),seed+99);
   if(!def.length&&!r.bs)for(let i=0;i<4;i++)def.push({kind:0});     /* île sans garnison : quelques habitants */
   const sa=Math.round(atk.length*(A0>0?A1/A0:0)),sd=r.bs?(D1>0?1:0):Math.round(def.length*(D0>0?D1/D0:0));
-  const place=(list,surv,side)=>{const n=list.length,cols=Math.min(8,n);list.forEach((u,i)=>{u.side=side;u.lane=((i%cols)-(cols-1)/2)*2.7*(R/30);u.row=Math.floor(i/cols);u.ph=b3h(seed+i*13+side*5);u.fallT=Infinity;});
+  const place=(list,surv,side)=>{const n=list.length,cols=Math.min(8,n);list.forEach((u,i)=>{u.side=side;u.lane=((i%cols)-(cols-1)/2)*2.7*(R/30)*B3.sp;u.row=Math.floor(i/cols);u.ph=b3h(seed+i*13+side*5);u.fallT=Infinity;});
     /* les perdants tombent pendant l'affrontement ; les survivants sont tirés au sort */
     const idx=list.map((u,i)=>[b3h(seed+i*7+side*31),i]).sort((a,b)=>a[0]-b[0]).map(q=>q[1]),nf=n-surv;for(let q=0;q<nf;q++)list[idx[q]].fallT=5.1+(q+b3h(seed+q+side))/Math.max(1,nf)*3.2;};
   place(atk,sa,0);place(def,sd,1);
@@ -128,8 +128,9 @@ window.addEventListener('keydown',e=>{if(!B3.run)return;if(e.key===' '||e.key===
 /* ---------- caméra : plan large sur les navires, puis rapprochement, puis recul sur le vainqueur ---------- */
 function b3Cam(now){
   const Rn=B3.run,tau=b3Tau(now),k=b3e(0,B3.DUR,tau),yaw0=Math.atan2(-Rn.dx,Rn.dy),yaw=yaw0+Math.sin(tau*.32)*.35+b3e(7,B3.DUR,tau)*.5;
-  const D=Rn.R*(5.6-3.2*b3e(0,4.4,tau)+1.4*b3e(8,B3.DUR,tau)),pitch=.80-.22*b3e(0,4.4,tau)+.18*b3e(8,B3.DUR,tau);
-  const cw=Rn.rcb*(.7-.2*b3e(1.2,4,tau)+.2*b3e(8,B3.DUR,tau)),cx=Rn.t.x+Rn.dx*cw,cy=Rn.t.y+Rn.dy*cw;
+  const D=Rn.R*(5.6-3.2*b3e(0,4.4,tau)+1.4*b3e(8,B3.DUR,tau))*B3.camD,pitch=.80-.22*b3e(0,4.4,tau)+.18*b3e(8,B3.DUR,tau);
+  const cw=Rn.rcb*(.7-.2*b3e(1.2,4,tau)+.2*b3e(8,B3.DUR,tau));let cx=Rn.t.x+Rn.dx*cw,cy=Rn.t.y+Rn.dy*cw;
+  if(Rn.fx!==undefined){const o=Rn.rcb*(.45*(1-b3e(1.2,4.4,tau))+.1*b3e(8,B3.DUR,tau));cx=Rn.fx+Rn.dx*o;cy=Rn.fy+Rn.dy*o;}   /* front choisi sur un terrain dégagé (troupes à l'échelle) */
   return w3Cam(cx,cy,yaw,pitch,D);
 }
 
@@ -140,7 +141,7 @@ function b3Scene(c,now){
   const bx=t.x+Rn.dx*Rn.rcb*.86,by=t.y+Rn.dy*Rn.rcb*.86;                   /* plage d'abordage */
   const px=-Rn.dy,py=Rn.dx;                                                   /* perpendiculaire à l'axe d'attaque */
   const clashD=Rn.rcb*.30;                                                    /* ligne de front : à 30 % du bord vers le centre */
-  const cxl=t.x+Rn.dx*clashD,cyl=t.y+Rn.dy*clashD;
+  const cxl=Rn.fx!==undefined?Rn.fx:t.x+Rn.dx*clashD,cyl=Rn.fx!==undefined?Rn.fy:t.y+Rn.dy*clashD,sA=Rn.fx!==undefined?1:-1;   /* sA = 1 : attaquants côté mer, défenseurs côté terre (troupes à l'échelle) ; -1 : placement d'origine */
   const faceA=Math.atan2(-Rn.dy,-Rn.dx),faceD=Math.atan2(Rn.dy,Rn.dx);
   /* navires : arrivée du large (0 → 2 s), puis au mouillage */
   const ks=R/30*1.5;
@@ -155,18 +156,18 @@ function b3Scene(c,now){
       /* ils voyagent sur le pont de leur navire (on ne les voit jamais ailleurs), puis descendent à terre et rejoignent la ligne de front */
       const sh=Rn.ships[u.sh||0]||Rn.ships[0],sl=u.sl||0,du=(2.5-Math.floor(sl/2)*1.1)*ks,dw=(sl%2?.5:-.5)*ks,ca=Math.cos(faceA),sa=Math.sin(faceA);
       const x0=sh.x+ca*du-sa*dw,y0=sh.y+sa*du+ca*dw,k1=b3e(2.1+u.ph*.7,3.4+u.ph*.7,tau),k2=b3e(3.1,4.6,tau);
-      const x1=bx+px*lane*.95,y1=by+py*lane*.95,x2=cxl-Rn.dx*(row*2.7+1.2)*(R/30)+px*lane,y2=cyl-Rn.dy*(row*2.7+1.2)*(R/30)+py*lane;
+      const x1=bx+px*lane*.95,y1=by+py*lane*.95,x2=cxl+sA*Rn.dx*(row*2.7+1.2)*(R/30)*B3.sp+px*lane,y2=cyl+sA*Rn.dy*(row*2.7+1.2)*(R/30)*B3.sp+py*lane;
       let x=x0+(x1-x0)*k1,y=y0+(y1-y0)*k1;x=x+(x2-x)*k2;y=y+(y2-y)*k2;
       return [x,y,1.1*ks+(sh.bob||0),b3e(.25,.8,k1)];
     }
-    const hx0=t.x+Rn.dx*(-.1*R)+px*lane*.8,hy0=t.y+Rn.dy*(-.1*R)+py*lane*.8,k=b3e(2.4,4.4,tau),x2=cxl+Rn.dx*(1.2+row*2.7)*(R/30)+px*lane,y2=cyl+Rn.dy*(1.2+row*2.7)*(R/30)+py*lane;
+    const hx0=Rn.fx!==undefined?cxl-Rn.dx*(4.5+row*1.2)+px*lane:t.x+Rn.dx*(-.1*R)+px*lane*.8,hy0=Rn.fx!==undefined?cyl-Rn.dy*(4.5+row*1.2)+py*lane:t.y+Rn.dy*(-.1*R)+py*lane*.8,k=b3e(2.4,4.4,tau),x2=cxl-sA*Rn.dx*(1.2+row*2.7)*(R/30)*B3.sp+px*lane,y2=cyl-sA*Rn.dy*(1.2+row*2.7)*(R/30)*B3.sp+py*lane;
     return [hx0+(x2-hx0)*k,hy0+(y2-hy0)*k,0,1];
   };
   const drawSide=(list,side,col,face)=>{
     for(const u of list){
       const fall=tau<u.fallT?0:b3e(u.fallT,u.fallT+.55,tau),idle=side===0&&tau<2.1+u.ph*.7,anim=idle?0:tau*(tau<4.4?1:1.6)+u.ph*6;let [x,y,dZ,kz]=pos(u,side);
       /* mêlée : va-et-vient au contact */
-      if(tau>4.4&&fall<1){const j=Math.sin(tau*5+u.ph*9)*.45*(R/30);x+=Rn.dx*j*(side===0?1:-1);y+=Rn.dy*j*(side===0?1:-1);}
+      if(tau>4.4&&fall<1){const j=Math.sin(tau*5+u.ph*9)*.45*(R/30)*B3.sp;x+=Rn.dx*j*(side===0?1:-1);y+=Rn.dy*j*(side===0?1:-1);}
       /* retraite du perdant à la fin */
       const z=H(x,y)*kz+dZ*(1-kz);
       if(u.kind===9){/* boss : silhouette géante */ continue;}
@@ -175,8 +176,8 @@ function b3Scene(c,now){
       /* débarquement : les nouveaux personnages (jusqu'au contact, fondu 4,4 → 4,7 s) ; la mêlée garde les soldats d'origine */
       if(pxFull||pxLand)pxFight(u,side,x,y,z,face,tau,fall,pxFull&&tau>4.4,R,Rn,pxFull?1:1-b3e(4.4,4.7,tau),idle);
       if(!pxFull&&!(pxLand&&tau<4.4))b3Unit(G,x,y,z,face,col,u.kind,anim,fall,sc);
-      if(tau>4.6&&fall===0&&b3h(Math.floor(tau*4)+u.ph*50+side)>.9){sparks++;FX.ico(x+Math.cos(face)*.7,y+Math.sin(face)*.7,z+1.1*sc,.22*sc,1,r3c('#fff1a8'),null,0);}
-      if(tau>=u.fallT&&tau<u.fallT+1.4)FX.ico(x,y,z+.8*sc+(tau-u.fallT)*.9,(.35+(tau-u.fallT)*.5)*sc,.8,[.78,.78,.8,1],null,0);
+      if(tau>4.6&&fall===0&&b3h(Math.floor(tau*4)+u.ph*50+side)>.9){sparks++;FX.ico(x+Math.cos(face)*.7*B3.fx,y+Math.sin(face)*.7*B3.fx,z+1.1*sc*B3.fx,.22*sc*B3.fx,1,r3c('#fff1a8'),null,0);}
+      if(tau>=u.fallT&&tau<u.fallT+1.4)FX.ico(x,y,z+(.8*sc+(tau-u.fallT)*.9)*B3.fx,(.35+(tau-u.fallT)*.5)*sc*B3.fx,.8,[.78,.78,.8,1],null,0);
     }
     return list.filter(u=>tau>=u.fallT).length;
   };
@@ -190,11 +191,11 @@ function b3Scene(c,now){
     fallenD=dead?1:0;}
   else fallenD=drawSide(Rn.def,1,r3c(Rn.dc),faceD);
   /* tirs : flèches des tireurs et boulets des canons, de la ligne de front vers l'adversaire */
-  if(tau>3.2&&tau<8.4)for(let i=0;i<7;i++){const ph=((tau*1.1+i*.37)%1),sd=i%2,from=sd?[cxl+Rn.dx*3,cyl+Rn.dy*3]:[cxl-Rn.dx*4,cyl-Rn.dy*4],to=sd?[cxl-Rn.dx*2.5,cyl-Rn.dy*2.5]:[cxl+Rn.dx*2.5,cyl+Rn.dy*2.5];
-    const ax=from[0]+(to[0]-from[0])*ph+px*(i-3)*1.1*(R/30),ay=from[1]+(to[1]-from[1])*ph+py*(i-3)*1.1*(R/30),az=H(ax,ay)+1.1*sc+Math.sin(ph*Math.PI)*3.6*(R/30);
-    FX.ico(ax,ay,az,.16*sc,1,i%3===0?r3c('#2a2a2e'):r3c('#f1e6c4'),null,0);}
+  if(tau>3.2&&tau<8.4)for(let i=0;i<7;i++){const ph=((tau*1.1+i*.37)%1),sd=i%2,q=B3.sp,from=sd?[cxl+Rn.dx*3*q,cyl+Rn.dy*3*q]:[cxl-Rn.dx*4*q,cyl-Rn.dy*4*q],to=sd?[cxl-Rn.dx*2.5*q,cyl-Rn.dy*2.5*q]:[cxl+Rn.dx*2.5*q,cyl+Rn.dy*2.5*q];
+    const ax=from[0]+(to[0]-from[0])*ph+px*(i-3)*1.1*(R/30)*q,ay=from[1]+(to[1]-from[1])*ph+py*(i-3)*1.1*(R/30)*q,az=H(ax,ay)+1.1*sc*B3.fx+Math.sin(ph*Math.PI)*3.6*(R/30)*q;
+    FX.ico(ax,ay,az,.16*sc*Math.max(B3.fx,.1),1,i%3===0?r3c('#2a2a2e'):r3c('#f1e6c4'),null,0);}
   /* poussière du débarquement */
-  if(tau>2.2&&tau<4)for(let i=0;i<6;i++){const k=(tau-2.2)/1.8,a=i/6*6.28;FX.ico(bx+px*(i-2.5)*2.4*(R/30)+Math.cos(a)*k,by+py*(i-2.5)*2.4*(R/30)+Math.sin(a)*k,H(bx,by)+.3+k*.7,(.18+k*.42)*(R/30)*1.1,.7,[.86,.8,.68,1],null,0);}   /* petits nuages de sable au débarquement */
+  if(tau>2.2&&tau<4)for(let i=0;i<6;i++){const k=(tau-2.2)/1.8,a=i/6*6.28;const q=B3.sp;FX.ico(bx+px*(i-2.5)*2.4*(R/30)*q+Math.cos(a)*k*q,by+py*(i-2.5)*2.4*(R/30)*q+Math.sin(a)*k*q,H(bx,by)+(.3+k*.7)*q,(.18+k*.42)*(R/30)*1.1*q,.7,[.86,.8,.68,1],null,0);}   /* petits nuages de sable au débarquement */
   /* fortin : onde de choc sur la ligne de front quand elle s'écroule */
   if(Rn.r.wall&&tau>4.4&&tau<8.2){const k=(tau*2)%1;FX.ico(t.x+Rn.dx*clashD*.5,t.y+Rn.dy*clashD*.5,H(t.x,t.y)+1.2+k*1.5,(.4+k*.7)*sc,.8,[1,.85,.5,1],null,0);}
   /* drapeau du vainqueur sur l'île (se déploie en fin de scène) */
