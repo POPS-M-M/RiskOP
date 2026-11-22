@@ -178,6 +178,11 @@ if(essai){
   rep('function annexReason(p,t){','function annexReason(p,t){if(CS.on&&t.id===CS.LT)return \'Laugh Tale ne se rallie pas.\';');
   rep('function launch_o(pid,from,to,pct,st){','function launch_o(pid,from,to,pct,st){if(CS.on&&CS.blockLaunch(pid,to))return \'La route de Laugh Tale ne vous est pas encore révélée.\';');
   rep("return o&&o.v===1&&o.G&&o.meta?o:null;","return o&&(o.v===1||(CS.only&&o.v===2))&&o.G&&o.meta?o:null;");
+  rep('<div class="on"><b>Campagne</b>Étoiles par chapitre : automatique.</div>',"'+(CS.only?'':'<div class=\"on\"><b>Campagne</b>Étoiles par chapitre : automatique.</div>')+'");   /* écran Sauvegardes : pas de carte Campagne dans la Course seule */
+  rep("\nnewGame(seed,'normal');","\nif(CS.only)CS.backdrop(seed);else newGame(seed,'normal');");   /* décor de l'accueil : les cinq sièges de la Course */
+  /* OP Adventure = Course seule : le mini-jeu « Combat arcade » (feuille de style et script indépendants, aucune dépendance du jeu) n'est pas inclus */
+  {const i=h.indexOf('<style>\n/* ---- Combat arcade'),j=h.lastIndexOf('</script>');if(i<0||j<i)throw new Error('bloc Combat arcade introuvable');
+   if(h.slice(i,j).indexOf('window.ARC=')<0)throw new Error('bloc Combat arcade inattendu');h=h.slice(0,i)+'<!-- Combat arcade : non inclus dans la version Course (OP Adventure) -->'+h.slice(j+9);}
   rep('function launchCheck(pid,from,to,pct){','function launchCheck(pid,from,to,pct){if(CS.on&&CS.blockLaunch(pid,to))return \'La route de Laugh Tale ne vous est pas encore révélée.\';');
 }
 /* 26. OP Adventure : la Volonté devient ⚔ Recrues (textes affichés), les « recrues naturelles » deviennent des renforts naturels.

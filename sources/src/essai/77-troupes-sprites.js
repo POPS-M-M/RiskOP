@@ -326,12 +326,50 @@ window.__trpG=t=>{const G=trpGrid(t);if(G)trpGarLayout(t,G);return G;};window.__
 
 /* ---------- commandants au combat : les champions de la bataille (rapport OP Adventure, r.op) qui ont une planche apparaissent en tête de leur camp.
    Pure mise en images : ils ne comptent ni dans les pertes ni dans le résultat, déjà calculés. ---------- */
+/* faction de chaque planche de commandant (canon) : un commandant n'est dessiné qu'avec SA faction.
+   Le jeu laisse les Révolutionnaires recruter Ace (LEGENDS camps pirate+revo) : ce recrutement reste permis,
+   mais la planche d'Ace (pirate de Barbe Blanche) n'est pas posée dans une armée révolutionnaire. */
+const TRP_CMD_FAC={Ace:'pirate',Shanks:'pirate',Luffy:'pirate',Nami:'pirate',Akainu:'marine',Garp:'marine'};
+function trpCmdCamp(name,fac){const L=LEGENDS.find(l=>l.s===name);return !!(L&&TRP_CMD_FAC[name]===fac&&(L.camps||[]).includes(fac));}
 function trpCmdAdd(r){
   try{const Rn=B3.run;if(Rn&&Rn.r===r&&!Rn.trpCmd&&r.op&&TRP.on&&!TRP.fail){
-    const add=(names,list,side)=>{const n=[...new Set((names||[]).map(s=>TRP_CMD[s]).filter(a=>a&&TRP_DATA[a]))].slice(0,2);
+    const facA=Rn.crewA,facD=r.def>=0?pxCrewId(r.def):'native';
+    const add=(names,list,side)=>{const fac=side===0?facA:facD;const n=[...new Set((names||[]).filter(s=>trpCmdCamp(s,fac)).map(s=>TRP_CMD[s]).filter(a=>a&&TRP_DATA[a]))].slice(0,2);
       n.forEach((a,j)=>list.push({kind:'c:'+a,cmd:1,side,lane:((j-(n.length-1)/2)*2.2+1.4)*(Rn.R/30)*B3.sp,row:.9,ph:.35+j*.2,fallT:Infinity,sh:0,sl:0}));};
     add(r.op.a,Rn.atk,0);if(!r.bs)add(r.op.d,Rn.def,1);Rn.trpCmd=(r.op.a||[]).concat(r.op.d||[]).filter(s=>TRP_CMD[s]);}}
   catch(e){console.warn('commandants au combat :',e);}
 }
 /* le rapport OP Adventure (r.op) est ajouté juste après l'ouverture de la scène : on place les commandants aussitôt après */
 {const st1=b3Start;b3Start=function(r){const ok=st1(r);if(ok){trpCmdAdd(r);Promise.resolve().then(()=>trpCmdAdd(r));}return ok;};}
+
+/* ---------- commandants dans les débarquements : ceux qui voyagent avec l'armée (OP Adventure, a.ch) descendent en tête de leurs troupes.
+   Un débarquement n'a lieu que sans bataille (arrivée sur sa propre île) ; une arrivée avec bataille passe par la scène de combat,
+   où les mêmes commandants sont déjà placés : jamais les deux à la fois. ---------- */
+{const s0=pxSnap;pxSnap=function(a){const sn=s0(a);try{sn.cms=(a.ch||[]).filter(e=>e.k==='c'&&CH[e.i]&&CH[e.i].own===a.owner).map(e=>e.i);}catch(_){sn.cms=[];}return sn;};}
+{const tl0=trpLandStart;trpLandStart=function(sn,opt){const ok=tl0(sn,opt);if(!ok)return ok;
+  try{const L=TRP.land[TRP.land.length-1],cms=(sn.cms||[]).map(i=>LEGENDS[i]).filter(Lg=>Lg&&TRP_CMD[Lg.s]&&TRP_DATA[TRP_CMD[Lg.s]]&&trpCmdCamp(Lg.s,L.fac)).slice(0,2);
+    const G=L.G,gar=G&&G.gar,t=L.t;
+    if(cms.length&&gar&&gar.slots.length&&gar.c0){const deck=trpDeck(L.sc),sh=L.ships[0],[cx,cy]=trpXY(G,gar.c0[0],gar.c0[1]);
+      /* place du chef : devant l'armée, du côté de la plage, hors des places des troupes (écart ≥ 0,6) et sur sol libre */
+      const ex=sh.E[0]-t.x-cx,ey=sh.E[1]-t.y-cy,el=Math.hypot(ex,ey)||1,ux=ex/el,uy=ey/el,nG=Math.min(gar.slots.length,trpNb(UK.reduce((a,k)=>a+Math.max(0,+(t.u&&t.u[k])||0),0))+L.figs.length),used=gar.slots.slice(0,nG).map(q=>[q.x,q.y]);   /* places occupées (garnison + arrivants), pas les places vides */
+      cms.forEach((Lg,j)=>{const side=(j-(cms.length-1)/2)*.75;let cell=null,X=0,Y=0;
+        for(let d=.4;d<14&&!cell;d+=.2){const x=cx+ux*d-uy*side,y=cy+uy*d+ux*side,c=trpNear(G,x,y,.5);if(!c)continue;const [qx,qy]=trpXY(G,c[0],c[1]);
+          if(used.every(u=>Math.hypot(u[0]-qx,u[1]-qy)>=.6)){cell=c;X=qx;Y=qy;}}
+        if(!cell){/* sinon : la première case libre autour de l'armée (parcours en largeur sur le sol libre) */
+          const n=G.n,seen=new Uint8Array(n*n),Q=[gar.c0];seen[gar.c0[1]*n+gar.c0[0]]=1;
+          let bd=-1;   /* place très petite (ex. quai de Water 7) : la case la moins encombrée */
+          for(let qi=0;qi<Q.length&&qi<6000;qi++){const [i,j]=Q[qi],[qx,qy]=trpXY(G,i,j),dm=Math.min(...used.map(u=>Math.hypot(u[0]-qx,u[1]-qy)));
+            if(dm>bd){bd=dm;cell=[i,j];X=qx;Y=qy;}if(dm>=.6)break;
+            for(const [di,dj] of [[1,0],[-1,0],[0,1],[0,-1]]){const a=i+di,b=j+dj;if(trpFree(G,a,b)&&!seen[b*n+a]){seen[b*n+a]=1;Q.push([a,b]);}}}}
+        if(!cell)return;used.push([X,Y]);
+        const path=trpPath(G,sh.e0,cell)||[sh.e0,cell],face=Math.atan2(uy,ux)+Math.PI;
+        const pts=[[null,null,null,null],[sh.bow[0],sh.bow[1],1.0*L.sc],[sh.E[0],sh.E[1],Math.max(0,G.Hs(sh.E[0]-t.x,sh.E[1]-t.y))+.01]];
+        for(let q=1;q<path.length;q++){const [x,y]=trpXY(G,path[q][0],path[q][1]);pts.push([t.x+x,t.y+y,Math.max(0,G.Hs(x,y))]);}
+        pts.push([t.x+X,t.y+Y,Math.max(0,G.Hs(X,Y))]);
+        let lenS=0;for(let q=3;q<pts.length;q++)lenS+=Math.hypot(pts[q][0]-pts[q-1][0],pts[q][1]-pts[q-1][1]);
+        const dk=deck[(sh.n++)%deck.length];pts[0][3]=dk;
+        /* le chef descend le premier (t0 = 0,2 s), les troupes suivent (t0 ≥ 0,6 s) */
+        L.figs.push({kind:'c:'+TRP_CMD[Lg.s],v:0,si:0,dk,slot:-1,S:{x:X,y:Y,z:Math.max(0,G.Hs(X,Y)),face,ph:.25+j*.3,cell},pts,ph:.2,t0:.2+j*.25,vS:Math.max(TRP.vSol,lenS/12),cmd:1});});
+      L.cms=cms.filter(Lg=>L.figs.some(f=>f.cmd&&f.kind==='c:'+TRP_CMD[Lg.s])).map(Lg=>Lg.s);}}
+  catch(e){console.warn('commandants au débarquement :',e);}
+  return ok;};}

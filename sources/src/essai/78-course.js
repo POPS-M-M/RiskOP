@@ -159,6 +159,8 @@ Object.assign(CS,{SEATS,
 });
 
 /* ---- démarrage d'une partie Course : le joueur humain prend toujours le siège 0 (ME = 0) ---- */
+/* décor derrière l'écran d'accueil (partie non lancée) : les cinq sièges de la Course, pas les quatre camps de la partie classique */
+CS.backdrop=function(sd){newGame(sd,'normal',{crews:SEATS.map(s=>s.crew),names:SEATS.map(s=>s.n),humans:SEATS.map((_,i)=>i===0),caps:SEATS.map(s=>s.cap),noBonus:true});};
 CS.start=function(o){
   const mine=SEATS.findIndex(s=>s.k===o.seat),order=[mine,...SEATS.map((_,i)=>i).filter(i=>i!==mine)];
   const seats=order.map(i=>SEATS[i]);
@@ -180,10 +182,23 @@ resolveArrival=CS.wrapArrival(resolveArrival);
 /* sauvegardes : emplacements séparés, format v:2 */
 if(CS.only){SV.keys=['rk-c1','rk-c2','rk-c3'];SV.auto='rk-ca';}
 {const b0=svBuild;svBuild=function(name){const o=b0(name);if(CS.on){o.v=2;o.G.course=CS.save();o.meta.course=1;o.meta.camp=players[ME].name;}return o;};}
-{const r0=svRestore;svRestore=function(o){CS.on=false;const m=r0(o);if(!m&&o.G&&o.G.course)CS.load(o.G.course);return m;};}
+{const r0=svRestore;svRestore=function(o){if(CS.only&&!(o&&o.G&&o.G.course))return 'Cette sauvegarde n\'est pas une partie de la Course vers Laugh Tale.';CS.on=false;const m=r0(o);if(!m&&o.G&&o.G.course)CS.load(o.G.course);return m;};}
 /* une partie classique lancée par un test ou le guide désactive le mode Course */
 {const n0=newGame;newGame=function(){CS.on=false;CS.S=null;const h=document.getElementById('cs-hud');if(h)h.hidden=true;return n0.apply(this,arguments);};}
 
+/* ---- version Course seule : les autres modes n'ont plus d'entrée (Campagne, tutoriel en partie classique, multijoueur à 4) ---- */
+if(CS.only){
+  const back=(m)=>()=>{toast(m);showIntro();};
+  campMenu=back('La Campagne n\'existe pas dans OP Adventure : seule la Course vers Laugh Tale est proposée.');
+  campPlay=back('La Campagne n\'existe pas dans OP Adventure : seule la Course vers Laugh Tale est proposée.');
+  rkStartTutorial=back('Le guide interactif porte sur la partie classique : il n\'est pas proposé dans OP Adventure.');
+  mpEnter=back('Le jeu en ligne n\'est pas encore disponible pour la Course à 5 sièges.');
+  /* règles : celles de la Course d'abord ; les sections propres aux autres modes ou remplacées par la Course sont retirées */
+  const sr0=showRules;showRules=function(){sr0();const el=document.getElementById('rulesov');if(!el)return;
+    const hors=/^(Le but du jeu|Combat arcade|Mode Campagne|Victoires du Nouveau Monde|Déchiffrer les Poneglyphes|Tutoriel et bilan|Jouer à plusieurs)/;
+    el.querySelectorAll('details').forEach(d=>{const s=d.querySelector('summary');if(s&&hors.test(s.textContent.trim()))d.remove();});
+    const h2=el.querySelector('h2');if(h2){h2.textContent='Règles — Course vers Laugh Tale';const d=document.createElement('details');d.open=true;d.innerHTML='<summary>La Course vers Laugh Tale (règles de ce mode)</summary><div class="rb">'+rulesCourse()+'</div>';const n=el.querySelector('.note');(n||h2).after(d);}};
+}
 /* ---- écran d'accueil : seulement le mode Course ---- */
 let seatPick='pa';try{seatPick=localStorage.getItem('rk-cseat')||'pa';}catch(_){}
 if(!SEATS.some(s=>s.k===seatPick))seatPick='pa';
