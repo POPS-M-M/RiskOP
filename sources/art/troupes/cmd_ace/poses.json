@@ -1,0 +1,105 @@
+{
+ "planche": "ace.png",
+ "zone": [
+  4,
+  51,
+  1028,
+  1075
+ ],
+ "dilatation": 4,
+ "alpha_min": 60,
+ "echelle": 1.12,
+ "poses": {
+  "garde_1": [
+   89,
+   169
+  ],
+  "garde_2": [
+   283,
+   170
+  ],
+  "garde_3": [
+   473,
+   170
+  ],
+  "course": [
+   149,
+   394
+  ],
+  "touche": [
+   377,
+   396
+  ],
+  "elan": [
+   641,
+   534
+  ],
+  "accroupi_1": [
+   116,
+   706
+  ],
+  "accroupi_2": [
+   308,
+   707
+  ],
+  "poing": [
+   657,
+   748
+  ],
+  "flamme": [
+   647,
+   977
+  ]
+ },
+ "animations": {
+  "garde": {
+   "images": [
+    "garde_1",
+    "garde_2",
+    "garde_3",
+    "garde_2"
+   ],
+   "ips": 4,
+   "boucle": true
+  },
+  "deplacement": {
+   "images": [
+    "course"
+   ],
+   "ips": 0,
+   "boucle": true
+  },
+  "preparation": {
+   "images": [
+    "elan"
+   ],
+   "ips": 0,
+   "boucle": false
+  },
+  "attaque": {
+   "images": [
+    "poing",
+    "flamme"
+   ],
+   "ips": 8,
+   "boucle": false
+  },
+  "reaction": {
+   "images": [
+    "touche",
+    "accroupi_1"
+   ],
+   "ips": 5,
+   "boucle": false
+  },
+  "cri": {
+   "images": [
+    "poing"
+   ],
+   "ips": 0,
+   "boucle": false
+  }
+ },
+ "ref": "garde_1",
+ "troupe": "cmd_ace"
+}

@@ -1,0 +1,331 @@
+{
+ "troupe": "cmd_luffy",
+ "source": {
+  "fichiers": {
+   "wait_0000.png": "98bc103cd681f08b3891c42c68cb9a93c5086d5d51d73e379863fd5d6fb278fa",
+   "wait_0019.png": "f94b755e4d42f054f909b2823c22d281310d6ef65cd899e6abf6076f10c23865",
+   "wait_0030.png": "725a228a3157b8a35bf6eff7b3d42e2af5d2ae2f4b00ff485d54aca5c49bf3b4",
+   "wait_0055.png": "f94b755e4d42f054f909b2823c22d281310d6ef65cd899e6abf6076f10c23865",
+   "go_0000.png": "72172986d849c21f9cb16adb9da1f33711da0831ecb9fa9d4595723d4d5c7a63",
+   "damage_0000.png": "559ba6ac0d885933ff19f9c235273a21d33e4416c0b5974fb381e563a00b160c",
+   "tired_0000.png": "f87bf046a6ae2a1a14aa8eb88032cdefaffe2274b511bd6a068f3ffd52d3ffc6",
+   "tired_0019.png": "ebafc75479f3f91e56267f14b9c421a6e688ad58494344391c77c92d4a905989",
+   "ready_0000.png": "2817290b579fd5fb7f368e4035c63ddc878ea2f6672ce4de257dddaf6f19bb76",
+   "attack_0013.png": "13f3cd85104b4e2d3d2dec096cf1219cb4bb488fd7145fd0c39ebc856105876d",
+   "attack_0020.png": "f13a50be2336e95b3f1335cfa18b70ebd3b21423643d4fc6df7d6b851215ab27",
+   "attack_0025.png": "0477e51ba01a93175d26aaaae1f5a478c0ec2442272750a4908b3b4b816b541a",
+   "attack_0065.png": "0477e51ba01a93175d26aaaae1f5a478c0ec2442272750a4908b3b4b816b541a",
+   "attack_0071.png": "a3ce2d85e7a942c59e0fb2afc42e09866f3cbb9383f1b8b4c3715d0bc591afa8"
+  },
+  "zone": null
+ },
+ "convention": {
+  "version": 1,
+  "hauteur_ref_u": 0.54,
+  "image_ref": "garde_1",
+  "hauteur_ref_px": 126.8,
+  "regard": "droite",
+  "note": "même hauteur de référence que le soldat de la Marine (0,54 u) pour la pose de référence, ×1.12 pour un commandant"
+ },
+ "images": {
+  "garde_3": {
+   "planche": [
+    56,
+    32,
+    70,
+    144
+   ],
+   "atlas": [
+    4,
+    4,
+    70,
+    144
+   ],
+   "ancre": [
+    8.3,
+    143.0
+   ]
+  },
+  "garde_2": {
+   "planche": [
+    56,
+    33,
+    69,
+    143
+   ],
+   "atlas": [
+    82,
+    4,
+    69,
+    143
+   ],
+   "ancre": [
+    8.2,
+    142.0
+   ]
+  },
+  "garde_4": {
+   "planche": [
+    56,
+    33,
+    69,
+    143
+   ],
+   "atlas": [
+    159,
+    4,
+    69,
+    143
+   ],
+   "ancre": [
+    8.2,
+    142.0
+   ]
+  },
+  "garde_1": {
+   "planche": [
+    56,
+    34,
+    69,
+    142
+   ],
+   "atlas": [
+    236,
+    4,
+    69,
+    142
+   ],
+   "ancre": [
+    8.1,
+    141.0
+   ]
+  },
+  "touche": {
+   "planche": [
+    16,
+    46,
+    90,
+    132
+   ],
+   "atlas": [
+    313,
+    4,
+    90,
+    132
+   ],
+   "ancre": [
+    66.0,
+    132.0
+   ]
+  },
+  "bazooka_1": {
+   "planche": [
+    157,
+    44,
+    151,
+    128
+   ],
+   "atlas": [
+    411,
+    4,
+    151,
+    128
+   ],
+   "ancre": [
+    45.9,
+    127.0
+   ]
+  },
+  "bazooka_2": {
+   "planche": [
+    157,
+    44,
+    171,
+    128
+   ],
+   "atlas": [
+    570,
+    4,
+    171,
+    128
+   ],
+   "ancre": [
+    45.8,
+    127.0
+   ]
+  },
+  "bazooka_3": {
+   "planche": [
+    157,
+    44,
+    171,
+    128
+   ],
+   "atlas": [
+    749,
+    4,
+    171,
+    128
+   ],
+   "ancre": [
+    45.8,
+    127.0
+   ]
+  },
+  "bazooka_4": {
+   "planche": [
+    157,
+    44,
+    201,
+    128
+   ],
+   "atlas": [
+    4,
+    156,
+    201,
+    128
+   ],
+   "ancre": [
+    45.9,
+    127.0
+   ]
+  },
+  "course": {
+   "planche": [
+    59,
+    50,
+    128,
+    127
+   ],
+   "atlas": [
+    213,
+    156,
+    128,
+    127
+   ],
+   "ancre": [
+    91.0,
+    126.0
+   ]
+  },
+  "pret": {
+   "planche": [
+    62,
+    53,
+    100,
+    119
+   ],
+   "atlas": [
+    349,
+    156,
+    100,
+    119
+   ],
+   "ancre": [
+    38.4,
+    118.0
+   ]
+  },
+  "elan": {
+   "planche": [
+    165,
+    53,
+    99,
+    119
+   ],
+   "atlas": [
+    457,
+    156,
+    99,
+    119
+   ],
+   "ancre": [
+    37.9,
+    118.0
+   ]
+  },
+  "fatigue_1": {
+   "planche": [
+    56,
+    48,
+    81,
+    102
+   ],
+   "atlas": [
+    564,
+    156,
+    81,
+    102
+   ],
+   "ancre": [
+    24.8,
+    102.0
+   ]
+  },
+  "ombre": {
+   "planche": null,
+   "atlas": [
+    653,
+    156,
+    84,
+    30
+   ],
+   "ancre": [
+    42.0,
+    15.0
+   ]
+  }
+ },
+ "animations": {
+  "garde": {
+   "images": [
+    "garde_1",
+    "garde_2",
+    "garde_3",
+    "garde_4"
+   ],
+   "ips": 4,
+   "boucle": true
+  },
+  "deplacement": {
+   "images": [
+    "course"
+   ],
+   "ips": 0,
+   "boucle": true
+  },
+  "preparation": {
+   "images": [
+    "elan"
+   ],
+   "ips": 0,
+   "boucle": false
+  },
+  "attaque": {
+   "images": [
+    "bazooka_1",
+    "bazooka_2",
+    "bazooka_3",
+    "bazooka_4"
+   ],
+   "ips": 8,
+   "boucle": false
+  },
+  "reaction": {
+   "images": [
+    "touche",
+    "fatigue_1"
+   ],
+   "ips": 5,
+   "boucle": false
+  },
+  "cri": {
+   "images": [
+    "pret"
+   ],
+   "ips": 0,
+   "boucle": false
+  }
+ },
+ "ombre": "ombre"
+}

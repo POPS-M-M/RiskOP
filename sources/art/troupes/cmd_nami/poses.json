@@ -1,0 +1,100 @@
+{
+ "poses": {
+  "garde_1": {
+   "image": "wait_0000.png"
+  },
+  "garde_2": {
+   "image": "wait_0009.png"
+  },
+  "garde_3": {
+   "image": "wait_0019.png"
+  },
+  "garde_4": {
+   "image": "wait_0029.png"
+  },
+  "course": {
+   "image": "go_0000.png"
+  },
+  "touche": {
+   "image": "damage_0000.png"
+  },
+  "fatigue_1": {
+   "image": "tired_0000.png"
+  },
+  "fatigue_2": {
+   "image": "tired_0019.png"
+  },
+  "pret": {
+   "image": "ready_0000.png"
+  },
+  "elan": {
+   "image": "attack_0009.png"
+  },
+  "coup_1": {
+   "image": "attack_0016.png"
+  },
+  "coup_2": {
+   "image": "attack_0022.png"
+  },
+  "coup_3": {
+   "image": "attack_0028.png"
+  },
+  "coup_4": {
+   "image": "attack_0040.png"
+  }
+ },
+ "echelle": 1.12,
+ "animations": {
+  "garde": {
+   "images": [
+    "garde_1",
+    "garde_2",
+    "garde_3",
+    "garde_4"
+   ],
+   "ips": 4,
+   "boucle": true
+  },
+  "deplacement": {
+   "images": [
+    "course"
+   ],
+   "ips": 0,
+   "boucle": true
+  },
+  "preparation": {
+   "images": [
+    "elan"
+   ],
+   "ips": 0,
+   "boucle": false
+  },
+  "attaque": {
+   "images": [
+    "coup_1",
+    "coup_2",
+    "coup_3",
+    "coup_4"
+   ],
+   "ips": 8,
+   "boucle": false
+  },
+  "reaction": {
+   "images": [
+    "touche",
+    "fatigue_1"
+   ],
+   "ips": 5,
+   "boucle": false
+  },
+  "cri": {
+   "images": [
+    "pret"
+   ],
+   "ips": 0,
+   "boucle": false
+  }
+ },
+ "ref": "garde_1",
+ "troupe": "cmd_nami"
+}

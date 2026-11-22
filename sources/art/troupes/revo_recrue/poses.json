@@ -1,0 +1,131 @@
+{
+ "planche": "revolutionnaire.png",
+ "dilatation": 2,
+ "alpha_min": 120,
+ "poses": {
+  "garde_1": [
+   74,
+   114
+  ],
+  "garde_2": [
+   232,
+   114
+  ],
+  "garde_3": [
+   393,
+   113
+  ],
+  "garde_4": [
+   553,
+   113
+  ],
+  "garde_5": [
+   717,
+   114
+  ],
+  "garde_6": [
+   874,
+   114
+  ],
+  "porte": [
+   111,
+   360
+  ],
+  "cri": [
+   337,
+   356
+  ],
+  "accroupi_1": [
+   585,
+   402
+  ],
+  "accroupi_2": [
+   809,
+   403
+  ],
+  "pilier": [
+   375,
+   701
+  ],
+  "course": [
+   609,
+   712
+  ],
+  "course_2": [
+   886,
+   712
+  ],
+  "coup_1": [
+   111,
+   921
+  ],
+  "coup_2": [
+   325,
+   931
+  ],
+  "coup_3": [
+   546,
+   934
+  ],
+  "coup_4": [
+   774,
+   934
+  ]
+ },
+ "animations": {
+  "garde": {
+   "images": [
+    "garde_1",
+    "garde_2",
+    "garde_3",
+    "garde_4",
+    "garde_5",
+    "garde_6"
+   ],
+   "ips": 4,
+   "boucle": true
+  },
+  "deplacement": {
+   "images": [
+    "course",
+    "course_2"
+   ],
+   "ips": 0,
+   "boucle": true
+  },
+  "preparation": {
+   "images": [
+    "porte"
+   ],
+   "ips": 0,
+   "boucle": false
+  },
+  "attaque": {
+   "images": [
+    "coup_1",
+    "coup_2",
+    "coup_3",
+    "coup_4"
+   ],
+   "ips": 8,
+   "boucle": false
+  },
+  "reaction": {
+   "images": [
+    "accroupi_1",
+    "accroupi_2"
+   ],
+   "ips": 5,
+   "boucle": false
+  },
+  "cri": {
+   "images": [
+    "cri"
+   ],
+   "ips": 0,
+   "boucle": false
+  }
+ },
+ "ref": "garde_1",
+ "troupe": "revo_recrue"
+}

@@ -1,0 +1,96 @@
+{
+ "planche": "pirate_recrues.png",
+ "poses": {
+  "garde_1": [
+   94,
+   116
+  ],
+  "garde_2": [
+   286,
+   117
+  ],
+  "garde_3": [
+   478,
+   117
+  ],
+  "course": [
+   92,
+   374
+  ],
+  "accroupi_1": [
+   108,
+   636
+  ],
+  "accroupi_2": [
+   270,
+   637
+  ],
+  "bond": [
+   489,
+   624
+  ],
+  "cri": [
+   89,
+   912
+  ],
+  "attaque_1": [
+   298,
+   911
+  ],
+  "attaque_2": [
+   508,
+   912
+  ]
+ },
+ "animations": {
+  "garde": {
+   "images": [
+    "garde_1",
+    "garde_2",
+    "garde_3",
+    "garde_2"
+   ],
+   "ips": 4,
+   "boucle": true
+  },
+  "deplacement": {
+   "images": [
+    "course"
+   ],
+   "ips": 0,
+   "boucle": true
+  },
+  "preparation": {
+   "images": [
+    "bond"
+   ],
+   "ips": 0,
+   "boucle": false
+  },
+  "attaque": {
+   "images": [
+    "attaque_1",
+    "attaque_2"
+   ],
+   "ips": 8,
+   "boucle": false
+  },
+  "reaction": {
+   "images": [
+    "accroupi_1",
+    "accroupi_2"
+   ],
+   "ips": 5,
+   "boucle": false
+  },
+  "cri": {
+   "images": [
+    "cri"
+   ],
+   "ips": 0,
+   "boucle": false
+  }
+ },
+ "ref": "garde_1",
+ "troupe": "pirate_recrue"
+}

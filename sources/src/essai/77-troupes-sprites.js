@@ -17,8 +17,11 @@ try{const m=localStorage.getItem('rk-trp');if(m==='0')TRP.on=false;}catch(_){}
 const TRP_H=TRP.D.conv.hauteur_ref_u,TRP_UPP=TRP_H/TRP.D.conv.hauteur_ref_px,TRP_PXS=()=>TRP_H/PXH;   /* échelle des personnages 3D à la même hauteur */
 /* faction réelle (CREWS : marine, pirate, revo, chasseur ; « native » pour les îles neutres) → catégorie de troupe (kind) → planche de sprites.
    Seule la Marine a une planche : les autres factions gardent leurs personnages 3D actuels. Aucune faction ne récupère une planche par défaut. */
-const TRP_ASSETS={marine:{0:'marine_recrue'}};
-const trpAsset=(fac,kind)=>{const a=TRP_ASSETS[fac],n=a&&a[kind];return n&&TRP_DATA[n]?n:null;};
+/* faction → numéro d'unité → planche (0 Recrues, 1 Sabreurs, 2 Tireurs) ; les autres unités et factions gardent leurs personnages 3D.
+   Commandants au combat : « c:<planche> » (voir plus bas, b3Start). */
+const TRP_ASSETS={marine:{0:'marine_recrue',1:'marine_sabreur'},pirate:{0:'pirate_recrue',2:'pirate_tireur'},revo:{0:'revo_recrue'}};
+const trpAsset=(fac,kind)=>{if(typeof kind==='string'&&kind.startsWith('c:')){const c=kind.slice(2);return TRP_DATA[c]?c:null;}const a=TRP_ASSETS[fac],n=a&&a[kind];return n&&TRP_DATA[n]?n:null;};
+const TRP_CMD={Ace:'cmd_ace',Shanks:'cmd_shanks',Akainu:'cmd_akainu',Garp:'cmd_garp',Luffy:'cmd_luffy',Nami:'cmd_nami'};
 const trpActif=()=>TRP.on&&!TRP.fail&&typeof W3!=='undefined'&&W3.act&&!PXS.atelier;
 const trpH=(s)=>{let h=2166136261;s=String(s);for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return ((h>>>0)%100000)/100000;};
 
@@ -320,3 +323,15 @@ clampV=function(){V.k=clamp(V.k,1,trpKmax());V.x=clamp(V.x,0,W-W/V.k);V.y=clamp(
 zoomAt=function(fx,fy,f){const wx=V.x+fx*W/V.k,wy=V.y+fy*H/V.k;V.k=clamp(V.k*f,1,trpKmax());V.x=wx-fx*W/V.k;V.y=wy-fy*H/V.k;clampV();};
 /* accès pour les essais automatisés (copie de test) */
 window.__trpG=t=>{const G=trpGrid(t);if(G)trpGarLayout(t,G);return G;};window.__TRPst=()=>Object.assign({fail:TRP.fail,tex:!!(TRP.tx.marine_recrue&&TRP.tx.marine_recrue.tex),land:TRP.land.length},TRP.st);window.__TRP=TRP;
+
+/* ---------- commandants au combat : les champions de la bataille (rapport OP Adventure, r.op) qui ont une planche apparaissent en tête de leur camp.
+   Pure mise en images : ils ne comptent ni dans les pertes ni dans le résultat, déjà calculés. ---------- */
+function trpCmdAdd(r){
+  try{const Rn=B3.run;if(Rn&&Rn.r===r&&!Rn.trpCmd&&r.op&&TRP.on&&!TRP.fail){
+    const add=(names,list,side)=>{const n=[...new Set((names||[]).map(s=>TRP_CMD[s]).filter(a=>a&&TRP_DATA[a]))].slice(0,2);
+      n.forEach((a,j)=>list.push({kind:'c:'+a,cmd:1,side,lane:((j-(n.length-1)/2)*2.2+1.4)*(Rn.R/30)*B3.sp,row:.9,ph:.35+j*.2,fallT:Infinity,sh:0,sl:0}));};
+    add(r.op.a,Rn.atk,0);if(!r.bs)add(r.op.d,Rn.def,1);Rn.trpCmd=(r.op.a||[]).concat(r.op.d||[]).filter(s=>TRP_CMD[s]);}}
+  catch(e){console.warn('commandants au combat :',e);}
+}
+/* le rapport OP Adventure (r.op) est ajouté juste après l'ouverture de la scène : on place les commandants aussitôt après */
+{const st1=b3Start;b3Start=function(r){const ok=st1(r);if(ok){trpCmdAdd(r);Promise.resolve().then(()=>trpCmdAdd(r));}return ok;};}

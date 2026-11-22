@@ -82,3 +82,19 @@ La planche ne montre le soldat que de trois quarts face, tourné vers la droite.
 - **Plan proche et brouillard** suivent la distance de la caméra (`near` = 4 % de la distance, `fogD` ≥ 45 u). En mode stratégique, les valeurs d'origine (20 u, 1,8 × distance) sont conservées.
 - **Échelle** : seule la caméra se rapproche, les soldats gardent leurs 0,54 u. En mêlée, sur l'essai de Water 7, la caméra est à environ 10–13 u et un soldat mesure environ 40 à 50 px CSS de haut (fenêtre de 1 400 × 860).
 - Désactivable pour comparaison : `localStorage['rk-camc']='0'` (caméra d'origine) ; `localStorage['rk-trp']='0'` désactive tout le module.
+
+## 13. Planches « en vrac » et commandants (22/11/2026)
+
+- Outil : `art/troupes/outils/decoupe_auto.py <dossier>`. `poses.json` donne pour chaque pose un centre approximatif sur la planche
+  (`poses: {nom: [cx, cy]}`), ou une image d'animation (`{nom: {"image": …}}`) ; `zone` limite la découpe à la partie « Left »
+  des planches à deux sens. Les blocs non nommés (effets, icônes, ombres de la planche) sont ignorés ; les poses non animées ne vont pas dans l'atlas.
+- Ancre aux pieds : centre des pixels pleins (alpha > 200) des 10 rangées du bas de la plus grande composante de la pose : la fumée et les lueurs ne comptent pas.
+- Atlas en WebP sans perte (`atlas.webp`) ; `vers_jeu.py` l'inclut tel quel (data URI WebP). Ombre : ellipse douce générée, la même pour toutes.
+- Échelle : la pose de référence de chaque planche a la hauteur du soldat de la Marine (0,54 u) ; commandants ×1,12.
+- Table faction → unité → planche (`TRP_ASSETS`, 77-troupes-sprites.js) : Marine 0 Recrues `marine_recrue`, 1 Sabreurs `marine_sabreur` ;
+  Pirates 0 `pirate_recrue`, 2 Tireurs `pirate_tireur` ; Révolutionnaires 0 `revo_recrue`. Les autres unités gardent leurs personnages 3D.
+- Commandants au combat : les champions du rapport OP Adventure (`r.op.a`, `r.op.d`) qui ont une planche (`TRP_CMD` : Ace, Shanks, Akainu,
+  Garp, Luffy, Nami) sont ajoutés derrière la première ligne de leur camp (2 au plus par camp). Pure mise en images : ils ne tombent pas et
+  ne changent ni les pertes ni le résultat. Sans les personnages 3D (module désactivé), ils ne sont pas dessinés.
+- Planches reçues le 22/11/2026 (pirate_recrues, pirate_tireur, marine_sabreur, revolutionnaire, ace, shanks, akainu, garp, luffy.zip, nami.zip),
+  conservées intactes dans `source/` (SHA-256 vérifiés par `vers_jeu.py`).

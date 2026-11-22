@@ -175,7 +175,7 @@ function b3Scene(c,now){
       const pxOn=typeof pxNew!=='undefined'&&pxNew(),pxFull=pxOn&&PXS.combat,pxLand=pxOn&&side===0&&tau<4.7;
       /* débarquement : les nouveaux personnages (jusqu'au contact, fondu 4,4 → 4,7 s) ; la mêlée garde les soldats d'origine */
       if(pxFull||pxLand)pxFight(u,side,x,y,z,face,tau,fall,pxFull&&tau>4.4,R,Rn,pxFull?1:1-b3e(4.4,4.7,tau),idle);
-      if(!pxFull&&!(pxLand&&tau<4.4))b3Unit(G,x,y,z,face,col,u.kind,anim,fall,sc);
+      if(!pxFull&&!(pxLand&&tau<4.4)&&!u.cmd)b3Unit(G,x,y,z,face,col,u.kind,anim,fall,sc);
       if(tau>4.6&&fall===0&&b3h(Math.floor(tau*4)+u.ph*50+side)>.9){sparks++;FX.ico(x+Math.cos(face)*.7*B3.fx,y+Math.sin(face)*.7*B3.fx,z+1.1*sc*B3.fx,.22*sc*B3.fx,1,r3c('#fff1a8'),null,0);}
       if(tau>=u.fallT&&tau<u.fallT+1.4)FX.ico(x,y,z+(.8*sc+(tau-u.fallT)*.9)*B3.fx,(.35+(tau-u.fallT)*.5)*sc*B3.fx,.8,[.78,.78,.8,1],null,0);
     }

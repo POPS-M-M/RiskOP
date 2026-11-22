@@ -1,0 +1,281 @@
+{
+ "troupe": "pirate_tireur",
+ "source": {
+  "fichiers": {
+   "pirate_tireur.png": "8898b09a7726c63bd3c018a2a0fa7cfb13a8029171d74984fa4d5b134126ec94"
+  },
+  "zone": null
+ },
+ "convention": {
+  "version": 1,
+  "hauteur_ref_u": 0.54,
+  "image_ref": "garde_1",
+  "hauteur_ref_px": 180.0,
+  "regard": "droite",
+  "note": "même hauteur de référence que le soldat de la Marine (0,54 u) pour la pose de référence"
+ },
+ "images": {
+  "vise": {
+   "planche": [
+    845,
+    499,
+    147,
+    182
+   ],
+   "atlas": [
+    4,
+    4,
+    147,
+    182
+   ],
+   "ancre": [
+    18.8,
+    182.0
+   ]
+  },
+  "tir_3": {
+   "planche": [
+    556,
+    819,
+    138,
+    182
+   ],
+   "atlas": [
+    159,
+    4,
+    138,
+    182
+   ],
+   "ancre": [
+    18.8,
+    182.0
+   ]
+  },
+  "cri": {
+   "planche": [
+    749,
+    819,
+    129,
+    182
+   ],
+   "atlas": [
+    305,
+    4,
+    129,
+    182
+   ],
+   "ancre": [
+    18.8,
+    182.0
+   ]
+  },
+  "course": {
+   "planche": [
+    42,
+    277,
+    154,
+    181
+   ],
+   "atlas": [
+    442,
+    4,
+    154,
+    181
+   ],
+   "ancre": [
+    105.3,
+    181.0
+   ]
+  },
+  "tir_1": {
+   "planche": [
+    77,
+    820,
+    162,
+    181
+   ],
+   "atlas": [
+    604,
+    4,
+    162,
+    181
+   ],
+   "ancre": [
+    18.8,
+    181.0
+   ]
+  },
+  "tir_2": {
+   "planche": [
+    333,
+    820,
+    158,
+    181
+   ],
+   "atlas": [
+    774,
+    4,
+    158,
+    181
+   ],
+   "ancre": [
+    19.6,
+    181.0
+   ]
+  },
+  "garde_1": {
+   "planche": [
+    46,
+    22,
+    116,
+    180
+   ],
+   "atlas": [
+    4,
+    194,
+    116,
+    180
+   ],
+   "ancre": [
+    20.8,
+    180.0
+   ]
+  },
+  "garde_2": {
+   "planche": [
+    240,
+    23,
+    113,
+    179
+   ],
+   "atlas": [
+    128,
+    194,
+    113,
+    179
+   ],
+   "ancre": [
+    18.4,
+    179.0
+   ]
+  },
+  "garde_3": {
+   "planche": [
+    432,
+    24,
+    112,
+    178
+   ],
+   "atlas": [
+    249,
+    194,
+    112,
+    178
+   ],
+   "ancre": [
+    18.2,
+    178.0
+   ]
+  },
+  "chute": {
+   "planche": [
+    503,
+    518,
+    141,
+    175
+   ],
+   "atlas": [
+    369,
+    194,
+    141,
+    175
+   ],
+   "ancre": [
+    105.7,
+    175.0
+   ]
+  },
+  "accroupi_1": {
+   "planche": [
+    57,
+    521,
+    100,
+    165
+   ],
+   "atlas": [
+    518,
+    194,
+    100,
+    165
+   ],
+   "ancre": [
+    23.1,
+    165.0
+   ]
+  },
+  "ombre": {
+   "planche": null,
+   "atlas": [
+    626,
+    194,
+    84,
+    30
+   ],
+   "ancre": [
+    42.0,
+    15.0
+   ]
+  }
+ },
+ "animations": {
+  "garde": {
+   "images": [
+    "garde_1",
+    "garde_2",
+    "garde_3",
+    "garde_2"
+   ],
+   "ips": 4,
+   "boucle": true
+  },
+  "deplacement": {
+   "images": [
+    "course"
+   ],
+   "ips": 0,
+   "boucle": true
+  },
+  "preparation": {
+   "images": [
+    "vise"
+   ],
+   "ips": 0,
+   "boucle": false
+  },
+  "attaque": {
+   "images": [
+    "tir_1",
+    "tir_2",
+    "tir_3"
+   ],
+   "ips": 8,
+   "boucle": false
+  },
+  "reaction": {
+   "images": [
+    "chute",
+    "accroupi_1"
+   ],
+   "ips": 5,
+   "boucle": false
+  },
+  "cri": {
+   "images": [
+    "cri"
+   ],
+   "ips": 0,
+   "boucle": false
+  }
+ },
+ "ombre": "ombre"
+}

@@ -1,0 +1,114 @@
+{
+ "planche": "shanks.png",
+ "zone": [
+  4,
+  51,
+  1028,
+  1075
+ ],
+ "dilatation": 4,
+ "alpha_min": 60,
+ "echelle": 1.12,
+ "poses": {
+  "garde_1": [
+   126,
+   164
+  ],
+  "garde_2": [
+   383,
+   164
+  ],
+  "garde_3": [
+   641,
+   164
+  ],
+  "garde_4": [
+   895,
+   164
+  ],
+  "course": [
+   115,
+   402
+  ],
+  "lame_haute": [
+   386,
+   397
+  ],
+  "accroupi_1": [
+   135,
+   632
+  ],
+  "accroupi_2": [
+   391,
+   632
+  ],
+  "fente_1": [
+   880,
+   768
+  ],
+  "armer": [
+   114,
+   962
+  ],
+  "taille": [
+   466,
+   991
+  ],
+  "fente_2": [
+   878,
+   992
+  ]
+ },
+ "animations": {
+  "garde": {
+   "images": [
+    "garde_1",
+    "garde_2",
+    "garde_3",
+    "garde_4"
+   ],
+   "ips": 4,
+   "boucle": true
+  },
+  "deplacement": {
+   "images": [
+    "course"
+   ],
+   "ips": 0,
+   "boucle": true
+  },
+  "preparation": {
+   "images": [
+    "armer"
+   ],
+   "ips": 0,
+   "boucle": false
+  },
+  "attaque": {
+   "images": [
+    "taille",
+    "fente_1",
+    "fente_2"
+   ],
+   "ips": 8,
+   "boucle": false
+  },
+  "reaction": {
+   "images": [
+    "accroupi_1",
+    "accroupi_2"
+   ],
+   "ips": 5,
+   "boucle": false
+  },
+  "cri": {
+   "images": [
+    "lame_haute"
+   ],
+   "ips": 0,
+   "boucle": false
+  }
+ },
+ "ref": "garde_1",
+ "troupe": "cmd_shanks"
+}

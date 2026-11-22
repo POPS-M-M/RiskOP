@@ -1,0 +1,375 @@
+{
+ "troupe": "revo_recrue",
+ "source": {
+  "fichiers": {
+   "revolutionnaire.png": "f2608f666264dfb612e982a8c8bbdb1b58edc8cec708d6a2e5f9297f0e90ce43"
+  },
+  "zone": null
+ },
+ "convention": {
+  "version": 1,
+  "hauteur_ref_u": 0.54,
+  "image_ref": "garde_1",
+  "hauteur_ref_px": 202.0,
+  "regard": "droite",
+  "note": "même hauteur de référence que le soldat de la Marine (0,54 u) pour la pose de référence"
+ },
+ "images": {
+  "cri": {
+   "planche": [
+    226,
+    237,
+    224,
+    240
+   ],
+   "atlas": [
+    4,
+    4,
+    224,
+    240
+   ],
+   "ancre": [
+    73.4,
+    240.0
+   ]
+  },
+  "garde_3": {
+   "planche": [
+    323,
+    12,
+    142,
+    204
+   ],
+   "atlas": [
+    236,
+    4,
+    142,
+    204
+   ],
+   "ancre": [
+    55.7,
+    204.0
+   ]
+  },
+  "garde_4": {
+   "planche": [
+    483,
+    12,
+    142,
+    204
+   ],
+   "atlas": [
+    386,
+    4,
+    142,
+    204
+   ],
+   "ancre": [
+    55.7,
+    204.0
+   ]
+  },
+  "garde_2": {
+   "planche": [
+    163,
+    13,
+    140,
+    203
+   ],
+   "atlas": [
+    536,
+    4,
+    140,
+    203
+   ],
+   "ancre": [
+    55.7,
+    203.0
+   ]
+  },
+  "garde_5": {
+   "planche": [
+    643,
+    13,
+    150,
+    203
+   ],
+   "atlas": [
+    684,
+    4,
+    150,
+    203
+   ],
+   "ancre": [
+    55.7,
+    203.0
+   ]
+  },
+  "garde_1": {
+   "planche": [
+    3,
+    14,
+    143,
+    202
+   ],
+   "atlas": [
+    842,
+    4,
+    143,
+    202
+   ],
+   "ancre": [
+    55.7,
+    202.0
+   ]
+  },
+  "garde_6": {
+   "planche": [
+    803,
+    14,
+    144,
+    202
+   ],
+   "atlas": [
+    4,
+    252,
+    144,
+    202
+   ],
+   "ancre": [
+    55.7,
+    202.0
+   ]
+  },
+  "coup_1": {
+   "planche": [
+    9,
+    822,
+    206,
+    200
+   ],
+   "atlas": [
+    156,
+    252,
+    206,
+    200
+   ],
+   "ancre": [
+    42.6,
+    200.0
+   ]
+  },
+  "coup_2": {
+   "planche": [
+    223,
+    841,
+    205,
+    181
+   ],
+   "atlas": [
+    370,
+    252,
+    205,
+    181
+   ],
+   "ancre": [
+    40.6,
+    181.0
+   ]
+  },
+  "porte": {
+   "planche": [
+    2,
+    272,
+    220,
+    177
+   ],
+   "atlas": [
+    583,
+    252,
+    220,
+    177
+   ],
+   "ancre": [
+    86.2,
+    177.0
+   ]
+  },
+  "course": {
+   "planche": [
+    480,
+    626,
+    260,
+    174
+   ],
+   "atlas": [
+    4,
+    462,
+    260,
+    174
+   ],
+   "ancre": [
+    41.2,
+    173.0
+   ]
+  },
+  "course_2": {
+   "planche": [
+    753,
+    626,
+    267,
+    174
+   ],
+   "atlas": [
+    272,
+    462,
+    267,
+    174
+   ],
+   "ancre": [
+    48.2,
+    173.0
+   ]
+  },
+  "coup_3": {
+   "planche": [
+    445,
+    848,
+    204,
+    174
+   ],
+   "atlas": [
+    547,
+    462,
+    204,
+    174
+   ],
+   "ancre": [
+    58.6,
+    174.0
+   ]
+  },
+  "coup_4": {
+   "planche": [
+    655,
+    848,
+    240,
+    173
+   ],
+   "atlas": [
+    759,
+    462,
+    240,
+    173
+   ],
+   "ancre": [
+    49.5,
+    173.0
+   ]
+  },
+  "accroupi_1": {
+   "planche": [
+    487,
+    338,
+    198,
+    130
+   ],
+   "atlas": [
+    4,
+    644,
+    198,
+    130
+   ],
+   "ancre": [
+    100.3,
+    130.0
+   ]
+  },
+  "accroupi_2": {
+   "planche": [
+    711,
+    340,
+    198,
+    128
+   ],
+   "atlas": [
+    210,
+    644,
+    198,
+    128
+   ],
+   "ancre": [
+    99.6,
+    128.0
+   ]
+  },
+  "ombre": {
+   "planche": null,
+   "atlas": [
+    416,
+    644,
+    84,
+    30
+   ],
+   "ancre": [
+    42.0,
+    15.0
+   ]
+  }
+ },
+ "animations": {
+  "garde": {
+   "images": [
+    "garde_1",
+    "garde_2",
+    "garde_3",
+    "garde_4",
+    "garde_5",
+    "garde_6"
+   ],
+   "ips": 4,
+   "boucle": true
+  },
+  "deplacement": {
+   "images": [
+    "course",
+    "course_2"
+   ],
+   "ips": 0,
+   "boucle": true
+  },
+  "preparation": {
+   "images": [
+    "porte"
+   ],
+   "ips": 0,
+   "boucle": false
+  },
+  "attaque": {
+   "images": [
+    "coup_1",
+    "coup_2",
+    "coup_3",
+    "coup_4"
+   ],
+   "ips": 8,
+   "boucle": false
+  },
+  "reaction": {
+   "images": [
+    "accroupi_1",
+    "accroupi_2"
+   ],
+   "ips": 5,
+   "boucle": false
+  },
+  "cri": {
+   "images": [
+    "cri"
+   ],
+   "ips": 0,
+   "boucle": false
+  }
+ },
+ "ombre": "ombre"
+}

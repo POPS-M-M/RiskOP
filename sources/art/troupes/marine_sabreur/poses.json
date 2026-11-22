@@ -1,0 +1,105 @@
+{
+ "planche": "marine_sabreur.png",
+ "poses": {
+  "garde_1": [
+   110,
+   121
+  ],
+  "garde_2": [
+   300,
+   122
+  ],
+  "garde_3": [
+   491,
+   122
+  ],
+  "course": [
+   114,
+   388
+  ],
+  "touche": [
+   339,
+   374
+  ],
+  "fente": [
+   760,
+   478
+  ],
+  "accroupi_1": [
+   109,
+   679
+  ],
+  "accroupi_2": [
+   302,
+   680
+  ],
+  "estoc": [
+   767,
+   700
+  ],
+  "armer": [
+   119,
+   920
+  ],
+  "lame_haute": [
+   402,
+   911
+  ],
+  "taille": [
+   760,
+   924
+  ]
+ },
+ "animations": {
+  "garde": {
+   "images": [
+    "garde_1",
+    "garde_2",
+    "garde_3",
+    "garde_2"
+   ],
+   "ips": 4,
+   "boucle": true
+  },
+  "deplacement": {
+   "images": [
+    "course"
+   ],
+   "ips": 0,
+   "boucle": true
+  },
+  "preparation": {
+   "images": [
+    "armer"
+   ],
+   "ips": 0,
+   "boucle": false
+  },
+  "attaque": {
+   "images": [
+    "fente",
+    "estoc",
+    "taille"
+   ],
+   "ips": 8,
+   "boucle": false
+  },
+  "reaction": {
+   "images": [
+    "touche",
+    "accroupi_1"
+   ],
+   "ips": 5,
+   "boucle": false
+  },
+  "cri": {
+   "images": [
+    "lame_haute"
+   ],
+   "ips": 0,
+   "boucle": false
+  }
+ },
+ "ref": "garde_1",
+ "troupe": "marine_sabreur"
+}

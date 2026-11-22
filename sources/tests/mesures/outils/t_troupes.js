@@ -41,8 +41,8 @@ const ROOT=path.join(__dirname,'..','..','..');
  const nb=await p.evaluate(()=>{const X=__RK,t=X.terrs.find(q=>q.name==='Water 7');return Math.max(1,Math.min(30,Math.round(Math.pow(40,.62)*1.1)));});
  ok('garnison affichée (Recrues en sprites, effectif réel inchangé)',sc.st.gar>=nb&&sc.st.spr>=nb&&sc.st.fail==='',{attendu:nb,st:sc.st});
  const gp=await p.evaluate(async()=>{const X=__RK,t=X.terrs.find(q=>q.name==='Water 7');t.owner=1;const T=window.__TRP;T.trace=[];await new Promise(r=>setTimeout(r,1500));
-   const n=T.trace.length,st=window.__TRPst();t.owner=0;return {fac:X.px().pxCrewId?null:null,sprites:n,gar:st.gar};});
- ok('garnison Pirates (joueur 1) : aucun sprite de la Marine, personnages 3D de la faction',gp.sprites===0&&gp.gar>0,gp);
+   const n=T.trace.length,st=window.__TRPst();t.owner=0;return {sprites:n,assets:[...new Set(T.trace.map(q=>q[5]))],gar:st.gar};});
+ ok('garnison Pirates (joueur 1) : planches pirates seulement, aucun sprite de la Marine',gp.gar>0&&gp.assets.every(a=>/^pirate_/.test(a)),gp);
  /* 3. débarquement : chemin sur sol libre, arrivée aux places de l'armée, fin propre */
  const L=await p.evaluate(()=>{const X=__RK,t=X.terrs.find(q=>q.name==='Water 7'),f=X.terrs[t.nb.find(n=>X.terrs[n].boss===undefined)];
    const okL=X.px().pxLandStart({owner:0,from:f.id,to:t.id,u:{guerrier:20,lancier:4,archer:0,cavalier:0,catapulte:0,elite:0},rt:false,lt:-1},{force:true,demo:true});
@@ -57,9 +57,9 @@ const ROOT=path.join(__dirname,'..','..','..');
  ok('fin du débarquement : places rendues à la garnison',L2.land===0&&!L2.res,L2);
  const LP=await p.evaluate(async()=>{const X=__RK,t=X.terrs.find(q=>q.name==='Water 7'),f=X.terrs[t.nb.find(n=>X.terrs[n].boss===undefined)],T=window.__TRP;t.owner=1;
    X.px().pxLandStart({owner:1,from:f.id,to:t.id,u:{guerrier:20,lancier:4,archer:0,cavalier:0,catapulte:0,elite:0},rt:false,lt:-1},{force:true,demo:true});
-   const Ld=T.land[T.land.length-1];T.trace=[];T.tfix=6;await new Promise(r=>setTimeout(r,1500));const n=T.trace.filter(q=>q[4]===1).length,px=X.PXS.inst.length;T.tfix=60;await new Promise(r=>setTimeout(r,1200));delete T.tfix;t.owner=0;
-   return {fac:Ld&&Ld.fac,figs:Ld&&Ld.figs.length,spritesJoueur1:n};});
- ok('débarquement Pirates : aucun sprite de la Marine (personnages 3D de la faction)',LP.fac==='pirate'&&LP.figs>0&&LP.spritesJoueur1===0,LP);
+   const Ld=T.land[T.land.length-1];T.trace=[];T.tfix=6;await new Promise(r=>setTimeout(r,1500));const n=T.trace.filter(q=>q[4]===1).length,am=[...new Set(T.trace.filter(q=>q[4]===1).map(q=>q[5]))],px=X.PXS.inst.length;T.tfix=60;await new Promise(r=>setTimeout(r,1200));delete T.tfix;t.owner=0;
+   return {fac:Ld&&Ld.fac,figs:Ld&&Ld.figs.length,spritesJoueur1:n,assets:am};});
+ ok('débarquement Pirates : planches pirates seulement, aucun sprite de la Marine',LP.fac==='pirate'&&LP.figs>0&&LP.assets.every(a=>/^pirate_/.test(a)),LP);
  /* 4. zoom maximal en 3D */
  const kz=await p.evaluate(()=>{const X=__RK;X.V.k=99;document.querySelector('#map').dispatchEvent(new WheelEvent('wheel',{deltaY:-50,clientX:700,clientY:430,bubbles:true}));return X.V.k;});
  ok('zoom 3D plafonné à 40 (18 avant)',kz<=40.001&&kz>18,kz);
@@ -82,7 +82,7 @@ const ROOT=path.join(__dirname,'..','..','..');
    if(!off&&r.b3){/* faction et caméra de combat, mêlée figée à tau = 5,5 s */
      await o.p.evaluate(()=>{window.__TRP.trace=[];__RK.B3.freeze=5.5;});await o.p.waitForTimeout(3000);
      r.cam=await o.p.evaluate(()=>{const X=__RK,T=window.__TRP,Rn=X.B3.run,c=X.W3.c,cv=document.querySelector('canvas'),p=X.w3Proj(Rn.fx,Rn.fy,0,c);
-       return {D:+c.D.toFixed(2),near:c.near,pxCss:p?+(.54*c.u[2]*p.k*cv.getBoundingClientRect().width/cv.width).toFixed(1):0,own:[...new Set(T.trace.map(q=>q[4]))],assets:[...new Set(T.trace.map(q=>q[5]))],n:T.trace.length};});
+       return {D:+c.D.toFixed(2),near:c.near,pxCss:p?+(.54*c.u[2]*p.k*cv.getBoundingClientRect().width/cv.width).toFixed(1):0,own:[...new Set(T.trace.map(q=>q[4]))],assets:[...new Set(T.trace.map(q=>q[5]))],par:[...new Set(T.trace.map(q=>q[4]+':'+q[5]))],n:T.trace.length};});
      r.V0=await o.p.evaluate(()=>[__RK.V.k,__RK.V.x,__RK.V.y,__RK.W3.cam.yaw,__RK.W3.cam.pitch]);
      await o.p.evaluate(()=>window.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape'})));r.out1=await o.p.evaluate(()=>!!window.__TRP.camOut&&!__RK.B3.run);
      await o.p.waitForTimeout(3500);r.ret=await o.p.evaluate(()=>{const X=__RK,c=X.W3.c;return {out:!!window.__TRP.camOut,near:c.near===undefined?null:c.near,V:[X.V.k,X.V.x,X.V.y,X.W3.cam.yaw,X.W3.cam.pitch]};});}
@@ -95,7 +95,7 @@ const ROOT=path.join(__dirname,'..','..','..');
   ok('sauvegarde : mêmes champs avec et sans (aucun champ ajouté) ; seules les horloges diffèrent',keysA===keysB&&diff.every(d=>/\.(w|date|gid)$/.test(d)),{diff:diff.slice(0,8)});}
  ok('scène de combat : front sur terrain dégagé, soldats de la Marine en sprites pendant la mêlée',A.b3&&A.front&&A.cam&&A.cam.n>0,{b3:A.b3,front:A.front,mêlée:A.cam&&A.cam.n});
  ok('module désactivé (rk-trp=0) : aucun sprite, scène d\'origine',B.b3&&B.front===false&&B.spr===0,{front:B.front,spr:B.spr});
- ok('combat : seuls les soldats de la faction Marine sont en sprites (défenseurs Pirates en personnages 3D)',A.cam&&A.cam.n>0&&JSON.stringify(A.cam.own)==='[0]'&&JSON.stringify(A.cam.assets)==='["marine_recrue"]',A.cam);
+ ok('combat : chaque camp avec la planche de sa faction (Marine : marine_*, Pirates : pirate_*)',A.cam&&A.cam.n>0&&A.cam.par.every(x=>{const [o,a]=x.split(':');return o==='0'?/^marine_/.test(a):/^pirate_/.test(a);}),A.cam);
  ok('caméra de combat : rapprochée sur la mêlée (distance ≤ 20 u, soldat ≥ 35 px CSS de haut)',A.cam&&A.cam.D<=20&&A.cam.pxCss>=35,A.cam&&{D:A.cam.D,pxCss:A.cam.pxCss,near:A.cam.near});
  ok('Échap : la scène s\'arrête et la caméra repart progressivement vers la vue stratégique',A.out1===true,A.out1);
  ok('retour : caméra stratégique d\'origine retrouvée (zoom, position, angles identiques), plan proche d\'origine',A.ret&&!A.ret.out&&A.ret.near===null&&JSON.stringify(A.ret.V)===JSON.stringify(A.V0),A.ret);

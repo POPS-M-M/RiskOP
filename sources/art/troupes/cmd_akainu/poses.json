@@ -1,0 +1,150 @@
+{
+ "planche": "akainu.png",
+ "zone": [
+  4,
+  51,
+  1032,
+  1075
+ ],
+ "dilatation": 3,
+ "alpha_min": 60,
+ "echelle": 1.12,
+ "poses": {
+  "garde_1": [
+   103,
+   150
+  ],
+  "garde_2": [
+   294,
+   149
+  ],
+  "garde_3": [
+   485,
+   149
+  ],
+  "garde_4": [
+   677,
+   149
+  ],
+  "magma_1": [
+   744,
+   342
+  ],
+  "magma_2": [
+   934,
+   343
+  ],
+  "p1": [
+   100,
+   627
+  ],
+  "p2": [
+   291,
+   596
+  ],
+  "p3": [
+   486,
+   626
+  ],
+  "p4": [
+   668,
+   611
+  ],
+  "p5": [
+   861,
+   581
+  ],
+  "q1": [
+   112,
+   818
+  ],
+  "q2": [
+   324,
+   785
+  ],
+  "q3": [
+   515,
+   802
+  ],
+  "q4": [
+   708,
+   784
+  ],
+  "q5": [
+   915,
+   768
+  ],
+  "r1": [
+   99,
+   994
+  ],
+  "r2": [
+   292,
+   974
+  ],
+  "r3": [
+   483,
+   994
+  ],
+  "r4": [
+   684,
+   978
+  ],
+  "r5": [
+   914,
+   978
+  ]
+ },
+ "animations": {
+  "garde": {
+   "images": [
+    "garde_1",
+    "garde_2",
+    "magma_1",
+    "garde_2"
+   ],
+   "ips": 4,
+   "boucle": true
+  },
+  "deplacement": {
+   "images": [
+    "q5",
+    "r5"
+   ],
+   "ips": 4,
+   "boucle": true
+  },
+  "preparation": {
+   "images": [
+    "p4"
+   ],
+   "ips": 0,
+   "boucle": false
+  },
+  "attaque": {
+   "images": [
+    "q1",
+    "p1",
+    "r1"
+   ],
+   "ips": 8,
+   "boucle": false
+  },
+  "reaction": {
+   "images": [
+    "p5"
+   ],
+   "ips": 5,
+   "boucle": false
+  },
+  "cri": {
+   "images": [
+    "garde_3"
+   ],
+   "ips": 0,
+   "boucle": false
+  }
+ },
+ "ref": "garde_1",
+ "troupe": "cmd_akainu"
+}

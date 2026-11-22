@@ -1,0 +1,105 @@
+{
+ "planche": "pirate_tireur.png",
+ "poses": {
+  "garde_1": [
+   103,
+   111
+  ],
+  "garde_2": [
+   296,
+   112
+  ],
+  "garde_3": [
+   487,
+   112
+  ],
+  "course": [
+   118,
+   367
+  ],
+  "accroupi_1": [
+   106,
+   603
+  ],
+  "accroupi_2": [
+   304,
+   605
+  ],
+  "chute": [
+   573,
+   605
+  ],
+  "vise": [
+   918,
+   589
+  ],
+  "tir_1": [
+   157,
+   910
+  ],
+  "tir_2": [
+   411,
+   910
+  ],
+  "tir_3": [
+   624,
+   909
+  ],
+  "cri": [
+   813,
+   909
+  ]
+ },
+ "animations": {
+  "garde": {
+   "images": [
+    "garde_1",
+    "garde_2",
+    "garde_3",
+    "garde_2"
+   ],
+   "ips": 4,
+   "boucle": true
+  },
+  "deplacement": {
+   "images": [
+    "course"
+   ],
+   "ips": 0,
+   "boucle": true
+  },
+  "preparation": {
+   "images": [
+    "vise"
+   ],
+   "ips": 0,
+   "boucle": false
+  },
+  "attaque": {
+   "images": [
+    "tir_1",
+    "tir_2",
+    "tir_3"
+   ],
+   "ips": 8,
+   "boucle": false
+  },
+  "reaction": {
+   "images": [
+    "chute",
+    "accroupi_1"
+   ],
+   "ips": 5,
+   "boucle": false
+  },
+  "cri": {
+   "images": [
+    "cri"
+   ],
+   "ips": 0,
+   "boucle": false
+  }
+ },
+ "ref": "garde_1",
+ "troupe": "pirate_tireur"
+}
