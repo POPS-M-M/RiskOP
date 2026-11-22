@@ -142,6 +142,44 @@ if(essai){
   rep("V.k=clamp(V.k*f,1,3.5);","V.k=clamp(V.k*f,1,(typeof W3!=='undefined'&&W3.act)?18:3.5);");
   rep('<button id="z-3d"','<button id="z-w3" class="on" aria-pressed="true" title="Monde 3D : caméra libre (clic droit : tourner et incliner, Q/E : tourner)">🌍</button><button id="z-3d"');
 }
+/* 27. version test seulement : mode « Course vers Laugh Tale » (5 sièges : Marine, Révolutionnaires, 3 équipages pirates).
+       Chaque règle Course est conditionnée à CS.on ; le module est src/essai/78-course.js. Remplacements repris de la copie de test
+       de la phase 2 (rapport du 22/11/2026), où le mode classique est resté identique sur 10 parties sur 10. */
+if(essai){
+  if(h.indexOf('<head>')<0)throw new Error('<head> introuvable');h=h.replace('<head>','<head><script id="cs0">window.CS={on:false,only:true};</script>');   /* première occurrence : la page ; la seconde est un modèle de texte */
+  rep('players=[0,1,2,3].map(i=>({\n    id:i,','players=crews.map((_,i)=>i).map(i=>({\n    id:i,');
+  rep('inc:humans[i]?1:DIFF[dk].inc,\n    ai:{t:1.5+Math.random()*2,aggr:DIFF[dk].aggr*','inc:humans[i]||opts.noBonus?1:DIFF[dk].inc,\n    ai:{dk:(opts.dks&&opts.dks[i])||dk,t:1.5+Math.random()*2,aggr:DIFF[(opts.dks&&opts.dks[i])||dk].aggr*');
+  rep('{length:4},()=>Array(4)','{length:players.length},()=>Array(players.length)',9);
+  rep('vas=[-1,-1,-1,-1];vasSince=[0,0,0,0];','vas=players.map(()=>-1);vasSince=players.map(()=>0);',2);
+  rep('opin=Array.from({length:4},()=>Array.from({length:4},()=>Math.round(Math.random()*12)));','opin=Array.from({length:players.length},()=>Array.from({length:players.length},()=>Math.round(Math.random()*12)));');
+  rep('for(let v=0;v<4;v++){','for(let v=0;v<players.length;v++){');
+  rep('for(let a=0;a<4;a++)for(let b=0;b<4;b++){\n    if(a===b)continue;','for(let a=0;a<players.length;a++)for(let b=0;b<players.length;b++){\n    if(a===b)continue;');
+  rep('for(let q=0;q<4;q++){if(q!==p.id){setRel(','for(let q=0;q<players.length;q++){if(q!==p.id){setRel(');
+  rep("const COLORS=['#4c8df6','#ee5b52','#3fc27a','#b672ee'];","const COLORS=['#4c8df6','#ee5b52','#3fc27a','#b672ee','#f2a33a'];");
+  rep('let id=terrs.find(t=>t.name===MAP_CAPS[CREWS[p.crew||0].id]).id;','let id=terrs.find(t=>t.name===((opts.caps&&opts.caps[p.id])||MAP_CAPS[CREWS[p.crew||0].id])).id;');
+  rep('p.ai.t=DIFF[diffKey].think*PK','p.ai.t=DIFF[p.ai.dk||diffKey].think*PK');
+  rep('TM={on:!!opts.turn,phase:\'plan\',n:1,res:0,ready:[false,false,false,false],','TM={on:!!opts.turn,phase:\'plan\',n:1,res:0,ready:crews.map(()=>false),');
+  rep('if(nw!==old){\n      if(p.name===CREWS[old].n)','if(nw!==old&&!CS.on){\n      if(p.name===CREWS[old].n)');
+  rep('const dom=alive.length>=2?','const dom=!CS.on&&alive.length>=2?');
+  rep('if(AG.n>=2&&alive.length>=2&&alive.every(','if(!CS.on&&AG.n>=2&&alive.length>=2&&alive.every(');
+  rep('if(!players.some(p=>p.human&&p.alive)){fin(','if(!(CS.on&&CS.allAI)&&!players.some(p=>p.human&&p.alive)){fin(');
+  rep('if(AG.n>=2){finalScore();return;}','if(AG.n>=2){if(CS.on){CS.ageEnd();return;}finalScore();return;}');
+  rep('function endGame(winners,text){over={winners,text};showEnd();}','function endGame(winners,text){if(CS.on&&!CS.endOK)return;over={winners,text};showEnd();}');
+  rep('function startProj(p,id){','function startProj(p,id){if(CS.on)return \'Mode Course : pas de projet de victoire.\';');
+  rep('function marineTick(){','function marineTick(){if(CS.on)return;');
+  rep('const canHit=(p,x)=>(x.owner<0&&!bossAlive(x))||','let canHit=(p,x)=>(CS.on&&CS.veto(p,x))?false:(x.owner<0&&(!bossAlive(x)||(CS.on&&CS.bossOK(p,x))))||');
+  rep('    for(const x of foes){\n      const A=attTotal(p.id,avU,x,false,t.id),D=defTotal(x,avU,false);',
+      '    for(const x of foes){\n      if(bossAlive(x)){const r=CS.on?CS.bossEval(p,t,x,avU):null;if(r&&r.sc>bestScore){bestScore=r.sc;best=x;bestRatio=1;bestRaw=99;}continue;}\n      const A=attTotal(p.id,avU,x,false,t.id),D=defTotal(x,avU,false);');
+  rep('const sc=ratio*(rkCoalFocus(p,x)?1.6:1)','const sc=ratio*(CS.on?CS.w(p,x):1)*(rkCoalFocus(p,x)?1.6:1)');
+  rep('const sc=(warAdj?12:0)-tr(t);','const sc=(warAdj?12:0)-tr(t)+(CS.on?CS.stage(p,t):0);');
+  rep('function aiDec(p){','function aiDec(p){if(CS.on)return CS.aiDec(p);');
+  rep('function decReason(p,t){','function decReason(p,t){if(CS.on)return \'Mode Course : déchiffrez depuis le panneau « Course ».\';');
+  rep('function convertReason(p,t){','function convertReason(p,t){if(CS.on&&t.id===CS.LT)return \'Laugh Tale ne se rallie pas.\';');
+  rep('function annexReason(p,t){','function annexReason(p,t){if(CS.on&&t.id===CS.LT)return \'Laugh Tale ne se rallie pas.\';');
+  rep('function launch_o(pid,from,to,pct,st){','function launch_o(pid,from,to,pct,st){if(CS.on&&CS.blockLaunch(pid,to))return \'La route de Laugh Tale ne vous est pas encore révélée.\';');
+  rep("return o&&o.v===1&&o.G&&o.meta?o:null;","return o&&(o.v===1||(CS.only&&o.v===2))&&o.G&&o.meta?o:null;");
+  rep('function launchCheck(pid,from,to,pct){','function launchCheck(pid,from,to,pct){if(CS.on&&CS.blockLaunch(pid,to))return \'La route de Laugh Tale ne vous est pas encore révélée.\';');
+}
 /* 26. OP Adventure : la Volonté devient ⚔ Recrues (textes affichés), les « recrues naturelles » deviennent des renforts naturels.
        Ce remplacement porte sur les textes ; les identifiants internes (faith, rate.f) ne contiennent ni « Volonté » ni « ✹ ». */
 /* textes : l'unité de base s'appelle désormais « Recrues » (avant : Pirates) — seulement là où « pirates » désigne l'unité, pas le camp */
