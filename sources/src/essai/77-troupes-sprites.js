@@ -11,10 +11,14 @@
    • ombre de contact : l'ellipse fournie avec la planche, à plat sur le sol ; un anneau fin à la couleur du joueur (identification du camp) ;
    • orientation : la planche ne montre le soldat que tourné vers la droite (trois quarts face) : regard à gauche = image en miroir.
    Aucune image n'est créée ni déformée : seules les poses de la planche sont affichées (animations : art/troupes/marine_recrue/troupe.json). */
-const TRP={on:true,reel:true,anneau:true,gl:null,prog:null,tex:null,ok:false,fail:'',q:[],D:TRP_DATA.marine_recrue,land:[],grid:new Map(),res:new Map(),
+const TRP={on:true,reel:true,anneau:true,gl:null,prog:null,tx:{},ok:false,fail:'',q:[],D:TRP_DATA.marine_recrue,land:[],grid:new Map(),res:new Map(),
   st:{spr:0,gnd:0,ms:0,land:0,gar:0,ilesGar:0},cap:30,vSol:1.7,vPont:1.1,biais:.16,last:0};
 try{const m=localStorage.getItem('rk-trp');if(m==='0')TRP.on=false;}catch(_){}
 const TRP_H=TRP.D.conv.hauteur_ref_u,TRP_UPP=TRP_H/TRP.D.conv.hauteur_ref_px,TRP_PXS=()=>TRP_H/PXH;   /* échelle des personnages 3D à la même hauteur */
+/* faction réelle (CREWS : marine, pirate, revo, chasseur ; « native » pour les îles neutres) → catégorie de troupe (kind) → planche de sprites.
+   Seule la Marine a une planche : les autres factions gardent leurs personnages 3D actuels. Aucune faction ne récupère une planche par défaut. */
+const TRP_ASSETS={marine:{0:'marine_recrue'}};
+const trpAsset=(fac,kind)=>{const a=TRP_ASSETS[fac],n=a&&a[kind];return n&&TRP_DATA[n]?n:null;};
 const trpActif=()=>TRP.on&&!TRP.fail&&typeof W3!=='undefined'&&W3.act&&!PXS.atelier;
 const trpH=(s)=>{let h=2166136261;s=String(s);for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return ((h>>>0)%100000)/100000;};
 
@@ -41,45 +45,52 @@ function trpInit(){
     gl.linkProgram(p);if(!gl.getProgramParameter(p,gl.LINK_STATUS))throw new Error(gl.getProgramInfoLog(p));
     TRP.prog=p;TRP.ext=ext;TRP.gl=gl;TRP.qb=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,TRP.qb);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([0,0,1,0,1,1,0,0,1,1,0,1]),gl.STATIC_DRAW);TRP.ib=gl.createBuffer();
     TRP.ok=true;
-    /* atlas : PNG d'origine (pixels de la planche), alpha prémultiplié au chargement (pas de liseré sombre), mipmaps pour les petites tailles */
-    const im=new Image();im.onload=()=>{try{const t=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,t);gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL,true);
-      gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,im);gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL,false);
-      gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR_MIPMAP_LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
-      gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);gl.generateMipmap(gl.TEXTURE_2D);
-      TRP.tex=t;TRP.aw=im.naturalWidth;TRP.ah=im.naturalHeight;dirty=true;}catch(e){TRP.fail=String(e&&e.message||e);}};
-    im.onerror=()=>{TRP.fail='atlas illisible';};im.src=TRP.D.atlas;
+    return true;
     return true;
   }catch(e){TRP.fail=String(e&&e.message||e);console.warn('troupes en sprites indisponibles :',TRP.fail);return false;}
 }
 
+/* atlas d'une planche : PNG d'origine (pixels de la planche), alpha prémultiplié au chargement (pas de liseré sombre), mipmaps pour les petites tailles */
+function trpTex(name){
+  const X=TRP.tx[name];if(X)return X.tex?X:null;const gl=TRP.gl,D=TRP_DATA[name];if(!gl||!D)return null;const E=TRP.tx[name]={tex:null};
+  const im=new Image();im.onload=()=>{try{const t=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,t);gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL,true);
+    gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,im);gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL,false);
+    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR_MIPMAP_LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);gl.generateMipmap(gl.TEXTURE_2D);
+    E.tex=t;E.aw=im.naturalWidth;E.ah=im.naturalHeight;E.D=D;E.upp=TRP_H/D.conv.hauteur_ref_px;dirty=true;   /* même hauteur de référence pour toutes les planches */}catch(e){TRP.fail=String(e&&e.message||e);}};
+  im.onerror=()=>{TRP.fail='atlas illisible : '+name;};im.src=D.atlas;return null;
+}
 /* ---------- animations : uniquement les images de la planche ---------- */
-function trpImg(anim,t){const A=TRP.D.anim[anim]||TRP.D.anim.garde,n=A.i.length;if(!A.ips||n===1)return A.i[0];
+function trpImg(D,anim,t){const A=D.anim[anim]||D.anim.garde,n=A.i.length;if(!A.ips||n===1)return A.i[0];
   const k=Math.floor(Math.max(0,t)*A.ips);return A.i[A.b?((k%n)+n)%n:Math.min(n-1,k)];}
-/* figurine → file d'affichage. f : {x,y,z (pieds), anim, t (s), flip (bool), al, own (joueur ou couleur)} */
-function trpPush(f){TRP.q.push(f);if(TRP.trace)TRP.trace.push([f.x,f.y,f.z,f.anim]);}
+/* figurine → file d'affichage. f : {asset (planche), x,y,z (pieds), anim, t (s), flip (bool), al, own (joueur ou couleur)} */
+function trpPush(f){TRP.q.push(f);if(TRP.trace)TRP.trace.push([f.x,f.y,f.z,f.anim,f.own,f.asset]);}
 function trpFlush(c,now){
-  const q=TRP.q;TRP.q=[];if(!q.length||!trpInit()||!TRP.tex)return;const t0=performance.now(),gl=TRP.gl,ext=TRP.ext,D=TRP.D,AW=TRP.aw,AH=TRP.ah;
+  const q=TRP.q;TRP.q=[];TRP.st.spr=0;TRP.st.gnd=0;if(!q.length||!trpInit())return;const t0=performance.now(),gl=TRP.gl,ext=TRP.ext;
   const spr=[],gnd=[],cuz=Math.max(.2,c.u[2]);
   for(const f of q){
+    const X=trpTex(f.asset||'marine_recrue');if(!X)continue;const D=X.D,AW=X.aw,AH=X.ah;
     const p=w3Proj(f.x,f.y,f.z,c);if(!p)continue;const hpx=TRP_H*cuz*p.k;
-    if(hpx<1.6||p.sx<-80||p.sx>canvas.width+80||p.sy<-40||p.sy>canvas.height+hpx+40)continue;
-    const nm=trpImg(f.anim,f.t),E=D.img[nm];if(!E)continue;const [ax,ay,w,h]=E.a,[cx,cy]=E.c,al=f.al===undefined?1:f.al;
-    let L=-cx*TRP_UPP,Rr=(w-cx)*TRP_UPP,u0=ax/AW,u1=(ax+w)/AW;if(f.flip){const l=L;L=-Rr;Rr=-l;const u=u0;u0=u1;u1=u;}
-    spr.push([p.z,f.x,f.y,f.z,0,u0,ay/AH,u1,(ay+h)/AH,L,Rr,-(h-cy)*TRP_UPP,cy*TRP_UPP,1,1,1,al]);
-    if(hpx>=3){const O=D.img[D.ombre],[oa,ob,ow,oh]=O.a;gnd.push([f.x,f.y,f.z+.012,1,oa/AW,ob/AH,(oa+ow)/AW,(ob+oh)/AH,-.14,.14,-.085,.085,0,0,0,.42*al]);
-      if(TRP.anneau&&f.own!==undefined&&f.own!==null&&f.own!==-1){const oc=r3c(typeof f.own==='string'?f.own:(COLORS[f.own]||'#ffffff'));gnd.push([f.x,f.y,f.z+.014,2,0,0,1,1,-.2,.2,-.15,.15,oc[0],oc[1],oc[2],.6*al]);}}
+    if(hpx<1.6||p.sx<-80-hpx||p.sx>canvas.width+80+hpx||p.sy<-40||p.sy>canvas.height+hpx+40)continue;
+    const nm=trpImg(D,f.anim,f.t),E=D.img[nm];if(!E)continue;const [ax,ay,w,h]=E.a,[cx,cy]=E.c,al=f.al===undefined?1:f.al;
+    let L=-cx*X.upp,Rr=(w-cx)*X.upp,u0=ax/AW,u1=(ax+w)/AW;if(f.flip){const l=L;L=-Rr;Rr=-l;const u=u0;u0=u1;u1=u;}
+    spr.push([p.z,X,f.x,f.y,f.z,0,u0,ay/AH,u1,(ay+h)/AH,L,Rr,-(h-cy)*X.upp,cy*X.upp,1,1,1,al]);
+    if(hpx>=3){const O=D.img[D.ombre],[oa,ob,ow,oh]=O.a;gnd.push([0,X,f.x,f.y,f.z+.012,1,oa/AW,ob/AH,(oa+ow)/AW,(ob+oh)/AH,-.14,.14,-.085,.085,0,0,0,.42*al]);
+      if(TRP.anneau&&f.own!==undefined&&f.own!==null&&f.own!==-1){const oc=r3c(typeof f.own==='string'?f.own:(COLORS[f.own]||'#ffffff'));gnd.push([0,X,f.x,f.y,f.z+.014,2,0,0,1,1,-.2,.2,-.15,.15,oc[0],oc[1],oc[2],.6*al]);}}
   }
   TRP.st.spr=spr.length;TRP.st.gnd=gnd.length;if(!spr.length){TRP.st.ms=performance.now()-t0;return;}
   spr.sort((a,b)=>b[0]-a[0]);   /* du plus loin au plus proche */
-  gl.useProgram(TRP.prog);const U=n=>gl.getUniformLocation(TRP.prog,n),far=Math.max(6000,c.D*6);
-  gl.uniform3fv(U('eye'),c.eye);gl.uniform3fv(U('cr'),c.r);gl.uniform3fv(U('cu'),c.u);gl.uniform3fv(U('cf'),c.f);gl.uniform4f(U('P'),1/c.tx,1/c.ty,20,far);
-  gl.uniform3f(U('fogc'),.62,.86,.92);gl.uniform1f(U('fogd'),c.D*1.8);gl.uniform1f(U('bias'),TRP.biais);gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,TRP.tex);gl.uniform1i(U('T'),0);
+  gl.useProgram(TRP.prog);const U=n=>gl.getUniformLocation(TRP.prog,n),far=c.far||Math.max(6000,c.D*6);
+  gl.uniform3fv(U('eye'),c.eye);gl.uniform3fv(U('cr'),c.r);gl.uniform3fv(U('cu'),c.u);gl.uniform3fv(U('cf'),c.f);gl.uniform4f(U('P'),1/c.tx,1/c.ty,c.near||20,far);
+  gl.uniform3f(U('fogc'),.62,.86,.92);gl.uniform1f(U('fogd'),c.fogD||c.D*1.8);gl.uniform1f(U('bias'),TRP.biais);gl.activeTexture(gl.TEXTURE0);gl.uniform1i(U('T'),0);
   gl.enable(gl.DEPTH_TEST);gl.depthMask(false);gl.enable(gl.BLEND);gl.blendFunc(gl.ONE,gl.ONE_MINUS_SRC_ALPHA);gl.disable(gl.CULL_FACE);
-  const draw=(rows)=>{if(!rows.length)return;const n=rows.length,a=new Float32Array(n*16);rows.forEach((r,i)=>a.set(r.length===17?r.slice(1):r,i*16));
+  const draw1=(rows)=>{const n=rows.length,a=new Float32Array(n*16);rows.forEach((r,i)=>a.set(r.slice(2),i*16));
     gl.bindBuffer(gl.ARRAY_BUFFER,TRP.qb);gl.enableVertexAttribArray(0);gl.vertexAttribPointer(0,2,gl.FLOAT,false,0,0);ext.vertexAttribDivisorANGLE(0,0);
     gl.bindBuffer(gl.ARRAY_BUFFER,TRP.ib);gl.bufferData(gl.ARRAY_BUFFER,a,gl.DYNAMIC_DRAW);
     for(let i=0;i<4;i++){gl.enableVertexAttribArray(1+i);gl.vertexAttribPointer(1+i,4,gl.FLOAT,false,64,i*16);ext.vertexAttribDivisorANGLE(1+i,1);}
     ext.drawArraysInstancedANGLE(gl.TRIANGLES,0,6,n);for(let i=1;i<5;i++){ext.vertexAttribDivisorANGLE(i,0);gl.disableVertexAttribArray(i);}};
+  /* une suite de figurines de la même planche = un appel (l'ordre du plus loin au plus proche est gardé) */
+  const draw=(rows)=>{let i=0;while(i<rows.length){const X=rows[i][1];let j=i;while(j<rows.length&&rows[j][1]===X)j++;gl.bindTexture(gl.TEXTURE_2D,X.tex);draw1(rows.slice(i,j));i=j;}};
   gl.enable(gl.POLYGON_OFFSET_FILL);gl.polygonOffset(-1,-4);draw(gnd);gl.disable(gl.POLYGON_OFFSET_FILL);
   draw(spr);
   gl.depthMask(true);gl.disable(gl.BLEND);gl.disableVertexAttribArray(0);
@@ -88,7 +99,7 @@ function trpFlush(c,now){
 /* regard : la planche montre le soldat tourné vers la droite de l'écran ; miroir si le regard (ou la marche) va vers la gauche de l'écran */
 const trpFlipYaw=(yaw,c,prev)=>{const d=Math.cos(yaw)*c.r[0]+Math.sin(yaw)*c.r[1];return d<-.08?true:d>.08?false:!!prev;};
 
-/* ---------- raccord avec les personnages 3D : les Recrues (kind 0) passent au sprite ; tous les personnages à la hauteur de référence ---------- */
+/* ---------- raccord avec les personnages 3D : une troupe dont la faction a une planche passe au sprite ; tous les personnages à la hauteur de référence ---------- */
 const TRP_AN={idle:'garde',cmd:'garde',walk:'deplacement',run:'deplacement',cheer:'cri',fall:'reaction'};
 function trpFromPx(it,c){
   let an=TRP_AN[it.anim]||'garde',t=it.t||0;
@@ -97,12 +108,13 @@ function trpFromPx(it,c){
   let z=it.z;
   /* combat : la scène pose les soldats sur la carte « obstacles » (toits compris) ; à terre, on les repose sur le sol */
   if(typeof B3!=='undefined'&&B3.run&&B3.run.m&&B3.run.m.bx){const I=BLX.isl[B3.run.m.bx],tt=B3.run.t;if(I&&I.Hs&&I.Ho){const lx=it.x-tt.x,ly=it.y-tt.y,o=I.Ho(lx,ly);if(Math.abs(z-Math.max(0,o))<.06)z=Math.max(0,I.Hs(lx,ly));}}
-  trpPush({x:it.x,y:it.y,z,anim:an,t,flip:trpFlipYaw(it.yaw||0,c),al:(it.alpha===undefined?1:it.alpha),own:it.owner});
+  trpPush({asset:trpAsset(it.spec.fac,it.spec.kind),x:it.x,y:it.y,z,anim:an,t,flip:trpFlipYaw(it.yaw||0,c),al:(it.alpha===undefined?1:it.alpha),own:it.owner});
 }
 {const pf0=pxFlush;
  pxFlush=function(c,now,opt){
-   if(trpActif()){const keep=[];for(const it of PXS.inst){
-       if(it.spec&&it.spec.kind===0&&!it.spec.cm)trpFromPx(it,c);
+   if(trpActif()){const keep=[];if(typeof B3!=='undefined'&&B3.run){const fp=[];for(const it of PXS.inst)fp.push([it.x,it.y,it.owner,it.z]);B3.run.trpFP=fp;}   /* positions des combattants : cadrage de la caméra de combat (image suivante) */
+     for(const it of PXS.inst){
+       if(it.spec&&!it.spec.cm&&trpAsset(it.spec.fac,it.spec.kind))trpFromPx(it,c);   /* planche de la faction réelle, sinon personnage 3D */
        else{if(TRP.reel&&!it.trpOk)it.scale=TRP_PXS()*(it.spec&&it.spec.cm?1.16:1);keep.push(it);}}
      PXS.inst=keep;}
    pf0(c,now,opt);
@@ -165,9 +177,10 @@ function trpGarrisons(c,now){
     const G=trpGrid(t);if(!G)continue;const L=trpGarLayout(t,G);const n=Math.min(L.slots.length,trpNb(tot));if(!n)continue;
     const ros=trpRoster(t,n),resv=TRP.res.get(t.id),fac=pxCrewId(t.owner);nI++;
     for(let i=0;i<n;i++){if(resv&&resv.has(i))continue;const s=L.slots[i],r=ros[i]||{kind:0,v:0},x=t.x+s.x,y=t.y+s.y;nF++;
-      if(r.kind===0)trpPush({x,y,z:s.z,anim:'garde',t:ts+s.ph*4,flip:trpFlipYaw(s.face,c,s.flip),al:1,own:t.owner});
+      const as=trpAsset(fac,r.kind);
+      if(as)trpPush({asset:as,x,y,z:s.z,anim:'garde',t:ts+s.ph*4,flip:trpFlipYaw(s.face,c,s.flip),al:1,own:t.owner});
       else PXS.inst.push({spec:{fac,kind:r.kind,v:r.v},owner:t.owner,x,y,z:s.z,yaw:s.face,anim:'idle',t:ts+s.ph*3,scale:TRP_PXS(),trpOk:1});}}
-  if(TRP.extra)for(const f of TRP.extra)trpPush(Object.assign({},f,{t:f.t===undefined?ts:f.t,flip:f.yaw!==undefined?trpFlipYaw(f.yaw,c):f.flip}));   /* figurines posées à la main (essais, atelier) */
+  if(TRP.extra)for(const f of TRP.extra)trpPush(Object.assign({asset:'marine_recrue'},f,{t:f.t===undefined?ts:f.t,flip:f.yaw!==undefined?trpFlipYaw(f.yaw,c):f.flip}));   /* figurines posées à la main (essais, atelier) */
   TRP.st.ilesGar=nI;TRP.st.gar=nF;
 }
 
@@ -221,12 +234,13 @@ function trpLandings(c,now){
     L.ships.forEach((sh,i)=>{if(sh.lv>.4)return;const zE=Math.max(0,L.G.Hs(sh.E[0]-L.t.x,sh.E[1]-L.t.y))+.03,dx=sh.E[0]-sh.bow[0],dy=sh.E[1]-sh.bow[1],l=Math.hypot(dx,dy)||1,px=-dy/l*.32,py=dx/l*.32;
       G3.quad([sh.bow[0]+px,sh.bow[1]+py,1.0*sc],[sh.bow[0]-px,sh.bow[1]-py,1.0*sc],[sh.E[0]-px,sh.E[1]-py,zE],[sh.E[0]+px,sh.E[1]+py,zE],r3c('#8a6238'));});
     for(const fg of L.figs){const s=tau-fg.t0,P=trpAlong(L,fg,s,shipPos[fg.si]);let an='garde',tt=now/1000+fg.S.ph*4,flip=fg.flip;
-      if(P.mv){an=fg.kind===0?'deplacement':'walk';const d=P.dx*c.r[0]+P.dy*c.r[1];flip=d<-.02?true:d>.02?false:fg.flip;}
+      const as=trpAsset(L.fac,fg.kind);
+      if(P.mv){an=as?'deplacement':'walk';const d=P.dx*c.r[0]+P.dy*c.r[1];flip=d<-.02?true:d>.02?false:fg.flip;}
       else if(P.done!==undefined){if(P.done<1.4&&fg.ph>.55){an='cri';}else flip=trpFlipYaw(fg.S.face,c,fg.flip);}
       else allIn=false;
       if(!(P.done!==undefined))allIn=false;
       fg.flip=flip;
-      if(fg.kind===0)trpPush({x:P.x,y:P.y,z:P.z,anim:an,t:tt,flip,al:1,own:L.own});
+      if(as)trpPush({asset:as,x:P.x,y:P.y,z:P.z,anim:an,t:tt,flip,al:1,own:L.own});
       else PXS.inst.push({spec:{fac:L.fac,kind:fg.kind,v:fg.v},owner:L.own,x:P.x,y:P.y,z:P.z,yaw:P.mv?Math.atan2(P.dy,P.dx):fg.S.face,anim:P.mv?'walk':(an==='cri'?'cheer':'idle'),t:P.mv?s:tt,scale:TRP_PXS(),trpOk:1});}
     if(allIn&&!L.tAll)L.tAll=tau;
     {const arr=w3Shade(G3);const a=L.tAll?1-pxE(L.tAll+.4,L.tAll+1.6,tau):1;if(a<.995)for(let v=6;v<arr.length;v+=7)arr[v]=a;w3DrawArr(c,arr,a<.995);}
@@ -242,12 +256,67 @@ function trpLandings(c,now){
    try{const Rn=B3.run;if(ok&&on&&Rn){const G=trpGrid(Rn.t);if(G){let best=null,bs=-1;const px=-Rn.dy,py=Rn.dx;
      for(const r0 of [.7,.62,.54,.46,.38,.3,.2])for(const l of [0,.12,-.12,.24,-.24,.36,-.36,.5,-.5]){const x=Rn.dx*r0*Rn.rcb+px*l*Rn.rcb,y=Rn.dy*r0*Rn.rcb+py*l*Rn.rcb,[i0,j0]=trpCell(G,x,y);let sc=0;
        for(let dj=-8;dj<=8;dj++)for(let di=-8;di<=8;di++)if(di*di+dj*dj<=64&&trpFree(G,i0+di,j0+dj))sc++;sc*=1-.5*Math.abs(l)-.2*Math.abs(r0-.55);if(sc>bs+4){bs=sc;best=[x,y];}}
-     if(best&&bs>35){Rn.fx=Rn.t.x+best[0];Rn.fy=Rn.t.y+best[1];}TRP.st.front=Math.round(bs);}}}catch(e){console.warn('front (troupes en sprites) :',e);}
+     if(best&&bs>35){Rn.fx=Rn.t.x+best[0];Rn.fy=Rn.t.y+best[1];}TRP.st.front=Math.round(bs);}
+     if(Rn.fx===undefined){const d=Rn.rcb*.30;Rn.fx=Rn.t.x+Rn.dx*d;Rn.fy=Rn.t.y+Rn.dy*d;}   /* île sans carte d'obstacles : front d'origine (30 % du rayon) */
+     if(TRP.camCombat)trpCamStart(Rn);}}catch(e){console.warn('front (troupes en sprites) :',e);}
+   B3.hint=on&&TRP.camCombat?'Clic, Espace ou Échap : retour à la vue stratégique':null;
    return ok;};}
+/* ---------- CAMÉRA DE COMBAT RAPPROCHÉE ----------
+   Deux modes : la caméra stratégique (w3Cam, réglée par le joueur, inchangée) et, pendant la scène de bataille, une caméra de combat qui part de la
+   vue stratégique, s'approche en douceur du front, cadre les combattants des deux camps (boîte englobante lissée, marges), les place à gauche et à
+   droite de l'écran, choisit le côté où les bâtiments ne masquent pas la mêlée, puis revient en douceur à la vue stratégique d'origine (fin de la
+   scène, ou clic / Espace / Échap). Seule la caméra se rapproche : les soldats gardent leur taille réelle (0,54 u). */
+TRP.camCombat=true;try{if(localStorage.getItem('rk-camc')==='0')TRP.camCombat=false;}catch(_){}
+TRP.camK={Dmin:5.2,Dmax:30,lisse:2.4,entree:1.9,sortie:1.4,pitchMelee:.5};
+const trpE=(a,b,x)=>{const t=Math.max(0,Math.min(1,(x-a)/(b-a)));return t*t*(3-2*t);};
+const trpAng=(a,b)=>((b-a+Math.PI)%(2*Math.PI)+2*Math.PI)%(2*Math.PI)-Math.PI;
+const trpMixP=(A,B,u)=>({cx:A.cx+(B.cx-A.cx)*u,cy:A.cy+(B.cy-A.cy)*u,yaw:A.yaw+trpAng(A.yaw,B.yaw)*u,pitch:A.pitch+(B.pitch-A.pitch)*u,
+  D:Math.exp(Math.log(A.D)+(Math.log(B.D)-Math.log(A.D))*u),near:Math.exp(Math.log(A.near)+(Math.log(B.near)-Math.log(A.near))*u),fogD:A.fogD+(B.fogD-A.fogD)*u});
+const trpCamP=c=>({cx:c.cx,cy:c.cy,yaw:W3.cam.yaw,pitch:W3.cam.pitch,D:c.D,near:c.near||20,fogD:c.fogD||c.D*1.8});
+function trpCamBuild(P){const c=w3Cam(P.cx,P.cy,P.yaw,P.pitch,P.D);c.near=P.near;c.fogD=P.fogD;return c;}
+/* côté de la caméra : axe d'attaque horizontal à l'écran (deux camps à gauche et à droite) ; on garde le côté et l'angle les moins masqués ;
+   à égalité, le camp du joueur à gauche (comme dans les combats d'OPTC) */
+function trpCamSide(Rn){
+  const t=Rn.t,I=Rn.m&&Rn.m.bx&&typeof BLX!=='undefined'?BLX.isl[Rn.m.bx]:null,base=Math.atan2(Rn.dy,Rn.dx),moiA=Rn.r.att===ME;
+  const pref=moiA?base+Math.PI:base;   /* yaw = base : l'axe d'attaque pointe vers la droite de l'écran, donc les attaquants (venus du large) sont à droite */
+  let best=pref,bs=1e9;
+  for(const sd of [pref,pref+Math.PI])for(const o of [0,.3,-.3,.55,-.55]){const yaw=sd+o,p=.55,D=10,hx=Math.sin(yaw),hy=-Math.cos(yaw);
+    const ex=Rn.fx-hx*D*Math.cos(p),ey=Rn.fy-hy*D*Math.cos(p);let occ=0;
+    if(I&&I.Ho){const z0=Math.max(0,I.Hs(Rn.fx-t.x,Rn.fy-t.y))+.5,ez=z0+D*Math.sin(p);for(let k=1;k<=24;k++){const u=k/24,x=Rn.fx+(ex-Rn.fx)*u,y=Rn.fy+(ey-Rn.fy)*u,z=z0+(ez-z0)*u;if(I.Ho(x-t.x,y-t.y)>z)occ+=1.2-u;}}
+    const sc=occ*10+Math.abs(o)*2+(sd===pref?0:1.5);if(sc<bs){bs=sc;best=yaw;}}
+  return best;
+}
+function trpCamStart(Rn){const c0=W3.c||w3Cam();Rn.trpCam={s0:trpCamP(c0),yaw:trpCamSide(Rn),cur:null,lastNow:0};}
+/* cible de cadrage à l'instant tau : front, plage d'abordage pendant l'approche, et tous les combattants proches du front */
+function trpCamTarget(Rn,K,tau){
+  const t=Rn.t,fx=Rn.fx,fy=Rn.fy,bx=t.x+Rn.dx*Rn.rcb*.86,by=t.y+Rn.dy*Rn.rcb*.86,dB=Math.hypot(bx-fx,by-fy);
+  const yaw=K.yaw+Math.sin(tau*.3)*.05,rx=Math.cos(yaw),ry=Math.sin(yaw),hx=Math.sin(yaw),hy=-Math.cos(yaw);
+  const lim=tau<4.4?dB+4:Math.max(7,9-.5*(tau-4.4)),P=[[fx,fy]];if(tau<4.4)P.push([bx,by]);
+  for(const q of (Rn.trpFP||[]))if(Math.hypot(q[0]-fx,q[1]-fy)<lim&&q[3]<3.5)P.push(q);
+  /* mêlée : en largeur, le cœur de l'affrontement (déciles 1 à 9 des positions, les deux camps), pas les traînards sur les ailes ; approche : tout */
+  const A=P.map(q=>(q[0]-fx)*rx+(q[1]-fy)*ry).sort((u,v)=>u-v),B=P.map(q=>(q[0]-fx)*hx+(q[1]-fy)*hy).sort((u,v)=>u-v),qq=tau<4.4||P.length<8?0:.1,at=(Z,f)=>Z[Math.min(Z.length-1,Math.max(0,Math.round(f*(Z.length-1))))];
+  const r0=at(A,qq),r1=at(A,1-qq),h0=B[0],h1=B[B.length-1];   /* en profondeur, tout le monde reste dans le cadre (personne coupé en bas) */
+  const pitch=.8-(.8-TRP.camK.pitchMelee)*trpE(3.4,4.8,tau)+.1*trpE(8,B3.DUR,tau);   /* approche vue de haut (par-dessus les toits), plongée vers la mêlée */
+  const cc=w3Cam(fx,fy,yaw,pitch,10),wid=(r1-r0)+1.8,dep=(h1-h0)+1.2;
+  let D=Math.max(wid*1.3/(2*cc.tx),(dep*Math.sin(pitch)+1.1)*1.55/(2*cc.ty));   /* marges : personne n'est coupé au bord */D=Math.max(TRP.camK.Dmin,Math.min(TRP.camK.Dmax,D))*(1+.35*trpE(8,B3.DUR,tau));
+  const mr=(r0+r1)/2,mh=(h0+h1)/2,gx=fx+rx*mr+hx*mh,gy=fy+ry*mr+hy*mh;
+  const I=Rn.m&&Rn.m.bx&&typeof BLX!=='undefined'?BLX.isl[Rn.m.bx]:null,zg=I&&I.Hs?Math.max(0,I.Hs(gx-t.x,gy-t.y)):Math.max(0,Rn.m.H(gx-t.x,gy-t.y)),lift=(zg+.32)/Math.tan(pitch);
+  return {cx:gx+hx*lift,cy:gy+hy*lift,yaw,pitch,D,near:Math.max(.15,Math.min(20,D*.04)),fogD:Math.max(D*1.8,45)};
+}
+{const bc0=b3Cam;b3Cam=function(now){const Rn=B3.run,K=Rn&&Rn.trpCam;if(!K||!TRP.camCombat||TRP.fail)return bc0(now);
+  try{const tau=b3Tau(now),dt=K.lastNow?Math.min(.1,Math.max(0,(now-K.lastNow)/1000)):0;K.lastNow=now;const T=trpCamTarget(Rn,K,tau);
+    K.cur=K.cur?trpMixP(K.cur,T,1-Math.exp(-dt*TRP.camK.lisse)):T;
+    const P=trpMixP(K.s0,K.cur,trpE(0,TRP.camK.entree,tau));K.last=P;TRP.st.camD=+P.D.toFixed(2);return trpCamBuild(P);}
+  catch(e){console.warn('caméra de combat :',e);Rn.trpCam=null;return bc0(now);}};}
+/* fin de scène (temps écoulé ou clic / Espace / Échap) : retour progressif à la caméra stratégique, qui n'a pas bougé pendant le combat */
+{const be0=b3End;b3End=function(){const Rn=B3.run;if(Rn&&Rn.trpCam&&Rn.trpCam.last)TRP.camOut={P:Rn.trpCam.last,t0:performance.now(),dur:TRP.camK.sortie*1000};return be0();};}
+{const wc0=w3Cam;w3Cam=function(cx,cy,yaw,pitch,D0){if(cx!==undefined||!TRP.camOut)return wc0(cx,cy,yaw,pitch,D0);
+  const O=TRP.camOut,u=trpE(0,1,TRP.camOutFix!==undefined?TRP.camOutFix:(performance.now()-O.t0)/O.dur),c1=wc0();   /* camOutFix : avancement imposé (captures des essais) */if(u>=1){TRP.camOut=null;return c1;}
+  return trpCamBuild(trpMixP(O.P,trpCamP(c1),u));};}
 /* ---------- zoom : en 3D, avec les troupes à l'échelle, on peut s'approcher davantage (40 au lieu de 18 ; au-delà, le plan proche de la caméra coupe le premier plan) pour voir les soldats ---------- */
 const TRP_KMAX=40;
 const trpKmax=()=>(typeof W3!=='undefined'&&W3.act)?(TRP.on&&!TRP.fail?TRP_KMAX:18):3.5;
 clampV=function(){V.k=clamp(V.k,1,trpKmax());V.x=clamp(V.x,0,W-W/V.k);V.y=clamp(V.y,0,H-H/V.k);};
 zoomAt=function(fx,fy,f){const wx=V.x+fx*W/V.k,wy=V.y+fy*H/V.k;V.k=clamp(V.k*f,1,trpKmax());V.x=wx-fx*W/V.k;V.y=wy-fy*H/V.k;clampV();};
 /* accès pour les essais automatisés (copie de test) */
-window.__trpG=t=>{const G=trpGrid(t);if(G)trpGarLayout(t,G);return G;};window.__TRPst=()=>Object.assign({fail:TRP.fail,tex:!!TRP.tex,land:TRP.land.length},TRP.st);window.__TRP=TRP;
+window.__trpG=t=>{const G=trpGrid(t);if(G)trpGarLayout(t,G);return G;};window.__TRPst=()=>Object.assign({fail:TRP.fail,tex:!!(TRP.tx.marine_recrue&&TRP.tx.marine_recrue.tex),land:TRP.land.length},TRP.st);window.__TRP=TRP;

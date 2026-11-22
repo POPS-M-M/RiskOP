@@ -1,6 +1,6 @@
-# RISK OP — Convention des troupes en sprites (version 1, 18/11/2026)
+# RISK OP — Convention des troupes en sprites (version 2, 22/11/2026)
 
-Référence : le soldat de base de la Marine (`marine_recrue`). Il représente l'unité « Recrues » (clé interne `guerrier`, kind 0), appelée « Pirates » dans le jeu d'origine.
+Référence : le soldat de base de la Marine (`marine_recrue`). Il représente l'unité « Recrues » (clé interne `guerrier`, kind 0), appelée « Pirates » dans le jeu d'origine, **pour la faction Marine uniquement**.
 Tous les prochains soldats suivent cette convention. Code : `src/essai/77-troupes-sprites.js`. Données : `src/essai/76-troupes-donnees.js`, produit par `art/troupes/outils/vers_jeu.py`.
 
 ## 1. Fichiers d'une troupe (`art/troupes/<troupe>/`)
@@ -61,3 +61,24 @@ La planche ne montre le soldat que de trois quarts face, tourné vers la droite.
 - Nombre de figurines = round(effectif^0,62 × 1,1), entre 1 et 30 par île : même courbe que les personnages 3D. Les effectifs réels ne changent pas.
 - Les places sont tirées une fois par île (tache compacte près du port, au moins 0,44 u entre deux soldats) ; types d'unité au prorata.
 - Rien n'est dessiné en dessous de 1,6 px de haut. La garnison n'apparaît qu'à partir d'environ 2 px.
+
+## 11. Faction → troupe → planche (version 2)
+- Une planche appartient à une faction. La table `TRP_ASSETS` (`src/essai/77-troupes-sprites.js`) associe la faction réelle du propriétaire (`players[o].crew` → `CREWS[...].id` : `marine`, `pirate`, `revo`, `chasseur` ; `native` pour les îles neutres), puis la catégorie de troupe (kind), à une planche. Aujourd'hui : `{marine: {0: 'marine_recrue'}}`.
+- Une faction ou une troupe sans planche garde ses personnages 3D actuels. Il n'y a **aucune planche par défaut** et aucune autre faction ne récupère celle de la Marine.
+- Chaque planche a sa texture. La hauteur de référence (0,54 u) est commune : chaque planche donne sa propre `hauteur_ref_px`.
+- Pour une nouvelle troupe : dossier `art/troupes/<troupe>/`, découpe, `vers_jeu.py`, puis une ligne dans `TRP_ASSETS`.
+
+## 12. Caméra de combat rapprochée (version 2)
+- **Deux modes.** Le mode stratégique (`w3Cam`, réglé par le joueur) n'est jamais modifié par le combat. Le mode combat (`b3Cam` adaptée) n'est actif que pendant la scène de bataille.
+- **Entrée** : au début de la scène, la caméra part de la vue stratégique et se rapproche en douceur en 1,9 s. La distance est interpolée en logarithme : pas d'à-coup de zoom.
+- **Approche** : vue plus haute (inclinaison 0,8) qui cadre la plage d'abordage, le front et les navires.
+- **Mêlée** : la caméra descend (inclinaison 0,5) et cadre les deux camps.
+  - Largeur : déciles 1 à 9 des positions des combattants, pour ne pas suivre les traînards sur les ailes.
+  - Profondeur : tout le monde reste dans le cadre.
+  - Marges ×1,3 et ×1,55 ; distance entre 5,2 et 30 u.
+  - Le cadre suit les combattants avec un lissage exponentiel (constante 2,4/s).
+- **Côté de vue** : l'axe d'attaque est horizontal à l'écran, avec les deux camps à gauche et à droite. On choisit, parmi 10 angles, celui que les bâtiments masquent le moins (carte « obstacles »). À égalité, le camp du joueur est placé à gauche.
+- **Sortie** : à la fin de la scène, ou par clic, Espace ou Échap, retour progressif (1,4 s) vers la caméra stratégique d'origine.
+- **Plan proche et brouillard** suivent la distance de la caméra (`near` = 4 % de la distance, `fogD` ≥ 45 u). En mode stratégique, les valeurs d'origine (20 u, 1,8 × distance) sont conservées.
+- **Échelle** : seule la caméra se rapproche, les soldats gardent leurs 0,54 u. En mêlée, sur l'essai de Water 7, la caméra est à environ 10–13 u et un soldat mesure environ 40 à 50 px CSS de haut (fenêtre de 1 400 × 860).
+- Désactivable pour comparaison : `localStorage['rk-camc']='0'` (caméra d'origine) ; `localStorage['rk-trp']='0'` désactive tout le module.

@@ -138,9 +138,9 @@ function pxFlush(c,now,opt){
     w3DrawArr(c,arr,true);}
   /* maillages opaques, puis fondus, puis sprites */
   gl.enable(gl.DEPTH_TEST);gl.enable(gl.BLEND);gl.blendFunc(gl.ONE,gl.ONE_MINUS_SRC_ALPHA);gl.depthMask(true);
-  const far=Math.max(6000,c.D*6),fogd=c.D*1.8;
-  pxDrawMeshes(meshG,c,20,far,fogd,.03,true);pxDrawMeshes(fadeG,c,20,far,fogd,.03,false);gl.depthMask(false);
-  if(bb.length){gl.useProgram(PXS.progB);const u=pxUniforms(PXS.progB,c,20,far,fogd);gl.activeTexture(gl.TEXTURE0);gl.uniform1i(u('T'),0);
+  const far=c.far||Math.max(6000,c.D*6),fogd=c.fogD||c.D*1.8,near=c.near||20;   /* near, far, fogD : caméra de combat rapprochée */
+  pxDrawMeshes(meshG,c,near,far,fogd,.03,true);pxDrawMeshes(fadeG,c,near,far,fogd,.03,false);gl.depthMask(false);
+  if(bb.length){gl.useProgram(PXS.progB);const u=pxUniforms(PXS.progB,c,near,far,fogd);gl.activeTexture(gl.TEXTURE0);gl.uniform1i(u('T'),0);
     bb.sort((a,b)=>a[0]-b[0]);let i=0;
     while(i<bb.length){const pg=bb[i][0];let j=i;while(j<bb.length&&bb[j][0]===pg)j++;const n=j-i,arr=new Float32Array(n*16);
       for(let q=0;q<n;q++){const b=bb[i+q];arr.set([b[1],b[2],b[3],b[4],b[5],b[6],b[7],b[8],b[10],b[11],b[12],b[9],b[13],b[14],0,0],q*16);}

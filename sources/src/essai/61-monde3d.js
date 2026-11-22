@@ -370,7 +370,7 @@ function w3Draw(c,now){
   const gl=W3.gl,cv=W3.cv;
   gl.viewport(0,0,cv.width,cv.height);gl.clearColor(.62,.86,.92,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
   gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);gl.disable(gl.CULL_FACE);gl.disable(gl.BLEND);gl.depthMask(true);
-  const near=20,far=Math.max(6000,c.D*6),fog=[.62,.86,.92],fd=c.D*1.8;
+  const near=c.near||20,far=c.far||Math.max(6000,c.D*6),fog=[.62,.86,.92],fd=c.fogD||c.D*1.8;   /* near, far, fogD : réglés par la caméra de combat rapprochée (sinon valeurs d'origine) */
   const setU=(pr)=>{const u=n=>gl.getUniformLocation(pr,n);gl.uniform3fv(u('eye'),c.eye);gl.uniform3fv(u('cr'),c.r);gl.uniform3fv(u('cu'),c.u);gl.uniform3fv(u('cf'),c.f);gl.uniform4f(u('P'),1/c.tx,1/c.ty,near,far);gl.uniform3fv(u('fogc'),fog);gl.uniform1f(u('fogd'),fd);return u;};
   const bind=(pr,buf)=>{gl.bindBuffer(gl.ARRAY_BUFFER,buf);const lp=gl.getAttribLocation(pr,'p'),lc=gl.getAttribLocation(pr,'c');gl.enableVertexAttribArray(lp);gl.vertexAttribPointer(lp,3,gl.FLOAT,false,28,0);gl.enableVertexAttribArray(lc);gl.vertexAttribPointer(lc,4,gl.FLOAT,false,28,12);};
   /* mer */
@@ -394,7 +394,7 @@ function w3Draw(c,now){
 /* tableau de sommets dynamiques (x,y,z,r,g,b,a ×n), dessiné avec le programme des îles ; blend=true : translucide */
 function w3DrawArr(c,arr,blend){
   if(!arr.length)return;const gl=W3.gl,pr=W3.pI;gl.useProgram(pr);const u=n=>gl.getUniformLocation(pr,n);
-  gl.uniform3fv(u('eye'),c.eye);gl.uniform3fv(u('cr'),c.r);gl.uniform3fv(u('cu'),c.u);gl.uniform3fv(u('cf'),c.f);gl.uniform4f(u('P'),1/c.tx,1/c.ty,20,Math.max(6000,c.D*6));gl.uniform3f(u('fogc'),.62,.86,.92);gl.uniform1f(u('fogd'),c.D*1.8);gl.uniform3f(u('off'),0,0,0);
+  gl.uniform3fv(u('eye'),c.eye);gl.uniform3fv(u('cr'),c.r);gl.uniform3fv(u('cu'),c.u);gl.uniform3fv(u('cf'),c.f);gl.uniform4f(u('P'),1/c.tx,1/c.ty,c.near||20,c.far||Math.max(6000,c.D*6));gl.uniform3f(u('fogc'),.62,.86,.92);gl.uniform1f(u('fogd'),c.fogD||c.D*1.8);gl.uniform3f(u('off'),0,0,0);
   if(!W3.dynBuf)W3.dynBuf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,W3.dynBuf);gl.bufferData(gl.ARRAY_BUFFER,arr,gl.DYNAMIC_DRAW);
   const lp=gl.getAttribLocation(pr,'p'),lc=gl.getAttribLocation(pr,'c');gl.enableVertexAttribArray(lp);gl.vertexAttribPointer(lp,3,gl.FLOAT,false,28,0);gl.enableVertexAttribArray(lc);gl.vertexAttribPointer(lc,4,gl.FLOAT,false,28,12);
   if(blend){gl.enable(gl.BLEND);gl.blendFunc(gl.ONE,gl.ONE_MINUS_SRC_ALPHA);gl.depthMask(false);}else{gl.disable(gl.BLEND);gl.depthMask(true);}

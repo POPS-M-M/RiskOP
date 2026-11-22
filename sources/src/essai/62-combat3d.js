@@ -229,7 +229,7 @@ function b3Hud(now){
   const rk=b3e(7,8,tau);if(rk>0){const v=Rn.r.bs?(Rn.r.bs.end==='kill'?'BOSS VAINCU':Rn.r.bs.end==='dead'?'ANÉANTIE':'REPLI'):(Rn.good?'VICTOIRE':(Rn.mine==='att'?'REPOUSSÉ':'DÉFAITE')),col=Rn.good?'#f2c75c':'#ff8a70';
     ctx.globalAlpha=fade*rk;ctx.font='800 '+(54*s*(.9+.1*rk))+'px "Big Shoulders Display",Inter,sans-serif';try{ctx.letterSpacing=(6*s)+'px';}catch(_){}ctx.lineWidth=9*s;ctx.strokeStyle='rgba(4,10,20,.92)';ctx.fillStyle=col;ctx.strokeText(v,cw/2,ch*.78);ctx.fillText(v,cw/2,ch*.78);try{ctx.letterSpacing='0px';}catch(_){}
     ctx.font='700 '+(15*s)+'px Inter,system-ui,sans-serif';ctx.lineWidth=4*s;ctx.fillStyle='#fff';const ln='Vos troupes : '+Math.round(L.m0)+' → '+Math.round(L.m1)+'   ·   adversaire : '+(Rn.r.bs?'PV ':'≈ ')+Math.round(L.e0)+' → '+Math.round(L.e1);ctx.strokeText(ln,cw/2,ch*.78+38*s);ctx.fillText(ln,cw/2,ch*.78+38*s);}
-  ctx.globalAlpha=fade*.8;ctx.font='600 '+(12*s)+'px Inter,system-ui,sans-serif';ctx.fillStyle='rgba(255,255,255,.85)';ctx.fillText('Clic ou Espace : passer la scène',cw/2,62*s);ctx.globalAlpha=1;
+  ctx.globalAlpha=fade*.8;ctx.font='600 '+(12*s)+'px Inter,system-ui,sans-serif';ctx.fillStyle='rgba(255,255,255,.85)';ctx.fillText(B3.hint||'Clic ou Espace : passer la scène',cw/2,62*s);ctx.globalAlpha=1;
 }
 /* interrupteur : la scène de combat peut être coupée sans quitter le monde 3D */
 window.addEventListener('keydown',e=>{if(e.shiftKey&&(e.key==='B'||e.key==='b')&&!/INPUT|TEXTAREA|SELECT/.test((e.target||{}).tagName||'')){b3Toggle();}});
