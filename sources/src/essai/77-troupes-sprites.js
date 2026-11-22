@@ -75,13 +75,13 @@ function trpFlush(c,now){
     const X=trpTex(f.asset||'marine_recrue');if(!X)continue;const D=X.D,AW=X.aw,AH=X.ah;
     const p=w3Proj(f.x,f.y,f.z,c);if(!p)continue;const hpx=TRP_H*cuz*p.k;
     if(hpx<1.6||p.sx<-80-hpx||p.sx>canvas.width+80+hpx||p.sy<-40||p.sy>canvas.height+hpx+40)continue;
-    const nm=trpImg(D,f.anim,f.t),E=D.img[nm];if(!E)continue;const [ax,ay,w,h]=E.a,[cx,cy]=E.c,al=f.al===undefined?1:f.al;
+    const nm=trpImg(D,f.anim,f.t),E=D.img[nm];if(!E)continue;if(TRP.mesure)(TRP.hpxL||(TRP.hpxL=[])).push(hpx);const [ax,ay,w,h]=E.a,[cx,cy]=E.c,al=f.al===undefined?1:f.al;
     let L=-cx*X.upp,Rr=(w-cx)*X.upp,u0=ax/AW,u1=(ax+w)/AW;if(f.flip){const l=L;L=-Rr;Rr=-l;const u=u0;u0=u1;u1=u;}
     spr.push([p.z,X,f.x,f.y,f.z,0,u0,ay/AH,u1,(ay+h)/AH,L,Rr,-(h-cy)*X.upp,cy*X.upp,1,1,1,al]);
     if(hpx>=3){const O=D.img[D.ombre],[oa,ob,ow,oh]=O.a;gnd.push([0,X,f.x,f.y,f.z+.012,1,oa/AW,ob/AH,(oa+ow)/AW,(ob+oh)/AH,-.14,.14,-.085,.085,0,0,0,.42*al]);
       if(TRP.anneau&&f.own!==undefined&&f.own!==null&&f.own!==-1){const oc=r3c(typeof f.own==='string'?f.own:(COLORS[f.own]||'#ffffff'));gnd.push([0,X,f.x,f.y,f.z+.014,2,0,0,1,1,-.2,.2,-.15,.15,oc[0],oc[1],oc[2],.6*al]);}}
   }
-  TRP.st.spr=spr.length;TRP.st.gnd=gnd.length;if(!spr.length){TRP.st.ms=performance.now()-t0;return;}
+  TRP.st.spr=spr.length;TRP.st.gnd=gnd.length;if(TRP.mesure){const hs=TRP.hpxL||[];TRP.st.hpx=hs.length?[Math.round(Math.min(...hs)),Math.round(hs.sort((a,b)=>a-b)[hs.length>>1]),Math.round(Math.max(...hs))]:null;TRP.hpxL=[];}   /* mesure (essais) : hauteur à l'écran en pixels du canevas, min/médiane/max */if(!spr.length){TRP.st.ms=performance.now()-t0;return;}
   spr.sort((a,b)=>b[0]-a[0]);   /* du plus loin au plus proche */
   gl.useProgram(TRP.prog);const U=n=>gl.getUniformLocation(TRP.prog,n),far=c.far||Math.max(6000,c.D*6);
   gl.uniform3fv(U('eye'),c.eye);gl.uniform3fv(U('cr'),c.r);gl.uniform3fv(U('cu'),c.u);gl.uniform3fv(U('cf'),c.f);gl.uniform4f(U('P'),1/c.tx,1/c.ty,c.near||20,far);
