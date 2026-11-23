@@ -20,6 +20,7 @@ const GFX_VS='attribute vec2 k;attribute vec4 a0;attribute vec4 a1;attribute vec
  +'void main(){st=a1.z;vec3 F=a0.xyz;float m=a0.w;float ox=mix(a2.x,a2.y,k.x),oy=mix(a2.z,a2.w,k.y);vec3 w;vec3 R=normalize(vec3(cr.x,cr.y,0.)),Fh=normalize(vec3(cf.x,cf.y,0.));'
  +'if(m<.5){float s=max(.2,cu.z);w=F+(cr*ox+cu*oy)*s;}'
  /* ombre portée : la silhouette couchée sur le sol, à l'opposé du soleil ; largeur perpendiculaire à l'ombre, du côté droit de l'écran */
+ +'else if(m>5.5){w=F+cr*ox+cu*oy;}'
  +'else if(m>4.5){vec3 U=vec3(a1.x,a1.y,0.),Vv=vec3(-a1.y,a1.x,0.);w=F+U*ox+Vv*oy;}'
  +'else if(m>3.5){vec3 S=normalize(vec3(sd,0.));vec3 Rs=vec3(-S.y,S.x,0.);if(dot(Rs,R)<0.)Rs=-Rs;w=F+Rs*ox+S*oy*.62;}'
  +'else{w=F+R*ox+Fh*oy;}'
@@ -29,7 +30,7 @@ const GFX_VS='attribute vec2 k;attribute vec4 a0;attribute vec4 a1;attribute vec
 const GFX_FS='precision mediump float;varying vec2 uv;varying vec4 col;varying float md;varying float vz;varying vec2 q;varying float fy;varying float st;uniform sampler2D T;uniform vec3 fogc;uniform float fogd,lb,tm;'
  +'void main(){float f=clamp((vz-fogd)/(fogd*1.6),0.,.7);'
  /* sprite : pixels de la planche ; pieds un peu assombris (contact), teinte chaude du soleil (col.r = hauteur de l'assombrissement) */
- +'if(md<.5){vec4 t=texture2D(T,uv,lb);if(t.a<.01)discard;float ao=mix(.72,1.,smoothstep(0.,col.r,fy));vec3 c=t.rgb*ao*vec3(1.03,1.,.95);c=mix(c,fogc*t.a,f);gl_FragColor=vec4(c,t.a)*col.a;}'
+ +'if(md<.5){vec4 t=texture2D(T,uv,lb);if(t.a<.01)discard;float ao=mix(.72,1.,smoothstep(0.,col.r,fy));vec3 c=t.rgb*ao*vec3(1.03,1.,.95);c=mix(c,vec3(1.,.97,.9)*t.a,clamp(col.g-1.,0.,.9));c=mix(c,fogc*t.a,f);gl_FragColor=vec4(c,t.a)*col.a;}'
  /* ombre de contact : tache douce */
  +'else if(md<1.5){float d=length(q);float a=exp(-d*d*3.4)*(1.-smoothstep(.85,1.,d))*col.a;if(a<.004)discard;gl_FragColor=vec4(vec3(.04,.03,.06)*a,a);}'
  /* marqueur de camp : arc fin, plein devant les pieds, discret derrière */
@@ -40,6 +41,7 @@ const GFX_FS='precision mediump float;varying vec2 uv;varying vec4 col;varying f
  /* ombre portée : alpha de la silhouette (niveau de mipmap plus flou = ombre plus douce) */
  +'else if(md<4.5){vec4 t=texture2D(T,uv,lb+1.5);float a=t.a*col.a*(1.-.55*clamp(fy/2.,0.,1.));if(a<.004)discard;gl_FragColor=vec4(vec3(.05,.04,.09)*a,a);}'
  /* cases du combat tactique : st 0 = case pleine à bord marqué, 1 = point, 2 = contour seul */
+ +'else if(md>5.5){float d=length(q),a=(1.-smoothstep(.15,1.,d))*col.a;if(a<.004)discard;float co=(1.-smoothstep(0.,.5,d))*st;vec3 c=mix(col.rgb,vec3(1.,1.,.92),co);gl_FragColor=vec4(c*a,a);}'
  +'else{float e=max(abs(q.x),abs(q.y)),bd=smoothstep(.80,.90,e)*(1.-smoothstep(.95,1.,e)),a;'
  +'if(st<.5)a=(.45*(1.-smoothstep(.9,1.,e))+.55*bd)*col.a;else if(st<1.5)a=(1.-smoothstep(.5,.75,length(q)))*col.a;else a=bd*col.a;'
  +'if(a<.004)discard;gl_FragColor=vec4(col.rgb*a,a);}}';
@@ -72,7 +74,7 @@ function gfxProg(){
     const br=f.anim==='garde'?1+.012*Math.sin(ts*2.4+(f.ph||0)*6.28):1;
     let L=-cx*u,Rr=(w-cx)*u,u0=ax/AW,u1=(ax+w)/AW;if(f.flip){const l=L;L=-Rr;Rr=-l;const uu=u0;u0=u1;u1=uu;}
     const B=-(h-cy)*u*br,T=cy*u*br;
-    spr.push([p.z,X,f.x,f.y,f.z,0,u0,ay/AH,u1,(ay+h)/AH,L,Rr,B,T,.11*hs,1,1,al]);
+    spr.push([p.z,X,f.x,f.y,f.z,0,u0,ay/AH,u1,(ay+h)/AH,L,Rr,B,T,.11*hs,1+(f.flash||0),1,al]);
     if(hpx>=3){const fw=.17*hs*(cm?1.15:1);
       gnd.push([0,X,f.x,f.y,f.z+.012,1,0,0,1,1,-fw*1.25,fw*1.25,-fw*.75,fw*.75,0,0,0,.55*al]);
       if(hpx>=8)sh.push([0,X,f.x,f.y,f.z+.010,4,u0,ay/AH,u1,(ay+h)/AH,L,Rr,0,T-B,0,0,0,.30*al]);
@@ -100,6 +102,8 @@ function gfxProg(){
   /* ombres portées : une seule couche (le tampon de gabarit n'est pas demandé au contexte) ; puis contact et marqueurs ; puis les sprites */
   draw(sh);draw(gnd);gl.disable(gl.POLYGON_OFFSET_FILL);
   draw(spr);
+  /* lueurs du combat tactique (TRP.glow : [x,y,z,rayon,cœur,r,g,b,a]), par-dessus, sans écrire la profondeur */
+  const GL=TRP.glow||[];if(GL.length){const X0=spr[0][1];draw(GL.map(g=>[0,X0,g[0],g[1],g[2],6,0,0,g[4],0,-g[3],g[3],-g[3],g[3],g[5],g[6],g[7],g[8]]));}
   gl.depthMask(true);gl.disable(gl.BLEND);gl.disableVertexAttribArray(0);
   TRP.st.ms=performance.now()-t0;
 };}

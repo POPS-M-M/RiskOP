@@ -165,72 +165,147 @@ function tacHit(R,a,b){
   return v*(.9+.2*R.rnd());
 }
 
-/* ---------- affichage : figurines, cases, ordres, nombres ---------- */
+/* ---------- affichage : figurines, cases, ordres, nombres ----------
+   Animations fidèles aux planches : chaque action d'une figurine (préparation, attaque, réaction, cri) démarre au moment de l'action,
+   avec l'ordre et la cadence des images définis dans la planche (troupe.json : images, images par seconde, boucle) ; la garde boucle,
+   le déplacement garde la pose de course de la planche. Rien n'est dessiné ni déformé : seul le moment où chaque pose s'affiche est réglé. */
 const TAC_COL={sel:[1,.85,.35],moi:[.29,.56,.88],eux:[.88,.28,.31],obj:[1,.78,.25],grille:[.9,.95,1],cov:[.35,.75,.35],haut:[1,1,.8],feu:[1,.45,.1]};
+/* temps de la manche en cours (TAC.tfix : instant imposé, pour les captures des essais) */
+const tacTau=(A,now)=>TAC.tfix!==undefined?TAC.tfix:((now===undefined?performance.now():now)-A.t0)/1000*A.spd;
+const tacAnDur=(asset,an)=>{const A=TRP_DATA[asset]&&TRP_DATA[asset].anim[an];return A&&A.ips?A.i.length/A.ips:.3;};
+const tacNf=n=>n<=0?0:Math.max(1,Math.min(4,Math.ceil(n/3)));
+const tacDir=(a,b)=>Math.atan2(b.y-a.y,b.x-a.x);
+/* scénario d'une manche : à partir du résultat déjà calculé (tacResolve), les instants où chaque figurine agit */
+function tacScript(R,ev,n0){
+  const S={acts:new Map(),fx:[],nums:[],shake:[],rm:new Map(),end:0},A=(s,o)=>{let L=S.acts.get(s);if(!L)S.acts.set(s,L=[]);L.push(o);};
+  const hitT=new Map(),hitAt=(b,t)=>{hitT.set(b,Math.max(hitT.get(b)||0,t));};
+  const pos=s=>({x:s.c.x,y:s.c.y,z:s.c.z}),mid=(s)=>({x:s.c.x,y:s.c.y,z:s.c.z+.45});
+  let t=.12;
+  /* 1. pouvoirs : préparation, attaque, projectiles ou vague de feu, impacts */
+  const byPow=new Map();for(const h of ev.hit)if(h.ty==='pouvoir'){let L=byPow.get(h.src);if(!L)byPow.set(h.src,L=[]);L.push(h);}
+  const c0=q=>q.path&&q.path.length?q.path[0]:q.c;
+  for(const p of ev.pw){const s=p.s,face=tacDir(c0(s),p.c),dp=tacAnDur(s.asset,'attaque');
+    A(s,{an:'preparation',t0:t,d:.45,face});A(s,{an:'attaque',t0:t+.45,d:dp+.35,face,lunge:.25});
+    if(s.hero==='Garp'){const cells=[];for(let a=0;a<2;a++)for(let b=0;b<2;b++){const c=R.M.T[p.c.i+a]&&R.M.T[p.c.i+a][p.c.j+b];if(c)cells.push(c);}
+      cells.forEach((c,k)=>{const t0=t+.5+k*.08,t1=t0+.55;S.fx.push({k:'boulet',a:{x:c0(s).x,y:c0(s).y,z:c0(s).z+1.2},b:{x:c.x,y:c.y,z:c.z+.15},t0,t1});S.fx.push({k:'poussiere',p:{x:c.x,y:c.y,z:c.z+.1},t0:t1,t1:t1+.8});S.shake.push(t1);});
+      for(const h of byPow.get(s)||[]){const ti=t+1.05+.1;A(h.s,{an:'reaction',t0:ti,d:.6,flash:.35,knock:face});S.nums.push({s:h.s,v:h.v,t:ti});hitAt(h.s,ti);}
+      p.cellsFx=cells;t+=1.75;}
+    else{const L=p.cells,o=c0(s),fist={x:o.x+Math.cos(face)*.4,y:o.y+Math.sin(face)*.4,z:o.z+.7},last=L[L.length-1]||p.c;
+      S.fx.push({k:'jet',a:fist,b:{x:last.x,y:last.y,z:last.z+.4},t0:t+.47,t1:t+.47+.18+L.length*.09});
+      L.forEach((c,k)=>{const t0=t+.5+k*.09;S.fx.push({k:'feu',p:{x:c.x,y:c.y,z:c.z+.25},t0,t1:t0+1.1});});S.shake.push(t+.6);
+      for(const h of byPow.get(s)||[]){const k=Math.max(0,L.indexOf(c0(h.s))),ti=t+.55+k*.09;A(h.s,{an:'reaction',t0:ti,d:.6,flash:.45,knock:face});S.nums.push({s:h.s,v:h.v,t:ti});hitAt(h.s,ti);}
+      t+=.5+L.length*.09+.6;}}
+  /* 2. mouvements simultanés : pose de course de la planche, petits pas (rebond) */
+  const tm=t;let mEnd=tm;
+  for(const s of ev.mv){const n=s.path.length-1;if(n<1)continue;const d=n*.26;s.mvA={t0:tm,d};A(s,{an:'deplacement',t0:tm,d,move:true,face:tacDir(s.path[0],s.path[n])});mEnd=Math.max(mEnd,tm+d);}
+  for(const h of ev.hit)if(h.ty==='repli'){const ti=tm+.15;A(h.s,{an:'reaction',t0:ti,d:.45,flash:.2});S.nums.push({s:h.s,v:h.v,t:ti});hitAt(h.s,ti);}
+  t=mEnd+(ev.mv.length?.12:0);
+  /* 3. tirs puis mêlées, l'un après l'autre (0,16 s d'écart) : préparation (visée, armer), attaque, impact, réaction de la cible */
+  let k=0;
+  for(const h of ev.hit){if(h.ty==='pouvoir'||h.ty==='repli')continue;const a=h.src,b=h.s,ts=t+k*.16;k++;const face=tacDir(a.c,b.c),dpa=tacAnDur(a.asset,'attaque');
+    const prep=h.ty==='riposte'?.08:.2;A(a,{an:'preparation',t0:ts,d:prep,face});
+    const melee=h.ty!=='tir';A(a,{an:'attaque',t0:ts+prep,d:dpa+.12,face,lunge:melee?.32:0});
+    let ti=ts+prep+dpa*.45;
+    if(!melee){const tf=ts+prep+.12;ti=tf+.16;S.fx.push({k:'eclair',p:{x:a.c.x+Math.cos(face)*.35,y:a.c.y+Math.sin(face)*.35,z:a.c.z+.55},t0:tf,t1:tf+.12});
+      S.fx.push({k:'balle',a:{x:a.c.x+Math.cos(face)*.35,y:a.c.y+Math.sin(face)*.35,z:a.c.z+.55},b:{x:b.c.x,y:b.c.y,z:b.c.z+.5},t0:tf,t1:ti});}
+    S.fx.push({k:'impact',p:{x:b.c.x-Math.cos(face)*.15,y:b.c.y-Math.sin(face)*.15,z:b.c.z+.5},t0:ti,t1:ti+.22});
+    A(b,{an:'reaction',t0:ti,d:.45,flash:.3,knock:face});S.nums.push({s:b,v:h.v,t:ti});hitAt(b,ti);}
+  const tEnd=k?t+(k-1)*.16+.8:Math.max(mEnd,t)+.35;
+  /* 4. pertes : les figurines des soldats perdus tombent (réaction de la planche) puis s'effacent */
+  for(const s of R.sq){const a=tacNf(n0.get(s)||0),b=tacNf(s.n);if(a>b||(s.hero&&n0.get(s)>0&&s.n<=0))S.rm.set(s,{t:(hitT.get(s)||tEnd-.5)+.12,keep:b});}
+  S.end=Math.max(tEnd,...[...S.rm.values()].map(r=>r.t+.7))+.25;
+  return S;
+}
+/* action en cours d'une escouade à l'instant tau (la dernière commencée et pas finie) */
+function tacActAt(S,s,tau){const L=S&&S.acts.get(s);if(!L)return null;let cur=null;for(const a of L)if(tau>=a.t0&&tau<a.t0+a.d&&(!cur||a.t0>=cur.t0))cur=a;return cur;}
 function tacFig(R,s,now){
-  if(s.n<=0&&!(R.anim&&R.anim.n0.get(s)>0))return;const c=R.cam,ts=now/1000,M=R.M,A=R.anim,tau=A?(now-A.t0)/1000:9;
-  /* position : le long du chemin de la manche pendant la phase de mouvement (0,8 → 2,4 s) */
-  let x=s.c.x,y=s.c.y,z=s.c.z,mv=false;
-  if(A&&s.path&&s.path.length>1&&tau<2.4){const u=Math.max(0,Math.min(1,(tau-.8)/1.6))*(s.path.length-1),k=Math.min(s.path.length-2,Math.floor(u)),f=u-k,a=s.path[k],b=s.path[k+1];x=a.x+(b.x-a.x)*f;y=a.y+(b.y-a.y)*f;z=a.z+(b.z-a.z)*f;mv=tau>.8&&tau<2.4;}
+  const c=R.cam,ts=now/1000,M=R.M,A=R.anim,tau=A?tacTau(A,now):0,S=A&&A.S;
+  const n0=A?A.n0.get(s)||0:s.n;if(s.n<=0&&!(S&&S.rm.has(s)&&tau<S.rm.get(s).t+.7))return;
+  /* position : le long du chemin pendant le déplacement */
+  let x=s.c.x,y=s.c.y,z=s.c.z,bob=0;
+  if(S&&s.mvA&&s.path&&s.path.length>1&&tau<s.mvA.t0+s.mvA.d){const u=Math.max(0,Math.min(1,(tau-s.mvA.t0)/s.mvA.d))*(s.path.length-1),k=Math.min(s.path.length-2,Math.floor(u)),f=u-k,a=s.path[k],b=s.path[k+1];
+    x=a.x+(b.x-a.x)*f;y=a.y+(b.y-a.y)*f;z=a.z+(b.z-a.z)*f;if(tau>s.mvA.t0)bob=Math.abs(Math.sin((tau-s.mvA.t0)*11))*.07;}
   s.x=x;s.y=y;s.z=z;
-  let an='garde';if(mv)an='deplacement';else if(A&&tau>=2.4&&tau<3.6){if(A.atk.has(s))an='attaque';else if(A.hit.has(s))an='reaction';}else if(A&&tau<.8&&A.pw.has(s))an='attaque';else if(s.moral>=1&&!A)an='reaction';
-  const col=s.sd===R.side?'#4a8fe0':'#e0484f',fl=Math.cos(s.face)*c.r[0]+Math.sin(s.face)*c.r[1]<0;
-  const al=s.n<=0?Math.max(0,1-(tau-3.2)/.8):1;if(al<=0)return;
-  if(s.hero){trpPush({asset:s.asset,x,y,z,anim:an,t:A?tau:ts,flip:fl,al,own:col,hs:TAC.hsCmd,cmd:true});return;}
-  /* figurines : une pour 3 soldats, 4 au plus, en carré dans la case ; celles des soldats perdus s'effacent à la fin de la manche */
-  const nBefore=A&&A.n0.has(s)?A.n0.get(s):s.n,nShow=tau<3.2?nBefore:s.n,nf=Math.max(1,Math.min(4,Math.ceil(nShow/3)));
-  const off=[[-.3,-.22],[.3,.22],[.3,-.26],[-.3,.26]];
-  for(let k=0;k<nf;k++){const o=off[k],X=x+M.U[0]*o[0]+M.V[0]*o[1],Y=y+M.U[1]*o[0]+M.V[1]*o[1],Z=Math.max(0,M.G.Hs(X-M.t.x,Y-M.t.y));
-    trpPush({asset:s.asset,x:X,y:Y,z:Z,anim:an,t:(A?tau:ts)+k*.37+s.id*.13,flip:fl,al,own:k===0?col:undefined,hs:TAC.hs});}
+  const act=S?tacActAt(S,s,tau):null;let an='garde',lt=0,face=s.face,flash=0,ox=0,oy=0,loop=true;
+  if(act){an=act.an;lt=tau-act.t0;face=act.face!==undefined?act.face:face;loop=act.an==='deplacement';
+    if(act.lunge){const u=Math.min(1,lt/act.d),l=act.lunge*Math.sin(Math.PI*u)*TAC.S;ox=Math.cos(face)*l;oy=Math.sin(face)*l;}
+    if(act.knock!==undefined){const u=Math.min(1,lt/act.d),l=.16*Math.sin(Math.PI*u)*TAC.S;ox=Math.cos(act.knock)*l;oy=Math.sin(act.knock)*l;}
+    if(act.flash)flash=Math.max(0,act.flash*(1-lt/.18));}
+  else if(R.phase==='fin'&&R.end&&s.sd===R.end.w&&tacAlive(s)){an='cri';bob=Math.abs(Math.sin(ts*4.2+s.id))*.12;}
+  else if(s.moral>=1&&tacAlive(s)&&!A){an='reaction';lt=99;}   /* ébranlée : dernière pose de réaction (accroupie) */
+  const col=s.sd===R.side?'#4a8fe0':'#e0484f',fl=Math.cos(face)*c.r[0]+Math.sin(face)*c.r[1]<-.05;
+  const rm=S&&S.rm.get(s),push=(X,Y,Z,k,al,an2,t2)=>trpPush({asset:s.asset,x:X,y:Y,z:Z,anim:an2,t:t2,flip:fl,al,own:k===0&&tacAlive(s)?col:undefined,hs:s.hero?TAC.hsCmd:TAC.hs,cmd:!!s.hero,flash});
+  if(s.hero){let al=1,zz=z+bob,an2=an,t2=act?lt:ts+s.id*.3;if(rm&&tau>=rm.t){const u=Math.min(1,(tau-rm.t)/.7);al=1-u;an2='reaction';t2=99;zz-=u*.15;}
+    push(x+ox,y+oy,zz,0,al,an2,t2);return;}
+  /* figurines : une pour 3 soldats (4 au plus), en carré dans la case ; même action pour toutes, avec un léger décalage (foule) */
+  const nA=tacNf(n0),nB=rm?rm.keep:tacNf(s.n),off=[[-.3,-.22],[.3,.22],[.3,-.26],[-.3,.26]];
+  for(let k=0;k<nA;k++){const o=off[k],X=x+ox+M.U[0]*o[0]+M.V[0]*o[1],Y=y+oy+M.U[1]*o[0]+M.V[1]*o[1],Z=Math.max(0,M.G.Hs(X-M.t.x,Y-M.t.y))+bob*(k%2?.7:1);
+    let al=1,an2=an,t2=act?Math.max(0,lt-k*.04):ts+k*.29+s.id*.17,zz=Z;
+    if(k>=nB&&rm&&tau>=rm.t){const u=Math.min(1,(tau-rm.t)/.7);if(u>=1)continue;an2='reaction';t2=99;al=1-u*u;zz=Z-u*.18;}
+    if(an2==='garde'&&!act)t2=ts+k*.29+s.id*.17;
+    push(X,Y,zz,k,al,an2,t2);}
+}
+/* effets lumineux (boulets, feu, poussière, coups de feu, étincelles) : TRP.glow = [x,y,z,rayon,cœur,r,g,b,a] */
+function tacFx(R,now){
+  const A=R.anim;if(!A)return;const tau=tacTau(A,now),G=[],g=(p,r,core,col,a)=>G.push([p.x,p.y,p.z,r,core,col[0],col[1],col[2],a]);
+  for(const f of A.S.fx){if(tau<f.t0||tau>f.t1)continue;const u=(tau-f.t0)/(f.t1-f.t0);
+    if(f.k==='boulet'){const p={x:f.a.x+(f.b.x-f.a.x)*u,y:f.a.y+(f.b.y-f.a.y)*u,z:f.a.z+(f.b.z-f.a.z)*u+Math.sin(Math.PI*u)*2.2};g(p,.2,0,[.1,.09,.1],.95);g({x:p.x,y:p.y,z:p.z},.32,0,[.35,.3,.25],.25);}
+    else if(f.k==='poussiere'){for(let q=0;q<5;q++){const a=q*1.26,r=.25+u*.9;g({x:f.p.x+Math.cos(a)*r*.6,y:f.p.y+Math.sin(a)*r*.6,z:f.p.z+u*.35+q*.05},.35+u*.55,0,[.84,.75,.6],.55*(1-u));}g(f.p,.6*(1-u)+.2,1,[1,.85,.5],.6*(1-u));}
+    else if(f.k==='feu'){const fl=.75+.25*Math.sin(tau*38+f.p.x*3);for(let q=0;q<4;q++){const sw=Math.sin(tau*9+q*1.7)*.12;g({x:f.p.x+sw,y:f.p.y-sw,z:f.p.z+q*.3+u*.5},(.7-q*.13)*(1-u*.45)*fl,.65,[1,.5-q*.09,.06],.9*(1-u*u));}
+      if(u<.6)for(let q=0;q<3;q++){const a=tau*7+q*2.1,r=.25+u*.6;g({x:f.p.x+Math.cos(a)*r,y:f.p.y+Math.sin(a)*r,z:f.p.z+.2+u*1.1+q*.15},.07,1,[1,.75,.3],.9*(1-u));}}
+    else if(f.k==='jet'){for(let q=2;q<=10;q++){const v=Math.min(u*1.15,1)*q/10,w=Math.sin(Math.PI*q/10);g({x:f.a.x+(f.b.x-f.a.x)*v,y:f.a.y+(f.b.y-f.a.y)*v,z:f.a.z+(f.b.z-f.a.z)*v+Math.sin(tau*30+q)*.05},.18+.28*w,.8,[1,.55,.1],.72*(1-u*.6));}}
+    else if(f.k==='balle'){const p={x:f.a.x+(f.b.x-f.a.x)*u,y:f.a.y+(f.b.y-f.a.y)*u,z:f.a.z+(f.b.z-f.a.z)*u};g(p,.08,1,[1,.9,.5],1);
+      for(let q=1;q<4;q++){const v=Math.max(0,u-q*.08);g({x:f.a.x+(f.b.x-f.a.x)*v,y:f.a.y+(f.b.y-f.a.y)*v,z:f.a.z+(f.b.z-f.a.z)*v},.06,.6,[1,.8,.4],.5-q*.12);}}
+    else if(f.k==='eclair'){g(f.p,.25*(1-u)+.08,1,[1,.85,.4],1-u);g(f.p,.5,0,[.9,.9,.9],.25*(1-u));}
+    else if(f.k==='impact'){g(f.p,.12+u*.3,1,[1,.95,.75],1-u);}}
+  TRP.glow=G;
 }
 function tacTiles(R){
   const M=R.M,L=[],h=TAC.S*.48,u=M.U,C=TAC_COL,tile=(c,st,col,a,sz)=>L.push([c.x,c.y,c.z,(sz||1)*h,u[0],u[1],st,col[0],col[1],col[2],a]);
   for(const row of M.T)for(const c of row){if(c.feu){tile(c,0,C.feu,.45);continue;}if(!tacPass(c))continue;
     if(c.k==='couvert')tile(c,0,C.cov,.16);else tile(c,2,C.grille,.10);if(c.haut)tile(c,2,C.haut,.30,.82);}
   tile(R.obj,0,C.obj,.42);
-  if(R.phase==='deploiement'||R.round===1&&R.phase==='ordres'&&!R.anim)for(const row of M.T)for(const c of row)if(tacPass(c)&&c.i>=M.W-4)tile(c,2,C.moi,.22,.9);
+  if(R.round===1&&R.phase==='ordres'&&!R.anim)for(const row of M.T)for(const c of row)if(tacPass(c)&&c.i>=M.W-4)tile(c,2,C.moi,.22,.9);
   const s=R.sel!==null?R.sq[R.sel]:null;
   if(s&&tacAlive(s)&&R.phase==='ordres'&&!R.anim){
-    /* portée de déplacement et cibles à portée de l'escouade choisie */
     const u=tacUnit(s);for(const row of M.T)for(const c of row){if(!tacPass(c)||tacAt(R,c))continue;const d=tacD(s.c,c);if(d<=u.spd&&d>0)tile(c,0,C.moi,.13,.92);}
     for(const f of R.sq)if(tacAlive(f)&&f.sd!==s.sd){const d=tacD(s.c,f.c),ok=u.rng>1?d<=u.rng+(s.c.haut?1:0)&&tacVue(M,s.c,f.c):d<=1;if(ok)tile(f.c,2,C.eux,.75);}
     tile(s.c,2,C.sel,.95,1.02);
     if(s.hero&&R.mode==='pouvoir'){const H=TAC_HEROS[s.hero];for(const row of M.T)for(const c of row)if(tacD(s.c,c)<=H.power.rng&&c.k!=='bloque'&&c.k!=='eau')tile(c,1,C.obj,.35,.5);}}
-  /* ordres donnés (joueur) : chemin prévu en points, cible en contour rouge */
   if(R.phase==='ordres'&&!R.anim)for(const q of R.sq){if(!tacAlive(q)||q.sd!==R.side)continue;const o=q.ord;
     if(o.k==='aller'){const P=tacPath(R,q,o.c,tacUnit(q).spd,false);for(const c of P.slice(1))tile(c,1,C.moi,.9,.35);}
     else if(o.k==='attaque'&&R.sq[o.cible]){const tg=R.sq[o.cible];for(const c of tacLine(R,q.c,tg.c,tacD(q.c,tg.c)).slice(0,-1))tile(c,1,C.eux,.8,.28);tile(tg.c,2,C.eux,.9,.95);}
     else if(o.k==='pouvoir'){tile(o.c,0,C.obj,.5);}
     else if(o.k==='repli'){tile(q.c,1,C.haut,.9,.4);}}
-  /* effets de la manche : pouvoirs (0 → 0,8 s puis brûlure), cases touchées */
-  if(R.anim){const tau=(performance.now()-R.anim.t0)/1000;
-    for(const p of R.anim.ev.pw){if(tau>2.4)continue;const cells=p.s.hero==='Ace'?p.cells:(()=>{const out=[];for(let a=0;a<2;a++)for(let b=0;b<2;b++){const c=M.T[p.c.i+a]&&M.T[p.c.i+a][p.c.j+b];if(c)out.push(c);}return out;})();
-      for(const c of cells)tile(c,0,p.s.hero==='Ace'?C.feu:[.75,.62,.45],.65*Math.max(0,1-Math.abs(tau-.7)/1.2));}}
+  /* pendant la manche : les cases visées par un pouvoir clignotent jusqu'à l'impact */
+  if(R.anim){const tau=tacTau(R.anim);for(const p of R.anim.ev.pw){const cells=p.cellsFx||p.cells;for(const c of cells){const a=tau<1.1?.25+.25*Math.sin(tau*18):Math.max(0,.5-(tau-1.1));if(a>0)tile(c,0,p.s.hero==='Ace'?C.feu:[.75,.62,.45],a);}}}
   TRP.tiles=L;
 }
-/* nombres et étiquettes à l'écran (pertes, moral) */
+/* nombres et étiquettes à l'écran (pertes au moment de l'impact, moral) */
 function tacLabels(R,now){
   const box=document.getElementById('tac-lab');if(!box)return;const cv=W3.cv,rc=cv.getBoundingClientRect(),k=rc.width/cv.width;
-  let h='';const A=R.anim,tau=A?(now-A.t0)/1000:0;
-  if(A&&tau>2.4&&tau<4.4){for(const [s,v] of A.loss){if(v<.5)continue;const p=w3Proj(s.x,s.y,s.z+1.3*TAC.hs*.54,R.cam);if(!p)continue;
-      h+='<div class="tac-num" style="left:'+(rc.left+p.sx*k)+'px;top:'+(rc.top+p.sy*k-(tau-2.4)*18)+'px">−'+Math.round(v)+'</div>';}}
+  let h='';const A=R.anim,tau=A?tacTau(A,now):0;
+  if(A)for(const n of A.S.nums){const u=tau-n.t;if(u<0||u>1.1||n.v<.5)continue;const p=w3Proj(n.s.c.x,n.s.c.y,n.s.c.z+1.25,R.cam);if(!p)continue;
+    h+='<div class="tac-num'+(n.s.sd===R.side?' moi':'')+'" style="left:'+(rc.left+p.sx*k)+'px;top:'+(rc.top+p.sy*k-u*26)+'px;opacity:'+Math.min(1,(1.1-u)*2.5)+';transform:translate(-50%,-100%) scale('+(1+Math.max(0,.3-u)*1.6)+')">−'+Math.round(n.v)+'</div>';}
   for(const s of R.sq){if(!tacAlive(s))continue;const p=w3Proj(s.x,s.y,s.z+(s.hero?TAC.hsCmd:TAC.hs)*.62,R.cam);if(!p)continue;
-    const tag=(s.moral===1?'⚠ ':'')+(s.hero?s.hero+(s.cd>0?' · '+s.cd:' · prêt'):Math.round(s.n));
+    const tag=(s.moral===1?'⚠ ':'')+(s.hero?s.hero+(s.cd>0?' · '+s.cd:' · prêt'):Math.round(A&&A.n0.has(s)&&tau<(A.S.rm.get(s)||{t:A.S.end}).t?A.n0.get(s):s.n));
     h+='<div class="tac-tag'+(s.sd===R.side?' moi':' eux')+(R.sel===s.id?' sel':'')+'" style="left:'+(rc.left+p.sx*k)+'px;top:'+(rc.top+p.sy*k)+'px">'+esc(tag)+'</div>';}
   box.innerHTML=h;
 }
 
 /* ---------- caméra tactique : la zone entière au départ ; ZQSD / flèches, Q/E (A/E) pour tourner, molette pour zoomer ---------- */
-function tacCam(R){const C=R.camP;return trpCamBuild({cx:C.cx,cy:C.cy,yaw:C.yaw,pitch:C.pitch,D:C.D,near:Math.max(.15,C.D*.04),fogD:Math.max(C.D*1.8,45)});}
+function tacCam(R){const C=R.camP,A=R.anim;let sx=0,sy=0,sd=1;
+  if(A){const tau=tacTau(A);for(const t of A.S.shake){const u=tau-t;if(u>0&&u<.45){const e=(1-u/.45)*.22;sx+=Math.sin(u*70)*e;sy+=Math.cos(u*55)*e;sd-=.03*(1-u/.45);}}}
+  return trpCamBuild({cx:C.cx+sx,cy:C.cy+sy,yaw:C.yaw,pitch:C.pitch,D:C.D*sd,near:Math.max(.15,C.D*.04),fogD:Math.max(C.D*1.8,45)});}
 {const wc0=w3Cam;w3Cam=function(cx,cy,yaw,pitch,D0){if(cx===undefined&&TAC.run&&TAC.run.camP)return TAC.run.cam=tacCam(TAC.run);return wc0(cx,cy,yaw,pitch,D0);};}
 {const ps0=pxScene;pxScene=function(c,now,combat){return ps0(c,now,combat||!!TAC.run);};}
 {const ov0=w3Overlay;w3Overlay=function(c,now){if(TAC.run)return;return ov0(c,now);};}
-{const pf0=pxFlush;pxFlush=function(c,now,opt){const R=TAC.run;if(R&&R.cam){try{for(const s of R.sq)tacFig(R,s,now);tacTiles(R);tacLabels(R,now);tacTick(R,now);}catch(e){console.warn('combat tactique :',e);}}return pf0(c,now,opt);};}
+{const pf0=pxFlush;pxFlush=function(c,now,opt){const R=TAC.run;if(R&&R.cam){try{for(const s of R.sq)tacFig(R,s,now);tacTiles(R);tacFx(R,now);tacLabels(R,now);tacTick(R,now);}catch(e){console.warn('combat tactique :',e);}}return pf0(c,now,opt);};}
 
 /* ---------- déroulement ---------- */
 function tacTick(R,now){
-  if(!R.anim)return;const tau=(now-R.anim.t0)/1000;
-  if(tau>=4.4){R.anim=null;for(const s of R.sq)s.path=[s.c];
+  if(!R.anim)return;const tau=tacTau(R.anim,now);
+  if(tau>=R.anim.S.end){R.anim=null;TRP.glow=[];for(const s of R.sq){s.path=[s.c];s.mvA=null;}
     if(R.end){tacFin(R);return;}R.round++;R.phase='ordres';for(const s of R.sq)if(s.sd===R.side&&tacAlive(s)&&(s.ord.k==='pouvoir'||(s.ord.k==='attaque'&&!tacAlive(R.sq[s.ord.cible]))))s.ord={k:'tenir'};tacFollow(R);tacUI(R);}
 }
 function tacLancer(R){
@@ -238,8 +313,7 @@ function tacLancer(R){
   tacAI(R,1-R.side);   /* l'adversaire décide en même temps (sans voir vos ordres de cette manche) */
   const n0=new Map(R.sq.map(s=>[s,s.n]));const ev=tacResolve(R);
   const loss=new Map();for(const s of R.sq){const v=(n0.get(s)||0)-s.n;if(v>0)loss.set(s,v);}
-  const atk=new Set(ev.hit.filter(h=>h.ty!=='riposte'||true).map(h=>h.src)),hit=new Set(ev.hit.map(h=>h.s)),pw=new Set(ev.pw.map(p=>p.s));
-  R.anim={t0:performance.now(),ev,n0,loss,atk,hit,pw};R.phase='execution';R.mode=null;
+  R.anim={t0:performance.now(),ev,n0,loss,S:tacScript(R,ev,n0),spd:R.spd||1};R.phase='execution';R.mode=null;
   /* journal court : pertes par camp, pouvoirs, escouades détruites ou en fuite, commandant blessé */
   const camp=sd=>sd===0?'Marine':'Pirates',per=[0,0],L=[];for(const [s,v] of loss)if(!s.hero)per[s.sd]+=v;
   for(const p of ev.pw)L.push(p.s.hero+' : '+TAC_HEROS[p.s.hero].power.n);
@@ -267,7 +341,7 @@ function tacUI(R){
   const fa=tot(0),fb=tot(1),pc=Math.round(100*fa/Math.max(1,fa+fb));
   const nomCamp=sd=>sd===0?'Marine (Garp)':'Pirates (Ace)';
   let h='<div class="tac-top"><b>Alabasta · combat tactique (démo)</b><span>manche '+Math.min(R.round,TAC.ROUNDS)+' / '+TAC.ROUNDS+' · '+(R.phase==='ordres'?'ordres':R.phase==='execution'?'la manche se joue…':'terminé')+'</span>'
-    +'<span class="tac-sp"></span>'+(R.phase!=='fin'?'<button data-tac="auto">Résolution auto</button><button data-tac="lancer" class="pri"'+(R.phase!=='ordres'?' disabled':'')+'>Lancer la manche · Espace</button>':'')+'<button data-tac="quitter">Quitter</button></div>';
+    +'<span class="tac-sp"></span>'+(R.phase!=='fin'?'<button data-tac="vitesse" title="Vitesse des animations">Vitesse ×'+(R.spd||1)+'</button><button data-tac="auto">Résolution auto</button><button data-tac="lancer" class="pri"'+(R.phase!=='ordres'?' disabled':'')+'>Lancer la manche · Espace</button>':'')+'<button data-tac="quitter">Quitter</button></div>';
   h+='<div class="tac-left"><div class="tac-h">Vos escouades · '+nomCamp(me)+'</div>';
   for(const s of my){const o=s.ord,od=!tacAlive(s)?(s.out?'en fuite':'hors de combat'):o.k==='aller'?'se déplace':o.k==='attaque'?'attaque '+(R.sq[o.cible]?tacName(R.sq[o.cible]):''):o.k==='repli'?'repli':o.k==='pouvoir'?'pouvoir':'tient';
     h+='<button data-tac="sel:'+s.id+'" class="tac-sq'+(R.sel===s.id?' on':'')+(tacAlive(s)?'':' off')+'"><b>'+esc(tacName(s))+'</b>'+(s.moral===1?' ⚠':'')+'<small>'+esc(od)+'</small></button>';}
@@ -289,6 +363,7 @@ function tacUI(R){
 function tacClick(e){const b=e.target.closest('button[data-tac]');if(!b)return;e.stopPropagation();const R=TAC.run,a=b.dataset.tac;
   if(a==='quitter')return tacStop();if(a==='rejouer')return tacStart({side:R.side});if(a==='camp')return tacStart({side:1-R.side});
   if(a==='lancer')return tacLancer(R);if(a==='auto')return tacAuto(R);
+  if(a==='vitesse'){R.spd=TAC.spd=(R.spd||1)===1?2:1;if(R.anim){const now=performance.now(),tau=tacTau(R.anim,now);R.anim.spd=R.spd;R.anim.t0=now-tau/R.spd*1000;}tacUI(R);return;}
   if(a.startsWith('sel:')){R.sel=+a.slice(4);R.mode=null;tacFocus(R,R.sq[R.sel]);tacUI(R);return;}
   if(a.startsWith('o:'))tacOrdre(R,a.slice(2));}
 function tacOrdre(R,k){const s=R.sel!==null?R.sq[R.sel]:null;if(!s||!tacAlive(s)||s.sd!==R.side||R.phase!=='ordres')return;
@@ -342,7 +417,7 @@ function tacStart(opt){
   const t0=performance.now();let said=false;
   const go=()=>{const m=W3.models.get(t.id),I=m&&m.bx&&typeof BLX!=='undefined'?BLX.isl[m.bx]:null,G=I&&I.ready3?trpGrid(t):null;
     if(!G){if(performance.now()-t0<20000){if(!said){toast('Chargement d\'Alabasta…');said=true;}setTimeout(go,250);return;}toast('Alabasta n\'est pas chargée : combat tactique impossible pour l\'instant.');tacStop();return;}
-    const R=tacNew({side:opt.side||0,seed:opt.seed});if(!R){toast('Zone de combat introuvable.');tacStop();return;}
+    const R=tacNew({side:opt.side||0,seed:opt.seed});if(R)R.spd=TAC.spd||1;if(!R){toast('Zone de combat introuvable.');tacStop();return;}
     const M=R.M,yaw=Math.atan2(-M.U[1],-M.U[0])+(R.side===1?Math.PI:0);
     /* recul : la largeur de la zone (et une marge) dans la partie centrale de l'écran, entre les deux panneaux */
     const cx0=M.t.x+M.cx,cy0=M.t.y+M.cy,cc=w3Cam(cx0,cy0,yaw,.8,10),D0=Math.max(10,Math.min(40,(M.W*TAC.S+1)/.86/(2*cc.tx)));
@@ -380,7 +455,7 @@ TAC.sim=function(n,comp,K){const K0=Object.assign({},TAC.K);if(K)Object.assign(T
   +'#tac-lab{position:fixed;left:0;top:0;z-index:8990;pointer-events:none}'
   +'.tac-tag{position:fixed;transform:translate(-50%,-100%);font:700 11px system-ui,sans-serif;padding:1px 6px;border-radius:7px;background:#0f1922c9;color:#fff;white-space:nowrap}'
   +'.tac-tag.moi{border:1px solid #4a8fe0}.tac-tag.eux{border:1px solid #e0484f}.tac-tag.sel{border-color:#f2c75c;color:#f8d77a}'
-  +'.tac-num{position:fixed;transform:translate(-50%,-100%);font:800 16px system-ui,sans-serif;color:#ffdf6b;text-shadow:0 1px 2px #000,0 0 4px #000}';
+  +'.tac-num{position:fixed;transform:translate(-50%,-100%);font:800 17px system-ui,sans-serif;color:#ffdf6b;text-shadow:0 1px 2px #000,0 0 4px #000}.tac-num.moi{color:#ff8a7a}';
   document.head.appendChild(st);
   const b=document.createElement('button');b.id='tac-go';b.type='button';b.textContent='Combat tactique (démo)';b.title='Bataille tactique sur Alabasta : Marine de Garp contre Pirates d\'Ace (la partie n\'est pas modifiée)';
   b.addEventListener('click',e=>{e.stopPropagation();tacStart({side:0});});document.body.appendChild(b);}
