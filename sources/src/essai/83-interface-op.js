@@ -45,14 +45,8 @@ window.__OPUI={set:opuiSet,get on(){return OPUI.on;}};
   B+':not(.op-phase-open) .phase .ph-camps{flex-wrap:nowrap;overflow:hidden;min-width:0;flex:1 1 0;-webkit-mask-image:linear-gradient(90deg,#000 88%,transparent);mask-image:linear-gradient(90deg,#000 88%,transparent)}',
   B+' .phase .ph-q{position:absolute;right:8px;top:5px}',
   /* boutons d'essai : un tiroir repliable au-dessus de « Fin de tour » */
-  'body:not(.op-ui) #op-essais{display:contents}body:not(.op-ui) #op-essais>.oe-h{display:none}',
-  B+' #op-essais{position:fixed;right:var(--opui-r);bottom:78px;z-index:30;display:flex;flex-direction:column;align-items:flex-end;gap:5px;transition:right .28s}',
-  B+' #op-essais>*:not(.oe-h){position:static!important;inset:auto!important;margin:0!important;transform:none!important}',
-  B+'.op-essais-off #op-essais>*:not(.oe-h){display:none!important}',
-  B+' #op-essais>.oe-h{order:99;font:800 11px system-ui,sans-serif;padding:4px 10px;border-radius:9px;border:1.5px solid var(--op-encre);background:#f8ecd0;color:var(--op-encre);cursor:pointer;box-shadow:0 2px 0 rgba(0,0,0,.45)}',
   '#b-opui{font:800 12px system-ui,sans-serif;padding:7px 11px;border-radius:10px;border:2px solid #2a1a0c;background:#f8ecd0;color:#2a1a0c;cursor:pointer;box-shadow:0 3px 0 rgba(0,0,0,.45)}',
   'body:not(.op-ui) #b-opui{position:fixed;left:14px;bottom:14px;z-index:9999}',
-  'body.rtrun #op-essais,body.tacrun #op-essais,body.rtrun #b-side,body.tacrun #b-side{display:none!important}',
   /* ---- bandeau du haut : planche de bois, liseré doré ---- */
   B+' .hud{background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(0,0,0,.28)),repeating-linear-gradient(90deg,transparent 0 31px,rgba(0,0,0,.10) 31px 33px,rgba(255,255,255,.035) 33px 78px),linear-gradient(180deg,#704522,#47280f);'
    +'border:2px solid var(--op-encre);border-radius:14px;box-shadow:inset 0 0 0 1px rgba(245,197,24,.45),inset 0 -3px 0 rgba(0,0,0,.35),0 8px 22px rgba(0,0,0,.55);padding:6px 12px}',
@@ -127,20 +121,73 @@ window.__OPUI={set:opuiSet,get on(){return OPUI.on;}};
 const OPUI_ST={side:true,essais:true,phase:false};
 try{const o=JSON.parse(localStorage.getItem('rk-ui-st')||'{}');Object.assign(OPUI_ST,o);}catch(_){}
 function opuiSave(){try{localStorage.setItem('rk-ui-st',JSON.stringify(OPUI_ST));}catch(_){}}
-function opuiApply(){const b=document.body;if(!b)return;b.classList.toggle('op-side-off',!OPUI_ST.side);b.classList.toggle('op-essais-off',!OPUI_ST.essais);b.classList.toggle('op-phase-open',!!OPUI_ST.phase);
+function opuiApply(){const b=document.body;if(!b)return;b.classList.toggle('op-side-off',!OPUI_ST.side);b.classList.toggle('op-phase-open',!!OPUI_ST.phase);
   const t=document.getElementById('b-side');if(t){t.textContent=OPUI_ST.side?'▸ masquer':'◂ île';t.title=OPUI_ST.side?'Masquer le panneau de l\'île (la carte prend la place)':'Afficher le panneau de l\'île';}
-  const h=document.querySelector('#op-essais>.oe-h');if(h)h.textContent=OPUI_ST.essais?'Essais ▾':'Essais ▸';
   dispatchEvent(new Event('resize'));}
 function opuiSide(on){OPUI_ST.side=!!on;opuiSave();opuiApply();}
 {const go=()=>{if(!document.body)return setTimeout(go,50);
   let t=document.getElementById('b-side');if(!t){t=document.createElement('button');t.id='b-side';t.addEventListener('click',e=>{e.stopPropagation();opuiSide(!OPUI_ST.side);});document.body.appendChild(t);}
-  let d=document.getElementById('op-essais');if(!d){d=document.createElement('div');d.id='op-essais';const h=document.createElement('button');h.className='oe-h';h.title='Afficher / masquer les boutons d\'essai';
-    h.addEventListener('click',e=>{e.stopPropagation();OPUI_ST.essais=!OPUI_ST.essais;opuiSave();opuiApply();});d.appendChild(h);document.body.appendChild(d);}
-  /* les boutons d'essai sont créés par leurs modules ; ils sont rangés dans le tiroir dès qu'ils existent (mêmes éléments, mêmes actions) */
-  let k=0;const adopt=()=>{for(const id of ['b-opui','gfx-btn','gfx-demo','tac-go','rt-go']){const e=document.getElementById(id);if(e&&e.parentNode!==d)d.insertBefore(e,d.firstChild);}if(++k<40)setTimeout(adopt,250);};adopt();
   opuiApply();};go();}
 /* bandeau du tour : un clic (hors boutons) déplie ou replie les détails */
 document.addEventListener('click',e=>{if(!OPUI.on)return;const ph=e.target.closest&&e.target.closest('#phase');if(!ph||e.target.closest('button,a,.mv,input,select'))return;OPUI_ST.phase=!OPUI_ST.phase;opuiSave();opuiApply();});
 /* « Fiche de l'île » ou un double-clic sur la carte rouvre le panneau s'il est masqué */
 document.addEventListener('click',e=>{if(!OPUI.on||OPUI_ST.side)return;const b=e.target.closest&&e.target.closest('#selcard button');if(b&&/fiche/i.test(b.textContent||''))opuiSide(true);},true);
 window.__OPUI.side=opuiSide;
+
+/* ---------- menu : un seul bouton « ☰ Menu » regroupe les actions secondaires ----------
+   Les éléments d'origine sont déplacés dans le menu (mêmes boutons, mêmes identifiants, mêmes actions), puis remis à leur place
+   d'origine si l'on revient à l'ancienne interface. Rien n'est supprimé. */
+const OPM=[
+  ['Partie',['b-saves','b-guide','b-rules','b-new']],
+  ['Affichage et son',['b-jrn','b-notif','b-snd','b-adv','b-opui']],
+  ['Vue de la carte',['z-25','z-w3','z-3d','z-dock','z-banc']],
+  ['Ressources',['@r-inf','@r-troops']],
+  ['Essais',['rt-isle','rt-go','tac-go','gfx-demo','gfx-btn']]];
+const OPM_HOME=new Map(),OPM_ORDER=[];
+const opmEl=id=>id[0]==='@'?(document.getElementById(id.slice(1))||{}).parentElement||null:document.getElementById(id);
+function opMenuBuild(){let m=document.getElementById('op-menu');if(m)return m;m=document.createElement('div');m.id='op-menu';m.hidden=true;m.setAttribute('role','menu');
+  m.innerHTML=OPM.map((s,i)=>'<section data-i="'+i+'"><h4>'+s[0]+'</h4><div class="op-mi"></div></section>').join('');document.body.appendChild(m);
+  m.addEventListener('pointerdown',e=>e.stopPropagation());return m;}
+function opMenuMount(on){const m=opMenuBuild();
+  if(on)OPM.forEach((sec,i)=>{const box=m.querySelector('section[data-i="'+i+'"] .op-mi');for(const id of sec[1]){const e=opmEl(id);if(!e||e.parentNode===box)continue;
+    OPM_HOME.set(e,{p:e.parentNode,n:e.nextSibling});OPM_ORDER.push(e);box.appendChild(e);}});
+  /* retour : dans l'ordre inverse des déplacements, chaque élément retrouve son voisin d'origine */
+  else{for(let k=OPM_ORDER.length-1;k>=0;k--){const e=OPM_ORDER[k],h=OPM_HOME.get(e);if(h&&e.parentNode&&e.parentNode.closest&&e.parentNode.closest('#op-menu'))h.p.insertBefore(e,h.n&&h.n.parentNode===h.p?h.n:null);}OPM_ORDER.length=0;}
+  m.querySelectorAll('section').forEach(sc=>{sc.hidden=!sc.querySelector('.op-mi').children.length;});
+  let b=document.getElementById('b-menu');const ctl=document.querySelector('.hud .ctl');
+  if(!b&&ctl){b=document.createElement('button');b.id='b-menu';b.type='button';b.innerHTML='☰ Menu';b.title='Sauvegardes, règles, son, vues de la carte, essais…';
+    b.addEventListener('click',e=>{e.stopPropagation();opMenu(document.getElementById('op-menu').hidden);});const sp=ctl.querySelector('.speed');ctl.insertBefore(b,sp?sp.nextSibling:ctl.firstChild);}
+  if(!on)opMenu(false);}
+function opMenu(open){const m=opMenuBuild(),b=document.getElementById('b-menu');m.hidden=!open;if(b)b.classList.toggle('on',!!open);
+  if(open&&b){const r=b.getBoundingClientRect();m.style.left=Math.max(8,Math.min(innerWidth-m.offsetWidth-8,r.left))+'px';m.style.top=(r.bottom+6)+'px';}}
+document.addEventListener('pointerdown',e=>{const m=document.getElementById('op-menu');if(m&&!m.hidden&&!e.target.closest('#op-menu,#b-menu,#sndp'))opMenu(false);},true);
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){const m=document.getElementById('op-menu');if(m&&!m.hidden)opMenu(false);}});
+/* les éléments créés plus tard par leurs modules (essais, vues) sont rangés dès qu'ils existent */
+setInterval(()=>{try{if(OPUI.on&&!document.body.classList.contains('rtrun'))opMenuMount(true);}catch(e){console.warn('menu :',e);}},600);
+{const s0=opuiSet;opuiSet=function(on){s0(on);try{opMenuMount(!!on);}catch(_){}};window.__OPUI.set=opuiSet;}
+window.__OPUI.menu=opMenu;
+{const st=document.createElement('style');st.textContent=[
+  '#b-menu{display:none}body.op-ui #b-menu{display:inline-flex;align-items:center;gap:5px;font-weight:800!important;padding:4px 12px!important}',
+  'body.op-ui #b-menu.on{background:linear-gradient(180deg,#ffe066,#e8a90d)!important;color:#2a1a0c!important;border-color:#2a1a0c!important}',
+  '#op-menu{position:fixed;z-index:65;width:560px;max-width:calc(100vw - 16px);max-height:calc(100vh - 120px);overflow:auto;display:grid;grid-template-columns:1fr 1fr;gap:10px 14px;padding:12px 14px;',
+  'background:linear-gradient(180deg,#17171b,#0e0e10);border:2px solid #060607;border-radius:14px;box-shadow:inset 0 0 0 2px #6b4220,inset 0 0 0 3px rgba(245,197,24,.4),0 14px 34px rgba(0,0,0,.65);color:#fdf6e3;font:13px system-ui,sans-serif}',
+  '#op-menu[hidden]{display:none}#op-menu section[hidden]{display:none}#op-menu h4{margin:0 0 6px;font:400 16px/1 var(--f-display,Impact);letter-spacing:.8px;color:var(--op-or,#f5c518);text-transform:uppercase}',
+  '#op-menu .op-mi{display:flex;flex-direction:column;align-items:stretch;gap:5px}',
+  '#op-menu .op-mi>*{position:static!important;inset:auto!important;margin:0!important;transform:none!important;width:auto!important;height:auto!important;min-height:32px;justify-content:flex-start;text-align:left;font-size:13px!important}',
+  '#op-menu .op-mi>button{display:flex!important;align-items:center;gap:6px;padding:6px 10px!important;border-radius:9px!important;background:linear-gradient(180deg,#2a2a30,#1b1b20)!important;border:1.5px solid rgba(214,166,58,.45)!important;color:#fdf6e3!important;box-shadow:none!important;font-weight:700!important}',
+  '#op-menu .op-mi>button:hover{border-color:#f5c518!important}#op-menu .op-mi>button.on{background:linear-gradient(180deg,#ffe066,#e8a90d)!important;color:#2a1a0c!important}',
+  '#op-menu .op-mi>button .lbl2{display:inline!important}#op-menu .op-mi>.chip{display:flex!important;background:#fff6df!important}#op-menu .op-mi>.chip small{display:inline!important}',
+  '#op-menu .op-mi>select{min-height:30px;padding:4px 8px}',
+  /* noms des boutons qui n'ont qu'une icône dans le bandeau */
+  '#op-menu #b-jrn::after{content:"Journal des événements"}#op-menu #b-notif::after{content:"Notifications sur la carte"}#op-menu #z-w3::after{content:"Monde 3D (caméra libre)"}',
+  '#op-menu #z-dock::after{content:"Afficher / masquer le panneau"}#op-menu #z-banc::after{content:"Banc de mesure des îles"}#op-menu #z-25::after{content:" (rendu 2.5D)"}#op-menu #z-3d::after{content:" (prototype Alabasta)"}',
+  '#op-menu #b-snd::before{content:"Son :";opacity:.7;margin-right:2px}',
+  /* zoom : seulement +, − et vue d'ensemble restent sur la carte */
+  'body.op-ui .zoomctl{gap:5px!important}',
+  /* le bandeau du tour replié ne répète plus les camps (ils sont dans le bandeau des équipages et le panneau de la Course) */
+  'body.op-ui:not(.op-phase-open) .phase .ph-camps{display:none!important}',
+  /* primes dans la ligne de chaque camp du panneau de la Course */
+  '#cs-hud .cs-p.op-g{grid-template-columns:10px minmax(0,1fr) 54px 24px 58px}#cs-hud .cs-p .op-pv{font:400 13px/1 var(--op-titre,var(--f-display,Impact));letter-spacing:.4px;color:#ffe7a3;text-align:right;white-space:nowrap}',
+  '#cs-hud .cs-p.op-tg{background:#d6282833;border-radius:6px;animation:opbl 1.2s ease-in-out infinite}',
+  '#cs-hud .op-ph{display:grid;grid-template-columns:10px minmax(0,1fr) 54px 24px 58px;gap:6px;font-size:10px;color:#b9b4a8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px}#cs-hud .op-ph span:last-child{text-align:right}'
+].join('\n');document.head.appendChild(st);}

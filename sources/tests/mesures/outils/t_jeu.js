@@ -12,7 +12,7 @@ let n=0,t=0;const T=(a,c,d)=>{t++;if(c)n++;console.log((c?'✔ ':'✘ ')+a+(d!==
 await p.goto(`http://127.0.0.1:${port}/essai_test.html`);await p.evaluate(()=>{localStorage.clear();localStorage.setItem('gl-tuto','1');localStorage.setItem('rk-tob','{"off":1}');});await p.reload();await p.waitForTimeout(1500);
 T('écran d\'accueil : case « Riposte de la Marine (essai) » cochée par défaut',await p.evaluate(()=>{const c=document.getElementById('o-riposte');return !!c&&c.checked;}));
 await p.click('#o-go');await p.waitForTimeout(1200);await p.evaluate(()=>document.querySelectorAll('.tu-card,.tob').forEach(e=>e.remove()));
-T('panneau de la Course : avis de recherche de chaque camp',await p.evaluate(()=>{const s=document.querySelector('#cs-hud .op-pr');return !!s&&s.querySelectorAll('.op-w').length===__RK.players.filter(q=>q.alive).length;}));
+await p.waitForTimeout(800);T('panneau de la Course : la prime de chaque camp sur sa ligne, état de la Marine',await p.evaluate(()=>{const r=[...document.querySelectorAll('#cs-hud .cs-p.op-g .op-pv')];return r.length===__RK.players.filter(q=>q.alive).length&&r.every(e=>/฿/.test(e.textContent))&&!!document.querySelector('#cs-hud .op-bc');}));
 /* riposte coupée : la règle d'origine de la Course ne frappe pas */
 const troupes=()=>p.evaluate(()=>__RK.terrs.filter(q=>q.owner===__RK.ME).reduce((a,q)=>a+Object.values(q.u).reduce((x,y)=>x+y,0),0));
 await p.evaluate(()=>{__OPJ.riposte(false);__OPJ.test.avis();__OPJ.test.frappe();});const a0=await troupes();
@@ -21,7 +21,7 @@ await p.evaluate(()=>{__OPJ.riposte(true);__OPJ.test.frappe();});const a1=await 
 T('option active : frappe de la Marine (Vice-amiral, −15 %) et minuteur relancé',Math.abs(a1-25.5)<.01&&await p.evaluate(()=>__OPJ.test.etat().marineAt>0),{troupes:a1,etat:await p.evaluate(()=>__OPJ.test.etat())});
 T('la Marine n\'est jamais visée par sa propre riposte',await p.evaluate(()=>{const c=__OPJ.test.cibles();return c.length>0&&!c.includes('marine');}),await p.evaluate(()=>__OPJ.test.cibles()));
 /* duel */
-await p.click('#rt-go',{force:true});for(let i=0;i<120;i++){if(await p.evaluate(()=>!!(__RT.run&&__RT.run.cam)))break;await p.waitForTimeout(500);}
+await p.evaluate(()=>window.__OPUI&&__OPUI.menu&&__OPUI.menu(true));await p.click('#rt-go',{force:true});for(let i=0;i<120;i++){if(await p.evaluate(()=>!!(__RT.run&&__RT.run.cam)))break;await p.waitForTimeout(500);}
 const d=await p.evaluate(()=>{const R=__RT.run;__RT.cine=false;let k=0;while(!R.duel&&!R.end&&k<4000){__RT.step(R);k++;}if(!R.duel)return null;const D=R.duel;
   for(let j=0;j<20;j++)__RT.step(R);const encore=!!R.duel;return {t:+R.t.toFixed(1),a:D.a.hero,b:D.b.hero,encore,ia:R.aiOn};});
 T('deux commandants ennemis proches : duel déclenché ; l\'IA ne le rompt pas',!!d&&d.encore,d);

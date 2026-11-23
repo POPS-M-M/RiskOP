@@ -578,9 +578,11 @@ function rtFx(R){
     else if(f.k==='nuage'){for(let q=0;q<5;q++){const a=q*1.26;g([f.p[0]+Math.cos(a)*.9,f.p[1]+Math.sin(a)*.9,f.p[2]],.9,0,[.25,.27,.33],.55*Math.sin(Math.PI*u));}}
     else if(f.k==='magma'){for(let q=0;q<3;q++){const sw=Math.sin(rT*7+q*1.9)*.1;g([f.p[0]+sw,f.p[1]-sw,f.p[2]+q*.25+u*.3],(.45-q*.1)*(1-u*.4),.55,[1,.25-q*.05,.03],.85*(1-u*u));}}}
   /* poussière soulevée par la course, halo doré sous les commandants */
-  let nd=0;for(const q of R.G){if(q.out)continue;for(const so of q.sol){if(so.dead)continue;const x=so.px+(so.x-so.px)*R.alpha,y=so.py+(so.y-so.py)*R.alpha,z=R.M.z(x,y);
+  const G0=G.length;let nd=0;for(const q of R.G){if(q.out)continue;for(const so of q.sol){if(so.dead)continue;const x=so.px+(so.x-so.px)*R.alpha,y=so.py+(so.y-so.py)*R.alpha,z=R.M.z(x,y);
     if(q.hero)g([x,y,z+.06],.55+.05*Math.sin(rT*3),.15,q.sd===R.side?[1,.8,.2]:[1,.3,.2],.32);
     else if(so.mv&&nd<60){nd++;const ph=Math.abs(Math.sin((so.walk||0)*4.4+so.ph*3));g([x-Math.cos(so.face)*.18,y-Math.sin(so.face)*.18,z+.08],.16+.1*(1-ph),0,[.82,.7,.5],.28*(1-ph));}}}
+  /* ces lueurs-là sont au sol : dessinées avant les personnages (sinon elles les voilent) */
+  TRP.glowSol=G.splice(G0);
   /* le couvert en feu */
   for(const r of R.M.T)for(const c of r){if(c.feu>rT){const fl=.7+.3*Math.sin(rT*31+c.i*7+c.j*3);g([c.x,c.y,c.z+.35],.45*fl,.6,[1,.5,.08],.55);}if(c.lave>rT){const fl=.7+.3*Math.sin(rT*7+c.i*5+c.j*3);g([c.x,c.y,c.z+.12],.5*fl,.5,[1,.28,.04],.45);}}
   TRP.glow=G;
@@ -878,7 +880,7 @@ function rtStart(opt){
   go();
 }
 function rtStop(){
-  RT.run=null;rtUI(null);TRP.tiles=[];TRP.glow=[];try{W3.cv.style.filter='';}catch(_){}RT.keys.clear();document.body.classList.remove('tacrun','rtrun','rt-grab');dispatchEvent(new Event('resize'));
+  RT.run=null;rtUI(null);TRP.tiles=[];TRP.glow=[];TRP.glowSol=[];try{W3.cv.style.filter='';}catch(_){}RT.keys.clear();document.body.classList.remove('tacrun','rtrun','rt-grab');dispatchEvent(new Event('resize'));
   const P=RT.prev;RT.prev=null;if(P){speed=P.speed;V.k=P.k;V.x=P.x;V.y=P.y;W3.cam.yaw=P.yaw;W3.cam.pitch=P.pitch;if(!P.gfx)GFX.set(false);}dirty=true;
 }
 /* ============================== branchement sur la carte (étape 6) ==============================

@@ -13,7 +13,7 @@ const ok=(n,c,d)=>{console.log((c?'✔ ':'✘ ')+n+(d!==undefined?' — '+JSON.s
 await p.goto(`http://127.0.0.1:${port}/essai_test.html`);await p.evaluate(()=>{localStorage.clear();localStorage.setItem('gl-tuto','1');localStorage.setItem('rk-tob','{"off":1}');});await p.reload();await p.waitForTimeout(1500);
 await p.click('#o-go');await p.waitForTimeout(800);await p.evaluate(()=>document.querySelectorAll('.tu-card,.tob').forEach(e=>e.remove()));
 const snap=()=>p.evaluate(()=>JSON.stringify([__RK.terrs.map(t=>[t.owner,JSON.stringify(t.u)]),__RK.speed]));const before=await snap();
-await p.click('#rt-go');for(let i=0;i<120;i++){if(await p.evaluate(()=>!!(__RT.run&&__RT.run.cam)))break;await p.waitForTimeout(500);}
+await p.evaluate(()=>window.__OPUI&&__OPUI.menu&&__OPUI.menu(true));await p.click('#rt-go');for(let i=0;i<120;i++){if(await p.evaluate(()=>!!(__RT.run&&__RT.run.cam)))break;await p.waitForTimeout(500);}
 const g0=await p.evaluate(()=>__RT.run.G.map(g=>[g.cx,g.cy]));await p.waitForTimeout(2500);
 T('la bataille démarre aussitôt et les troupes bougent seules (semi-automatique)',await p.evaluate(g0=>!__RT.run.paused&&__RT.run.G.filter((g,i)=>Math.hypot(g.cx-g0[i][0],g.cy-g0[i][1])>.5).length>=3,g0));
 await p.keyboard.press('Space');

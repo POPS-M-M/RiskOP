@@ -58,8 +58,9 @@ function rtDuelHTML(R){const D=R.duel;if(!D)return '';const {a,b}=D,pa=Math.roun
   };}
 
 /* ------------------------------------------------- 2. lumière des impacts et sons ------------------------------------------------- */
-const RT_LUM={impact:[255,214,150,.9,.32],eclair:[255,226,140,.8,.5],poing:[255,240,220,1.2,.5],feu:[255,140,40,1.5,.36],jet:[255,150,50,2.2,.35],magma:[255,90,30,1.4,.4],
-  foudre:[200,220,255,3.2,.8],onde:[255,210,90,0,.28],poussiere:[255,170,80,2.4,.55],nuage:[170,190,255,3,.25]};
+/* intensités modérées : la lumière passe par-dessus l'image (mode « écran ») ; trop forte, elle délave les personnages */
+const RT_LUM={impact:[255,214,150,.9,.14],eclair:[255,226,140,.8,.22],poing:[255,240,220,1.2,.22],feu:[255,140,40,1.5,.2],jet:[255,150,50,2.2,.2],magma:[255,90,30,1.4,.22],
+  foudre:[200,220,255,3.2,.45],onde:[255,210,90,0,.16],poussiere:[255,170,80,2.4,.3],nuage:[170,190,255,3,.14]};
 RT.lum=true;
 function rtLight(){const R=RT.run,ui=document.getElementById('rt-ui');let cv=document.getElementById('rt-light');
   if(!R||!ui||!R.cam){if(cv&&cv.width)cv.width=0;return;}
@@ -73,10 +74,6 @@ function rtLight(){const R=RT.run,ui=document.getElementById('rt-ui');let cv=doc
     if(f.k==='jet'){for(let k=0;k<=4;k++){const v=Math.min(1,u*1.6)*k/4;glow([f.a[0]+(f.b[0]-f.a[0])*v,f.a[1]+(f.b[1]-f.a[1])*v,f.a[2]],L[3],L,a*.6);}continue;}
     if(f.k==='onde'){glow(f.p,(f.r||4)*Math.min(1,u*1.4),L,a);continue;}
     glow(f.p||f.b||f.a,L[3],L,a);}
-  /* anneau du duel au sol */
-  const D=R.duel;if(D&&rtAlive(D.a)&&rtAlive(D.b)){const mx=(D.a.cx+D.b.cx)/2,my=(D.a.cy+D.b.cy)/2,q=w3Proj(mx,my,R.M.z(mx,my)+.05,R.cam);
-    if(q){const r=Math.max(30,(rtD(D.a,D.b)/2+1.1)*q.k*s),ph=(performance.now()/600)%1;x.globalCompositeOperation='source-over';x.strokeStyle='rgba(245,197,24,.85)';x.lineWidth=3*dpr;x.setLineDash([10*dpr,8*dpr]);x.lineDashOffset=-ph*36*dpr;
-      x.beginPath();x.ellipse(q.sx*s,q.sy*s,r,r*.45,0,0,6.283);x.stroke();x.setLineDash([]);x.globalCompositeOperation='lighter';glow([mx,my,R.M.z(mx,my)+.1],rtD(D.a,D.b)/2+1.2,[255,200,80],.18);}}
   x.globalCompositeOperation='source-over';}
 /* sons : synthétisés (module de son d'origine), au moment où l'effet devient visible */
 const RT_SND={vu:new WeakSet(),last:{}};
@@ -138,11 +135,17 @@ function opPrimeHTML(){if(typeof primeOf!=='function'||!players||!players.length
   if(!actif)st='<div class="op-bc">Riposte de la Marine coupée<small>règles d\'origine de la Course : pas de Buster Call (option sur l\'écran d\'accueil)</small></div>';
   else if(marineWarned&&players[marineTarget]){const R=opCourse()?opRip(primeOf(marineTarget)):{n:'Buster Call',k:CREWS[players[marineTarget].crew||0].bust||.7};
     st='<div class="op-bc on">⚓ '+R.n.toUpperCase()+' contre <b>'+esc(players[marineTarget].name)+'</b> dans ~'+dt+' s<small>−'+Math.round((1-R.k)*100)+' % de troupes sur son île la plus forte (la capitale seulement s\'il n\'a qu\'elle)</small></div>';}
-  else st='<div class="op-bc">Prochaine décision de la Marine dans ~'+Math.max(0,dt-15)+' s<small>'+(lead?'<b>'+esc(cand[0].p.name)+'</b> domine : il sera visé'+(opCourse()?' ('+opRip(cand[0].s).n+')':''):'personne ne domine assez pour être visé')+' · règle : 30 % de prime de plus que le 2e et au moins '+fmtPrime(900)+(opCourse()?' · Vice-amiral, Amiral dès '+fmtPrime(1500)+', Buster Call dès '+fmtPrime(3000):'')+'</small></div>';
-  return '<div class="cs-h">Avis de recherche</div><div class="op-wl">'+arr.map((o,i)=>{const me=o.p.id===ME,tg=marineWarned&&o.p.id===marineTarget;
-    return '<div class="op-w'+(me?' me':'')+(tg?' tg':'')+'" style="--c:'+o.p.color+'"><span class="op-wn">'+(i+1)+'. '+esc(o.p.name)+(me?' <em>vous</em>':'')+'</span><span class="op-wb"><i style="width:'+Math.round(100*o.s/Math.max(1,top))+'%"></i></span><b>'+fmtPrime(o.s)+'</b></div>';}).join('')+'</div>'+st;}
+  else{const regle='Règle : un camp est visé s\'il a 30 % de prime de plus que le 2e et au moins '+fmtPrime(900)+(opCourse()?'. Vice-amiral (−15 %), Amiral dès '+fmtPrime(1500)+' (−25 %), Buster Call dès '+fmtPrime(3000)+' (−35 %).':'.');
+    st='<div class="op-bc" title="'+esc(regle)+'">⚓ Marine : '+(lead?'<b>'+esc(cand[0].p.name)+'</b> sera visé'+(opCourse()?' ('+opRip(cand[0].s).n+')':''):'aucun camp visé')+' · décision dans ~'+Math.max(0,dt-15)+' s <small>survolez pour la règle</small></div>';}
+  return st;}
 if(typeof CS!=='undefined'&&CS.hud){const h0=CS.hud;CS.hud=function(force){const r=h0.apply(this,arguments);try{const h=document.getElementById('cs-hud');if(h&&!h.hidden){const b=h.querySelector('.cs-body');if(b){let s=b.querySelector('.op-pr');if(!s){s=document.createElement('div');s.className='op-pr';b.appendChild(s);}
-  const x=opPrimeHTML();if(s._h!==x){s._h=x;s.innerHTML=x;}}}}catch(e){console.warn('primes :',e);}return r;};}
+  const x=opPrimeHTML();if(s._h!==x){s._h=x;s.innerHTML=x;}opPrimeRows(h);}}}catch(e){console.warn('primes :',e);}return r;};}
+const fmtPrimeC=n=>{const v=Math.round(n)*10000;return v>=1e9?(v/1e9).toLocaleString('fr-FR',{maximumFractionDigits:1})+' Md ฿':v>=1e6?(v/1e6).toLocaleString('fr-FR',{maximumFractionDigits:1})+' M ฿':v.toLocaleString('fr-FR')+' ฿';};
+/* une colonne « prime » dans chaque ligne de camp du panneau de la Course (au lieu d'une seconde liste des mêmes camps) */
+function opPrimeRows(h){const rows=h.querySelectorAll('.cs-body > .cs-p');if(!rows.length)return;
+  if(!h.querySelector('.op-ph')){const hd=document.createElement('div');hd.className='op-ph';hd.innerHTML='<span></span><span>camp</span><span>course</span><span></span><span>prime</span>';rows[0].parentNode.insertBefore(hd,rows[0]);}
+  for(const r of rows){const nm=(r.querySelector('.cs-n')||{}).textContent;const p=players.find(q=>q.name===nm);if(!p)continue;r.classList.add('op-g');r.classList.toggle('op-tg',!!(marineWarned&&marineTarget===p.id));
+    let e=r.querySelector('.op-pv');if(!e){e=document.createElement('em');e.className='op-pv';const sm=r.querySelector('small,.cs-alert');r.insertBefore(e,sm||null);}const t=fmtPrimeC(primeOf(p.id));if(e.textContent!==t){e.textContent=t;e.title='Prime : '+fmtPrime(primeOf(p.id));}}}
 function opNews(txt,kind){OP_PR.news.push({txt,kind});opNewsNext();}
 function opNewsNext(){if(OP_PR.showing||!OP_PR.news.length||document.body.classList.contains('rtrun'))return;const n=OP_PR.news.shift();let el=document.getElementById('op-news');
   if(!el){el=document.createElement('div');el.id='op-news';document.body.appendChild(el);}
@@ -157,7 +160,7 @@ setInterval(()=>{try{if(typeof started==='undefined'||!started||!players||!playe
   for(const p of players){if(!p.alive)continue;const v=primeOf(p.id),k=opPal(v);if(k>(OP_PR.pal[p.id]|0)&&v>=500){if(p.id===ME||k>=4)opNews('La prime de <b style="color:'+p.color+'">'+esc(p.name)+'</b> passe à <b>'+fmtPrime(v)+'</b>','');}OP_PR.pal[p.id]=Math.max(OP_PR.pal[p.id]|0,k);}
   if(marineWarned&&!OP_PR.warned&&players[marineTarget]){const p=players[marineTarget];opNews('Avis de recherche : <b style="color:'+p.color+'">'+esc(p.name)+'</b>, '+fmtPrime(primeOf(p.id))+'. '+(opCourse()?'La Marine envoie un '+opRip(primeOf(p.id)).n:'Un Buster Call se prépare')+(p.id===ME?' contre <b>vous</b>':'')+' !','bc');OP_PR.tgt=marineTarget;}
   if(OP_PR.warned&&!marineWarned){const L=OP_PR.last;if(L){opBuster(L.who,L.isle,L.n,L.pct);OP_PR.last=null;}else{const p=players[OP_PR.tgt];if(p&&p.alive){const mine=terrs.filter(t=>t.owner===p.id&&!t.capital).sort((a,b)=>tr(b)-tr(a)),tg=mine[0]||terrs.find(t=>t.owner===p.id);opBuster(p.name,tg?tg.name:'');}}}
-  {const sct=document.querySelector('#cs-hud .op-pr');if(sct){const x=opPrimeHTML();if(sct._h!==x){sct._h=x;sct.innerHTML=x;}}}
+  {const sct=document.querySelector('#cs-hud .op-pr');if(sct){const x=opPrimeHTML();if(sct._h!==x){sct._h=x;sct.innerHTML=x;}opPrimeRows(document.getElementById('cs-hud'));}}
   OP_PR.warned=marineWarned;OP_PR.at=marineAt;}catch(e){console.warn('primes :',e);}},500);
 
 function opRipUI(){const o=document.getElementById('overlay');if(!o||o.hidden)return;if(document.getElementById('o-riposte'))return;const row=o.querySelector('.row');if(!row)return;

@@ -101,6 +101,8 @@ function gfxProg(){
   const TL=TRP.tiles||[];TRP.tiles=[];if(TL.length){const X0=spr[0][1];draw(TL.map(T=>[0,X0,T[0],T[1],T[2]+.02,5,T[4],T[5],T[6],0,-T[3],T[3],-T[3],T[3],T[7],T[8],T[9],T[10]]));}
   /* ombres portées : une seule couche (le tampon de gabarit n'est pas demandé au contexte) ; puis contact et marqueurs ; puis les sprites */
   draw(sh);draw(gnd);gl.disable(gl.POLYGON_OFFSET_FILL);
+  /* lueurs au sol (poussière de course, aura des commandants) : avant les personnages, pour qu'elles ne les voilent pas */
+  const GS=TRP.glowSol||[];if(GS.length){const X0=spr[0][1];draw(GS.map(g=>[0,X0,g[0],g[1],g[2],6,0,0,g[4],0,-g[3],g[3],-g[3],g[3],g[5],g[6],g[7],g[8]]));}
   draw(spr);
   /* lueurs du combat tactique (TRP.glow : [x,y,z,rayon,cœur,r,g,b,a]), par-dessus, sans écrire la profondeur */
   const GL=TRP.glow||[];if(GL.length){const X0=spr[0][1];draw(GL.map(g=>[0,X0,g[0],g[1],g[2],6,0,0,g[4],0,-g[3],g[3],-g[3],g[3],g[5],g[6],g[7],g[8]]));}
