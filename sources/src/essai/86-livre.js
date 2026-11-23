@@ -8,12 +8,14 @@
 const OPL={open:false,tab:null};
 const OPL_NAV=[['eco','฿','Économie',['eco','city','tech']],['leg','♛','Équipage',['leg']],['dip','⚖','Diplomatie',['dip']],['rel','◎','Monde',null]];
 function oplTab(){try{return ui.tab;}catch(_){return 'army';}}
-/* onglet du haut, ou sous-onglet (Villes, Techno, Objectifs…) : on passe d'abord par son groupe */
-function oplGo(v){const q=s=>document.querySelector('#side '+s);
-  let b=q('.tabs .tab[data-v="'+v+'"]');if(b){b.click();return true;}
-  b=q('.subtabs button[data-act="tab"][data-v="'+v+'"]');
-  if(!b){const g=(typeof groupOf==='function')?groupOf(v):null;const t=g&&q('.tabs .tab[data-v="'+g[0]+'"]');if(t){t.click();if(typeof renderPanel==='function')renderPanel(true);b=q('.subtabs button[data-act="tab"][data-v="'+v+'"]');}}
-  if(b){b.click();return true;}return false;}
+/* bouton du Livre (Économie, Équipage, Diplomatie, Monde) : ouvre le groupe, sur son dernier sous-onglet ; sous-onglet précis (Villes, Techno…) : le groupe puis ce sous-onglet.
+   Le jeu donne à l'onglet du haut le nom du dernier sous-onglet visité (data-v="city" après Villes) : on cherche donc l'onglet par son groupe,
+   pas par son nom (sinon « Économie » ne répondait plus après un passage par Villes ou Techno). */
+function oplGo(v){const tabs=[...document.querySelectorAll('#side .tabs .tab')],grp=x=>{try{return groupOf(x)[0];}catch(_){return x;}};
+  const nav=OPL_NAV.some(n=>n[0]===v),g=grp(v),t=tabs.find(x=>x.dataset.v===v)||tabs.find(x=>grp(x.dataset.v)===g);if(!t)return false;
+  if(!(nav&&grp(ui.tab)===g&&OPL.open))t.click();
+  if(!nav&&ui.tab!==v){if(typeof renderPanel==='function')renderPanel(true);const b=document.querySelector('#side .subtabs button[data-act="tab"][data-v="'+v+'"]');if(b)b.click();}
+  return true;}
 function oplClose(){oplGo('army');}
 function oplNavOf(t){for(const n of OPL_NAV){if(n[3]?n[3].includes(t):!['army','eco','city','tech','leg','dip'].includes(t))return n[0];}return null;}
 /* en-tête du Livre de bord (posé au-dessus du panneau), fond, boutons du bandeau */
@@ -29,7 +31,7 @@ function oplChrome(){
     n.addEventListener('click',e=>{const b=e.target.closest('[data-opl]');if(!b)return;e.stopPropagation();const cur=oplNavOf(oplTab());if(cur===b.dataset.opl&&OPL.open)oplClose();else oplGo(b.dataset.opl);});
     ctl.insertBefore(n,ctl.firstChild);}
   /* état actif et pastille « Monde » recopiés de l'onglet d'origine */
-  const cur=OPL.open?oplNavOf(oplTab()):null,bdg=document.querySelector('#side .tabs .tab[data-v="rel"] .bdg'),dot=!!(bdg&&bdg.offsetParent!==null&&getComputedStyle(bdg).display!=='none'&&getComputedStyle(bdg).backgroundColor!=='rgba(0, 0, 0, 0)');
+  const cur=OPL.open?oplNavOf(oplTab()):null,bdg=([...document.querySelectorAll('#side .tabs .tab')].find(x=>{try{return groupOf(x.dataset.v)[0]==='world';}catch(_){return false;}})||{querySelector:()=>null}).querySelector('.bdg'),dot=!!(bdg&&bdg.offsetParent!==null&&getComputedStyle(bdg).display!=='none'&&getComputedStyle(bdg).backgroundColor!=='rgba(0, 0, 0, 0)');
   for(const b of document.querySelectorAll('#op-livre-h [data-opl],#op-livre-nav [data-opl]')){b.classList.toggle('on',b.dataset.opl===cur);if(b.dataset.opl==='rel')b.classList.toggle('dot',dot);}}
 /* ---- mise en forme après chaque reconstruction ---- */
 const OPL_POR={'Nami':'cmd_nami','Ace':'cmd_ace','Monkey D. Garp':'cmd_garp','Garp':'cmd_garp','Luffy':'cmd_luffy','Monkey D. Luffy':'cmd_luffy','Shanks':'cmd_shanks','Sakazuki':'cmd_akainu','Akainu':'cmd_akainu'};
