@@ -159,6 +159,17 @@ def vues(slug):
             'village': ((ax - 9, ay + 8, 1.5), (135, 30), 24, 45),
             'port': (P.at_coast(P.PORT_A, .85) + (1,), (90, 26), 26, 45),
         }
+    if slug == 'god_valley':
+        import gv_plan as P
+        mx, my = P.MONT
+        return {
+            'generale': ((0, -2, 16), (92, 14), 175, 45),
+            'aiguilles': ((mx, my, 22), (90, 6), 105, 45),
+            'fente': ((mx, my + 9, 12), (90, 4), 42, 45),
+            'ville': (P.at_coast(P.PORT_A, .8) + (1,), (90, 22), 30, 45),
+            'avancee': ((20, 7, 4), (-30, 14), 34, 45),
+            'palais': ((P.PALAIS[0], P.PALAIS[1], 3), (120, 22), 24, 45),
+        }
     raise KeyError(slug)
 
 

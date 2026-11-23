@@ -1,0 +1,153 @@
+{
+ "nom": "God Valley",
+ "numero": "17",
+ "prefixe": "gv",
+ "voisine": "Ohara (même mer, West Blue) et La Ruche (aiguilles de roche ocre)",
+ "canon": [
+  "[C] Île de West Blue (Beebom, « God Valley Incident explained ») ; falaises hautes et abruptes, canyons couverts de végétation (One Piece Wiki, « God Valley »).",
+  "[C] Montagnes sur l'île (détruites pendant le combat, chap. 1163) ; vastes ressources naturelles ; habitants autochtones, dont des survivants du clan Davy (Beebom) et un roi de l'île (One Piece Wiki, « God Valley Incident »).",
+  "[C] Lieu de la Chasse aux autochtones des Dragons Célestes ; il y a 38 ans, l'incident de God Valley ; l'île fut ensuite détruite par les navires de la Marine et effacée des cartes (chap. 1165).",
+  "[I] D'après l'image et la description de l'utilisateur (17/11/2026) : montagne de grès ocre coupée en deux par une faille droite jusqu'à la base (deux tours hautes et étroites),",
+  "[I] (suite) piton moyen à gauche, petit piton et avancée basse à droite, ceinture de bâtiments portuaires et de bateaux de bois au ras de l'eau, lumière venant de la gauche peinte dans la roche.",
+  "[I] Île montrée avant l'incident (comme Ohara) ; palais du roi (niveau 4) ; formes, couleurs et proportions.",
+  "Exclus : personnages, Dragons Célestes, navires identifiables (seulement des barques et petits voiliers génériques), emblèmes, scènes de chasse ou de combat, copie de l'image de référence."
+ ],
+ "signature": [
+  "Une montagne ocre coupée en deux : deux tours très hautes et étroites",
+  "Faille verticale droite et étroite jusqu'à la base, dans l'ombre",
+  "Piton moyen à gauche, petit piton et avancée rocheuse basse à droite",
+  "Ceinture de bâtiments portuaires blancs et de petits bateaux de bois au ras de l'eau",
+  "Palais du roi (niveau 4)"
+ ],
+ "palette": [
+  [
+   "Roche",
+   [
+    "#d0863e",
+    "#b86a30",
+    "#e2a35a"
+   ]
+  ],
+  [
+   "Ombre et lumière",
+   [
+    "#6a3422",
+    "#f2b35c",
+    "#8a4a2a"
+   ]
+  ],
+  [
+   "Végétation",
+   [
+    "#4f8a3a",
+    "#3a6e30",
+    "#6aa048"
+   ]
+  ],
+  [
+   "Pavillons",
+   [
+    "#f4f1ea",
+    "#e6e2d8",
+    "#d8d4ca"
+   ]
+  ],
+  [
+   "Toits",
+   [
+    "#b8c4cc",
+    "#9aa8b2",
+    "#d0d8de"
+   ]
+  ],
+  [
+   "Sable",
+   [
+    "#e6d4a8",
+    "#d4bf8e",
+    "#f0e2bc"
+   ]
+  ]
+ ],
+ "zones": [
+  [
+   "aiguilles",
+   "montagne coupée en deux (vue du sud)"
+  ],
+  [
+   "fente",
+   "faille jusqu'à la base (vue du sud, de près)"
+  ],
+  [
+   "ville",
+   "bâtiments portuaires et bateaux (vue du sud)"
+  ],
+  [
+   "port",
+   "port (vue du sud-est)"
+  ],
+  [
+   "avancee",
+   "avancée rocheuse et petit piton (vue de l'est)"
+  ],
+  [
+   "ouest",
+   "piton moyen et quai ouest (vue de l'ouest)"
+  ],
+  [
+   "palais",
+   "palais du roi (niveau 4, vue du sud-ouest)"
+  ]
+ ],
+ "vues_blender": [
+  [
+   "generale",
+   "l'île et sa montagne coupée"
+  ],
+  [
+   "aiguilles",
+   "les deux tours"
+  ],
+  [
+   "fente",
+   "la faille jusqu'à la base"
+  ],
+  [
+   "ville",
+   "quai, bâtiments portuaires et bateaux"
+  ],
+  [
+   "avancee",
+   "avancée rocheuse et petit piton"
+  ],
+  [
+   "palais",
+   "palais du roi"
+  ]
+ ],
+ "niveaux": [
+  "montagne, quai sud et bateaux",
+  "+ quai nord",
+  "+ deuxième rang au pied des falaises",
+  "+ palais du roi"
+ ],
+ "differences": [
+  "Relief : une montagne ocre de 46 unités coupée en deux par une faille droite, pied rocheux, quai circulaire ; La Ruche : île plate brun-ocre autour d'un crâne, aiguilles basses ; Ohara : île verte et vallonnée autour d'un arbre.",
+  "Architecture : pavillons blancs à toits pointus et entrepôts blancs serrés au ras de l'eau, bateaux de bois tout autour ; Ohara : maisons à colombages et toits de tuiles ; La Ruche : maisons carrées de briques en terrasses.",
+  "Monuments propres : montagne coupée et sa faille, pitons, avancée rocheuse, palais du roi.",
+  "Lumière peinte (parois gauches dorées, flancs droits et faille dans l'ombre) ; kit : rk_valley.py (nouveau) ; reprises génériques de rk_port (Frame, box, quad, prism_x, entrepôt, barque, navire générique) et rk_savoir (jetées, arbres)."
+ ],
+ "limites": [
+  "Le wiki décrit seulement des falaises abruptes, des canyons couverts de végétation et des montagnes : la montagne coupée en deux, les pitons, l'avancée, la ceinture portuaire et les bateaux suivent l'image et la description de l'utilisateur [I].",
+  "Lumière chaude « venant de la gauche » peinte dans la roche (vue du sud) : la lumière, le ciel et les nuages du jeu sont communs à toutes les îles et ne changent pas ; vue d'un autre côté en 3D, l'ombre peinte reste à l'est.",
+  "Montagne de 46 unités au-dessus de son pied : en 3D, le badge d'armée flotte devant la faille ; en 2.5D l'image est haute (pas de recouvrement des îles voisines constaté sur les captures).",
+  "Île montrée avant l'incident (choix [I], comme Ohara et Marineford) ; palais du roi (niveau 4) inventé.",
+  "Aucun personnage, aucun Dragon Céleste, aucun navire identifiable (barques et petits voiliers génériques), aucune scène de chasse."
+ ],
+ "sources": [
+  "One Piece Wiki, « God Valley » : https://onepiece.fandom.com/wiki/God_Valley (consultée le 17/11/2026)",
+  "One Piece Wiki, « God Valley Incident » : https://onepiece.fandom.com/wiki/God_Valley_Incident (consultée le 17/11/2026)",
+  "Beebom, « The Complete History of God Valley Incident in One Piece, Explained » : https://beebom.com/god-valley-incident-one-piece-explained (consultée le 17/11/2026)",
+  "Image de référence et description fournies par l'utilisateur (17/11/2026)"
+ ]
+}
