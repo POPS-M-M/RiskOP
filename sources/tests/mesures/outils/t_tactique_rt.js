@@ -39,6 +39,7 @@ const arrive=(o)=>p.evaluate(o=>{const RK=__RK,t=RK.terrs.find(q=>q.name==='Alab
   RK.TM.phase='res';RK.speed=1;const nB=RK.BATTLES.length;RK.step(.05);
   return {ask:!document.getElementById('rt-ask')||!document.getElementById('rt-ask').hidden?!!document.getElementById('rt-ask')&&!document.getElementById('rt-ask').hidden:false,nB,speed:RK.speed,iG,iL,t:t.id,mar};},o);
 const waitRun=async()=>{for(let i=0;i<120;i++){if(await p.evaluate(()=>!!(__RT.run&&__RT.run.cam)))break;await p.waitForTimeout(500);}};
+await p.evaluate(()=>__RT.setMode('toutes'));   /* fenêtre de choix (le réglage par défaut, « toujours », lance la bataille sans demander : essai plus bas) */
 let A1=await arrive({id:9001});T('arrivée sur une île ennemie : fenêtre de choix, monde arrêté',A1.ask&&A1.speed===0,A1);
 await p.click('[data-rk="cmd"]');await waitRun();
 await p.click('[data-rt="auto"]',{force:true});await p.waitForTimeout(600);
@@ -56,9 +57,15 @@ T('défense du joueur avec commandants : camp 1, Garp et Luffy sur le terrain, L
 let A3=await arrive({id:9003});await p.click('[data-rk="auto"]');await p.waitForTimeout(400);
 const c3=await p.evaluate(a=>{const RK=__RK,b=RK.BATTLES[RK.BATTLES.length-1];return {n:RK.BATTLES.length-a.nB,rt:!!(b&&b.rt),arm:RK.armies.some(x=>x.id===9003),speed:RK.speed};},A3);
 T('« Résolution automatique » : calcul d\'origine (rapport sans marque), armée résolue, vitesse rendue',c3.n===1&&!c3.rt&&!c3.arm&&c3.speed===1,c3);
-await p.evaluate(()=>{localStorage.setItem('rk-rt','jamais');});await p.evaluate(()=>{__RT.cmdMode='jamais';});
+await p.evaluate(()=>__RT.setMode('jamais'));
 let A4=await arrive({id:9004});T('réglage « jamais » : aucune fenêtre, calcul d\'origine immédiat',!A4.ask&&A4.speed===1,A4);
-await p.evaluate(()=>{__RT.cmdMode='importantes';localStorage.removeItem('rk-rt');});
+await p.evaluate(()=>__RT.setMode('toujours'));
+let A5=await arrive({id:9005});await waitRun();
+const s5=await p.evaluate(()=>({run:!!__RT.run,ask:!!__RT.ask,fen:!!document.getElementById('rt-ask')&&!document.getElementById('rt-ask').hidden}));
+await p.click('[data-rt="auto"]',{force:true});await p.waitForTimeout(600);await p.click('[data-rt="appliquer"]',{force:true});await p.waitForTimeout(600);
+const c5=await p.evaluate(a=>{const RK=__RK,b=RK.BATTLES[RK.BATTLES.length-1];return {n:RK.BATTLES.length-a.nB,rt:!!(b&&b.rt),arm:RK.armies.some(x=>x.id===9005),speed:RK.speed};},A5);
+T('réglage « toujours » (défaut) : bataille lancée sans fenêtre, résultat écrit sur la carte, vitesse rendue',s5.run&&!s5.ask&&!s5.fen&&c5.n===1&&c5.rt&&!c5.arm&&c5.speed===1,{s5,c5});
+await p.evaluate(()=>{__RT.setMode('toujours');localStorage.removeItem('rk-rt2');});
 const cmp=await p.evaluate(n=>__RT.compare(n,{seed:11}),Math.max(60,N));
 T('équilibre contre le calcul automatique : accord ≥ 80 %, écart de victoires ≤ 10 points, survivants pas plus nombreux (± 5 points)',cmp.accord>=.8&&Math.abs(cmp.rtA-cmp.autoA)<=.1&&cmp.survRt<=cmp.survAuto+.05,cmp);
 T('aucune erreur JavaScript',!errs.length,errs.slice(0,4));console.log(n+'/'+t);await b.close();srv.kill();})();

@@ -21,7 +21,7 @@ const ROOT=path.join(__dirname,'..','..','..');
  const open=async(m)=>{const p=await b.newPage({viewport:{width:1400,height:860},deviceScaleFactor:1});const errs=[];p.on('pageerror',e=>errs.push(e.message));
    p.on('console',x=>{if((x.type()==='warning'||x.type()==='error')&&/troupes|sprites|débarquement|front/.test(x.text()))errs.push(x.text());});
    await p.goto(`http://127.0.0.1:${port}/essai_test.html`);
-   await p.evaluate(m=>{localStorage.clear();localStorage.setItem('gl-tuto','1');localStorage.setItem('rk-tob','{"off":1}');localStorage.setItem('rk-w3',m.w3?'1':'0');localStorage.setItem('rk-rt','jamais');/* batailles commandées (81-tactique-rt) : calcul automatique, objet de cet essai */if(m.off)localStorage.setItem('rk-trp','0');},m);await p.reload();await p.waitForTimeout(1200);
+   await p.evaluate(m=>{localStorage.clear();localStorage.setItem('gl-tuto','1');localStorage.setItem('rk-tob','{"off":1}');localStorage.setItem('rk-w3',m.w3?'1':'0');localStorage.setItem('rk-rt','jamais');localStorage.setItem('rk-rt2','jamais');/* batailles commandées (81-tactique-rt) : calcul automatique, objet de cet essai */if(m.off)localStorage.setItem('rk-trp','0');},m);await p.reload();await p.waitForTimeout(1200);
    await p.evaluate(()=>{let s=7;Math.random=()=>{s=(s*1664525+1013904223)>>>0;return s/4294967296;};const X=__RK;X.newGame(2024,'normal',{crews:[0,1,2,3],turn:false,pk:3});X.started=true;document.querySelector('#overlay').hidden=true;X.speed=0;});
    if(m.w3)for(let i=0;i<300;i++){const r=await p.evaluate(()=>{const X=__RK;return X.W3.models.size>=X.terrs.length&&Object.values(window.__BLX.isl).every(I=>I.ready3||I.fail3);});if(r)break;await p.waitForTimeout(400);}
    return {p,errs};};

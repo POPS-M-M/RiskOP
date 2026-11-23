@@ -140,7 +140,7 @@ window.__OPUI.side=opuiSide;
    Les éléments d'origine sont déplacés dans le menu (mêmes boutons, mêmes identifiants, mêmes actions), puis remis à leur place
    d'origine si l'on revient à l'ancienne interface. Rien n'est supprimé. */
 const OPM=[
-  ['Partie',['b-saves','b-guide','b-rules','b-new']],
+  ['Partie',['b-saves','b-guide','b-rules','b-new','rt-mode-w']],
   ['Affichage et son',['b-jrn','b-notif','b-snd','b-adv','b-opui']],
   ['Vue de la carte',['z-25','z-w3','z-3d','z-dock','z-banc']],
   ['Ressources',['@r-inf','@r-troops']],

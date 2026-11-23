@@ -11,7 +11,7 @@
    Simulation : pas fixe de 0,05 s sur une horloge propre à la bataille (RT.run.t), graine propre, déterministe. La pause n'appelle plus
    le pas de simulation : positions, dégâts, moral, recharges et animations sont figés ; seul le rendu continue (caméra, fiches, ordres).
    Toutes les valeurs tactiques sont des choix du prototype [P] ; attaque, défense et vitesse relatives viennent des types du jeu [V]. */
-const RT={run:null,DT:.05,W:20,H:14,S:1.2,TMAX:240,HOLD:60,OBJR:3,hs:1.75,hsCmd:2.05,spd:1,autoPause:false,skillAuto:false,camAuto:true,aide:false,
+const RT={FALAISE:1,APPROCHE:8,RENFORT:12,run:null,DT:.05,W:20,H:14,S:1.2,TMAX:240,HOLD:60,OBJR:3,hs:1.75,hsCmd:2.05,spd:1,autoPause:false,skillAuto:false,camAuto:true,aide:false,
   K:{dmg:.02,rng:1.4,boulet:.15,hiken:.45,zoneCmd:1,eclair:.3,lave:.4,morPerte:.7,voisin:5,assaut:1.9,survie:.4,pistol:3,charge:1.3,canon:.6,flank:1.3,back:1.6,colFlank:1.25,hold:1.2,desorg:.7,ebranle:.8,cover:.65,sabTir:.85,disp:.6,dispMel:.8,carre:.8,
      high:1.15,highRng:1.25,uphill:.8,downhill:1.1,rngMelee:.6,logia:.5,isole:1.3,front:3,contact:1.05,feu:.25},
   comp:[[['guerrier',10],['lancier',9],['guerrier',10],['lancier',9]],[['archer',9],['guerrier',15],['archer',9],['guerrier',13]]]};
@@ -50,22 +50,56 @@ const RT_ETAT={ferme:'ferme',ebranle:'ébranlé',desorg:'désorganisé',deroute:
 const rtAsset=(fac,kind)=>(typeof trpAsset==='function'&&(trpAsset(fac,UK.indexOf(kind))||trpAsset(fac,0)))||(fac==='marine'?'marine_recrue':'pirate_recrue');
 
 /* ---------- carte : 20 × 14 cases de 1,2 u (24 × 16,8 u) orientées sur l'axe d'attaque, lues sur la grille de marche de l'île ---------- */
+/* grille de marche des îles sans modèle Blender (îles du monde 3D procédural) : sol = relief du modèle ; obstacles = emprises des maisons,
+   rochers et monuments (boîtes « tops » de plus de 0,35 u au-dessus du sol) et cœur des arbres (cercles « occ », rayon réduit de moitié
+   pour garder des passages entre les troncs) ; pente trop forte = bloquée, comme pour les îles Blender (trpGrid) */
+RT.gridP=new Map();
+function rtGridProc(t){const m=typeof W3!=='undefined'&&W3.models?W3.models.get(t.id):null;if(!m||m.bx||typeof m.Hg!=='function')return null;
+  let G=RT.gridP.get(t.id);if(G&&G.m===m)return G;
+  const Hs=(x,y)=>m.Hg(x,y),ext=Math.min(80,(t.rad||30)*1.2),cs=.4,n=Math.ceil(2*ext/cs),z=new Float32Array(n*n),g=new Uint8Array(n*n);
+  for(let j=0;j<n;j++)for(let i=0;i<n;i++){const x=-ext+(i+.5)*cs,y=-ext+(j+.5)*cs,h=Hs(x,y);z[j*n+i]=h;g[j*n+i]=h>.06?1:0;}
+  const blk=(x0,y0,x1,y1)=>{const a0=Math.max(0,Math.floor((Math.min(x0,x1)+ext)/cs)),a1=Math.min(n-1,Math.floor((Math.max(x0,x1)+ext)/cs)),b0=Math.max(0,Math.floor((Math.min(y0,y1)+ext)/cs)),b1=Math.min(n-1,Math.floor((Math.max(y0,y1)+ext)/cs));
+    for(let j=b0;j<=b1;j++)for(let i=a0;i<=a1;i++)g[j*n+i]=0;};
+  for(const b of m.tops||[]){const zb=Hs((b[0]+b[2])/2,(b[1]+b[3])/2);if(b[4]-zb>.35)blk(b[0],b[1],b[2],b[3]);}
+  for(const o of m.occ||[]){const r=o[2]*.5;blk(o[0]-r,o[1]-r,o[0]+r,o[1]+r);}
+  for(let j=1;j<n-1;j++)for(let i=1;i<n-1;i++){const k=j*n+i;if(!g[k])continue;const sx=(z[k+1]-z[k-1])/(2*cs),sy=(z[k+n]-z[k-n])/(2*cs);if(sx*sx+sy*sy>.7)g[k]=0;}
+  G={m,n,cs,ext,z,g,Hs,proc:true};RT.gridP.set(t.id,G);return G;}
+const rtGrid=t=>trpGrid(t)||rtGridProc(t);
 function rtMap(t,f){
-  const G=trpGrid(t);if(!G)return null;const m=W3.models.get(t.id);
-  let dx=f.x-t.x,dy=f.y-t.y;const dl=Math.hypot(dx,dy)||1;dx/=dl;dy/=dl;const ang=Math.atan2(dy,dx),rc=m&&m.rc?m.rc(ang):t.rad;
-  const U=[dx,dy],V=[-dy,dx],S=RT.S,W=RT.W,H=RT.H;
+  const G=rtGrid(t);if(!G)return null;const m=W3.models.get(t.id);
+  let dx=f.x-t.x,dy=f.y-t.y;const dl=Math.hypot(dx,dy)||1;dx/=dl;dy/=dl;const ang0=Math.atan2(dy,dx);
+  let U=[dx,dy],V=[-dy,dx],rc=m&&m.rc?m.rc(ang0):t.rad;const S=RT.S,W=RT.W,H=RT.H;
   const free=(lx,ly)=>{const c=trpCell(G,lx,ly);return trpFree(G,c[0],c[1]);};
   const at=(cx,cy,i,j)=>[cx+U[0]*(i-(W-1)/2)*S+V[0]*(j-(H-1)/2)*S,cy+U[1]*(i-(W-1)/2)*S+V[1]*(j-(H-1)/2)*S];
-  let best=null,bs=-1;
-  for(const r0 of [.1,.2,.3,.4,.5])for(const l of [0,.1,-.1,.2,-.2,.3,-.3]){const cx=U[0]*r0*rc+V[0]*l*rc,cy=U[1]*r0*rc+V[1]*l*rc;let n=0;
-    for(let i=0;i<W;i++)for(let j=0;j<H;j++){const [x,y]=at(cx,cy,i,j);if(free(x,y))n++;}
-    const sc=n-Math.abs(l)*10;if(sc>bs){bs=sc;best=[cx,cy];}}
-  const [cx,cy]=best,T=[];
-  for(let i=0;i<W;i++){T.push([]);for(let j=0;j<H;j++){const [x,y]=at(cx,cy,i,j);let fc=0,hs=0,hn=0,wet=0;
-    for(const a of [-.4,0,.4])for(const b of [-.4,0,.4]){const px=x+U[0]*a+V[0]*b,py=y+U[1]*a+V[1]*b;const h=G.Hs(px,py);if(h<=.06)wet++;if(free(px,py)){fc++;hs+=Math.max(0,h);hn++;}}
-    const h=hn?hs/hn:Math.max(0,G.Hs(x,y));const k=fc>=6?(fc<9?'couvert':'libre'):(wet>=5?'eau':'bloque');
-    T[i].push({i,j,x:t.x+x,y:t.y+y,z:h,k,haut:false,feu:-1,lave:-1,etroit:false});}}
   const pass=c=>c&&(c.k==='libre'||c.k==='couvert');
+  /* cases de la zone centrée en (cx, cy) */
+  const build=(cx,cy)=>{const T=[];
+    for(let i=0;i<W;i++){T.push([]);for(let j=0;j<H;j++){const [x,y]=at(cx,cy,i,j);let fc=0,hs=0,hn=0,wet=0;
+      for(const a of [-.4,0,.4])for(const b of [-.4,0,.4]){const px=x+U[0]*a+V[0]*b,py=y+U[1]*a+V[1]*b;const h=G.Hs(px,py);if(h<=.06)wet++;if(free(px,py)){fc++;hs+=Math.max(0,h);hn++;}}
+      const h=hn?hs/hn:Math.max(0,G.Hs(x,y));const k=fc>=6?(fc<9?'couvert':'libre'):(wet>=5?'eau':'bloque');
+      T[i].push({i,j,x:t.x+x,y:t.y+y,z:h,k,haut:false,feu:-1,lave:-1,etroit:false});}}
+    return T;};
+  /* morceaux d'un seul tenant : deux cases voisines praticables se rejoignent si la marche entre elles reste sous RT.FALAISE
+     (au-delà, c'est une falaise : la grille fine la bloque et les soldats resteraient coincés) */
+  const comps=T=>{const id=T.map(r=>r.map(()=>-1)),sz=[];let n=0;
+    for(let i=0;i<W;i++)for(let j=0;j<H;j++){if(id[i][j]>=0||!pass(T[i][j]))continue;const st=[[i,j]];id[i][j]=n;let c=0;
+      while(st.length){const [a,b]=st.pop();c++;for(const [da,db] of [[1,0],[-1,0],[0,1],[0,-1]]){const q=T[a+da]&&T[a+da][b+db];if(!pass(q)||id[a+da][b+db]>=0||Math.abs(q.z-T[a][b].z)>RT.FALAISE)continue;id[a+da][b+db]=n;st.push([a+da,b+db]);}}
+      sz.push(c);n++;}
+    return {id,sz};};
+  /* zone retenue : celle dont le plus grand morceau d'un seul tenant est le plus grand (pas seulement le plus de cases libres :
+     une zone coupée par une falaise ou un bâtiment laissait l'attaque d'un côté et la défense de l'autre, sans chemin) */
+  /* d'abord face à l'arrivée de l'attaque ; si le terrain y est trop étroit (moins de 60 % de la zone d'un seul tenant), on essaie
+     d'autres orientations autour de l'île (îles très bâties ou escarpées : Elbaph, Pays des Wa, Water 7, Marineford…) */
+  let best=null,bs=-1;
+  for(const da of [0,.45,-.45,.9,-.9,1.4,-1.4,2,-2,Math.PI]){if(da&&bs>=W*H*.6)break;
+    const a=ang0+da;U=[Math.cos(a),Math.sin(a)];V=[-U[1],U[0]];rc=m&&m.rc?m.rc(a):t.rad;
+    for(const r0 of [.1,.2,.3,.4,.5,.6])for(const l of [0,.1,-.1,.2,-.2,.3,-.3]){const cx=U[0]*r0*rc+V[0]*l*rc,cy=U[1]*r0*rc+V[1]*l*rc;let n=0;
+      for(let i=0;i<W;i++)for(let j=0;j<H;j++){const [x,y]=at(cx,cy,i,j);if(free(x,y))n++;}
+      if(n<bs*.9+Math.abs(da)*8)continue;
+      const T0=build(cx,cy),C=comps(T0),big=C.sz.length?Math.max(...C.sz):0,sc=big-Math.abs(l)*10-Math.abs(da)*8;if(sc>bs){bs=sc;best=[cx,cy,T0,C,U,V];}}}
+  const [cx,cy,T,C]=best;U=best[4];V=best[5];
+  /* les cases hors du morceau principal sont fermées : les deux camps se déploient et se battent sur un même terrain relié */
+  {const k=C.sz.indexOf(Math.max(...C.sz));for(let i=0;i<W;i++)for(let j=0;j<H;j++)if(pass(T[i][j])&&C.id[i][j]!==k)T[i][j].k='bloque';}
   for(let i=0;i<W;i++)for(let j=0;j<H;j++){const c=T[i][j];if(!pass(c))continue;let mn=1e9,nb=0;
     for(const [a,b] of [[1,0],[-1,0],[0,1],[0,-1]]){const d=T[i+a]&&T[i+a][j+b];if(pass(d)){mn=Math.min(mn,d.z);nb++;}}
     if(nb&&c.z-mn>.45)c.haut=true;
@@ -88,13 +122,13 @@ function rtPath(R,a,b){
   const h=c=>{const di=Math.abs(c.i-e.i),dj=Math.abs(c.j-e.j);return Math.max(di,dj)+.414*Math.min(di,dj);};
   let it=0;while(open.length&&it++<4000){let bi=0;for(let k=1;k<open.length;k++)if(g.get(key(open[k]))+h(open[k])<g.get(key(open[bi]))+h(open[bi]))bi=k;
     const c=open.splice(bi,1)[0];if(c===e)break;shut.add(key(c));
-    for(let di=-1;di<=1;di++)for(let dj=-1;dj<=1;dj++){if(!di&&!dj)continue;const n=M.T[c.i+di]&&M.T[c.i+di][c.j+dj];if(!M.pass(n)||shut.has(key(n)))continue;
+    for(let di=-1;di<=1;di++)for(let dj=-1;dj<=1;dj++){if(!di&&!dj)continue;const n=M.T[c.i+di]&&M.T[c.i+di][c.j+dj];if(!M.pass(n)||shut.has(key(n))||Math.abs(n.z-c.z)>RT.FALAISE)continue;
       if(di&&dj&&(!M.pass(M.T[c.i+di][c.j])||!M.pass(M.T[c.i][c.j+dj])))continue;
       const nd=g.get(key(c))+(di&&dj?1.414:1)*(n.k==='couvert'?1.4:1)*(n.feu>R.t||n.lave>R.t?4:1)+Math.max(0,n.z-c.z)*.8;
       if(!g.has(key(n))||nd<g.get(key(n))){g.set(key(n),nd);from.set(key(n),c);if(!open.includes(n))open.push(n);}}}
   if(e!==s&&!from.has(key(e)))return [];
   const raw=[];for(let c=e;c;c=from.get(key(c))){raw.push(c);if(c===s)break;}raw.reverse();
-  const vis=(p,q)=>{const n=Math.ceil(Math.max(Math.abs(q.i-p.i),Math.abs(q.j-p.j))*3);for(let k=1;k<n;k++){const u=k/n,c=M.T[Math.round(p.i+(q.i-p.i)*u)][Math.round(p.j+(q.j-p.j)*u)];if(!M.pass(c)||c.k==='couvert')return false;}return true;};
+  const vis=(p,q)=>{const n=Math.ceil(Math.max(Math.abs(q.i-p.i),Math.abs(q.j-p.j))*3);let z0=p.z;for(let k=1;k<n;k++){const u=k/n,c=M.T[Math.round(p.i+(q.i-p.i)*u)][Math.round(p.j+(q.j-p.j)*u)];if(!M.pass(c)||c.k==='couvert'||Math.abs(c.z-z0)>RT.FALAISE)return false;z0=c.z;}return true;};
   const out=[];let i=0;while(i<raw.length-1){let j=raw.length-1;while(j>i+1&&!vis(raw[i],raw[j]))j--;out.push(raw[j]);i=j;}
   const P=out.map(c=>[c.x,c.y]);if(M.ok(b[0],b[1])&&P.length)P[P.length-1]=[b[0],b[1]];else if(!P.length&&M.ok(b[0],b[1]))P.push([b[0],b[1]]);
   return P;
@@ -180,7 +214,8 @@ function rtSet(R,g,o){const c=g.q[0];if(c&&c.k===o.k&&(o.id===undefined||c.id===
 function rtGoTo(R,g,x,y,re){if(!g.path||!g.goal||Math.hypot(g.goal[0]-x,g.goal[1]-y)>1.2||re||(R.t-g.pathT>1.5&&g.path.length&&g.pi<g.path.length)){g.path=rtPath(R,[g.ax,g.ay],[x,y]);g.pi=0;g.goal=[x,y];g.pathT=R.t;}}
 function rtHalt(g){g.path=null;g.goal=null;}
 function rtExit(R,g){const M=R.M,[,fj]=M.ij(g.cx,g.cy),fi=g.sd===0?M.W-.7:-.3;const j=Math.max(0,Math.min(M.H-1,Math.round(fj)));let c=null;
-  for(let d=0;d<M.H&&!c;d++)for(const jj of [j+d,j-d]){const q=M.T[g.sd===0?M.W-1:0][jj];if(q&&M.pass(q)){c=q;break;}}
+  /* bord de son camp ; s'il n'y a là que de l'eau ou des obstacles, la rangée praticable la plus proche de ce bord (sinon : pas de chemin, groupe figé) */
+  for(let r=0;r<M.W&&!c;r++){const ii=g.sd===0?M.W-1-r:r;for(let d=0;d<M.H&&!c;d++)for(const jj of [j+d,j-d]){const q=M.T[ii][jj];if(q&&M.pass(q)){c=q;break;}}}
   return c?[c.x+M.U[0]*M.S*.4*(g.sd===0?1:-1),c.y+M.U[1]*M.S*.4*(g.sd===0?1:-1)]:M.xy(fi,j);}
 /* comportement d'un groupe à ce pas : contre qui il frappe (g.fight) et où il va (g.path) */
 function rtThink(R,g){
@@ -228,7 +263,8 @@ function rtAnchor(R,g,dt){
   /* au combat, le front ne pivote que s'il est vraiment de travers (et lentement) : la ligne ne court pas sur place */
   if(g.fight&&!g.moving&&Math.abs(da)<.6)da=0;const mx=(g.fight?1.1:2.2)*dt;g.face+=Math.max(-mx,Math.min(mx,da));
   /* l'ancre reste sur la zone */
-  const M=R.M,[fi,fj]=M.ij(g.ax,g.ay);if(fi<0||fj<0||fi>M.W-1||fj>M.H-1){const [x,y]=M.xy(Math.max(0,Math.min(M.W-1,fi)),Math.max(0,Math.min(M.H-1,fj)));if(!(g.state==='deroute'||(g.q[0]&&g.q[0].k==='retraite'))){g.ax=x;g.ay=y;}}
+  /* mêmes bornes que M.ok (sinon une destination admise par M.ok, entre W−1 et W−0,55, faisait reculer l'ancre à chaque pas : groupe figé) */
+  const M=R.M,[fi,fj]=M.ij(g.ax,g.ay);if(fi<-.45||fj<-.45||fi>M.W-.55||fj>M.H-.55){const [x,y]=M.xy(Math.max(-.45,Math.min(M.W-.55,fi)),Math.max(-.45,Math.min(M.H-.55,fj)));if(!(g.state==='deroute'||(g.q[0]&&g.q[0].k==='retraite'))){g.ax=x;g.ay=y;}}
 }
 /* soldats : chacun rejoint sa place dans la formation ; séparation entre tous les soldats (les groupes se bloquent) ; jamais dans un obstacle */
 /* soldats : locomotion avec vitesse et accélération limitées, arrêt net à l'arrivée (zone morte), état « court » avec hystérésis
@@ -265,6 +301,12 @@ function rtSoldiers(R,dt){
       const got=Math.hypot(nx-s.x,ny-s.y);s.stk=d>.5&&got<vmax*dt*.3?(s.stk||0)+dt:0;
       if(s.stk>.6&&!s.route){s.stk=0;const G=M.G,ox=M.t.x,oy=M.t.y,c0=trpNear(G,s.x-ox,s.y-oy,2),c1=trpNear(G,sx0-ox,sy0-oy,3),P=c0&&c1?trpPath(G,c0,c1):null;
         if(P&&P.length>1){s.route=P.slice(1).map(c=>{const q=trpXY(G,c[0],c[1]);return [q[0]+ox,q[1]+oy];});s.routeT=R.t+5;}}
+      /* soldat coincé loin de son groupe (bâtiment, rebord, foule) depuis 2 s sans avancer : il rejoint sa place dans la formation
+         (ou la case libre la plus proche de celle-ci) ; les pertes restent celles du groupe, la figurine ne fait que suivre */
+      const far=Math.hypot(nx-g.ax,ny-g.ay)>g.rad+2.5;s.lostT=far&&sp<.3?(s.lostT||0)+dt:0;
+      if(s.lostT>2){s.lostT=0;s.route=null;let p=M.ok(sx0,sy0)?[sx0,sy0]:null;
+        for(let r=.5;!p&&r<=3;r+=.5)for(let a=0;a<6.28&&!p;a+=.7){const x=g.ax+Math.cos(a)*r,y=g.ay+Math.sin(a)*r;if(M.ok(x,y))p=[x,y];}
+        if(p){nx=p[0];ny=p[1];s.px=nx;s.py=ny;s.vx=s.vy=0;R.stats.rejoints=(R.stats.rejoints||0)+1;}}
       s.x=nx;s.y=ny;s.z=M.z(nx,ny);});}
   for(const g of R.G)rtCentre(g);
 }
@@ -415,7 +457,7 @@ function rtAI(R,sd){
       if(P.ph==='approche'){const ft=P.ft,d=Math.hypot(cx-ft.cx,cy-ft.cy)||1,ux=(cx-ft.cx)/d,uy=(cy-ft.cy)/d,L=my.slice().sort((a,b)=>((a.cx-cx)*-uy+(a.cy-cy)*ux)-((b.cx-cx)*-uy+(b.cy-cy)*ux));
         L.forEach((q,k)=>{const off=(k-(L.length-1)/2)*3,x=ft.cx+ux*8.5-uy*off,y=ft.cy+uy*8.5+ux*off,c2=R.M.ok(x,y)?{x,y}:R.M.near(x,y);P.st[q.id]=[c2.x,c2.y];});
         const ready=L.every(q=>Math.hypot(q.ax-P.st[q.id][0],q.ay-P.st[q.id][1])<1.6&&!(q.path&&q.pi<q.path.length));
-        if(ready||R.t-P.t0>14||my.some(q=>rtContacts(R,q).length||R.t-q.lastCombat<1)||d<9){P.ph='assaut';}}}}
+        if(ready||R.t-P.t0>RT.APPROCHE||my.some(q=>rtContacts(R,q).length||R.t-q.lastCombat<1)||d<9){P.ph='assaut';}}}}
   for(const g of mine){if(g.state==='deroute'||(g.q[0]&&g.q[0].k==='retraite'))continue;
     if(g.sd===R.side&&g.ctrl==='manuel'&&!R.toutAuto)continue;
     if(g.hero){if(rtSkillOk(R,g)&&(g.sd!==R.side||RT.skillAuto||R.toutAuto)){const b=rtSkillBest(R,g);if(b&&b.v>=5){rtCast(R,g,b.x,b.y);continue;}}
@@ -439,7 +481,7 @@ function rtAI(R,sd){
       if(tg)rtSet(R,g,{k:'attaque',id:tg.id});else rtSet(R,g,{k:'avancer',x:O.x,y:O.y});continue;}
     else{const thr=foes.filter(f=>dO(f)<=9||Math.hypot(f.cx-g.post[0],f.cy-g.post[1])<=5);
       if(U.rng){if(!thr.some(f=>rtRange(R,g,f))&&Math.hypot(g.ax-g.post[0],g.ay-g.post[1])>1.5)rtSet(R,g,{k:'aller',x:g.post[0],y:g.post[1]});else if(!g.q.length)rtSet(R,g,{k:'tenir'});}
-      else{const busy=foes.filter(f=>!rtContacts(R,g).length&&rtD(g,f)<=9&&R.G.some(q=>q.sd===sd&&q!==g&&rtInContact(R,q,f))),
+      else{const busy=foes.filter(f=>!rtContacts(R,g).length&&rtD(g,f)<=RT.RENFORT&&R.G.some(q=>q.sd===sd&&q!==g&&rtInContact(R,q,f))),
           cl=busy.length?busy:foes.filter(f=>rtD(g,f)<=g.rad+f.rad+2.5||dO(f)<=RT.OBJR),f=near(g,cl.filter(f=>!f.hero).length?cl.filter(f=>!f.hero):cl);if(f&&g.state==='ferme')rtSet(R,g,{k:'attaque',id:f.id});
         else if(Math.hypot(g.ax-g.post[0],g.ay-g.post[1])>1.5)rtSet(R,g,{k:'aller',x:g.post[0],y:g.post[1]});else if(!g.q.length)rtSet(R,g,{k:'tenir'});}}}
 }
@@ -864,7 +906,7 @@ function rtStart(opt){
   speed=0;if(!GFX.on)GFX.set(true);
   try{V.k=Math.max(V.k||1,14);centerOn(t.id);}catch(_){}
   const t0=performance.now();let said=false;
-  const go=()=>{const m=W3.models.get(t.id),I=m&&m.bx&&typeof BLX!=='undefined'?BLX.isl[m.bx]:null,G=I&&I.ready3?trpGrid(t):null;
+  const go=()=>{const m=W3.models.get(t.id),I=m&&m.bx&&typeof BLX!=='undefined'?BLX.isl[m.bx]:null,G=I?(I.ready3?trpGrid(t):null):rtGridProc(t);
     if(!G){if(performance.now()-t0<20000){if(!said){toast('Chargement de '+t.name+'…');said=true;}setTimeout(go,250);return;}toast(t.name+' n\'est pas chargée : bataille en résolution automatique.');rtStop();if(opt.fail)opt.fail();return;}
     const R=rtNew({side:opt.side||0,seed:opt.seed,spec:opt.spec});if(!R){toast('Zone de combat introuvable : résolution automatique.');rtStop();if(opt.fail)opt.fail();return;}
     R.t0name=t.name;R.onApply=opt.onApply;
@@ -884,14 +926,20 @@ function rtStop(){
   const P=RT.prev;RT.prev=null;if(P){speed=P.speed;V.k=P.k;V.x=P.x;V.y=P.y;W3.cam.yaw=P.yaw;W3.cam.pitch=P.pitch;if(!P.gfx)GFX.set(false);}dirty=true;
 }
 /* ============================== branchement sur la carte (étape 6) ==============================
-   1. Une armée arrive sur une île tenue par un autre camp, en guerre, sans boss, posture non prudente, et un humain est l'un des deux camps :
-      si l'île a sa carte de bataille (île Blender) et que le réglage le permet, le monde s'arrête et le jeu propose de commander.
+   1. Une armée arrive sur une île tenue par un autre camp, en guerre, sans boss, et un humain est l'un des deux camps (attaque ou défense) :
+      le monde s'arrête ; réglage « toujours » (défaut depuis le 23/11) : la bataille se lance aussitôt, sur n'importe quelle île (île Blender,
+      ou île du monde 3D avec sa grille rtGridProc) ; autres réglages : fenêtre de choix, ou calcul automatique. Posture prudente : la règle
+      d'origine (renoncer sous 80 % de la défense) passe d'abord ; au-dessus, la bataille a lieu.
    2. « Résolution automatique » : la chaîne d'origine est appelée telle quelle (résultat identique au jeu sans ce module).
    3. « Commander » : sauvegarde automatique, bataille ; à la fin, la même chaîne est appelée avec le résultat de la bataille imposé :
       vainqueur et survivants par type (au plus l'effectif engagé), sans les techniques et le duel du calcul automatique (déjà joués sur le terrain).
       Les enveloppes existantes font le reste : propriété et villes (captureCity), Course (pertes de la Marine), champions (placés, blessés,
       expérience), rapport de bataille, débarquement. Le camp battu perd ses troupes engagées, comme dans le calcul d'origine. */
-RT.cmdMode=(()=>{try{return localStorage.getItem('rk-rt')||'importantes';}catch(_){return 'importantes';}})();
+/* réglage : « toujours » (défaut depuis le 23/11 : chaque attaque ou défense du joueur se joue en temps réel, sans fenêtre de choix),
+   « toutes » (fenêtre de choix à chaque bataille), « importantes » (commandant ou 20 troupes et plus), « jamais » (calcul automatique) */
+RT.MODES=[['toujours','Toujours en temps réel'],['toutes','Me demander à chaque bataille'],['importantes','Demander si commandant ou 20 troupes et +'],['jamais','Jamais (calcul automatique)']];
+RT.cmdMode=(()=>{try{const v=localStorage.getItem('rk-rt2');return RT.MODES.some(m=>m[0]===v)?v:'toujours';}catch(_){return 'toujours';}})();
+RT.setMode=v=>{if(!RT.MODES.some(m=>m[0]===v))return;RT.cmdMode=v;try{localStorage.setItem('rk-rt2',v);}catch(_){}for(const el of document.querySelectorAll('select.rt-modesel'))el.value=v;};
 RT.wait=[];RT.force=null;RT.cur=null;
 const rtFac=pid=>{const S=typeof CS!=='undefined'&&CS.on&&CS.S&&CS.S[pid];if(S&&S.role)return S.role==='revo'?'revo':S.role==='marine'?'marine':'pirate';const id=pxCrewId(pid);return id==='marine'||id==='revo'?id:'pirate';};
 const rtHurtCh=c=>opHurt(c.k==='c'?CH[c.i]:c.f);
@@ -901,11 +949,14 @@ function rtSpecOf(a){
   const fa=rtFac(a.owner),fd=rtFac(t.owner),cA=opChampsOfArmy(a).filter(c=>!rtHurtCh(c)),cD=opChampsAt(t.id);
   const u=o=>{const r={};for(const k of UK)r[k]=Math.max(0,+o[k]||0);return r;};
   return {t,f,a,stance:a.s|0,camps:[{pid:a.owner,fac:fa,name:players[a.owner].name,u:u(a.u),heroes:rtHeroesOf(cA,fa),champs:cA},{pid:t.owner,fac:fd,name:players[t.owner].name,u:u(t.u),heroes:rtHeroesOf(cD,fd),champs:cD}]};}
-function rtIsle(t){const m=typeof W3!=='undefined'&&W3.models?W3.models.get(t.id):null;return !!((m&&m.bx)||(typeof BLX!=='undefined'&&BLX.isl&&BLX.isl[t.name]));}
+/* toute île a sa carte de bataille : île Blender (cartes sol et obstacles) ou île du monde 3D (relief et emprises du modèle, rtGridProc) */
+function rtIsle(t){return !!t&&typeof W3!=='undefined'&&!W3.fail;}
 /* l'arrivée peut-elle devenir une bataille commandée ? */
 function rtQualif(a){
   if(RT.cmdMode==='jamais'||RT.force||MODE!=='solo'||!started||over)return false;
-  const t=terrs[a.to];if(!t||t.owner<0||t.owner===a.owner||a.rt||bossAlive(t)||!isWar(a.owner,t.owner)||(a.s|0)===2)return false;
+  const t=terrs[a.to];if(!t||t.owner<0||t.owner===a.owner||a.rt||bossAlive(t)||!isWar(a.owner,t.owner))return false;
+  /* posture prudente : la règle d'origine renonce à l'assaut sous 80 % de la défense (prudentAbort) ; au-dessus, la bataille a lieu */
+  if((a.s|0)===2){let A=0,D=1;try{A=attTotal(a.owner,a.u,t,false,a.from,null,a.s);D=defTotal(t,a.u,false,null);}catch(_){return false;}if(A<D*PRUD_ABORT)return false;}
   if(!(players[a.owner]&&players[a.owner].human)&&!(players[t.owner]&&players[t.owner].human))return false;
   if(typeof W3==='undefined'||W3.fail||!rtIsle(t))return false;
   if(sumU(a.u)<1||tr(t)<1)return false;
@@ -937,7 +988,7 @@ function rtNext(){
     /* la situation a pu changer pendant l'attente : si l'arrivée ne relève plus d'une bataille, calcul d'origine */
     let ok=false;try{const keep=RT.cmdMode;ok=rtQualif(a);}catch(_){ok=false;}
     if(!ok){RT.wait.shift();rtAutoResolve(a);continue;}
-    rtAsk(a);return;}
+    rtAsk(a);if(RT.cmdMode==='toujours')rtAskDo('cmd');return;}
   rtReleaseWorld();}
 function rtListU(u){return UK.filter(k=>(u[k]||0)>=.5).map(k=>Math.round(u[k])+' '+RT_U[k].n).join(', ')||'aucune troupe';}
 /* fenêtre de choix : commander ou résolution automatique */
@@ -950,13 +1001,15 @@ function rtAsk(a){
     +[0,1].map(sd=>'<p><b>'+(sd?'Défense':'Attaque')+' · '+esc(sp.camps[sd].name)+(sd===me?' (vous)':'')+'</b><br>'+esc(rtListU(sp.camps[sd].u))+(sp.camps[sd].champs.length?'<br>Commandants : '+ch(sp.camps[sd]):'')+'</p>').join('')
     +'<p class="rt-note">Calcul automatique, sans le hasard : attaque '+Math.round(A)+' contre défense '+Math.round(D)+' ('+(A>D?'l\'attaque l\'emporterait':'la défense tiendrait')+').</p>'
     +'<div class="rt-askbt"><button data-rk="cmd" class="pri">Commander la bataille</button><button data-rk="auto">Résolution automatique</button></div>'
-    +'<label class="rt-note">Proposer : <select id="rt-mode"><option value="importantes"'+(RT.cmdMode==='importantes'?' selected':'')+'>les batailles importantes (commandant, ou 20 troupes et plus)</option><option value="toutes"'+(RT.cmdMode==='toutes'?' selected':'')+'>toutes mes batailles</option><option value="jamais"'+(RT.cmdMode==='jamais'?' selected':'')+'>jamais (calcul automatique)</option></select></label></div>';
-  const sel=el.querySelector('#rt-mode');sel.addEventListener('change',()=>{RT.cmdMode=sel.value;try{localStorage.setItem('rk-rt',sel.value);}catch(_){}});
+    +'<label class="rt-note">Batailles en temps réel : '+rtModeSel('rt-mode')+'</label></div>';
   el.hidden=false;
   try{centerOn(t.id);}catch(_){}}
-function rtAskClick(e){const b=e.target.closest('button[data-rk]');if(!b)return;e.preventDefault();e.stopPropagation();const K=RT.ask;if(!K)return;
+document.addEventListener('change',e=>{const el=e.target;if(el&&el.classList&&el.classList.contains('rt-modesel'))RT.setMode(el.value);});
+function rtModeSel(id){return '<select class="rt-modesel"'+(id?' id="'+id+'"':'')+'>'+RT.MODES.map(m=>'<option value="'+m[0]+'"'+(RT.cmdMode===m[0]?' selected':'')+'>'+m[1]+'</option>').join('')+'</select>';}
+function rtAskClick(e){const b=e.target.closest('button[data-rk]');if(!b)return;e.preventDefault();e.stopPropagation();rtAskDo(b.dataset.rk);}
+function rtAskDo(kind){const K=RT.ask;if(!K)return;
   const el=document.getElementById('rt-ask');if(el)el.hidden=true;RT.ask=null;const a=K.a;
-  if(b.dataset.rk==='auto'){RT.wait.shift();rtAutoResolve(a);rtNext();return;}
+  if(kind==='auto'){RT.wait.shift();rtAutoResolve(a);rtNext();return;}
   /* commander : sauvegarde automatique avant la bataille (l'armée est encore dans la liste des armées, arrivée) */
   try{if(typeof svAuto==='function')svAuto('bataille');}catch(_){}
   const me=players[a.owner].human?0:1;
@@ -1104,9 +1157,13 @@ RT.start=rtStart;RT.stop=rtStop;RT.step=rtStep;RT.cast=rtCast;RT.give=rtGive;RT.
   +'body.rtrun .app{padding:0!important;gap:0!important;height:100vh!important;max-height:100vh}body.rtrun #main{display:block!important;height:100vh!important;margin:0!important;padding:0!important}body.rtrun #mapwrap{width:100vw!important;height:100vh!important;border-radius:0!important;border:0!important;margin:0!important;background:#05080d!important}';
   document.head.appendChild(st);
   const b=document.createElement('button');b.id='rt-go';b.type='button';b.textContent='Combat temps réel (essai)';b.title='Bataille en temps réel avec pause sur Alabasta : Marine de Garp contre Pirates d\'Ace (la partie n\'est pas modifiée)';
-  b.addEventListener('click',e=>{e.stopPropagation();rtStart({side:0});});document.body.appendChild(b);}
+  b.addEventListener('click',e=>{e.stopPropagation();rtStart({side:0});});document.body.appendChild(b);
+  /* réglage des batailles (dans « ☰ Menu » de la nouvelle interface ; en bas à droite dans l'ancienne) */
+  const w=document.createElement('label');w.id='rt-mode-w';w.title='Batailles de vos îles et de vos armées';w.innerHTML='<span>⚔ Batailles :</span>'+rtModeSel();document.body.appendChild(w);
+  const s2=document.createElement('style');s2.textContent='#rt-mode-w{position:fixed;right:14px;bottom:172px;z-index:9999;display:flex;align-items:center;gap:6px;font:700 12px system-ui,sans-serif;color:#fdf6e3;background:#121215e6;border:1.5px solid rgba(214,166,58,.55);border-radius:9px;padding:4px 8px}'
+    +'#rt-mode-w select{font:600 12px system-ui,sans-serif;background:#1b1b20;color:#fdf6e3;border:1px solid #555;border-radius:6px;padding:3px 4px;max-width:250px}body.rtrun #rt-mode-w{display:none}#op-menu #rt-mode-w{flex-direction:column!important;align-items:stretch!important;gap:4px;padding:6px 10px!important;border-radius:9px!important}#op-menu #rt-mode-w select{max-width:none;width:100%}';document.head.appendChild(s2);}
 RT.scr=(x,y,z)=>{const R=RT.run;if(!R||!R.cam)return null;const p=w3Proj(x,y,z===undefined?R.M.z(x,y):z,R.cam);if(!p)return null;const rc=W3.cv.getBoundingClientRect(),k=rc.width/W3.cv.width;return [rc.left+p.sx*k,rc.top+p.sy*k];};
 RT.canSave=()=>svCanSave();RT.anims=rtAnims;RT.best=(h)=>rtSkillBest(RT.run,h);RT.demoSpec=rtDemoSpec;RT.fac=rtFac;RT.qualif=rtQualif;RT.isle=rtIsle;
 window.__RT=RT;   /* essais */
 /* mesures (lecture seule) : moteur, planches, compteurs de rendu */
-RT.dbg={get W3(){return W3;},get TRP_DATA(){return TRP_DATA;},get TRP(){return TRP;},ui:R=>rtUI(R),frame:()=>{const t=performance.now();w3Frame();W3.gl.finish();return performance.now()-t;}};
+RT.dbg={get W3(){return W3;},get BLX(){return typeof BLX!=='undefined'?BLX:null;},get terrs(){return terrs;},alive:g=>rtAlive(g),solV:g=>rtSolV(g),grid:t=>rtGrid(t),nw:o=>rtNew(o),step:R=>rtStep(R),spd:(R,g)=>rtSpeed(R,g),get TRP_DATA(){return TRP_DATA;},get TRP(){return TRP;},ui:R=>rtUI(R),frame:()=>{const t=performance.now();w3Frame();W3.gl.finish();return performance.now()-t;}};
