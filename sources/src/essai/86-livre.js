@@ -11,8 +11,8 @@ function oplTab(){try{return ui.tab;}catch(_){return 'army';}}
 /* bouton du Livre (Économie, Équipage, Diplomatie, Monde) : ouvre le groupe, sur son dernier sous-onglet ; sous-onglet précis (Villes, Techno…) : le groupe puis ce sous-onglet.
    Le jeu donne à l'onglet du haut le nom du dernier sous-onglet visité (data-v="city" après Villes) : on cherche donc l'onglet par son groupe,
    pas par son nom (sinon « Économie » ne répondait plus après un passage par Villes ou Techno). */
-function oplGo(v){const tabs=[...document.querySelectorAll('#side .tabs .tab')],grp=x=>{try{return groupOf(x)[0];}catch(_){return x;}};
-  const nav=OPL_NAV.some(n=>n[0]===v),g=grp(v),t=tabs.find(x=>x.dataset.v===v)||tabs.find(x=>grp(x.dataset.v)===g);if(!t)return false;
+function oplGo(v,leaf){const tabs=[...document.querySelectorAll('#side .tabs .tab')],grp=x=>{try{return groupOf(x)[0];}catch(_){return x;}};
+  const nav=!leaf&&OPL_NAV.some(n=>n[0]===v),g=grp(v),t=tabs.find(x=>x.dataset.v===v)||tabs.find(x=>grp(x.dataset.v)===g);if(!t)return false;
   if(!(nav&&grp(ui.tab)===g&&OPL.open))t.click();
   if(!nav&&ui.tab!==v){if(typeof renderPanel==='function')renderPanel(true);const b=document.querySelector('#side .subtabs button[data-act="tab"][data-v="'+v+'"]');if(b)b.click();}
   return true;}
