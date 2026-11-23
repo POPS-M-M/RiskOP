@@ -671,6 +671,8 @@ const rtFacOf=(R,sd)=>R.spec&&R.spec.camps&&R.spec.camps[sd]?R.spec.camps[sd].fa
 const RT_FAC={marine:{c:'#2f74c8',c2:'#164c8c',ic:'⚓',n:'Marine'},pirate:{c:'#d62828',c2:'#8e1414',ic:'☠',n:'Pirates'},revo:{c:'#2e8b57',c2:'#1d5c39',ic:'✊',n:'Révolutionnaires'}};
 const RT_ORD=[['avancer','➤','Avancer','A','Puis clic droit : aller en engageant ce qui se présente'],['tenir','⛨','Tenir','T','Tenir la position (Maj : à la suite)'],['retraite','↩','Retraite','R','Le groupe se replie vers son bord'],['rendre','⟳','Auto','G','Le groupe repasse en automatique : l\'IA le mène']];
 const RT_FIC={ligne:'▬',colonne:'▮',carre:'■',disperse:'⁘'};
+/* « de » devant un nom d'île : du Pays des Wa, de l'Île des Hommes-Poissons, d'Alabasta, de Water 7 */
+const rtDe=n=>/^Pays /.test(n)?'du '+n.slice(5).replace(/^/,'Pays '):/^(Île|Archipel|Atelier)/.test(n)?'de l\''+n:/^[AEIOUYÉÈÊÎÔ]/i.test(n)?'d\''+n:'de '+n;
 function rtUIBuild(){
   let el=document.getElementById('rt-ui');if(el)return el;el=document.createElement('div');el.id='rt-ui';
   el.innerHTML='<canvas id="rt-atmo"></canvas><div id="rt-tilt"><i></i><i></i></div><div id="rt-vig"></div><div id="rt-pz"></div><div id="rt-flash"></div><div id="rt-lbx"><i></i><i></i></div>'
@@ -700,7 +702,7 @@ function rtUI(R){
   const $i=id=>document.getElementById(id),put=(id,h)=>{const e=$i(id);if(e&&e._h!==h){e._h=h;e.innerHTML=h;}};
   el.classList.toggle('pz',!!(R.paused&&!R.end));el.classList.toggle('fin',!!R.end);
   put('rt-c0',rtCampHTML(R,R.side));put('rt-c1',rtCampHTML(R,1-R.side));put('rt-med',rtMedHTML(R));
-  put('rt-st','<b>'+esc(R.spec&&!R.spec.demo?'Bataille de '+R.t0name:'Bataille d\'Alabasta')+'</b><small>'+(R.spec&&!R.spec.demo?'la carte attend l\'issue':'démonstration · la partie n\'est pas modifiée')+'</small>');
+  put('rt-st','<b>'+esc('Bataille '+rtDe(R.t0name||'Alabasta'))+'</b><small>'+(R.spec&&!R.spec.demo?'la carte attend l\'issue':'démonstration · la partie n\'est pas modifiée')+'</small>');
   put('rt-spd',[.5,1,2].map(v=>'<button data-rt="spd:'+v+'"'+(R.spd===v?' class="on"':'')+' title="Vitesse (touches + et −)">×'+String(v).replace('.',',')+'</button>').join(''));
   $i('rt-cam').textContent=RT.camAuto?'🎥 Suit':'🎥 Libre';$i('rt-cam').className=RT.camAuto?'on':'';
   $i('rt-quit').textContent=R.spec&&!R.spec.demo&&!R.end?'Abandonner':'Quitter';

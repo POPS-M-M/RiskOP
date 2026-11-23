@@ -26,10 +26,18 @@ function rtCine(R,h,x,y){
 {const c0=rtCast;rtCast=function(R,h,x,y){const ok=c0(R,h,x,y);if(ok!==false&&R===RT.run&&h&&h.hero&&RT.cine&&!R.toutAuto)rtCine(R,h,x,y);return ok;};RT.cast=rtCast;}
 
 /* ---------- biomes du terrain de bataille (identité de chaque île ; à compléter île par île après validation) ---------- */
-const RT_BIOME={Alabasta:'desert'};
+const RT_BIOME={Alabasta:'desert','Water 7':'ville',Loguetown:'ville',Marineford:'ville','Mary Geoise':'ville',Egghead:'ville',
+  'La Ruche':'jungle',Ohara:'jungle',Zou:'jungle','Archipel des Konomi':'jungle','Archipel des Gecko':'jungle',
+  'Pays des Wa':'sakura','Île des Hommes-Poissons':'bulles','Whole Cake Island':'sucre','Laugh Tale':'roche',Elbaph:'roche'};
 const RT_BIO={
   desert:{sol:[.86,.72,.47],ride:[.42,.26,.1],caillou:[[.80,.64,.42],[.70,.55,.36],[.88,.76,.56]],touffe:[[.66,.56,.27],[.55,.47,.22]],roche:[[.83,.63,.40],[.74,.54,.33],[.90,.73,.50]],
     part:'sable',filtre:'saturate(1.2) contrast(1.08) brightness(1.03) sepia(.07)'},
+  jungle:{ride:null,caillou:[[.5,.52,.45],[.42,.45,.38]],touffe:[[.22,.5,.16],[.3,.58,.2],[.18,.42,.14]],roche:[[.45,.5,.42],[.38,.44,.36]],part:'feuilles',filtre:'saturate(1.22) contrast(1.06) brightness(1.01)'},
+  ville:{ride:null,caillou:[[.66,.62,.56],[.56,.53,.48],[.74,.7,.62]],touffe:[[.4,.55,.28]],roche:[[.62,.6,.56],[.52,.5,.47]],part:'poussiere',filtre:'saturate(1.08) contrast(1.08) brightness(1.02)'},
+  roche:{ride:null,caillou:[[.46,.44,.42],[.36,.35,.34]],touffe:[[.42,.48,.3]],roche:[[.44,.42,.4],[.34,.33,.32],[.52,.5,.47]],part:'poussiere',filtre:'saturate(1.05) contrast(1.1) brightness(.99)'},
+  sakura:{ride:null,caillou:[[.6,.58,.54],[.5,.48,.45]],touffe:[[.3,.52,.22],[.38,.58,.26]],roche:[[.55,.53,.5],[.45,.44,.42]],part:'petales',filtre:'saturate(1.15) contrast(1.06) brightness(1.02)'},
+  bulles:{ride:null,caillou:[[.82,.78,.7],[.7,.68,.62]],touffe:[[.2,.55,.5],[.28,.6,.45]],roche:[[.6,.65,.66],[.5,.55,.57]],part:'bulles',filtre:'saturate(1.15) contrast(1.04) brightness(1.03) hue-rotate(6deg)'},
+  sucre:{ride:null,caillou:[[.95,.7,.8],[.7,.85,.95],[.98,.9,.6]],touffe:[[.5,.8,.4],[.9,.6,.75]],roche:[[.92,.8,.72],[.85,.68,.6]],part:'sucre',filtre:'saturate(1.25) contrast(1.04) brightness(1.03)'},
   herbe:{sol:[.45,.62,.3],ride:null,caillou:[[.6,.6,.58],[.5,.5,.48]],touffe:[[.3,.55,.2],[.4,.62,.25]],roche:[[.55,.55,.52],[.45,.46,.44]],part:'pollen',filtre:'saturate(1.18) contrast(1.07) brightness(1.02)'}};
 const rtBio=R=>RT_BIO[RT_BIOME[R.M.t.name]||'herbe'];
 
@@ -86,9 +94,19 @@ function rtAtmo(now){
     x.lineCap='round';for(const p of RT_ATM.p){p.x+=dt*W*.09*p.v;p.y+=dt*H*.012*p.v*Math.sin(now/900+p.l*9);if(p.x>W+40){p.x=-40;p.y=Math.random()*H;}
       const a=(.10+.14*p.s)*(.6+.4*near);if(p.s>.55){x.strokeStyle='rgba(236,204,150,'+a.toFixed(3)+')';x.lineWidth=(1+p.s*1.6)*dpr;x.beginPath();x.moveTo(p.x,p.y);x.lineTo(p.x-(18+30*p.v)*dpr,p.y-2*dpr);x.stroke();}
       else{x.fillStyle='rgba(245,222,180,'+(a*1.4).toFixed(3)+')';x.fillRect(p.x,p.y,1.6*dpr,1.6*dpr);}}}
-  else if(B.part==='pollen'){const want=40;while(RT_ATM.p.length<want)RT_ATM.p.push({x:Math.random()*W,y:Math.random()*H,v:.3+Math.random()*.5,l:Math.random()});
-    for(const p of RT_ATM.p){p.x+=dt*W*.02*p.v;p.y-=dt*H*.01*p.v;if(p.x>W)p.x=0;if(p.y<0)p.y=H;x.fillStyle='rgba(255,250,210,.35)';x.beginPath();x.arc(p.x,p.y+Math.sin(now/700+p.l*7)*4,1.4*dpr,0,6.28);x.fill();}}
+  else rtPart(x,B.part,W,H,dt,now,dpr,near);
 }
+const RT_PARTS={pollen:{n:40,c:['255,250,210'],r:1.4,vx:.02,vy:-.01,a:.35,f:'rond'},feuilles:{n:26,c:['92,150,60','150,170,60','70,120,45'],r:3.2,vx:.035,vy:.03,a:.6,f:'feuille'},
+  petales:{n:44,c:['255,190,210','255,170,200','255,220,230'],r:2.8,vx:.03,vy:.035,a:.75,f:'feuille'},bulles:{n:40,c:['220,245,255'],r:3.2,vx:.004,vy:-.05,a:.45,f:'bulle'},
+  sucre:{n:56,c:['255,150,190','140,210,255','255,230,120','170,240,170'],r:1.8,vx:.01,vy:.03,a:.75,f:'bati'},poussiere:{n:34,c:['255,240,215'],r:1.3,vx:.012,vy:-.004,a:.28,f:'rond'}};
+function rtPart(x,k,W,H,dt,now,dpr,near){const P=RT_PARTS[k]||RT_PARTS.pollen;const want=Math.round(P.n*(.6+near*.4));
+  while(RT_ATM.p.length<want)RT_ATM.p.push({x:Math.random()*W,y:Math.random()*H,v:.5+Math.random()*.8,l:Math.random(),c:P.c[Math.floor(Math.random()*P.c.length)],r:Math.random()*6.28});
+  for(const p of RT_ATM.p){p.x+=dt*W*P.vx*p.v;p.y+=dt*H*P.vy*p.v;p.r+=dt*(1+p.l*2);if(p.x>W+20)p.x=-20;if(p.x<-20)p.x=W+20;if(p.y>H+20){p.y=-20;p.x=Math.random()*W;}if(p.y<-20){p.y=H+20;p.x=Math.random()*W;}
+    const sx=p.x+Math.sin(now/800+p.l*9)*6*dpr,sz=P.r*dpr*(.7+p.l*.6);x.fillStyle=x.strokeStyle='rgba('+p.c+','+(P.a*(.6+.4*near)).toFixed(3)+')';
+    if(P.f==='feuille'){x.beginPath();x.ellipse(sx,p.y,sz,sz*.45,p.r,0,6.28);x.fill();}
+    else if(P.f==='bulle'){x.lineWidth=1*dpr;x.beginPath();x.arc(sx,p.y,sz,0,6.28);x.stroke();x.beginPath();x.arc(sx-sz*.35,p.y-sz*.35,sz*.25,0,6.28);x.fill();}
+    else if(P.f==='bati'){x.save();x.translate(sx,p.y);x.rotate(p.r);x.fillRect(-sz,-sz*.35,sz*2,sz*.7);x.restore();}
+    else{x.beginPath();x.arc(sx,p.y,sz,0,6.28);x.fill();}}}
 RT.flou=true;RT.atmo=true;RT.etal=true;
 (function rtAtmoLoop(now){try{rtAtmo(now);}catch(e){console.warn('ambiance :',e);}requestAnimationFrame(rtAtmoLoop);})(0);
 
