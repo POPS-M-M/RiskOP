@@ -14,13 +14,15 @@ await p.goto(`http://127.0.0.1:${port}/essai_test.html`);await p.evaluate(()=>{l
 await p.click('#o-go');await p.waitForTimeout(800);await p.evaluate(()=>document.querySelectorAll('.tu-card,.tob').forEach(e=>e.remove()));
 const snap=()=>p.evaluate(()=>JSON.stringify([__RK.terrs.map(t=>[t.owner,JSON.stringify(t.u)]),__RK.speed]));const before=await snap();
 await p.click('#rt-go');for(let i=0;i<120;i++){if(await p.evaluate(()=>!!(__RT.run&&__RT.run.cam)))break;await p.waitForTimeout(500);}
-T('bataille ouverte en pause (déploiement)',await p.evaluate(()=>__RT.run.paused&&__RT.run.deploy));
+const g0=await p.evaluate(()=>__RT.run.G.map(g=>[g.cx,g.cy]));await p.waitForTimeout(2500);
+T('la bataille démarre aussitôt et les troupes bougent seules (semi-automatique)',await p.evaluate(g0=>!__RT.run.paused&&__RT.run.G.filter((g,i)=>Math.hypot(g.cx-g0[i][0],g.cy-g0[i][1])>.5).length>=3,g0));
+await p.keyboard.press('Space');
 T('sauvegarde refusée pendant la bataille',await p.evaluate(()=>/bataille/.test(__RT.canSave())));
 await p.click('[data-rt="sel:0"]',{force:true});const pt=await p.evaluate(()=>{const R=__RT.run,[x,y]=R.M.xy(R.M.W-7,4);return __RT.scr(x,y);});
 await p.mouse.click(pt[0],pt[1],{button:'right'});const pt2=await p.evaluate(()=>{const R=__RT.run,[x,y]=R.M.xy(R.M.W-10,3);return __RT.scr(x,y);});
 await p.keyboard.down('Shift');await p.mouse.click(pt2[0],pt2[1],{button:'right'});await p.keyboard.up('Shift');await p.keyboard.press('2');
-T('ordres : clic droit, Maj+clic droit (file), formation par touche',await p.evaluate(()=>{const g=__RT.run.G[0];return g.q.length===2&&g.q.every(o=>o.k==='aller')&&g.form==='colonne';}));
-await p.keyboard.press('Space');await p.waitForTimeout(3000);await p.keyboard.press('Space');const h1=await p.evaluate(()=>__RT.hash());const t1=await p.evaluate(()=>__RT.run.t);
+T('ordres : clic droit, Maj+clic droit (file), formation par touche ; le groupe passe en manuel',await p.evaluate(()=>{const g=__RT.run.G[0];return g.q.length===2&&g.q.every(o=>o.k==='aller')&&g.form==='colonne'&&g.ctrl==='manuel';}));
+await p.keyboard.press('Space');await p.waitForTimeout(3000);await p.keyboard.press('Space');await p.waitForTimeout(200);const h1=await p.evaluate(()=>__RT.hash());const t1=await p.evaluate(()=>__RT.run.t);
 await p.waitForTimeout(2500);const h2=await p.evaluate(()=>__RT.hash());
 T('la pause arrête la simulation (positions, effectifs, moral, recharges identiques)',h1===h2&&t1>0,{t:+t1.toFixed(2)});
 await p.click('[data-rt="auto"]',{force:true});await p.waitForTimeout(800);T('fin de bataille atteinte en auto',await p.evaluate(()=>!!__RT.run.end),await p.evaluate(()=>__RT.run.end));
