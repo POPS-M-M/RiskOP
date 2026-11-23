@@ -16,16 +16,17 @@ try{if(localStorage.getItem('rk-gfx')==='0')GFX.on=false;}catch(_){}
 
 /* ---------- sprites : second programme (le premier reste celui du rendu actuel) ---------- */
 const GFX_VS='attribute vec2 k;attribute vec4 a0;attribute vec4 a1;attribute vec4 a2;attribute vec4 a3;uniform vec3 eye,cr,cu,cf;uniform vec4 P;uniform float bias;uniform vec2 sd;'
- +'varying vec2 uv;varying vec4 col;varying float md;varying float vz;varying vec2 q;varying float fy;'
- +'void main(){vec3 F=a0.xyz;float m=a0.w;float ox=mix(a2.x,a2.y,k.x),oy=mix(a2.z,a2.w,k.y);vec3 w;vec3 R=normalize(vec3(cr.x,cr.y,0.)),Fh=normalize(vec3(cf.x,cf.y,0.));'
+ +'varying vec2 uv;varying vec4 col;varying float md;varying float vz;varying vec2 q;varying float fy;varying float st;'
+ +'void main(){st=a1.z;vec3 F=a0.xyz;float m=a0.w;float ox=mix(a2.x,a2.y,k.x),oy=mix(a2.z,a2.w,k.y);vec3 w;vec3 R=normalize(vec3(cr.x,cr.y,0.)),Fh=normalize(vec3(cf.x,cf.y,0.));'
  +'if(m<.5){float s=max(.2,cu.z);w=F+(cr*ox+cu*oy)*s;}'
  /* ombre portée : la silhouette couchée sur le sol, à l'opposé du soleil ; largeur perpendiculaire à l'ombre, du côté droit de l'écran */
+ +'else if(m>4.5){vec3 U=vec3(a1.x,a1.y,0.),Vv=vec3(-a1.y,a1.x,0.);w=F+U*ox+Vv*oy;}'
  +'else if(m>3.5){vec3 S=normalize(vec3(sd,0.));vec3 Rs=vec3(-S.y,S.x,0.);if(dot(Rs,R)<0.)Rs=-Rs;w=F+Rs*ox+S*oy*.62;}'
  +'else{w=F+R*ox+Fh*oy;}'
  +'vec3 d=w-eye;float x=dot(d,cr),y=dot(d,cu),z=dot(d,cf);float zd=m<.5?dot(F-eye,cf)-bias:z-.004*z;'
  +'float nd=(zd*(P.w+P.z)-2.*P.w*P.z)/(P.w-P.z)/zd;gl_Position=vec4(x*P.x,y*P.y,nd*z,z);'
  +'uv=vec2(mix(a1.x,a1.z,k.x),mix(a1.w,a1.y,k.y));col=a3;md=m;vz=z;q=k*2.-1.;fy=oy;}';
-const GFX_FS='precision mediump float;varying vec2 uv;varying vec4 col;varying float md;varying float vz;varying vec2 q;varying float fy;uniform sampler2D T;uniform vec3 fogc;uniform float fogd,lb,tm;'
+const GFX_FS='precision mediump float;varying vec2 uv;varying vec4 col;varying float md;varying float vz;varying vec2 q;varying float fy;varying float st;uniform sampler2D T;uniform vec3 fogc;uniform float fogd,lb,tm;'
  +'void main(){float f=clamp((vz-fogd)/(fogd*1.6),0.,.7);'
  /* sprite : pixels de la planche ; pieds un peu assombris (contact), teinte chaude du soleil (col.r = hauteur de l'assombrissement) */
  +'if(md<.5){vec4 t=texture2D(T,uv,lb);if(t.a<.01)discard;float ao=mix(.72,1.,smoothstep(0.,col.r,fy));vec3 c=t.rgb*ao*vec3(1.03,1.,.95);c=mix(c,fogc*t.a,f);gl_FragColor=vec4(c,t.a)*col.a;}'
@@ -37,7 +38,11 @@ const GFX_FS='precision mediump float;varying vec2 uv;varying vec4 col;varying f
  +'else if(md<3.5){float d=length(q);float r1=smoothstep(.66,.70,d)*(1.-smoothstep(.73,.77,d));float r2=smoothstep(.86,.89,d)*(1.-smoothstep(.92,.95,d));'
  +'float p=.7+.3*sin(tm*2.6);float g=exp(-pow((d-.86)*7.,2.))*.28*p;float fr=.35+.65*smoothstep(.1,-.6,q.y);vec3 c=(vec3(1.,.8,.32)*(r2+g)+col.rgb*r1)*fr;float a=clamp(r1+r2+g,0.,1.)*fr*col.a;if(a<.004)discard;gl_FragColor=vec4(c*col.a,a);}'
  /* ombre portée : alpha de la silhouette (niveau de mipmap plus flou = ombre plus douce) */
- +'else{vec4 t=texture2D(T,uv,lb+1.5);float a=t.a*col.a*(1.-.55*clamp(fy/2.,0.,1.));if(a<.004)discard;gl_FragColor=vec4(vec3(.05,.04,.09)*a,a);}}';
+ +'else if(md<4.5){vec4 t=texture2D(T,uv,lb+1.5);float a=t.a*col.a*(1.-.55*clamp(fy/2.,0.,1.));if(a<.004)discard;gl_FragColor=vec4(vec3(.05,.04,.09)*a,a);}'
+ /* cases du combat tactique : st 0 = case pleine à bord marqué, 1 = point, 2 = contour seul */
+ +'else{float e=max(abs(q.x),abs(q.y)),bd=smoothstep(.80,.90,e)*(1.-smoothstep(.95,1.,e)),a;'
+ +'if(st<.5)a=(.45*(1.-smoothstep(.9,1.,e))+.55*bd)*col.a;else if(st<1.5)a=(1.-smoothstep(.5,.75,length(q)))*col.a;else a=bd*col.a;'
+ +'if(a<.004)discard;gl_FragColor=vec4(col.rgb*a,a);}}';
 function gfxProg(){
   if(GFX.prog)return GFX.prog;if(GFX.fail||!TRP.gl)return null;
   try{const gl=TRP.gl,sh=(ty,src)=>{const s=gl.createShader(ty);gl.shaderSource(s,src);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw new Error(gl.getShaderInfoLog(s));return s;};
@@ -90,6 +95,8 @@ function gfxProg(){
     ext.drawArraysInstancedANGLE(gl.TRIANGLES,0,6,n);for(let i=1;i<5;i++){ext.vertexAttribDivisorANGLE(i,0);gl.disableVertexAttribArray(i);}};
   const draw=(rows)=>{let i=0;while(i<rows.length){const X=rows[i][1];let j=i;while(j<rows.length&&rows[j][1]===X)j++;gl.bindTexture(gl.TEXTURE_2D,X.tex);draw1(rows.slice(i,j));i=j;}};
   gl.enable(gl.POLYGON_OFFSET_FILL);gl.polygonOffset(-1,-4);
+  /* cases du combat tactique (TRP.tiles : [x,y,z,demi-côté,ux,uy,style,r,g,b,a]) */
+  const TL=TRP.tiles||[];TRP.tiles=[];if(TL.length){const X0=spr[0][1];draw(TL.map(T=>[0,X0,T[0],T[1],T[2]+.02,5,T[4],T[5],T[6],0,-T[3],T[3],-T[3],T[3],T[7],T[8],T[9],T[10]]));}
   /* ombres portées : une seule couche (le tampon de gabarit n'est pas demandé au contexte) ; puis contact et marqueurs ; puis les sprites */
   draw(sh);draw(gnd);gl.disable(gl.POLYGON_OFFSET_FILL);
   draw(spr);
