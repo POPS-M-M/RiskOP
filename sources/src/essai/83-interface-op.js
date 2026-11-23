@@ -21,6 +21,8 @@ window.__OPUI={set:opuiSet,get on(){return OPUI.on;}};
   /* ---- disposition : carte plein écran, panneaux au-dessus ---- */
   B+' .app{position:fixed;inset:0;max-width:none;margin:0;height:auto!important;padding:8px var(--opui-r,380px) 0 10px;display:flex;flex-direction:column;gap:6px;align-items:stretch;pointer-events:none;z-index:20}',
   B+' .app>*{pointer-events:auto;position:relative;z-index:1}',
+  /* aucun bandeau ne s'étire en hauteur (en résolution, le jeu d'origine donne flex: 1 1 420px au bandeau du tour) */
+  B+' .app>*{flex:none!important}',
   B+' #main{position:fixed!important;inset:0;display:block;z-index:0;margin:0;padding:0}',
   B+' #mapwrap{position:absolute!important;inset:0;width:100vw;height:100vh;aspect-ratio:auto!important;border:0!important;border-radius:0!important;background:radial-gradient(ellipse at 50% 40%,#1a1a1e,#0e0e10 70%,#060607)}',
   B+' #log{top:var(--opui-top,214px)!important;left:344px!important}',
