@@ -524,7 +524,10 @@ function rtFigs(R,c){
   for(const g of R.G){if(g.sorti)continue;const col=g.sd===R.side?'#4a8fe0':'#e0484f';
     for(const s of g.sol){if(s.dead&&rT>s.dieT+1.3)continue;
       let x=s.px+(s.x-s.px)*al0,y=s.py+(s.y-s.py)*al0;const z0=R.M.z(x,y);let an='garde',t=rT+s.ph*3,al=1,z=z0,flash=0,bob=0;
-      if(s.dead&&rT>=s.dieT){const u=Math.min(1,(rT-s.dieT)/1.3),kb=Math.min(1,(rT-s.dieT)/.25)*.22;an='reaction';t=99;al=u<.55?1:1-(u-.55)/.45;z=z0-Math.max(0,u-.55)*.25;
+      if(R.end&&!s.dead&&rtAlive(g)&&g.state!=='deroute'){const te=(performance.now()-(R.endW||performance.now()))/1000;
+        /* fin : les vainqueurs crient et sautent (pose « cri » de la planche), les vaincus s'accroupissent ou s'effondrent (poses de la planche) */
+        if(g.sd===R.end.w){an='cri';t=0;bob=Math.max(0,Math.sin(te*5.2+s.ph*9))*.2*Math.min(1,te*2);}else{an='@accroupi_1|fatigue_1|accroupi_2|chute';t=0;}}
+      else if(s.dead&&rT>=s.dieT){const u=Math.min(1,(rT-s.dieT)/1.3),kb=Math.min(1,(rT-s.dieT)/.25)*.22;an='reaction';t=99;al=u<.55?1:1-(u-.55)/.45;z=z0-Math.max(0,u-.55)*.25;
         x-=Math.cos(s.face)*kb;y-=Math.sin(s.face)*kb;}
       else if(s.an&&rT>=s.at){an=s.an;t=rT-s.at;if(s.an==='cri')bob=Math.abs(Math.sin(rT*4.2+s.ph*6))*.12;
         if(s.an==='attaque'&&!g.hero){const u=Math.min(1,t/.25);x+=Math.cos(s.face)*.07*Math.sin(Math.PI*u);y+=Math.sin(s.face)*.07*Math.sin(Math.PI*u);}}
@@ -612,9 +615,13 @@ function rtMini(R){const c=document.getElementById('rt-mini');if(!c)return;const
   if(R.camP){const [cx,cy]=ij(R.camP.cx,R.camP.cy),w=Math.min(c.width,R.camP.D*.9/M.S*sx);x.strokeStyle='#ffffffb0';x.lineWidth=1;x.strokeRect(cx-w/2,cy-w*.35,w,w*.7);}}
 
 /* ---------- caméra : flèches pour déplacer, Page↑ / Page↓ pour tourner, molette pour zoomer ---------- */
-function rtCam(R){const C=R.camP;let sx=0,sy=0,sd=1;
+function rtCam(R){const C=R.camP;let sx=0,sy=0,sd=1,cx=C.cx,cy=C.cy,D=C.D,pitch=C.pitch;
   for(const f of R.fx)if(f.k==='secousse'&&R.rT>=f.t0&&R.rT<=f.t1){const u=(R.rT-f.t0)/(f.t1-f.t0),e=(1-u)*.22;sx+=Math.sin(u*31)*e;sy+=Math.cos(u*25)*e;sd-=.03*(1-u);}
-  return trpCamBuild({cx:C.cx+sx,cy:C.cy+sy,yaw:C.yaw,pitch:C.pitch,D:C.D*sd,near:Math.max(.15,C.D*.04),fogD:Math.max(C.D*1.8,45)});}
+  /* mise en scène d'une compétence : la vue (seulement l'affichage) se rapproche du commandant puis revient ; un glisser l'annule */
+  const ci=R.cin;if(ci){const u=(performance.now()-ci.w)/1000;if(u>=1.7||(R.drag&&R.drag.pan))R.cin=null;else{const e=u<.35?u/.35:u>1.25?(1.7-u)/.45:1,k=e*e*(3-2*e);cx+=(ci.x-cx)*k*.8;cy+=(ci.y-cy)*k*.8;D+=(Math.max(6.5,D*.55)-D)*k;pitch+=(-.1)*k;}}
+  /* le point visé est sur le sol de l'île, pas au niveau de la mer : sans cela les troupes sortent par le haut de l'écran (hauteur lissée) */
+  const zg=R.M.z(C.cx,C.cy);R.zc=R.zc===undefined?zg:R.zc+(zg-R.zc)*.08;
+  const cam=trpCamBuild({cx:cx+sx,cy:cy+sy,yaw:C.yaw,pitch,D:D*sd,near:Math.max(.15,D*.04),fogD:Math.max(D*1.8,45)});cam.eye[2]+=R.zc;return cam;}
 {const wc0=w3Cam;w3Cam=function(cx,cy,yaw,pitch,D0){if(cx===undefined&&RT.run&&RT.run.camP)return RT.run.cam=rtCam(RT.run);return wc0(cx,cy,yaw,pitch,D0);};}
 {const ps0=pxScene;pxScene=function(c,now,combat){return ps0(c,now,combat||!!RT.run);};}
 {const ov0=w3Overlay;w3Overlay=function(c,now){if(RT.run)return;return ov0(c,now);};}
@@ -625,7 +632,7 @@ function rtCam(R){const C=R.camP;let sx=0,sy=0,sd=1;
 /* ---------- horloge : la simulation avance seulement hors pause ---------- */
 let rtLast=0;
 (function rtLoop(now){const R=RT.run,dt=Math.min(.1,Math.max(0,(now-(rtLast||now))/1000));rtLast=now;
-  if(R){if(!R.paused&&!R.end){R.acc+=dt*R.spd;let k=0;while(R.acc>=RT.DT&&k<8){rtStep(R);rtAnims(R);R.acc-=RT.DT;k++;}if(k>=8)R.acc=0;}
+  if(R){if(R.end&&!R.endW)R.endW=now;if(!R.paused&&!R.end){R.acc+=dt*R.spd*rtSlow(R,now);let k=0;while(R.acc>=RT.DT&&k<8){rtStep(R);rtAnims(R);R.acc-=RT.DT;k++;}if(k>=8)R.acc=0;}
     R.alpha=Math.min(1,R.acc/RT.DT);R.rT=Math.max(0,R.t-RT.DT*(1-R.alpha));
     if(R.camP&&RT.camAuto&&!R.end&&now-(R.camUser||0)>6000){const C=R.camP;let x=0,y=0,n=0,x0=1e9,x1=-1e9,y0=1e9,y1=-1e9;
       const act=R.G.filter(g=>rtAlive(g)&&(g.fight||g.moving));const L=act.length?act:R.G.filter(rtAlive);
@@ -652,61 +659,101 @@ function rtOrdTxt(R,g){if(!rtAlive(g))return g.sorti?'sorti du terrain':g.blesse
   const f=g.fight&&rtAlive(g.fight)?' · '+(rtUnit(g).rng&&!rtInContact(R,g,g.fight)?'tire':'combat'):'';
   const k=!o?'sans ordre':o.k==='aller'?'se déplace':o.k==='avancer'?'avance en combattant':o.k==='attaque'?'attaque '+(R.G[o.id]?(R.G[o.id].hero||RT_U[R.G[o.id].kind].n):''):o.k==='tenir'?'tient':o.k==='retraite'?'retraite':o.k;
   return k+(g.q.length>1?' (+'+(g.q.length-1)+')':'')+f;}
+/* ---------- portraits : poses réelles des planches (aucune image inventée, jamais agrandie au-delà de la planche) ---------- */
+const RT_IMG={},RT_POR={};
+function rtAtlas(a){const D=TRP_DATA[a];if(!D)return null;let o=RT_IMG[a];if(!o){o=RT_IMG[a]={img:new Image(),ok:false};o.img.onload=()=>{o.ok=true;if(RT.run)RT.run.uiDirty=true;};o.img.src=D.atlas;}return o.ok?o.img:null;}
+/* pose : noms d'images séparés par « | » (première présente), sinon première image de l'animation ; crop : part haute gardée (1 = tout) ; H : hauteur voulue en px CSS */
+function rtPor(a,pose,crop,H){const dpr=Math.min(2,window.devicePixelRatio||1),k=a+'|'+pose+'|'+crop+'|'+H+'|'+dpr;if(RT_POR[k]!==undefined)return RT_POR[k];const im=rtAtlas(a);if(!im)return '';
+  const D=TRP_DATA[a];let E=null;for(const p of pose.split('|')){if(D.img[p]){E=D.img[p];break;}const an=D.anim[p];if(an){E=D.img[an.i[an.i.length-1]];break;}}if(!E)E=D.img[D.anim.garde.i[0]];
+  const [ax,ay,w,h]=E.a,hh=Math.max(8,Math.round(h*crop)),sc=Math.min(1,H*dpr/hh),c=document.createElement('canvas');c.width=Math.max(1,Math.round(w*sc));c.height=Math.max(1,Math.round(hh*sc));
+  const x=c.getContext('2d');x.imageSmoothingQuality='high';x.drawImage(im,ax,ay,w,hh,0,0,c.width,c.height);return RT_POR[k]=c.toDataURL();}
+const rtFacOf=(R,sd)=>R.spec&&R.spec.camps&&R.spec.camps[sd]?R.spec.camps[sd].fac:(sd===0?'marine':'pirate');
+const RT_FAC={marine:{c:'#2f74c8',c2:'#164c8c',ic:'⚓',n:'Marine'},pirate:{c:'#d62828',c2:'#8e1414',ic:'☠',n:'Pirates'},revo:{c:'#2e8b57',c2:'#1d5c39',ic:'✊',n:'Révolutionnaires'}};
+const RT_ORD=[['avancer','➤','Avancer','A','Puis clic droit : aller en engageant ce qui se présente'],['tenir','⛨','Tenir','T','Tenir la position (Maj : à la suite)'],['retraite','↩','Retraite','R','Le groupe se replie vers son bord'],['rendre','⟳','Auto','G','Le groupe repasse en automatique : l\'IA le mène']];
+const RT_FIC={ligne:'▬',colonne:'▮',carre:'■',disperse:'⁘'};
 function rtUIBuild(){
   let el=document.getElementById('rt-ui');if(el)return el;el=document.createElement('div');el.id='rt-ui';
-  el.innerHTML='<div class="rt-top"><span id="rt-st"></span><span class="rt-sp"></span><span id="rt-spd"></span>'
-    +'<button data-rt="cam" id="rt-cam" title="La caméra suit l\'action (elle s\'arrête 6 s quand vous la déplacez)"></button><button data-rt="pause" id="rt-pb" class="pri"></button><button data-rt="auto" title="Les deux camps passent à l\'IA, sans affichage, jusqu\'à la fin">Auto</button><button data-rt="retgen" title="Tout le camp se retire : l\'autre camp l\'emporte">Retraite</button><button data-rt="quitter" id="rt-quit">Quitter</button></div>'
-    +'<div id="rt-vig"></div><div id="rt-flash"></div><div id="rt-intro"><b>À L\'ABORDAGE !</b><small>vos troupes combattent seules · donnez un ordre pour reprendre la main</small></div>'
-    +'<div id="rt-banner"></div><div class="rt-obj" id="rt-obj"></div><div class="rt-minibox"><canvas id="rt-mini" width="154" height="220"></canvas><small>minicarte · clic : vue · clic droit : y aller</small></div>'
-    +'<div id="rt-info"></div><div class="rt-ord" id="rt-ord"></div><div class="rt-bot"><div id="rt-cards"></div><div id="rt-cmd"></div></div><div id="rt-end"></div><div id="rt-box"></div>';
+  el.innerHTML='<canvas id="rt-atmo"></canvas><div id="rt-tilt"><i></i><i></i></div><div id="rt-vig"></div><div id="rt-pz"></div><div id="rt-flash"></div><div id="rt-lbx"><i></i><i></i></div>'
+    +'<div id="rt-intro"><b>À L\'ABORDAGE !</b><small>vos troupes combattent seules · donnez un ordre pour reprendre la main</small></div><div id="rt-cut"></div>'
+    /* bandeau de bataille : votre camp à gauche, objectif et temps au centre, l'adversaire à droite */
+    +'<div class="rt-hdr"><div class="rt-camp" id="rt-c0"></div><div class="rt-medal" id="rt-med"></div><div class="rt-camp eux" id="rt-c1"></div></div>'
+    +'<div class="rt-tl"><div class="rt-title" id="rt-st"></div><div class="rt-obj" id="rt-obj"></div><div class="rt-feed" id="rt-feed"></div></div>'
+    +'<div class="rt-tr" id="rt-ctl"><div class="rt-grp" id="rt-spd"></div><button data-rt="pause" id="rt-pb" class="pri"></button>'
+    +'<div class="rt-grp"><button data-rt="cam" id="rt-cam" title="La caméra suit l\'action ; glisser au clic gauche la reprend 6 s"></button><button data-rt="auto" title="Les deux camps passent à l\'IA, sans affichage, jusqu\'à la fin">Auto</button><button data-rt="retgen" title="Tout le camp se retire : l\'autre camp l\'emporte">Retraite</button><button data-rt="quitter" id="rt-quit" class="rouge">Quitter</button></div></div>'
+    +'<div id="rt-banner"></div><div id="rt-jr"></div>'
+    +'<div class="rt-minibox"><div class="rt-mh">CARTE <span>N ▲</span></div><canvas id="rt-mini" width="154" height="220"></canvas><small>glisser sur le terrain : déplacer la vue</small></div>'
+    +'<div class="rt-bot"><div id="rt-info"></div><div class="rt-ord" id="rt-ord"></div><div id="rt-cards"></div></div><div id="rt-cmd"></div><div id="rt-end"></div><div id="rt-box"></div>';
   document.body.appendChild(el);el.addEventListener('pointerdown',rtUIClick);el.addEventListener('contextmenu',e=>e.preventDefault());
   const lb=document.createElement('div');lb.id='rt-lab';document.body.appendChild(lb);return el;}
+function rtCampHTML(R,sd){const F=RT_FAC[rtFacOf(R,sd)]||RT_FAC.pirate,L=R.G.filter(g=>g.sd===sd&&!g.hero),A=L.filter(rtAlive);let n=0,n0=0,m=0;for(const g of L){n0+=g.n0;}for(const g of A){n+=g.n;m+=g.m*g.n;}
+  const mo=n?Math.round(m/n):0,H=R.G.filter(g=>g.sd===sd&&g.hero),moi=sd===R.side;
+  return '<i class="rt-emb" style="--f:'+F.c+';--f2:'+F.c2+'">'+F.ic+'</i><div class="rt-cn"><b>'+esc(R.names[sd])+'</b><small>'+(sd===0?'attaque':'défense')+(moi?' · vous':'')+'</small></div>'
+    +'<div class="rt-cv"><span class="rt-big">'+Math.ceil(n-1e-6)+'</span><small>/ '+Math.round(n0)+'</small></div>'
+    +'<div class="rt-cb"><i class="rt-mb" title="Moral moyen '+mo+'"><b style="width:'+mo+'%" class="'+(mo<30?'bas':mo<60?'moy':'')+'"></b></i>'
+    +H.map(h=>'<span class="rt-hh'+(rtAlive(h)?'':' off')+'" title="'+esc(h.hero)+'"><em>'+esc(h.hero)+'</em><i class="rt-hp"><b style="width:'+Math.round(100*Math.max(0,h.hp)/h.hp0)+'%"></b></i></span>').join('')+'</div>';}
+function rtMedHTML(R){const u=Math.max(0,Math.min(1,R.hold/RT.HOLD)),C=2*Math.PI*30;
+  return '<svg viewBox="0 0 72 72" aria-hidden="true"><circle cx="36" cy="36" r="30" class="rt-r0"/><circle cx="36" cy="36" r="30" class="rt-r1'+(R.contest?' disp':'')+'" style="stroke-dasharray:'+(C*u).toFixed(1)+' '+C.toFixed(1)+'"/></svg>'
+    +'<div class="rt-mt"><b>'+rtMS(R.t)+'</b><small>/ '+rtMS(RT.TMAX)+'</small></div><div class="rt-ml">cercle doré '+Math.floor(R.hold)+' / '+RT.HOLD+' s'+(R.contest?' · disputé':'')+'</div>';}
 function rtUI(R){
   if(!R){const el=document.getElementById('rt-ui');if(el)el.remove();const lb=document.getElementById('rt-lab');if(lb)lb.remove();return;}
   const el=rtUIBuild(),rc=W3.cv.getBoundingClientRect();el.style.cssText='left:'+rc.left+'px;top:'+rc.top+'px;width:'+rc.width+'px;height:'+rc.height+'px';
-  const $i=id=>document.getElementById(id),put=(id,h)=>{const e=$i(id);if(e&&e._h!==h){e._h=h;e.innerHTML=h;}},tot=sd=>R.G.filter(g=>g.sd===sd&&!g.hero&&rtAlive(g)).reduce((a,g)=>a+g.n,0);
-  put('rt-st','<b>'+esc(R.spec&&!R.spec.demo?'Bataille · '+R.t0name:'Alabasta · démo')+'</b> · '+rtMS(R.t)+' / '+rtMS(RT.TMAX)+' · <span title="'+esc(R.names[0])+' (attaque)">⚔ '+Math.ceil(tot(0))+'</span> · <span title="'+esc(R.names[1])+' (défense)">🛡 '+Math.ceil(tot(1))+'</span>');
-  put('rt-spd',[.5,1,2].map(v=>'<button data-rt="spd:'+v+'"'+(R.spd===v?' class="on"':'')+'>×'+String(v).replace('.',',')+'</button>').join(''));
-  $i('rt-cam').textContent='Caméra : '+(RT.camAuto?'suit l\'action':'libre');$i('rt-cam').className=RT.camAuto?'on':'';
+  const $i=id=>document.getElementById(id),put=(id,h)=>{const e=$i(id);if(e&&e._h!==h){e._h=h;e.innerHTML=h;}};
+  el.classList.toggle('pz',!!(R.paused&&!R.end));el.classList.toggle('fin',!!R.end);
+  put('rt-c0',rtCampHTML(R,R.side));put('rt-c1',rtCampHTML(R,1-R.side));put('rt-med',rtMedHTML(R));
+  put('rt-st','<b>'+esc(R.spec&&!R.spec.demo?'Bataille de '+R.t0name:'Bataille d\'Alabasta')+'</b><small>'+(R.spec&&!R.spec.demo?'la carte attend l\'issue':'démonstration · la partie n\'est pas modifiée')+'</small>');
+  put('rt-spd',[.5,1,2].map(v=>'<button data-rt="spd:'+v+'"'+(R.spd===v?' class="on"':'')+' title="Vitesse (touches + et −)">×'+String(v).replace('.',',')+'</button>').join(''));
+  $i('rt-cam').textContent=RT.camAuto?'🎥 Suit':'🎥 Libre';$i('rt-cam').className=RT.camAuto?'on':'';
   $i('rt-quit').textContent=R.spec&&!R.spec.demo&&!R.end?'Abandonner':'Quitter';
-  $i('rt-pb').textContent=R.end?'Terminé':R.deploy?'Commencer · Espace':R.paused?'Reprendre · Espace':'Pause · Espace';$i('rt-pb').disabled=!!R.end;
-  const bn=$i('rt-banner');bn.className=R.paused&&!R.end?'on':'';bn.innerHTML=R.end?'':R.deploy?'<b>DÉPLOIEMENT</b> · '+esc(R.why||'')+'':R.paused?'<b>PAUSE</b> · la bataille est arrêtée'+(R.why?' · '+esc(R.why):'')+' · Espace pour reprendre':'';
-  const mor=sd=>{const L=R.G.filter(g=>g.sd===sd&&!g.hero&&rtAlive(g));let n=0,m=0;for(const g of L){n+=g.n;m+=g.m*g.n;}return n?Math.round(m/n):0;};
-  put('rt-obj','<div class="rt-h">Objectifs</div><small>'+(R.side===0?'Tenir le cercle doré 60 s sans défenseur dedans, ou chasser la défense.':'Tenir jusqu\'à '+rtMS(RT.TMAX)+' : l\'attaque ne doit pas garder le cercle doré 60 s.')+'</small>'
-    +'<div class="rt-bar"><i style="width:'+Math.round(100*R.hold/RT.HOLD)+'%"></i></div><small>Cercle doré : '+Math.floor(R.hold)+' / '+RT.HOLD+' s'+(R.contest?' · disputé':'')+'</small>'
-    +'<small>Moral moyen : '+esc(R.names[0])+' '+mor(0)+' · '+esc(R.names[1])+' '+mor(1)+'</small><button data-rt="ap" class="rt-ap" title="Début, commandant sous 30 % de vie, groupe en déroute">Pauses auto : '+(RT.autoPause?'oui':'non')+'</button><div class="rt-h">Journal</div>'+R.log.slice(0,4).map(l=>'<small class="rt-log">'+rtMS(l[0])+' '+esc(l[1])+'</small>').join('')
-    +(RT.aide?'<div class="rt-h">Commandes</div><small class="rt-help">Clic ou cadre : choisir · clic droit : aller · sur un ennemi : attaquer · Maj : à la suite · Ctrl+A : tous · Espace : pause · flèches, Page↑/↓, molette : vue</small>':'<button data-rt="aide" class="rt-ap">Commandes (?)</button>'));
-  /* cartes des groupes */
-  const fcm=R.spec&&R.spec.camps[R.side]?R.spec.camps[R.side].fac:(R.side?'pirate':'marine'),campC=fcm==='marine'?'var(--op-marine)':fcm==='revo'?'#2e8b57':'var(--op-pirate)';
-  let h='';for(const g of rtMine(R)){const on=R.sel.includes(g.id),U=rtUnit(g),a=rtAlive(g);
-    h+='<button data-rt="sel:'+g.id+'" style="--rt-camp:'+campC+'" class="rt-card'+(on?' on':'')+(a?'':' off')+' st-'+g.state+'"><i class="rt-badge '+(g.ctrl==='manuel'?'man':'aut')+'">'+(g.ctrl==='manuel'?'MANUEL':'AUTO')+'</i><span class="rt-ct"><b>'+U.ic+' '+esc(g.hero||U.n)+'</b><span>'+(g.hero?Math.ceil(g.hp)+' / '+Math.round(g.hp0):Math.ceil(g.n-1e-6)+' / '+Math.round(g.n0))+'</span></span>'
-      +(g.hero?'<i class="rt-mb hp"><b style="width:'+Math.round(100*g.hp/g.hp0)+'%"></b></i>':'<i class="rt-mb"><b style="width:'+Math.round(g.m)+'%" class="'+(g.m<30?'bas':g.m<60?'moy':'')+'"></b><u style="left:30%"></u><u style="left:60%"></u></i>')
-      +'<small>'+(g.hero?'':esc(RT_ETAT[g.state])+' · ')+esc(rtOrdTxt(R,g))+'</small></button>';}
+  $i('rt-pb').innerHTML=R.end?'Terminé':R.deploy?'▶ Commencer':R.paused?'▶ Reprendre':'❚❚ Pause';$i('rt-pb').disabled=!!R.end;
+  const bn=$i('rt-banner');bn.className=(R.paused||R.deploy)&&!R.end?'on':'';bn.innerHTML=R.end?'':R.deploy?'<b>DÉPLOIEMENT</b><small>'+esc(R.why||'')+' · Espace pour commencer</small>':R.paused?'<b>PAUSE TACTIQUE</b><small>donnez vos ordres'+(R.why?' · '+esc(R.why):'')+' · Espace pour reprendre</small>':'';
+  /* mission : courte, toujours visible ; le reste sur demande */
+  put('rt-obj','<div class="rt-h">Mission</div><p>'+(R.side===0?'Tenir le <b>cercle doré</b> 60 s sans défenseur dedans, ou chasser la défense.':'Tenir jusqu\'à '+rtMS(RT.TMAX)+' : l\'attaque ne doit pas garder le <b>cercle doré</b> 60 s.')+'</p>'
+    +'<div class="rt-bar"><i style="width:'+Math.round(100*R.hold/RT.HOLD)+'%"></i></div>'
+    +'<div class="rt-ob"><button data-rt="jr" class="'+(RT.jr?'on':'')+'">Journal</button><button data-rt="aide" class="'+(RT.aide?'on':'')+'">Commandes</button><button data-rt="ap" class="'+(RT.autoPause?'on':'')+'" title="Début, commandant sous 30 % de vie, groupe en déroute">Pauses auto</button></div>');
+  /* notifications : les 3 derniers faits de moins de 7 s, qui s'effacent */
+  put('rt-feed',R.log.filter(l=>R.t-l[0]<7).slice(0,3).map(l=>'<div class="rt-nt" style="opacity:'+Math.max(.25,Math.min(1,(7-(R.t-l[0]))/2)).toFixed(2)+'"><em>'+rtMS(l[0])+'</em> '+esc(l[1])+'</div>').join(''));
+  const jr=$i('rt-jr');jr.style.display=RT.jr||RT.aide?'':'none';
+  put('rt-jr',(RT.jr?'<div class="rt-h">Journal</div>'+R.log.map(l=>'<small><em>'+rtMS(l[0])+'</em> '+esc(l[1])+'</small>').join(''):'')
+    +(RT.aide?'<div class="rt-h">Commandes</div><small><b>Clic</b> : choisir un groupe · <b>Maj + glisser</b> : cadre de sélection · <b>Ctrl+A</b> : tous · <b>Tab</b> : suivant</small><small><b>Clic droit</b> : aller · sur un ennemi : attaquer · <b>Maj</b> : à la suite</small><small><b>Glisser au clic gauche</b> : déplacer la vue · <b>molette</b> : zoom · <b>Page↑/↓</b> : tourner · flèches</small><small><b>Espace</b> : pause tactique · <b>Q</b> : compétence · <b>1-4</b> : formations</small>':''));
+  /* cartes des groupes : avis de recherche avec la figurine de la planche */
+  const fcm=rtFacOf(R,R.side),F=RT_FAC[fcm]||RT_FAC.pirate;
+  let h='';rtMine(R).forEach((g,i)=>{const on=R.sel.includes(g.id),U=rtUnit(g),a=rtAlive(g),img=rtPor(g.asset,g.hero?'garde':'garde',g.hero?.62:1,g.hero?64:62);
+    h+='<button data-rt="sel:'+g.id+'" style="--rt-camp:'+F.c+'" class="rt-card'+(on?' on':'')+(a?'':' off')+(g.hero?' hero':'')+' st-'+g.state+'" title="'+esc((g.hero||U.n)+' · '+rtOrdTxt(R,g))+'">'
+      +'<i class="rt-badge '+(g.ctrl==='manuel'?'man':'aut')+'">'+(g.ctrl==='manuel'?'MANUEL':'AUTO')+'</i>'
+      +'<span class="rt-pic">'+(img?'<img src="'+img+'" alt="">':'<em>'+U.ic+'</em>')+'</span>'
+      +'<span class="rt-ct"><b>'+esc(g.hero||U.n)+'</b><span>'+(g.hero?Math.ceil(Math.max(0,g.hp))+'<small>/'+Math.round(g.hp0)+'</small>':Math.ceil(g.n-1e-6)+'<small>/'+Math.round(g.n0)+'</small>')+'</span></span>'
+      +(g.hero?'<i class="rt-mb hp"><b style="width:'+Math.round(100*Math.max(0,g.hp)/g.hp0)+'%"></b></i>':'<i class="rt-mb"><b style="width:'+Math.round(g.m)+'%" class="'+(g.m<30?'bas':g.m<60?'moy':'')+'"></b><u style="left:30%"></u><u style="left:60%"></u></i>')
+      +'<small>'+(a?(g.hero?'':esc(RT_ETAT[g.state])+' · ')+esc(rtOrdTxt(R,g)):esc(rtOrdTxt(R,g)))+'</small></button>';});
   put('rt-cards',h);
-  /* commandant */
+  /* commandant : médaillon, vie, compétence avec recharge circulaire */
   const HL=R.G.filter(g=>g.hero&&g.sd===R.side),hc=rtMyHero(R)||HL[0];let c='';
-  if(hc){const H=RT_H[hc.hero],a=rtAlive(hc);c='<div class="rt-h">'+(HL.length>1?HL.map(q=>'<button data-rt="hq:'+q.id+'"'+(q===hc?' class="on"':'')+(rtAlive(q)?'':' disabled')+'>'+esc(q.hero)+'</button>').join(' '):esc(hc.hero))+' · '+esc(H.camp)+(a?'':' · '+(hc.blesse?'blessé':'retiré'))+'</div>'
-    +'<div class="rt-sk"><button data-rt="q"'+(a&&hc.qcd<=0&&!hc.cast?'':' disabled')+(R.mode==='q'?' class="on"':'')+' title="'+esc(H.q.d)+'"><b>Q</b> '+esc(H.q.n)+(hc.qcd>0?' · '+Math.ceil(hc.qcd)+' s':'')+'</button>'
-    +'<button data-rt="skauto" class="'+(RT.skillAuto?'on':'')+'" title="L\'IA lance la compétence d\'elle-même">Compétences auto : '+(RT.skillAuto?'oui':'non')+'</button></div><small title="'+esc(H.pas)+'">Passif : '+esc(H.pas)+'</small>';}
+  if(hc){const Hh=RT_H[hc.hero],a=rtAlive(hc),cd=Math.max(0,hc.qcd||0),u=a?1-Math.min(1,cd/Hh.q.cd):0,ok=a&&cd<=0&&!hc.cast,img=rtPor(hc.asset,'garde',.5,84);
+    c='<div class="rt-por'+(a?'':' off')+'" style="--f:'+F.c+'">'+(img?'<img src="'+img+'" alt="">':'')+'</div>'
+      +'<div class="rt-cmb"><div class="rt-cnm">'+(HL.length>1?HL.map(q=>'<button data-rt="hq:'+q.id+'"'+(q===hc?' class="on"':'')+(rtAlive(q)?'':' disabled')+'>'+esc(q.hero)+'</button>').join(''):'<b>'+esc(hc.hero)+'</b>')+'<small>'+esc(Hh.camp)+(a?'':' · '+(hc.blesse?'blessé':'retiré'))+'</small></div>'
+      +'<i class="rt-hp big"><b style="width:'+Math.round(100*Math.max(0,hc.hp)/hc.hp0)+'%"></b></i><small class="rt-pas" title="'+esc(Hh.pas)+'">'+esc(Hh.pas)+'</small>'
+      +'<button data-rt="skauto" class="rt-mini2'+(RT.skillAuto?' on':'')+'" title="L\'IA lance la compétence d\'elle-même">Compétence auto : '+(RT.skillAuto?'oui':'non')+'</button></div>'
+      +'<button data-rt="q" class="rt-skill'+(ok?' pret':'')+(R.mode==='q'?' on':'')+'"'+(ok?'':' disabled')+' title="'+esc(Hh.q.n+' : '+Hh.q.d)+'" style="--u:'+(u*360).toFixed(0)+'deg"><i>'+(cd>0?Math.ceil(cd):'Q')+'</i><span>'+esc(Hh.q.n)+'</span></button>';}
   put('rt-cmd',c);
-  /* barre d'ordres */
+  /* ordres */
   const S=rtSelG(R),f0=S.find(g=>!g.hero);
-  put('rt-ord',(S.length?'<button data-rt="o:avancer"'+(R.mode==='A'?' class="on"':'')+' title="Puis clic droit : aller en engageant ce qui se présente">Avancer en combattant · A</button><button data-rt="o:tenir">Tenir · T</button><button data-rt="o:retraite">Retraite · R</button><button data-rt="o:rendre" class="rt-auto" title="Le groupe repasse en automatique : l\'IA le mène">Auto · G</button>'
-    +'<i class="rt-sep"></i>'+Object.keys(RT_FORM).map((k,i)=>'<button data-rt="f:'+k+'"'+(f0&&f0.form===k?' class="on"':'')+(f0?'':' disabled')+'>'+RT_FORM[k]+' · '+(i+1)+'</button>').join(''):'<span>Choisissez un groupe : clic, cadre, ou sa carte en bas.</span>'));
-  /* fiche du groupe choisi : valeurs, terrain, causes du moral */
+  put('rt-ord',S.length?RT_ORD.map(o=>'<button data-rt="o:'+o[0]+'" class="rt-o'+(o[0]==='rendre'?' rt-auto':'')+(o[0]==='avancer'&&R.mode==='A'?' on':'')+'" title="'+esc(o[4])+'"><i>'+o[1]+'</i>'+o[2]+'<kbd>'+o[3]+'</kbd></button>').join('')
+      +'<i class="rt-sep"></i>'+Object.keys(RT_FORM).map((k,i)=>'<button data-rt="f:'+k+'" class="rt-o'+(f0&&f0.form===k?' on':'')+'"'+(f0?'':' disabled')+'><i>'+RT_FIC[k]+'</i>'+RT_FORM[k]+'<kbd>'+(i+1)+'</kbd></button>').join('')
+    :'<span class="rt-hint"><b>Clic</b> : choisir · <b>glisser</b> : déplacer la vue · <b>Maj + glisser</b> : cadre · <b>clic droit</b> : ordre · <b>Espace</b> : pause</span>');
+  /* fiche du groupe choisi */
   const g=S[0];let inf='';
   if(g){const U=rtUnit(g),t=R.M.tile(g.cx,g.cy),cs=[...(g.live||[]),...g.causes.filter(c=>R.t-c[0]<4).map(c=>c[1])];
-    inf='<b>'+esc(g.hero||U.n)+'</b> · attaque '+U.atk+' · défense '+U.def+(U.rng?' · portée '+U.rng+' u':' · mêlée')+' · vitesse '+U.spd+' u/s'+(g.hero?'':' · moral '+Math.round(g.m)+' / '+U.mor)
-      +(t?(t.k==='couvert'?' · dans un couvert':'')+(t.haut?' · en hauteur':'')+(t.etroit?' · passage étroit':''):'')+(cs.length?'<br><span class="rt-cause">'+cs.map(esc).join(' · ')+'</span>':'');}
+    inf='<b>'+esc(g.hero||U.n)+'</b><span>⚔ '+U.atk+'</span><span>⛨ '+U.def+'</span><span>'+(U.rng?'➶ '+U.rng+' u':'mêlée')+'</span><span>➤ '+U.spd+' u/s</span>'+(g.hero?'':'<span>moral '+Math.round(g.m)+' / '+U.mor+'</span>')
+      +(t?(t.k==='couvert'?'<span class="tg">couvert</span>':'')+(t.haut?'<span class="tg">hauteur</span>':'')+(t.etroit?'<span class="tg">passage étroit</span>':''):'')+(cs.length?'<em class="rt-cause">'+cs.map(esc).join(' · ')+'</em>':'');}
   put('rt-info',inf);$i('rt-info').style.display=inf?'':'none';
   /* fin */
   const en=$i('rt-end');
   if(R.end){if(!en.dataset.on){en.dataset.on='1';const w=R.end.w===R.side,row=sd=>{const L=R.G.filter(q=>q.sd===sd&&!q.hero),by={};for(const q of L){const k=RT_U[q.kind].n;by[k]=by[k]||[0,0];by[k][0]+=Math.ceil(q.n-1e-6);by[k][1]+=q.n0;}
-        const hh=R.G.filter(q=>q.sd===sd&&q.hero);return '<tr><th>'+esc(rtCampN(sd))+'</th><td>'+Object.entries(by).map(([k,v])=>k+' '+v[0]+' / '+v[1]).join(' · ')+'</td><td>'+hh.map(h=>esc(h.hero)+' : '+(h.blesse?'blessé':Math.ceil(h.hp)+' / '+Math.round(h.hp0))).join(' · ')+'</td></tr>';};
-      const real=R.spec&&!R.spec.demo;
-      en.innerHTML='<h2>'+(w?'Victoire':'Défaite')+'</h2><p>'+esc(R.end.why)+' ('+rtMS(R.end.t)+')</p><table>'+row(0)+row(1)+'</table>'
-        +(real?'<p class="rt-note">Sur la carte : '+(R.end.w===0?esc(R.names[0])+' prend '+esc(R.t0name):esc(R.names[1])+' garde '+esc(R.t0name))+' avec '+Math.round(RT.K.survie*100)+' % de ses survivants (les autres sont blessés ou dispersés : '+sumU(rtResult(R)[R.end.w===0?'uA':'uD']).toFixed(1)+' troupes) ; le camp battu perd ses troupes engagées (règle du jeu). Commandants mis hors de combat : blessés.</p><button data-rt="appliquer" class="pri">Revenir à la carte</button>'
-          :'<p class="rt-note">Démonstration : la partie n\'est pas modifiée.</p><button data-rt="rejouer" class="pri">Rejouer</button><button data-rt="camp">Jouer l\'autre camp</button><button data-rt="quitter">Revenir à la carte</button>');en.style.display='';}}
+        const hh=R.G.filter(q=>q.sd===sd&&q.hero);return '<tr><th>'+esc(rtCampN(sd))+'</th><td>'+Object.entries(by).map(([k,v])=>k+' <b>'+v[0]+'</b> / '+v[1]).join(' · ')+'</td><td>'+hh.map(h=>esc(h.hero)+' : '+(h.blesse?'blessé':Math.ceil(h.hp)+' / '+Math.round(h.hp0))).join(' · ')+'</td></tr>';};
+      const real=R.spec&&!R.spec.demo,wh=R.G.find(q=>q.hero&&q.sd===R.end.w),wi=wh?rtPor(wh.asset,'cri',.62,150):'';
+      en.className=w?'gagne':'perdu';
+      en.innerHTML=(wi?'<img class="rt-ew" src="'+wi+'" alt="">':'')+'<h2>'+(w?'Victoire !':'Défaite…')+'</h2><p>'+esc(R.end.why)+' <em>('+rtMS(R.end.t)+')</em></p><table>'+row(0)+row(1)+'</table>'
+        +(real?'<p class="rt-note">Sur la carte : '+(R.end.w===0?esc(R.names[0])+' prend '+esc(R.t0name):esc(R.names[1])+' garde '+esc(R.t0name))+' avec '+Math.round(RT.K.survie*100)+' % de ses survivants (les autres sont blessés ou dispersés : '+sumU(rtResult(R)[R.end.w===0?'uA':'uD']).toFixed(1)+' troupes) ; le camp battu perd ses troupes engagées (règle du jeu). Commandants mis hors de combat : blessés.</p><div class="rt-eb"><button data-rt="appliquer" class="pri">Revenir à la carte</button></div>'
+          :'<p class="rt-note">Démonstration : la partie n\'est pas modifiée.</p><div class="rt-eb"><button data-rt="rejouer" class="pri">Rejouer</button><button data-rt="camp">Jouer l\'autre camp</button><button data-rt="quitter">Revenir à la carte</button></div>');en.style.display='';}}
   else{en.style.display='none';en.dataset.on='';}
 }
 function rtPauseSet(R,p,why){if(R.end)return;if(!p&&R.deploy){R.deploy=false;}R.paused=p;R.why=p?(why||''):'';R.uiDirty=true;}
@@ -724,6 +771,7 @@ function rtUIClick(e){const b=e.target.closest('button[data-rt]');if(!b||b.disab
   if(a==='ap'){RT.autoPause=!RT.autoPause;R.uiDirty=true;return;}
   if(a==='skauto'){RT.skillAuto=!RT.skillAuto;R.uiDirty=true;return;}
   if(a==='aide'){RT.aide=!RT.aide;R.uiDirty=true;return;}
+  if(a==='jr'){RT.jr=!RT.jr;R.uiDirty=true;return;}
   if(a==='cam'){RT.camAuto=!RT.camAuto;R.camUser=0;R.uiDirty=true;return;}
   if(a==='auto'){rtRunAuto(R);R.uiDirty=true;return;}
   if(a==='retgen'){rtRetGen(R);return;}
@@ -759,11 +807,21 @@ function rtDown(e){const R=RT.run;if(!R)return;
     if(e.button===2)rtRight(R,{g:null,pt:[x,y]},e.shiftKey);else{R.camP.tx=x;R.camP.ty=y;R.camUser=performance.now();}return;}
   if(e.target!==canvas)return;e.stopImmediatePropagation();e.preventDefault();if(R.end)return;
   if(e.button===2){rtRight(R,rtPick(R,e),e.shiftKey);return;}
-  if(e.button===0)R.drag={x0:e.clientX,y0:e.clientY,x:e.clientX,y:e.clientY,shift:e.shiftKey};}
+  if(e.button===0)R.drag={x0:e.clientX,y0:e.clientY,x:e.clientX,y:e.clientY,shift:e.shiftKey,box:e.shiftKey||e.ctrlKey,px:e.clientX,py:e.clientY};}
+/* clic gauche maintenu : la caméra suit la main (le point du sol saisi reste sous le pointeur) ; Maj ou Ctrl + glisser : cadre de sélection */
+function rtPan(R,dxCss,dyCss){const C=R.camP,cam=R.cam;if(!C||!cam)return;const rc=W3.cv.getBoundingClientRect(),k=canvas.width/rc.width,z=R.M.z(C.cx,C.cy);
+  const p0=w3Proj(C.cx,C.cy,z,cam),rx=Math.cos(C.yaw),ry=Math.sin(C.yaw),hx=Math.sin(C.yaw),hy=-Math.cos(C.yaw),pr=w3Proj(C.cx+rx,C.cy+ry,z,cam),pf=w3Proj(C.cx+hx,C.cy+hy,z,cam);if(!p0||!pr||!pf)return;
+  const a=pr.sx-p0.sx,b=pf.sx-p0.sx,c=pr.sy-p0.sy,d=pf.sy-p0.sy,det=a*d-b*c;if(Math.abs(det)<1e-6)return;const sx=-dxCss*k,sy=-dyCss*k,u=(d*sx-b*sy)/det,v=(-c*sx+a*sy)/det;
+  const wx=rx*u+hx*v,wy=ry*u+hy*v,M=R.M;let nx=C.tx+wx,ny=C.ty+wy;
+  /* reste au-dessus du terrain de bataille */
+  const [i,j]=M.ij(nx,ny);const ci=Math.max(-2,Math.min(M.W+1,i)),cj=Math.max(-2,Math.min(M.H+1,j));if(ci!==i||cj!==j){const q=M.xy(ci,cj);nx=q[0];ny=q[1];}
+  C.cx+=nx-C.tx;C.cy+=ny-C.ty;C.tx=nx;C.ty=ny;R.camUser=performance.now();R.cam=rtCam(R);}
 function rtMove(e){const R=RT.run;if(!R)return;
-  if(R.drag){R.drag.x=e.clientX;R.drag.y=e.clientY;const b=document.getElementById('rt-box'),d=R.drag;if(b&&Math.hypot(d.x-d.x0,d.y-d.y0)>6){const rc=W3.cv.getBoundingClientRect();b.style.cssText='display:block;left:'+(Math.min(d.x,d.x0)-rc.left)+'px;top:'+(Math.min(d.y,d.y0)-rc.top)+'px;width:'+Math.abs(d.x-d.x0)+'px;height:'+Math.abs(d.y-d.y0)+'px';}}
+  if(R.drag&&!R.drag.box){const d=R.drag;d.x=e.clientX;d.y=e.clientY;if(d.pan||Math.hypot(d.x-d.x0,d.y-d.y0)>6){if(!d.pan){d.pan=true;document.body.classList.add('rt-grab');}rtPan(R,d.x-d.px,d.y-d.py);d.px=d.x;d.py=d.y;}}
+  else if(R.drag){R.drag.x=e.clientX;R.drag.y=e.clientY;const b=document.getElementById('rt-box'),d=R.drag;if(b&&Math.hypot(d.x-d.x0,d.y-d.y0)>6){const rc=W3.cv.getBoundingClientRect();b.style.cssText='display:block;left:'+(Math.min(d.x,d.x0)-rc.left)+'px;top:'+(Math.min(d.y,d.y0)-rc.top)+'px;width:'+Math.abs(d.x-d.x0)+'px;height:'+Math.abs(d.y-d.y0)+'px';}}
   if(R.mode==='q'&&e.target===canvas&&R.cam){const now=performance.now();if(now-(R.mvT||0)>40){R.mvT=now;const P=rtPick(R,e);if(P.pt)R.mouse=P.pt;}}}
 function rtUp(e){const R=RT.run;if(!R||!R.drag||e.button!==0)return;const d=R.drag;R.drag=null;const b=document.getElementById('rt-box');if(b)b.style.display='none';
+  if(d.pan){document.body.classList.remove('rt-grab');return;}
   if(Math.hypot(d.x-d.x0,d.y-d.y0)<=6){const P=rtPick(R,{clientX:d.x,clientY:d.y});
     if(R.mode==='q'){rtRight(R,P,false);return;}
     if(P.g&&P.g.sd===R.side){R.sel=d.shift?(R.sel.includes(P.g.id)?R.sel.filter(i=>i!==P.g.id):R.sel.concat(P.g.id)):[P.g.id];}else if(!d.shift)R.sel=[];R.mode=null;R.uiDirty=true;return;}
@@ -814,11 +872,11 @@ function rtStart(opt){
     R.alpha=1;R.rT=0;RT.run=R;R.cam=rtCam(R);R.sel=[];R.paused=false;R.deploy=false;R.why='';R.intro=performance.now();
     try{W3.cv.style.filter='saturate(1.18) contrast(1.07) brightness(1.02)';}catch(_){}
     rtLog(R,'À l\'abordage ! Vos troupes combattent seules ; donnez un ordre pour reprendre la main.');
-    document.body.classList.add('tacrun','rtrun');rtUI(R);dirty=true;};
+    document.body.classList.add('tacrun','rtrun');dispatchEvent(new Event('resize'));rtUI(R);dirty=true;};
   go();
 }
 function rtStop(){
-  RT.run=null;rtUI(null);TRP.tiles=[];TRP.glow=[];try{W3.cv.style.filter='';}catch(_){}RT.keys.clear();document.body.classList.remove('tacrun','rtrun');
+  RT.run=null;rtUI(null);TRP.tiles=[];TRP.glow=[];try{W3.cv.style.filter='';}catch(_){}RT.keys.clear();document.body.classList.remove('tacrun','rtrun','rt-grab');dispatchEvent(new Event('resize'));
   const P=RT.prev;RT.prev=null;if(P){speed=P.speed;V.k=P.k;V.x=P.x;V.y=P.y;W3.cam.yaw=P.yaw;W3.cam.pitch=P.pitch;if(!P.gfx)GFX.set(false);}dirty=true;
 }
 /* ============================== branchement sur la carte (étape 6) ==============================
@@ -926,64 +984,125 @@ function rtCommit(a,K,res){
 {const a=svCanSave;svCanSave=function(){return RT.run||RT.force?'Sauvegarde impossible pendant une bataille.':a();};}
 /* si la vitesse est relancée pendant l'attente, l'arrivée reste en attente (voir l'interception) */
 RT.start=rtStart;RT.stop=rtStop;RT.step=rtStep;RT.cast=rtCast;RT.give=rtGive;RT.pause=(p)=>RT.run&&rtPauseSet(RT.run,p);
-{const st=document.createElement('style');st.textContent=
+{const st=document.createElement('style');st.id='rt-css';st.textContent=
   /* thème One Piece : or du chapeau de paille, rouge de Luffy, bleu de la mer et de la Marine, parchemin des avis de recherche, bois des navires */
-  ':root{--op-or:#f5c518;--op-or2:#e09b0b;--op-rouge:#d62828;--op-mer:#0b2a4a;--op-mer2:#123f6b;--op-ciel:#3a8dde;--op-par:#f6e7c4;--op-par2:#e7cf9c;--op-encre:#2a1a0c;--op-bois:#5a361a;--op-marine:#2f74c8;--op-pirate:#d62828}'
-  +'#rt-go{position:fixed;right:14px;bottom:130px;z-index:9999;font:800 12.5px system-ui,sans-serif;letter-spacing:.3px;padding:8px 13px;border-radius:10px;border:2px solid var(--op-encre);background:linear-gradient(180deg,#ffd84d,var(--op-or2));color:var(--op-encre);box-shadow:0 3px 0 var(--op-encre),0 6px 14px #0006;cursor:pointer}body.tacrun #rt-go{display:none!important}'
-  +'#rt-ui{position:fixed;z-index:9000;pointer-events:none;font:13px system-ui,-apple-system,"Segoe UI",sans-serif;color:#fdf6e3}'
-  +'#rt-vig{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 45%,transparent 55%,rgba(8,20,38,.5) 100%)}'
+  ':root{--op-or:#f5c518;--op-or2:#e09b0b;--op-rouge:#d62828;--op-mer:#0b2a4a;--op-mer2:#123f6b;--op-ciel:#3a8dde;--op-par:#f6e7c4;--op-par2:#e7cf9c;--op-encre:#2a1a0c;--op-bois:#5a361a;--op-marine:#2f74c8;--op-pirate:#d62828;--op-titre:"OPBangers",Impact,"Arial Black",system-ui,sans-serif}'
+  +'#rt-go{position:fixed;right:14px;bottom:130px;z-index:9999;font:800 12.5px system-ui,sans-serif;letter-spacing:.3px;padding:8px 13px;border-radius:10px;border:2px solid var(--op-encre);background:linear-gradient(180deg,#ffd84d,var(--op-or2));color:var(--op-encre);cursor:pointer;box-shadow:0 3px 0 var(--op-encre),0 6px 14px #0006}'
+  +'body.tacrun #rt-go{display:none}'
+  +'#rt-ui{position:fixed;z-index:9000;pointer-events:none;font:13px system-ui,-apple-system,"Segoe UI",sans-serif;color:#fdf6e3;overflow:hidden}'
+  +'#rt-ui.rtgrab,body.rt-grab,body.rt-grab canvas{cursor:grabbing!important}'
+  +'#rt-atmo{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}'
+  +'#rt-tilt i{position:absolute;left:0;right:0;pointer-events:none;-webkit-backdrop-filter:blur(var(--tb,0px));backdrop-filter:blur(var(--tb,0px))}'
+  +'#rt-tilt i:first-child{top:0;height:24%;-webkit-mask-image:linear-gradient(#000,transparent);mask-image:linear-gradient(#000,transparent)}#rt-tilt i:last-child{bottom:0;height:12%;-webkit-mask-image:linear-gradient(transparent,#000);mask-image:linear-gradient(transparent,#000)}'
+  +'#rt-vig{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 75% 70% at 50% 48%,transparent 60%,rgba(6,16,32,.55) 100%)}'
+  +'#rt-pz{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .25s;background:linear-gradient(180deg,#0b2a4a66,#0b2a4a22 30%,#0b2a4a22 70%,#0b2a4a66);box-shadow:inset 0 0 0 4px #f5c51866}#rt-ui.pz #rt-pz{opacity:1}'
   +'#rt-flash{position:absolute;inset:0;pointer-events:none;background:#fff8e0;opacity:0;mix-blend-mode:screen}'
+  +'#rt-lbx i{position:absolute;left:0;right:0;height:9%;background:#05080d;transition:transform .35s cubic-bezier(.2,.8,.2,1)}#rt-lbx i:first-child{top:0;transform:translateY(-101%)}#rt-lbx i:last-child{bottom:0;transform:translateY(101%)}#rt-ui.cin #rt-lbx i{transform:none}'
+  +'#rt-ui.cin .rt-hdr,#rt-ui.cin .rt-tl,#rt-ui.cin .rt-tr,#rt-ui.cin .rt-bot,#rt-ui.cin #rt-cmd,#rt-ui.cin .rt-minibox{opacity:.3;transition:opacity .2s}'
+  +'.rt-hdr,.rt-tl,.rt-tr,.rt-bot,#rt-cmd,.rt-minibox{transition:opacity .3s}'
   +'#rt-intro{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);opacity:0;text-align:center;pointer-events:none}'
-  +'#rt-intro b{display:block;font:900 italic 54px system-ui,sans-serif;letter-spacing:1px;color:var(--op-or);-webkit-text-stroke:3px var(--op-encre);text-shadow:0 5px 0 var(--op-rouge),0 10px 24px #000a}'
-  +'#rt-intro small{display:inline-block;margin-top:8px;font:700 13px system-ui,sans-serif;color:var(--op-encre);background:var(--op-par);border:2px solid var(--op-encre);border-radius:8px;padding:3px 10px}'
-  /* boutons : or (action principale), bleu mer (secondaire) */
-  +'#rt-ui button{white-space:nowrap;pointer-events:auto;font:800 12px system-ui,sans-serif;border-radius:9px;border:2px solid #061626;background:linear-gradient(180deg,#1d5a93,var(--op-mer2));color:#fff;padding:5px 10px;cursor:pointer;box-shadow:0 2px 0 #061626;transition:transform .08s,filter .12s}'
+  +'#rt-intro b{display:block;font:400 76px/1 var(--op-titre);letter-spacing:2px;color:var(--op-or);-webkit-text-stroke:3px var(--op-encre);paint-order:stroke fill;text-shadow:0 6px 0 var(--op-rouge),0 12px 28px #000a}'
+  +'#rt-intro small{display:inline-block;margin-top:10px;font:700 13px system-ui,sans-serif;color:var(--op-encre);background:var(--op-par);border:2px solid var(--op-encre);border-radius:8px;padding:3px 10px}'
+  /* découpe de compétence : bandeau oblique, portrait de la planche, nom de l'attaque en lettrage manga */
+  +'#rt-cut{position:absolute;left:0;right:0;top:50%;height:150px;transform:translateY(-50%);pointer-events:none;opacity:0}'
+  +'#rt-cut.on{animation:rtcut 1.5s cubic-bezier(.2,.8,.2,1) forwards}@keyframes rtcut{0%{opacity:0;transform:translateY(-50%) scaleY(.2)}10%{opacity:1;transform:translateY(-50%) scaleY(1)}80%{opacity:1}100%{opacity:0;transform:translateY(-50%) scaleY(1)}}'
+  +'#rt-cut .bd{position:absolute;inset:18px 0;transform:skewY(-4deg);background:repeating-linear-gradient(100deg,var(--cf,#d62828) 0 34px,var(--cf2,#a01515) 34px 38px);box-shadow:0 0 0 4px var(--op-encre),0 0 0 7px var(--op-or),0 14px 30px #000a}'
+  +'#rt-cut img{position:absolute;bottom:0;height:150px;left:12%;filter:drop-shadow(5px 5px 0 var(--op-encre));animation:rtcuti 1.5s ease-out forwards}@keyframes rtcuti{0%{transform:translateX(-60px)}100%{transform:translateX(30px)}}'
+  +'#rt-cut .nm{position:absolute;left:34%;top:50%;transform:translateY(-55%) skewY(-4deg);font:400 54px/1 var(--op-titre);letter-spacing:2px;color:#fff;-webkit-text-stroke:3px var(--op-encre);paint-order:stroke fill;text-shadow:0 5px 0 var(--op-encre);white-space:nowrap}'
+  +'#rt-cut .nm small{display:block;font:800 14px system-ui,sans-serif;letter-spacing:3px;-webkit-text-stroke:0;color:var(--op-or);text-shadow:0 2px 0 var(--op-encre);text-transform:uppercase;margin-bottom:4px}'
+  /* boutons */
+  +'#rt-ui button{white-space:nowrap;pointer-events:auto;font:800 12px system-ui,sans-serif;border-radius:9px;border:2px solid #061626;background:linear-gradient(180deg,#1f629f,var(--op-mer2));color:#fff;padding:5px 10px;cursor:pointer;box-shadow:0 2px 0 #061626,inset 0 1px 0 #ffffff33}'
   +'#rt-ui button:hover{filter:brightness(1.15)}#rt-ui button:active{transform:translateY(2px);box-shadow:none}'
-  +'#rt-ui button.pri,#rt-ui button.on{background:linear-gradient(180deg,#ffd84d,var(--op-or2));color:var(--op-encre);border-color:var(--op-encre);box-shadow:0 2px 0 var(--op-encre)}'
-  +'#rt-ui button.rt-auto{background:linear-gradient(180deg,#3fb36b,#1f7a45)}#rt-ui button:disabled{opacity:.45;cursor:default;filter:none}'
-  /* bandeau du haut : planche de bois, liseré or */
-  +'.rt-top{position:absolute;left:8px;right:8px;top:8px;display:flex;gap:6px;align-items:center;flex-wrap:nowrap;overflow:hidden;background:linear-gradient(180deg,#7a4a24,var(--op-bois));border:2px solid var(--op-encre);box-shadow:inset 0 0 0 2px #c48a3a88,0 4px 14px #0007;border-radius:12px;padding:5px 9px;pointer-events:auto}'
-  +'.rt-top>span{color:var(--op-par);white-space:nowrap;font-weight:700;text-shadow:0 1px 0 #000}.rt-top b{color:var(--op-or);font-weight:900;letter-spacing:.3px}.rt-sp{flex:1}#rt-spd{display:flex;gap:4px}'
-  +'#rt-banner{position:absolute;left:50%;top:56px;transform:translateX(-50%);display:none;padding:6px 18px;border-radius:10px;background:var(--op-par);border:2px solid var(--op-encre);color:var(--op-encre);font-size:12.5px;font-weight:700;white-space:nowrap;box-shadow:0 4px 0 var(--op-encre)}#rt-banner.on{display:block}#rt-banner b{color:var(--op-rouge);font-weight:900;letter-spacing:1px}'
-  /* panneaux : verre bleu mer, liseré or */
-  +'.rt-obj,.rt-minibox,#rt-info,#rt-cmd{background:linear-gradient(180deg,#0f3456ee,#0a2440ee);border:2px solid #061626;box-shadow:inset 0 0 0 1px #f5c51855,0 6px 16px #0008;border-radius:12px}'
-  +'.rt-obj{position:absolute;left:8px;top:56px;width:200px;max-height:calc(100% - 250px);overflow:auto;padding:8px 10px;pointer-events:auto;display:flex;flex-direction:column;gap:3px}.rt-obj small{color:#dfe9f3;line-height:1.32}.rt-log{font-size:10.5px}'
-  +'.rt-h{font-weight:900;color:var(--op-or);margin-top:3px;text-transform:uppercase;letter-spacing:.6px;font-size:11.5px}.rt-bar{height:8px;border-radius:5px;background:#00000055;overflow:hidden;border:1px solid #061626}.rt-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--op-or2),var(--op-or))}'
-  +'#rt-ui .rt-ap{align-self:flex-start;padding:2px 8px;font-size:11px}'
-  +'.rt-minibox{position:absolute;right:8px;top:56px;padding:6px;pointer-events:auto;display:flex;flex-direction:column;gap:3px;align-items:center}#rt-mini{width:120px;height:171px;border-radius:6px;cursor:crosshair;border:2px solid var(--op-par2);box-shadow:0 0 0 1px #061626}.rt-minibox small{font-size:10px;color:#b9cde0;width:120px;text-align:center}'
-  +'#rt-info{position:absolute;left:8px;bottom:142px;max-width:470px;padding:6px 10px;font-size:11.5px;color:#eef4fa;line-height:1.4}.rt-cause{color:var(--op-or)}'
-  +'.rt-ord{position:absolute;left:8px;right:8px;bottom:104px;display:flex;gap:6px;align-items:center;flex-wrap:wrap;pointer-events:auto}.rt-ord>span{font-size:11.5px;color:var(--op-encre);background:var(--op-par);border:2px solid var(--op-encre);border-radius:8px;padding:3px 9px;font-weight:700}.rt-sep{width:8px}'
-  +'.rt-obj .rt-help{font-size:10.5px;color:#a9c0d6}'
-  +'.rt-bot{position:absolute;left:8px;right:8px;bottom:8px;height:90px;display:flex;gap:8px;align-items:stretch;pointer-events:auto}'
-  /* cartes des groupes : avis de recherche (parchemin, bandeau de camp) */
-  +'#rt-cards{display:flex;gap:7px;flex:1;overflow-x:auto;padding-bottom:2px}'
-  +'#rt-ui .rt-card{position:relative;white-space:normal;overflow:hidden;display:flex;flex-direction:column;gap:3px;min-width:136px;max-width:180px;text-align:left;padding:15px 8px 5px;background:linear-gradient(180deg,var(--op-par),var(--op-par2));color:var(--op-encre);border:2px solid var(--op-encre);border-radius:8px;box-shadow:0 3px 0 var(--op-encre)}'
-  +'#rt-ui .rt-card::before{content:"";position:absolute;left:0;right:0;top:0;height:11px;background:var(--rt-camp,var(--op-pirate))}'
-  +'#rt-ui .rt-card.on{outline:3px solid var(--op-or);outline-offset:1px;transform:translateY(-3px)}.rt-card.off{opacity:.45;filter:grayscale(.7)}'
-  +'.rt-ct{display:flex;justify-content:space-between;gap:6px;align-items:baseline}.rt-ct b{font-weight:900}.rt-ct span{font:900 13px system-ui,sans-serif;color:var(--op-rouge)}.rt-card small{font-weight:600;font-size:10.5px;color:#5a3b1d}'
-  +'.rt-badge{position:absolute;top:0;right:4px;font:900 normal 8.5px system-ui,sans-serif;letter-spacing:.8px;color:#fff;line-height:11px}.rt-badge.man{color:var(--op-or)}'
+  +'#rt-ui button.pri,#rt-ui button.on{background:linear-gradient(180deg,#ffe066,var(--op-or2));color:var(--op-encre);border-color:var(--op-encre);box-shadow:0 2px 0 var(--op-encre),inset 0 1px 0 #fff8}'
+  +'#rt-ui button.rouge{background:linear-gradient(180deg,#e64545,#9c1717)}#rt-ui button.rt-auto{background:linear-gradient(180deg,#3fb36b,#1f7a45)}#rt-ui button:disabled{opacity:.45;cursor:default;filter:none}'
+  /* bandeau de bataille */
+  +'.rt-hdr{position:absolute;left:50%;top:8px;transform:translateX(-50%);display:flex;align-items:stretch;gap:0;pointer-events:none;filter:drop-shadow(0 6px 10px #0009)}'
+  +'.rt-camp{display:flex;align-items:center;gap:9px;padding:6px 16px 6px 10px;min-width:250px;background:linear-gradient(180deg,#123f6bf2,#0a2440f2);border:2px solid #061626;border-right:0;border-radius:14px 0 0 14px;box-shadow:inset 0 0 0 1px #f5c51844;clip-path:polygon(0 0,100% 0,96% 100%,0 100%)}'
+  +'.rt-camp.eux{flex-direction:row-reverse;text-align:right;padding:6px 10px 6px 16px;border-radius:0 14px 14px 0;border:2px solid #061626;border-left:0;clip-path:polygon(0 0,100% 0,100% 100%,4% 100%);background:linear-gradient(180deg,#3a1414f2,#240a0af2)}'
+  +'.rt-emb{flex:none;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:21px;color:#fff;background:radial-gradient(circle at 35% 30%,var(--f),var(--f2));border:2px solid var(--op-encre);box-shadow:0 0 0 2px var(--op-or),inset 0 -3px 0 #0004}'
+  +'.rt-cn{display:flex;flex-direction:column;line-height:1.1;min-width:0}.rt-cn b{font:400 19px/1 var(--op-titre);letter-spacing:.8px;color:#fff}.rt-cn small{font-size:10.5px;color:#b9cde0;font-weight:700}'
+  +'.rt-cv{display:flex;align-items:baseline;gap:2px}.rt-big{font:400 30px/1 var(--op-titre);color:var(--op-or);-webkit-text-stroke:1px var(--op-encre);paint-order:stroke fill}.rt-cv small{font-size:11px;color:#b9cde0}'
+  +'.rt-cb{display:flex;flex-direction:column;gap:3px;min-width:74px}.rt-cb .rt-mb{width:74px}.rt-hh{display:flex;align-items:center;gap:4px;font-size:10px;font-weight:800;color:#e8eef5}.rt-hh em{font-style:normal;width:38px;overflow:hidden;text-overflow:ellipsis}.rt-hh .rt-hp{width:34px;height:4px}.rt-hh.off{opacity:.4}'
+  +'.rt-camp.eux .rt-hh{flex-direction:row-reverse}'
+  +'.rt-medal{position:relative;width:96px;flex:none;margin:-4px -6px 0;z-index:1;display:flex;flex-direction:column;align-items:center}'
+  +'.rt-medal svg{width:78px;height:78px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#fff6d8,var(--op-par2));border:3px solid var(--op-encre);box-shadow:0 0 0 3px var(--op-or),0 6px 0 var(--op-encre);transform:rotate(-90deg)}'
+  +'.rt-r0{fill:none;stroke:#2a1a0c22;stroke-width:7}.rt-r1{fill:none;stroke:var(--op-or2);stroke-width:7;stroke-linecap:round;transition:stroke-dasharray .3s}.rt-r1.disp{stroke:var(--op-rouge);animation:rtdisp .8s infinite}@keyframes rtdisp{50%{opacity:.45}}'
+  +'.rt-mt{position:absolute;top:19px;left:0;right:0;text-align:center;color:var(--op-encre);line-height:1}.rt-mt b{display:block;font:400 22px/1 var(--op-titre);letter-spacing:.5px}.rt-mt small{font-size:9.5px;font-weight:800;color:#6b4a22}'
+  +'.rt-ml{margin-top:7px;font-size:9.5px;font-weight:900;letter-spacing:.4px;text-transform:uppercase;color:var(--op-encre);background:var(--op-par);border:2px solid var(--op-encre);border-radius:7px;padding:1px 6px;white-space:nowrap}'
+  /* coin haut gauche : titre, mission, notifications */
+  +'.rt-tl{position:absolute;left:10px;top:10px;width:228px;display:flex;flex-direction:column;gap:6px}'
+  +'.rt-title{display:flex;flex-direction:column;line-height:1}.rt-title b{font:400 24px/1 var(--op-titre);letter-spacing:1px;color:var(--op-or);-webkit-text-stroke:1.5px var(--op-encre);paint-order:stroke fill;text-shadow:0 3px 0 var(--op-encre),0 6px 14px #0008}.rt-title small{font-size:10.5px;font-weight:700;color:#fff;text-shadow:0 1px 2px #000}'
+  +'.rt-obj{pointer-events:auto;padding:7px 10px 8px;background:linear-gradient(180deg,var(--op-par),var(--op-par2));color:var(--op-encre);border:2px solid var(--op-encre);border-radius:10px;box-shadow:0 4px 0 var(--op-encre),0 8px 16px #0007}'
+  +'.rt-obj p{margin:2px 0 5px;font-size:11.5px;line-height:1.3;font-weight:600}.rt-h{font:400 14px/1 var(--op-titre);letter-spacing:1px;color:var(--op-rouge)}.rt-obj .rt-h{color:var(--op-rouge)}'
+  +'.rt-bar{height:7px;border-radius:5px;background:#2a1a0c22;overflow:hidden;border:1px solid #2a1a0c66}.rt-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--op-or2),var(--op-or))}'
+  +'.rt-ob{display:flex;gap:4px;margin-top:6px;flex-wrap:wrap}#rt-ui .rt-ob button{font-size:10px;padding:2px 7px;border-radius:7px;background:linear-gradient(180deg,#fff7e2,#ead3a3);color:var(--op-encre);border-color:#2a1a0c88;box-shadow:0 1px 0 #2a1a0c88}#rt-ui .rt-ob button.on{background:linear-gradient(180deg,#ffe066,var(--op-or2))}'
+  +'.rt-feed{display:flex;flex-direction:column;gap:4px}.rt-nt{font-size:11px;font-weight:700;line-height:1.25;padding:4px 8px;border-radius:8px;background:#0a2440d9;border-left:3px solid var(--op-or);color:#fff;box-shadow:0 3px 8px #0006;transition:opacity .5s}.rt-nt em,#rt-jr em{font-style:normal;color:var(--op-or);font-weight:900}'
+  +'#rt-jr{position:absolute;left:246px;top:10px;width:300px;max-height:46%;overflow:auto;pointer-events:auto;padding:8px 11px;display:flex;flex-direction:column;gap:3px;background:linear-gradient(180deg,#123f6bf2,#0a2440f2);border:2px solid #061626;border-radius:12px;box-shadow:inset 0 0 0 1px #f5c51844,0 8px 16px #0008}#rt-jr small{font-size:11px;color:#dfe9f3;line-height:1.35}#rt-jr .rt-h{color:var(--op-or);margin-top:3px}'
+  /* coin haut droit : contrôles */
+  +'.rt-tr{position:absolute;right:10px;top:10px;display:flex;flex-direction:column;align-items:flex-end;gap:6px}.rt-grp{display:flex;gap:0;pointer-events:auto;filter:drop-shadow(0 3px 6px #0007)}'
+  +'#rt-ui .rt-grp button{border-radius:0;margin-left:-2px}#rt-ui .rt-grp button:first-child{border-radius:9px 0 0 9px;margin-left:0}#rt-ui .rt-grp button:last-child{border-radius:0 9px 9px 0}'
+  +'#rt-ui #rt-pb{font:400 17px/1 var(--op-titre);letter-spacing:1px;padding:7px 16px;min-width:126px}'
+  +'#rt-banner{position:absolute;left:50%;top:104px;transform:translateX(-50%);display:none;flex-direction:column;align-items:center;padding:6px 26px 7px;background:linear-gradient(180deg,var(--op-par),var(--op-par2));border:3px solid var(--op-encre);border-radius:12px;color:var(--op-encre);box-shadow:0 5px 0 var(--op-encre),0 10px 24px #000a;white-space:nowrap}'
+  +'#rt-banner.on{display:flex}#rt-banner b{font:400 26px/1 var(--op-titre);letter-spacing:2px;color:var(--op-rouge)}#rt-banner small{font-size:11.5px;font-weight:700}'
+  /* minicarte : cadre de bois */
+  +'.rt-minibox{position:absolute;left:10px;bottom:10px;padding:6px 7px 6px;pointer-events:auto;display:flex;flex-direction:column;gap:4px;align-items:center;background:linear-gradient(180deg,#7a4a24,var(--op-bois));border:2px solid var(--op-encre);border-radius:12px;box-shadow:inset 0 0 0 2px #c48a3a77,0 8px 16px #0008}'
+  +'.rt-mh{align-self:stretch;display:flex;justify-content:space-between;font:400 13px/1 var(--op-titre);letter-spacing:1px;color:var(--op-or)}.rt-mh span{font:800 10px system-ui;color:var(--op-par)}'
+  +'#rt-mini{width:128px;height:183px;border-radius:6px;cursor:crosshair;border:2px solid var(--op-encre);box-shadow:inset 0 0 0 1px #0004}.rt-minibox small{font-size:9.5px;font-weight:700;color:var(--op-par);width:128px;text-align:center;line-height:1.2}'
+  /* bas : fiche, ordres, cartes */
+  +'.rt-bot{position:absolute;left:162px;right:392px;bottom:10px;display:flex;flex-direction:column;gap:6px;align-items:flex-start}'
+  +'#rt-info{display:flex;gap:8px;flex-wrap:wrap;align-items:baseline;padding:4px 10px;font-size:11.5px;font-weight:700;color:#eef4fa;background:#0a2440e6;border:2px solid #061626;border-radius:9px;box-shadow:inset 0 0 0 1px #f5c51833}#rt-info b{font:400 15px/1 var(--op-titre);letter-spacing:.6px;color:var(--op-or)}#rt-info .tg{color:#9fe0a8}.rt-cause{color:var(--op-or);font-style:normal}'
+  +'.rt-ord{display:flex;gap:5px;align-items:center;flex-wrap:wrap;pointer-events:none}.rt-ord>*{pointer-events:auto}'
+  +'#rt-ui .rt-o{display:flex;align-items:center;gap:5px;padding:5px 9px}.rt-o i{font-style:normal;font-size:14px;line-height:1}.rt-o kbd{font:900 9.5px system-ui;padding:1px 4px;border-radius:4px;background:#0006;color:var(--op-or);border:1px solid #fff3}#rt-ui .rt-o.on kbd{background:#2a1a0c22;color:var(--op-encre)}'
+  +'.rt-sep{width:2px;height:22px;background:#ffffff44;border-radius:2px}'
+  +'.rt-hint{font-size:11.5px;color:var(--op-encre);background:var(--op-par);border:2px solid var(--op-encre);border-radius:9px;padding:4px 10px;box-shadow:0 3px 0 var(--op-encre)}'
+  +'#rt-cards{display:flex;gap:7px;max-width:100%;overflow-x:auto;padding:4px 2px 2px;pointer-events:none}#rt-cards>*{pointer-events:auto}'
+  +'#rt-ui .rt-card{position:relative;white-space:normal;overflow:hidden;display:flex;flex-direction:column;gap:2px;width:112px;flex:none;text-align:left;padding:13px 6px 5px;background:linear-gradient(180deg,var(--op-par),var(--op-par2));color:var(--op-encre);border:2px solid var(--op-encre);border-radius:8px;box-shadow:0 4px 0 var(--op-encre),0 7px 12px #0007;transition:transform .12s}'
+  +'#rt-ui .rt-card::before{content:"";position:absolute;left:0;right:0;top:0;height:10px;background:var(--rt-camp,var(--op-pirate));border-bottom:2px solid var(--op-encre)}'
+  +'#rt-ui .rt-card:hover{transform:translateY(-3px)}#rt-ui .rt-card.on{outline:3px solid var(--op-or);outline-offset:1px;transform:translateY(-5px);box-shadow:0 4px 0 var(--op-encre),0 0 18px #f5c518aa}.rt-card.off{opacity:.45;filter:grayscale(.8)}'
+  +'.rt-pic{display:flex;align-items:flex-end;justify-content:center;height:62px;margin:0 -2px;background:radial-gradient(ellipse 60% 40% at 50% 92%,#2a1a0c33,transparent),linear-gradient(180deg,#fff8e6,#efdcb2);border:1px solid #2a1a0c55;border-radius:5px;overflow:hidden}.rt-pic img{max-height:60px;max-width:100%;image-rendering:auto}.rt-pic em{font-style:normal;font-size:30px;align-self:center}'
+  +'.rt-card.hero .rt-pic{background:radial-gradient(circle at 50% 70%,#ffe9a6,#e8c27a)}'
+  +'.rt-ct{display:flex;justify-content:space-between;gap:4px;align-items:baseline;margin-top:2px}.rt-ct b{font:400 13.5px/1 var(--op-titre);letter-spacing:.4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.rt-ct span{font:400 16px/1 var(--op-titre);color:var(--op-rouge)}.rt-ct span small{font:800 9px system-ui;color:#6b4a22}'
+  +'.rt-card small{font-weight:700;font-size:9.5px;color:#5a3b1d;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}'
+  +'.rt-badge{position:absolute;top:-1px;right:4px;font:900 normal 8px system-ui,sans-serif;letter-spacing:.8px;color:#fff;line-height:11px}.rt-badge.man{color:var(--op-or)}'
   +'.rt-card.st-ebranle{--rt-camp:#e0a20b}.rt-card.st-desorg{--rt-camp:#e06a1b}.rt-card.st-deroute{--rt-camp:#7a1010}'
-  +'.rt-mb{position:relative;display:block;height:7px;border-radius:4px;background:#2a1a0c33;overflow:visible;border:1px solid #2a1a0c66}.rt-mb b{display:block;height:100%;border-radius:3px;background:linear-gradient(90deg,#1f9a52,#46d27f)}.rt-mb b.moy{background:linear-gradient(90deg,#d98a00,var(--op-or))}.rt-mb b.bas{background:linear-gradient(90deg,#8e0f0f,var(--op-rouge))}.rt-mb.hp b{background:linear-gradient(90deg,#a3121c,#ff4d5a)}'
-  +'.rt-mb u{position:absolute;top:-2px;width:2px;height:11px;background:var(--op-encre)}.rt-card .rt-mb{flex:none;height:8px}.rt-card>*{flex:none}.rt-card small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}'
-  +'#rt-cmd{width:270px;flex:none;padding:6px 9px;display:flex;flex-direction:column;gap:4px;overflow:hidden}#rt-cmd:empty{display:none}#rt-cmd small{font-size:10.5px;color:#d7e4f0;line-height:1.3}.rt-sk{display:flex;gap:6px;align-items:center;flex-wrap:wrap}'
-  +'#rt-ui .rt-sk button[data-rt="q"]:not(:disabled){animation:rtpulse 1.2s infinite}@keyframes rtpulse{50%{box-shadow:0 0 0 3px #f5c51888,0 2px 0 var(--op-encre)}}'
-  /* fin de bataille : grand titre façon manga, lignes de vitesse */
-  +'#rt-end{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:repeating-conic-gradient(from 0deg,#f6e7c4 0deg 6deg,#efd9aa 6deg 12deg);border:3px solid var(--op-encre);border-radius:16px;padding:18px 26px;pointer-events:auto;text-align:center;max-width:580px;color:var(--op-encre);box-shadow:0 8px 0 var(--op-encre),0 18px 40px #000a}'
-  +'#rt-end h2{margin:0 0 6px;font:900 italic 46px system-ui,sans-serif;color:var(--op-or);-webkit-text-stroke:2.5px var(--op-encre);text-shadow:0 4px 0 var(--op-rouge)}#rt-end p{margin:6px 0;font-weight:600}#rt-end table{margin:8px auto;font-size:12px;border-collapse:collapse;background:#fff8;border-radius:8px}#rt-end th,#rt-end td{padding:4px 9px;text-align:left;border-bottom:1px solid #2a1a0c22}#rt-end .rt-note{font-size:11px;color:#5a3b1d}#rt-end button{margin:4px}'
+  +'.rt-mb{position:relative;display:block;height:7px;border-radius:4px;background:#2a1a0c33;overflow:visible;border:1px solid #2a1a0c66}.rt-mb b{display:block;height:100%;border-radius:3px;background:linear-gradient(90deg,#1f9a52,#46d27f)}.rt-mb b.moy{background:linear-gradient(90deg,#c98a06,#f2c230)}.rt-mb b.bas{background:linear-gradient(90deg,#a3121c,#e8414c)}'
+  +'.rt-mb.hp b{background:linear-gradient(90deg,#a3121c,#ff4d5a)}.rt-mb u{position:absolute;top:-2px;width:2px;height:9px;background:var(--op-encre)}.rt-card .rt-mb{flex:none;height:7px}.rt-card>*{flex:none}'
+  +'.rt-hp{display:block;height:5px;border-radius:3px;background:#ffffff33;overflow:hidden}.rt-hp b{display:block;height:100%;background:linear-gradient(90deg,#a3121c,#ff4d5a);border-radius:3px}.rt-hp.big{height:8px;border:1px solid #061626}'
+  /* commandant : médaillon */
+  +'#rt-cmd{position:absolute;right:10px;bottom:10px;width:372px;height:118px;pointer-events:auto;display:flex;align-items:center;gap:8px;padding:8px 10px 8px 8px;background:linear-gradient(180deg,#123f6bf2,#0a2440f2);border:2px solid #061626;border-radius:60px 14px 14px 60px;box-shadow:inset 0 0 0 1px #f5c51855,0 8px 18px #0009}#rt-cmd:empty{display:none}'
+  +'.rt-por{flex:none;width:96px;height:96px;border-radius:50%;overflow:hidden;display:flex;align-items:flex-end;justify-content:center;background:radial-gradient(circle at 50% 35%,#fff3c4,#d9a84c);border:3px solid var(--op-encre);box-shadow:0 0 0 3px var(--op-or),inset 0 -6px 12px #0003}.rt-por img{height:92px;margin-bottom:-6px}.rt-por.off{filter:grayscale(1) brightness(.7)}'
+  +'.rt-cmb{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}.rt-cnm{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}.rt-cnm b{font:400 22px/1 var(--op-titre);letter-spacing:1px;color:var(--op-or);-webkit-text-stroke:1px var(--op-encre);paint-order:stroke fill}.rt-cnm small{font-size:10.5px;font-weight:800;color:#b9cde0}'
+  +'#rt-ui .rt-cnm button{font-size:10.5px;padding:2px 7px}.rt-pas{font-size:9.5px;color:#c8d7e6;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}#rt-ui .rt-mini2{align-self:flex-start;font-size:9.5px;padding:2px 7px}'
+  +'#rt-ui .rt-skill{position:relative;flex:none;align-self:flex-start;margin-top:4px;width:74px;height:74px;padding:0;border-radius:50%;display:grid;place-items:center;border:3px solid var(--op-encre);background:conic-gradient(var(--op-or) var(--u),#0a2440 0);box-shadow:0 4px 0 var(--op-encre),0 6px 16px #000a}'
+  +'#rt-ui .rt-skill i{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;font:400 28px/1 var(--op-titre);font-style:normal;color:#fff;background:radial-gradient(circle at 40% 30%,#e64545,#8e1414);border:2px solid var(--op-encre);-webkit-text-stroke:1px var(--op-encre);paint-order:stroke fill}'
+  +'#rt-ui .rt-skill span{position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:4px;max-width:120px;overflow:hidden;text-overflow:ellipsis;font:800 9.5px system-ui;color:var(--op-encre);background:var(--op-par);border:2px solid var(--op-encre);border-radius:6px;padding:1px 6px;white-space:nowrap}'
+  +'#rt-ui .rt-skill:disabled{opacity:1}#rt-ui .rt-skill:disabled i{background:radial-gradient(circle at 40% 30%,#5b6b7c,#2b3846);color:#dfe9f3}'
+  +'#rt-ui .rt-skill.pret{animation:rtpulse 1.1s infinite}#rt-ui .rt-skill.on i{background:radial-gradient(circle at 40% 30%,#ffe066,var(--op-or2));color:var(--op-encre)}@keyframes rtpulse{50%{box-shadow:0 4px 0 var(--op-encre),0 0 0 7px #f5c51866,0 6px 16px #000a}}'
+  /* fin de bataille */
+  +'#rt-end{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);min-width:440px;background:repeating-conic-gradient(from 0deg at 50% 0%,#f6e7c4 0deg 5deg,#ecd5a2 5deg 10deg);border:4px solid var(--op-encre);border-radius:18px;padding:22px 30px 18px;pointer-events:auto;text-align:center;color:var(--op-encre);box-shadow:0 0 0 4px var(--op-or),0 10px 0 var(--op-encre),0 26px 60px #000c;animation:rtend .5s cubic-bezier(.2,1.4,.4,1)}@keyframes rtend{0%{transform:translate(-50%,-50%) scale(.6);opacity:0}}'
+  +'#rt-end .rt-ew{position:absolute;right:-64px;top:-96px;height:150px;pointer-events:none;filter:drop-shadow(4px 4px 0 var(--op-encre))}#rt-end.perdu .rt-ew{filter:grayscale(.6) drop-shadow(4px 4px 0 var(--op-encre))}'
+  +'#rt-end h2{margin:0 0 4px;font:400 64px/1 var(--op-titre);letter-spacing:3px;color:var(--op-or);-webkit-text-stroke:3px var(--op-encre);paint-order:stroke fill;text-shadow:0 6px 0 var(--op-rouge)}#rt-end.perdu h2{color:#b9cde0;text-shadow:0 6px 0 var(--op-mer)}'
+  +'#rt-end p{margin:6px 0;font-weight:700;max-width:520px}#rt-end em{font-style:normal;color:#6b4a22}#rt-end table{margin:10px auto;font-size:12px;border-collapse:collapse}#rt-end th{font:400 15px var(--op-titre);letter-spacing:.6px;text-align:left;padding:3px 10px 3px 0}#rt-end td{padding:3px 8px;border-top:1px solid #2a1a0c33;text-align:left}'
+  +'#rt-end .rt-note{font-size:11.5px;font-weight:600}.rt-eb{display:flex;gap:8px;justify-content:center;margin-top:10px}#rt-ui .rt-eb button{font:400 16px/1 var(--op-titre);letter-spacing:1px;padding:8px 16px}'
   +'#rt-ask{position:fixed;inset:0;z-index:9500;background:radial-gradient(ellipse,#0b2a4a88,#000b);display:flex;align-items:center;justify-content:center;font:13px system-ui,sans-serif;color:var(--op-encre)}#rt-ask[hidden]{display:none}'
-  +'.rt-askb{background:linear-gradient(180deg,var(--op-par),var(--op-par2));border:3px solid var(--op-encre);border-radius:14px;padding:16px 22px;max-width:540px;box-shadow:0 7px 0 var(--op-encre),0 18px 40px #000a}.rt-askb h3{margin:0 0 6px;font:900 italic 26px system-ui,sans-serif;color:var(--op-rouge);text-transform:uppercase}.rt-askb p{margin:6px 0;line-height:1.4}.rt-askb i{color:#7a5a3a}.rt-askb .rt-note{font-size:11.5px;color:#5a3b1d}'
-  +'.rt-askbt{display:flex;gap:8px;margin:10px 0}.rt-askb button{font:800 13px system-ui,sans-serif;border-radius:9px;border:2px solid var(--op-encre);background:linear-gradient(180deg,#1d5a93,var(--op-mer2));color:#fff;padding:8px 14px;cursor:pointer;box-shadow:0 3px 0 var(--op-encre)}.rt-askb button.pri{background:linear-gradient(180deg,#ffd84d,var(--op-or2));color:var(--op-encre)}.rt-askb select{font:12px system-ui;background:#fff8;color:var(--op-encre);border:2px solid var(--op-encre);border-radius:6px}'
+  +'.rt-askb{background:linear-gradient(180deg,var(--op-par),var(--op-par2));border:3px solid var(--op-encre);border-radius:14px;padding:16px 22px;max-width:540px;box-shadow:0 0 0 4px var(--op-or),0 7px 0 var(--op-encre),0 18px 40px #000a}.rt-askb h3{margin:0 0 6px;font:400 30px/1 var(--op-titre);letter-spacing:1.5px;color:var(--op-rouge)}.rt-askb p{margin:6px 0;line-height:1.4}'
+  +'.rt-askbt{display:flex;gap:8px;margin:10px 0;flex-wrap:wrap}.rt-askb button{font:800 13px system-ui,sans-serif;border-radius:9px;border:2px solid var(--op-encre);background:linear-gradient(180deg,#1f629f,var(--op-mer2));color:#fff;padding:8px 14px;cursor:pointer;box-shadow:0 3px 0 var(--op-encre)}.rt-askb button.pri{background:linear-gradient(180deg,#ffe066,var(--op-or2));color:var(--op-encre)}.rt-askb small{color:#5a3b1d}'
   +'#rt-box{position:absolute;display:none;border:2px dashed var(--op-or);background:#f5c5181f}'
   +'#rt-lab{position:fixed;left:0;top:0;z-index:8990;pointer-events:none}'
   /* étiquettes au-dessus des groupes */
-  +'.rt-tag{position:fixed;transform:translate(-50%,-100%);font:900 11px system-ui,sans-serif;padding:1px 7px 2px;border-radius:8px;background:#0b2a4ae0;color:#fff;white-space:nowrap;display:flex;flex-direction:column;align-items:center;gap:2px;border:2px solid #061626;text-shadow:0 1px 0 #000}'
-  +'.rt-tag .rt-mb,.rt-tag .rt-hp{width:36px;height:4px}.rt-hp{display:block;border-radius:2px;background:#ffffff33}.rt-hp b{display:block;height:100%;background:linear-gradient(90deg,#a3121c,#ff4d5a);border-radius:2px}'
-  +'.rt-tag.moi{border-color:var(--op-marine);box-shadow:inset 3px 0 0 var(--op-ciel)}.rt-tag.eux{border-color:#8e1414;box-shadow:inset 3px 0 0 var(--op-rouge)}.rt-tag.sel{border-color:var(--op-or);color:var(--op-or)}'
+  +'.rt-tag{position:fixed;transform:translate(-50%,-100%);font:400 12.5px/1.1 var(--op-titre);letter-spacing:.5px;padding:2px 7px 3px;border-radius:8px;background:#0b2a4ae0;color:#fff;white-space:nowrap;display:flex;flex-direction:column;align-items:center;gap:2px;border:2px solid #061626;box-shadow:0 2px 6px #0007}'
+  +'.rt-tag .rt-mb,.rt-tag .rt-hp{width:36px;height:4px}'
+  +'.rt-tag.moi{border-color:var(--op-marine);box-shadow:inset 3px 0 0 var(--op-ciel),0 2px 6px #0007}.rt-tag.eux{background:#3a1010e0;border-color:#8e1414;box-shadow:inset 3px 0 0 var(--op-rouge),0 2px 6px #0007}.rt-tag.sel{border-color:var(--op-or);color:var(--op-or)}'
   +'.rt-step{position:fixed;transform:translate(-50%,-50%);font:900 11px system-ui,sans-serif;width:18px;height:18px;line-height:15px;text-align:center;border-radius:50%;background:var(--op-or);color:var(--op-encre);border:2px solid var(--op-encre)}'
-  +'.rt-num{position:fixed;transform:translate(-50%,-100%);font:900 italic 17px system-ui,sans-serif;color:var(--op-or);-webkit-text-stroke:1px var(--op-encre);text-shadow:0 2px 0 var(--op-encre)}.rt-num.moi{color:#ff6b6b}';
+  +'.rt-num{position:fixed;transform:translate(-50%,-100%);font:400 19px/1 var(--op-titre);color:var(--op-or);-webkit-text-stroke:1.5px var(--op-encre);paint-order:stroke fill;text-shadow:0 2px 0 var(--op-encre)}.rt-num.moi{color:#ff6b6b}'
+  /* plein écran pendant la bataille : le champ de bataille prend tout l\'écran */
+  +'body.rtrun .hud,body.rtrun #players,body.rtrun #phase,body.rtrun #side,body.rtrun .zoomctl,body.rtrun #mini,body.rtrun #selcard,body.rtrun #b-end,body.rtrun #log,body.rtrun #hint,body.rtrun #evbar,body.rtrun #brief,body.rtrun #evt,body.rtrun #cs-hud,body.rtrun #minibox,body.rtrun #gfx-btn,body.rtrun #gfx-demo,body.rtrun #tac-go,body.rtrun #rt-go,body.rtrun #op-dock,body.rtrun .tu-card{display:none!important}'
+  +'body.rtrun .app{padding:0!important;gap:0!important;height:100vh!important;max-height:100vh}body.rtrun #main{display:block!important;height:100vh!important;margin:0!important;padding:0!important}body.rtrun #mapwrap{width:100vw!important;height:100vh!important;border-radius:0!important;border:0!important;margin:0!important;background:#05080d!important}';
   document.head.appendChild(st);
   const b=document.createElement('button');b.id='rt-go';b.type='button';b.textContent='Combat temps réel (essai)';b.title='Bataille en temps réel avec pause sur Alabasta : Marine de Garp contre Pirates d\'Ace (la partie n\'est pas modifiée)';
   b.addEventListener('click',e=>{e.stopPropagation();rtStart({side:0});});document.body.appendChild(b);}
 RT.scr=(x,y,z)=>{const R=RT.run;if(!R||!R.cam)return null;const p=w3Proj(x,y,z===undefined?R.M.z(x,y):z,R.cam);if(!p)return null;const rc=W3.cv.getBoundingClientRect(),k=rc.width/W3.cv.width;return [rc.left+p.sx*k,rc.top+p.sy*k];};
 RT.canSave=()=>svCanSave();RT.anims=rtAnims;RT.best=(h)=>rtSkillBest(RT.run,h);RT.demoSpec=rtDemoSpec;RT.fac=rtFac;RT.qualif=rtQualif;RT.isle=rtIsle;
 window.__RT=RT;   /* essais */
+/* mesures (lecture seule) : moteur, planches, compteurs de rendu */
+RT.dbg={get W3(){return W3;},get TRP_DATA(){return TRP_DATA;},get TRP(){return TRP;},ui:R=>rtUI(R),frame:()=>{const t=performance.now();w3Frame();W3.gl.finish();return performance.now()-t;}};
