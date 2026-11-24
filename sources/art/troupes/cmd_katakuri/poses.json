@@ -1,0 +1,105 @@
+{
+ "planche": "katakuri.png",
+ "zone": [
+  0,
+  0,
+  1036,
+  1548
+ ],
+ "dilatation": 4,
+ "alpha_min": 60,
+ "echelle": 1.3,
+ "poses": {
+  "garde_1": [
+   76,
+   348
+  ],
+  "garde_2": [
+   221,
+   351
+  ],
+  "garde_3": [
+   365,
+   350
+  ],
+  "course": [
+   618,
+   737
+  ],
+  "preparation": [
+   384,
+   925
+  ],
+  "attaque_1": [
+   935,
+   764
+  ],
+  "attaque_2": [
+   865,
+   939
+  ],
+  "reaction_1": [
+   59,
+   1109
+  ],
+  "reaction_2": [
+   61,
+   1270
+  ],
+  "cri": [
+   73,
+   931
+  ]
+ },
+ "animations": {
+  "garde": {
+   "images": [
+    "garde_1",
+    "garde_2",
+    "garde_3"
+   ],
+   "ips": 6,
+   "boucle": true
+  },
+  "deplacement": {
+   "images": [
+    "course"
+   ],
+   "ips": 0,
+   "boucle": true
+  },
+  "preparation": {
+   "images": [
+    "preparation"
+   ],
+   "ips": 0,
+   "boucle": false
+  },
+  "attaque": {
+   "images": [
+    "attaque_1",
+    "attaque_2"
+   ],
+   "ips": 8,
+   "boucle": false
+  },
+  "reaction": {
+   "images": [
+    "reaction_1",
+    "reaction_2"
+   ],
+   "ips": 5,
+   "boucle": false
+  },
+  "cri": {
+   "images": [
+    "cri"
+   ],
+   "ips": 0,
+   "boucle": false
+  }
+ },
+ "ref": "garde_1",
+ "troupe": "cmd_katakuri",
+ "note": "Planche fournie par l'utilisateur le 24/11/2026 (poses relevées par numéro de bloc, voir aperçu)."
+}

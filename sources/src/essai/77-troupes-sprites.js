@@ -329,8 +329,12 @@ window.__trpG=t=>{const G=trpGrid(t);if(G)trpGarLayout(t,G);return G;};window.__
 /* faction de chaque planche de commandant (canon) : un commandant n'est dessiné qu'avec SA faction.
    Le jeu laisse les Révolutionnaires recruter Ace (LEGENDS camps pirate+revo) : ce recrutement reste permis,
    mais la planche d'Ace (pirate de Barbe Blanche) n'est pas posée dans une armée révolutionnaire. */
-const TRP_CMD_FAC={Ace:'pirate',Shanks:'pirate',Luffy:'pirate',Nami:'pirate',Akainu:'marine',Garp:'marine'};
-function trpCmdCamp(name,fac){const L=LEGENDS.find(l=>l.s===name);return !!(L&&TRP_CMD_FAC[name]===fac&&(L.camps||[]).includes(fac));}
+/* camp(s) où chaque commandant à planche paraît sur le terrain ; les planches du 24/11/2026 suivent les camps de la liste du jeu (LEGENDS) */
+const TRP_CMD_FAC={Ace:'pirate',Shanks:'pirate',Luffy:'pirate',Nami:'pirate',Akainu:'marine',Garp:'marine',
+  Sengoku:['marine'],Smoker:['marine','chasseur'],Mihawk:['marine','pirate','revo','chasseur'],Zoro:['pirate','chasseur'],Law:['pirate','revo','chasseur'],Rayleigh:['pirate','revo','chasseur'],
+  'Barbe Blanche':['pirate'],Kaido:['pirate'],'Big Mom':['pirate'],Katakuri:['pirate'],Roger:['pirate']};
+const trpCmdIn=(name,fac)=>{const v=TRP_CMD_FAC[name];return Array.isArray(v)?v.includes(fac):v===fac;};
+function trpCmdCamp(name,fac){const L=LEGENDS.find(l=>l.s===name);return !!(L&&trpCmdIn(name,fac)&&(L.camps||[]).includes(fac));}
 function trpCmdAdd(r){
   try{const Rn=B3.run;if(Rn&&Rn.r===r&&!Rn.trpCmd&&r.op&&TRP.on&&!TRP.fail){
     const facA=Rn.crewA,facD=r.def>=0?pxCrewId(r.def):'native';

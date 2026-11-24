@@ -1,0 +1,120 @@
+{
+ "planche": "rayleigh.png",
+ "zone": [
+  0,
+  51,
+  1032,
+  1075
+ ],
+ "dilatation": 4,
+ "alpha_min": 60,
+ "echelle": 1.12,
+ "poses": {
+  "garde_1": [
+   103,
+   164
+  ],
+  "garde_2": [
+   297,
+   164
+  ],
+  "garde_3": [
+   483,
+   164
+  ],
+  "garde_4": [
+   675,
+   164
+  ],
+  "garde_5": [
+   869,
+   164
+  ],
+  "course": [
+   121,
+   387
+  ],
+  "preparation": [
+   327,
+   411
+  ],
+  "attaque_1": [
+   292,
+   948
+  ],
+  "attaque_2": [
+   485,
+   948
+  ],
+  "attaque_3": [
+   687,
+   947
+  ],
+  "reaction_1": [
+   82,
+   613
+  ],
+  "reaction_2": [
+   274,
+   614
+  ],
+  "cri": [
+   119,
+   936
+  ]
+ },
+ "animations": {
+  "garde": {
+   "images": [
+    "garde_1",
+    "garde_2",
+    "garde_3",
+    "garde_4",
+    "garde_5"
+   ],
+   "ips": 6,
+   "boucle": true
+  },
+  "deplacement": {
+   "images": [
+    "course"
+   ],
+   "ips": 0,
+   "boucle": true
+  },
+  "preparation": {
+   "images": [
+    "preparation"
+   ],
+   "ips": 0,
+   "boucle": false
+  },
+  "attaque": {
+   "images": [
+    "attaque_1",
+    "attaque_2",
+    "attaque_3"
+   ],
+   "ips": 8,
+   "boucle": false
+  },
+  "reaction": {
+   "images": [
+    "reaction_1",
+    "reaction_2"
+   ],
+   "ips": 5,
+   "boucle": false
+  },
+  "cri": {
+   "images": [
+    "cri"
+   ],
+   "ips": 0,
+   "boucle": false
+  }
+ },
+ "ref": "garde_1",
+ "troupe": "cmd_rayleigh",
+ "note": "Planche fournie par l'utilisateur le 24/11/2026 (poses relevées par numéro de bloc, voir aperçu)."
+}

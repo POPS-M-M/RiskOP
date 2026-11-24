@@ -43,7 +43,42 @@ const RT_H={
     pas:'Navigatrice : retraite de ses groupes +20 % de vitesse. Ses groupes à 6 u : moral +1 par seconde.'},
   Akainu:{asset:'cmd_akainu',hp:9,atk:5.5,def:2.4,spd:2.3,cd:1,haki:true,logia:true,aura:1,camp:'Marine',justice:true,
     q:{k:'lave',n:'Dai Funka',cd:22,rng:6,d:'Poing de magma en cône de 6 u ; le magma reste au sol 12 s.'},
-    pas:'Logia (Magu Magu no Mi). Justice absolue : ses groupes à 6 u ne fuient pas, mais leurs pertes +10 %.'}};
+    pas:'Logia (Magu Magu no Mi). Justice absolue : ses groupes à 6 u ne fuient pas, mais leurs pertes +10 %.'},
+  /* planches fournies par l'utilisateur le 24/11/2026 (art/troupes/cmd_*) ; compétences reprises des six types existants [I] ;
+     Haki [C?], Logia de Smoker (Moku Moku no Mi) [C], Haki des Rois de Rayleigh [C], souffle de feu de Kaido [C], Zeus de Big Mom [C], Kokuto Yoru de Mihawk [C] */
+  Sengoku:{asset:'cmd_sengoku',hp:9.5,atk:5,def:2.6,spd:2.2,cd:1,haki:true,aura:2,camp:'Marine',
+    q:{k:'hdr',dmg:1,n:'Onde de choc du Bouddha',cd:24,rng:0,r:4.5,d:'Onde de choc de 4,5 u autour de lui : dégâts de zone.'},
+    pas:'Bouddha (Hito Hito no Mi, modèle Daibutsu). Ses groupes à 6 u reprennent 2 de moral par seconde.'},
+  Smoker:{asset:'cmd_smoker',hp:7.5,atk:4,def:2.2,spd:2.5,cd:1,logia:true,aura:1,camp:'Marine',
+    q:{k:'pistol',n:'White Blow',cd:14,rng:6,d:'Poing de fumée sur un groupe ou un commandant, à 6 u.'},
+    pas:'Logia (Moku Moku no Mi) : coups ordinaires ÷ 2, sauf Haki de l\'Armement. Ses groupes à 6 u : moral +1 par seconde.'},
+  Mihawk:{asset:'cmd_mihawk',hp:8.5,atk:5.8,def:2.3,spd:2.5,cd:1,haki:true,aura:1,camp:'Pirates',
+    q:{k:'hiken',feu:false,n:'Kokuto : Yoru',cd:20,rng:10,w:1.2,d:'Tranchant à distance en ligne de 10 u.'},
+    pas:'Meilleur sabreur du monde. Ses groupes à 6 u : moral +1 par seconde.'},
+  Zoro:{asset:'cmd_zoro',hp:8,atk:5,def:2.2,spd:2.5,cd:1,haki:true,aura:1,camp:'Pirates',
+    q:{k:'hiken',feu:false,n:'Santoryu : Sanzen Sekai',cd:16,rng:6,w:1.6,d:'Assaut tranchant en ligne de 6 u.'},
+    pas:'Sabreur à trois sabres. Ses groupes à 6 u : moral +1 par seconde.'},
+  Law:{asset:'cmd_law',hp:7,atk:4.2,def:2,spd:2.5,cd:1,haki:true,aura:1,camp:'Pirates',
+    q:{k:'pistol',n:'Room : Gamma Knife',cd:15,rng:7,d:'Frappe à 7 u sur un groupe ou un commandant.'},
+    pas:'Chirurgien de la mort (Ope Ope no Mi). Ses groupes à 6 u : moral +1 par seconde.'},
+  Rayleigh:{asset:'cmd_rayleigh',hp:8.5,atk:5.3,def:2.5,spd:2.4,cd:1,haki:true,aura:1,camp:'Pirates',
+    q:{k:'hdr',n:'Haki des Rois',cd:30,rng:0,r:6,d:'Onde de 6 u : troupes ordinaires étourdies 3 s, moral −25 ; l\'élite tient.'},
+    pas:'Roi des ténèbres. Ses groupes à 6 u : moral +1 par seconde.'},
+  'Barbe Blanche':{asset:'cmd_barbe_blanche',hp:10,atk:6,def:2.6,spd:2.1,cd:1,haki:true,aura:2,camp:'Pirates',
+    q:{k:'hdr',dmg:1.3,n:'Gura Gura : séisme',cd:26,rng:0,r:6,d:'Séisme de 6 u autour de lui : forts dégâts de zone.'},
+    pas:'Homme le plus fort du monde (Gura Gura no Mi). Ses groupes à 6 u : moral +2 par seconde.'},
+  Kaido:{asset:'cmd_kaido',hp:10.5,atk:6,def:2.8,spd:2.2,cd:1.1,haki:true,aura:1,camp:'Pirates',
+    q:{k:'hiken',n:'Boro Breath',cd:22,rng:8,w:2,d:'Souffle de feu en ligne de 8 u ; le couvert touché brûle 10 s.'},
+    pas:'Créature la plus forte (Uo Uo no Mi, modèle Seiryu). Ses groupes à 6 u : moral +1 par seconde.'},
+  'Big Mom':{asset:'cmd_big_mom',hp:10,atk:5.6,def:2.7,spd:2.1,cd:1.1,haki:true,aura:1,camp:'Pirates',
+    q:{k:'eclair',n:'Zeus : foudre',cd:20,rng:10,r:2.4,d:'Foudre sur 2,4 u de rayon, à 10 u au plus.'},
+    pas:'Impératrice (Soru Soru no Mi). Ses groupes à 6 u : moral +1 par seconde.'},
+  Katakuri:{asset:'cmd_katakuri',hp:8.5,atk:5.2,def:2.4,spd:2.6,cd:.95,haki:true,aura:1,camp:'Pirates',
+    q:{k:'pistol',n:'Zan Giri Mochi',cd:13,rng:5,d:'Frappe à 5 u sur un groupe ou un commandant.'},
+    pas:'Haki de l\'Observation avancé (Mochi Mochi no Mi). Ses groupes à 6 u : moral +1 par seconde.'},
+  Roger:{asset:'cmd_roger',hp:10,atk:6,def:2.7,spd:2.4,cd:1,haki:true,aura:2,camp:'Pirates',
+    q:{k:'hiken',feu:false,n:'Kamusari',cd:22,rng:8,w:1.8,d:'Tranchant chargé de Haki en ligne de 8 u.'},
+    pas:'Roi des pirates. Ses groupes à 6 u : moral +2 par seconde.'}};
 /* Haki de l'Armement retenu pour Garp, Shanks, Luffy et Akainu [C?] ; le magma l'emporte sur le feu : Akainu frappe Ace ×2 [C] */
 const RT_FORM={ligne:'Ligne',colonne:'Colonne',carre:'Carré',disperse:'Dispersé'};
 const RT_ETAT={ferme:'ferme',ebranle:'ébranlé',desorg:'désorganisé',deroute:'en déroute'};
@@ -412,11 +447,17 @@ function rtCast(R,h,x,y){if(!rtSkillOk(R,h))return false;const Q=RT_H[h.hero].q,
   if(Q.k==='boulets'){for(let k=0;k<3;k++){const a=R.rnd()*6.283,r=Math.sqrt(R.rnd())*Q.r,ix=x+Math.cos(a)*r,iy=y+Math.sin(a)*r,iz=M.z(ix,iy),t0=R.t+.45+k*.12,t1=t0+.75;
       R.fx.push({k:'boulet',a:[h.cx,h.cy,hz+1.2],b:[ix,iy,iz+.15],t0,t1});R.fx.push({k:'poussiere',p:[ix,iy,iz+.1],t0:t1,t1:t1+.8});R.fx.push({k:'secousse',t0:t1,t1:t1+.45});
       R.pend.push({t:t1,f:()=>rtZone(R,h,(px,py)=>Math.hypot(px-ix,py-iy)<=1.4,K.boulet,K.zoneCmd)});}}
+  else if(Q.k==='hiken'&&Q.feu===false){const L=Q.rng,ux=Math.cos(face),uy=Math.sin(face),ox=h.cx+ux*.4,oy=h.cy+uy*.4,inL=(px,py)=>{const a=(px-ox)*ux+(py-oy)*uy,b=Math.abs(-(px-ox)*uy+(py-oy)*ux);return a>=0&&a<=L&&b<=Q.w/2;};
+    /* tranchant : éclats d'impact le long de la ligne, sans feu ni couvert brûlé */
+    for(let k=1;k<=8;k++){const px=ox+ux*L*k/8,py=oy+uy*L*k/8,t0=R.t+.45+k*.035;R.fx.push({k:'impact',p:[px,py,M.z(px,py)+.5],t0,t1:t0+.35});}
+    R.fx.push({k:'secousse',t0:R.t+.55,t1:R.t+.95});R.pend.push({t:R.t+.55,f:()=>rtZone(R,h,inL,K.hiken,K.zoneCmd)});}
   else if(Q.k==='hiken'){const L=Q.rng,ux=Math.cos(face),uy=Math.sin(face),ox=h.cx+ux*.4,oy=h.cy+uy*.4,inL=(px,py)=>{const a=(px-ox)*ux+(py-oy)*uy,b=Math.abs(-(px-ox)*uy+(py-oy)*ux);return a>=0&&a<=L&&b<=Q.w/2;};
     R.fx.push({k:'jet',a:[ox,oy,hz+.7],b:[ox+ux*L,oy+uy*L,M.z(ox+ux*L,oy+uy*L)+.4],t0:R.t+.42,t1:R.t+1.2});
     for(let k=0;k<=10;k++){const px=ox+ux*L*k/10,py=oy+uy*L*k/10,t0=R.t+.45+k*.06;R.fx.push({k:'feu',p:[px,py,M.z(px,py)+.25],t0,t1:t0+1.1});}
     R.fx.push({k:'secousse',t0:R.t+.6,t1:R.t+1});
     R.pend.push({t:R.t+.6,f:()=>{rtZone(R,h,inL,K.hiken,K.zoneCmd);for(const r of M.T)for(const c of r)if(c.k==='couvert'&&inL(c.x,c.y)){c.feu=R.t+10;c.hzSd=h.sd;}}});}
+  else if(Q.k==='hdr'&&Q.dmg){R.fx.push({k:'onde',p:[h.cx,h.cy,hz+.3],r:Q.r,t0:R.t+.4,t1:R.t+1.3});R.fx.push({k:'secousse',t0:R.t+.45,t1:R.t+1.2});
+    R.pend.push({t:R.t+.55,f:()=>rtZone(R,h,(px,py)=>Math.hypot(px-h.cx,py-h.cy)<=Q.r,K.eclair*Q.dmg,K.zoneCmd*Q.dmg)});}
   else if(Q.k==='hdr'){R.fx.push({k:'onde',p:[h.cx,h.cy,hz+.3],r:Q.r,t0:R.t+.4,t1:R.t+1.3});R.fx.push({k:'secousse',t0:R.t+.45,t1:R.t+1});
     R.pend.push({t:R.t+.5,f:()=>{for(const e of R.G){if(e.sd===h.sd||!rtAlive(e)||e.hero||RT_U[e.kind].hdr)continue;if(!rtSolV(e).some(q=>Math.hypot(q.x-h.cx,q.y-h.cy)<=Q.r))continue;
       e.stun=R.t+3;e.m-=25;rtCause(R,e,'Haki des Rois −25, étourdis 3 s');for(const q of rtSolV(e)){q.an='reaction';q.at=R.t;}}}});}
@@ -943,7 +984,7 @@ RT.setMode=v=>{if(!RT.MODES.some(m=>m[0]===v))return;RT.cmdMode=v;try{localStora
 RT.wait=[];RT.force=null;RT.cur=null;
 const rtFac=pid=>{const S=typeof CS!=='undefined'&&CS.on&&CS.S&&CS.S[pid];if(S&&S.role)return S.role==='revo'?'revo':S.role==='marine'?'marine':'pirate';const id=pxCrewId(pid);return id==='marine'||id==='revo'?id:'pirate';};
 const rtHurtCh=c=>opHurt(c.k==='c'?CH[c.i]:c.f);
-function rtHeroesOf(L,fac){return L.filter(c=>c.k==='c'&&!rtHurtCh(c)).map(c=>({name:LEGENDS[c.i].s,lv:opChLv(c),c,key:opKey(c)})).filter(h=>RT_H[h.name]&&TRP_CMD_FAC[h.name]===fac);}
+function rtHeroesOf(L,fac){return L.filter(c=>c.k==='c'&&!rtHurtCh(c)).map(c=>({name:LEGENDS[c.i].s,lv:opChLv(c),c,key:opKey(c)})).filter(h=>RT_H[h.name]&&trpCmdIn(h.name,fac));}
 function rtSpecOf(a){
   const t=terrs[a.to];let f=terrs[a.from];if(!f||f===t||Math.hypot(f.x-t.x,f.y-t.y)<1)f=terrs[(t.nb||[])[0]];
   const fa=rtFac(a.owner),fd=rtFac(t.owner),cA=opChampsOfArmy(a).filter(c=>!rtHurtCh(c)),cD=opChampsAt(t.id);
@@ -995,7 +1036,7 @@ function rtListU(u){return UK.filter(k=>(u[k]||0)>=.5).map(k=>Math.round(u[k])+'
 function rtAsk(a){
   const sp=rtSpecOf(a),t=sp.t,me=players[a.owner].human?0:1,Pa={},Pd={};let A=0,D=0;try{A=attTotal(a.owner,a.u,t,false,a.from,Pa,a.s);D=defTotal(t,a.u,false,Pd);}catch(_){}
   RT.ask={a,sp,A,D,Pa,Pd};
-  const ch=c=>c.champs.map(opChName).map(n=>esc(n)+(RT_H[n]&&TRP_CMD_FAC[n]===c.fac?'':' <i>(absent du terrain)</i>')).join(', ');
+  const ch=c=>c.champs.map(opChName).map(n=>esc(n)+(RT_H[n]&&trpCmdIn(n,c.fac)?'':' <i>(absent du terrain)</i>')).join(', ');
   let el=document.getElementById('rt-ask');if(!el){el=document.createElement('div');el.id='rt-ask';document.body.appendChild(el);el.addEventListener('pointerdown',rtAskClick);}
   el.innerHTML='<div class="rt-askb"><h3>Bataille · '+esc(t.name)+'</h3><p>'+esc(sp.camps[0].name)+' attaque '+esc(sp.camps[1].name)+'.</p>'
     +[0,1].map(sd=>'<p><b>'+(sd?'Défense':'Attaque')+' · '+esc(sp.camps[sd].name)+(sd===me?' (vous)':'')+'</b><br>'+esc(rtListU(sp.camps[sd].u))+(sp.camps[sd].champs.length?'<br>Commandants : '+ch(sp.camps[sd]):'')+'</p>').join('')
@@ -1166,4 +1207,4 @@ RT.scr=(x,y,z)=>{const R=RT.run;if(!R||!R.cam)return null;const p=w3Proj(x,y,z==
 RT.canSave=()=>svCanSave();RT.anims=rtAnims;RT.best=(h)=>rtSkillBest(RT.run,h);RT.demoSpec=rtDemoSpec;RT.fac=rtFac;RT.qualif=rtQualif;RT.isle=rtIsle;
 window.__RT=RT;   /* essais */
 /* mesures (lecture seule) : moteur, planches, compteurs de rendu */
-RT.dbg={get W3(){return W3;},get BLX(){return typeof BLX!=='undefined'?BLX:null;},get terrs(){return terrs;},alive:g=>rtAlive(g),solV:g=>rtSolV(g),grid:t=>rtGrid(t),nw:o=>rtNew(o),step:R=>rtStep(R),spd:(R,g)=>rtSpeed(R,g),get TRP_DATA(){return TRP_DATA;},get TRP(){return TRP;},ui:R=>rtUI(R),frame:()=>{const t=performance.now();w3Frame();W3.gl.finish();return performance.now()-t;}};
+RT.dbg={get W3(){return W3;},H:RT_H,start:o=>rtStart(o),stop:()=>rtStop(),cast:(R,h,x,y)=>rtCast(R,h,x,y),get BLX(){return typeof BLX!=='undefined'?BLX:null;},get terrs(){return terrs;},alive:g=>rtAlive(g),solV:g=>rtSolV(g),grid:t=>rtGrid(t),nw:o=>rtNew(o),step:R=>rtStep(R),spd:(R,g)=>rtSpeed(R,g),get TRP_DATA(){return TRP_DATA;},get TRP(){return TRP;},ui:R=>rtUI(R),frame:()=>{const t=performance.now();w3Frame();W3.gl.finish();return performance.now()-t;}};

@@ -1,0 +1,106 @@
+{
+ "poses": {
+  "garde_1": {
+   "image": "idling01.png"
+  },
+  "garde_2": {
+   "image": "idling02.png"
+  },
+  "garde_3": {
+   "image": "idling03.png"
+  },
+  "garde_4": {
+   "image": "idling04.png"
+  },
+  "garde_5": {
+   "image": "idling05.png"
+  },
+  "garde_6": {
+   "image": "idling06.png"
+  },
+  "course": {
+   "image": "back__go.png"
+  },
+  "preparation": {
+   "image": "attack04.png"
+  },
+  "attaque_1": {
+   "image": "attack05.png"
+  },
+  "attaque_2": {
+   "image": "attack06.png"
+  },
+  "attaque_3": {
+   "image": "attack07.png"
+  },
+  "attaque_4": {
+   "image": "attack08.png"
+  },
+  "reaction_1": {
+   "image": "damage.png"
+  },
+  "reaction_2": {
+   "image": "tired01_1.png"
+  },
+  "cri": {
+   "image": "attack05.png"
+  }
+ },
+ "echelle": 1.25,
+ "animations": {
+  "garde": {
+   "images": [
+    "garde_1",
+    "garde_2",
+    "garde_3",
+    "garde_4",
+    "garde_5",
+    "garde_6"
+   ],
+   "ips": 6,
+   "boucle": true
+  },
+  "deplacement": {
+   "images": [
+    "course"
+   ],
+   "ips": 0,
+   "boucle": true
+  },
+  "preparation": {
+   "images": [
+    "preparation"
+   ],
+   "ips": 0,
+   "boucle": false
+  },
+  "attaque": {
+   "images": [
+    "attaque_1",
+    "attaque_2",
+    "attaque_3",
+    "attaque_4"
+   ],
+   "ips": 8,
+   "boucle": false
+  },
+  "reaction": {
+   "images": [
+    "reaction_1",
+    "reaction_2"
+   ],
+   "ips": 5,
+   "boucle": false
+  },
+  "cri": {
+   "images": [
+    "cri"
+   ],
+   "ips": 0,
+   "boucle": false
+  }
+ },
+ "ref": "garde_1",
+ "troupe": "cmd_sengoku",
+ "note": "Images séparées fournies par l'utilisateur le 24/11/2026 (archive sengoku.zip, dossier « Left »)."
+}

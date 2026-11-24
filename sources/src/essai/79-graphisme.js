@@ -166,7 +166,7 @@ GFX.demo=function(){
   const go=()=>{const m=W3.models.get(t.id),I=m&&m.bx&&typeof BLX!=='undefined'?BLX.isl[m.bx]:null;
     if(!(W3.act&&m&&(!m.bx||(I&&(I.ready3||I.fail3))))){if(performance.now()-t0<15000){if(!said){toast('Chargement de l\'île de démonstration…');said=true;}setTimeout(go,250);return;}}
     const me=players[ME],fa=CREWS[(me&&me.crew)||0].id,def=players.find(p=>p.id!==ME&&CREWS[p.crew||0].id!==fa)||players.find(p=>p.id!==ME);
-    const fd=CREWS[(def&&def.crew)||0].id,pick=fac=>Object.keys(TRP_CMD_FAC).filter(k=>TRP_CMD_FAC[k]===fac);
+    const fd=CREWS[(def&&def.crew)||0].id,pick=fac=>Object.keys(TRP_CMD_FAC).filter(k=>trpCmdIn(k,fac));
     const ca=pick(fa),cd=pick(fd);GFX.demoN=(GFX.demoN||0)+1;
     const r={id:900000+GFX.demoN,to:t.id,from:f.id,att:ME,def:def?def.id:-1,au:[18,8,6,0,0,0],au2:[11,5,4,0,0,0],du:[12,4,8,0,0,0],du2:[0,0,0,0,0,0],win:true,
       op:{a:ca.length?[ca[GFX.demoN%ca.length]]:[],d:cd.length?[cd[GFX.demoN%cd.length]]:[]},demo:true};

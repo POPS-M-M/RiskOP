@@ -1,0 +1,101 @@
+{
+ "planche": "roger.png",
+ "zone": [
+  0,
+  0,
+  1032,
+  960
+ ],
+ "dilatation": 1,
+ "alpha_min": 60,
+ "echelle": 1.2,
+ "poses": {
+  "garde_1": [
+   524,
+   550
+  ],
+  "garde_2": [
+   683,
+   550
+  ],
+  "garde_3": [
+   842,
+   550
+  ],
+  "course": [
+   687,
+   116
+  ],
+  "preparation": [
+   903,
+   107
+  ],
+  "attaque_1": [
+   901,
+   750
+  ],
+  "reaction_1": [
+   80,
+   578
+  ],
+  "reaction_2": [
+   236,
+   579
+  ],
+  "cri": [
+   114,
+   366
+  ]
+ },
+ "animations": {
+  "garde": {
+   "images": [
+    "garde_1",
+    "garde_2",
+    "garde_3",
+    "garde_2"
+   ],
+   "ips": 4,
+   "boucle": true
+  },
+  "deplacement": {
+   "images": [
+    "course"
+   ],
+   "ips": 0,
+   "boucle": true
+  },
+  "preparation": {
+   "images": [
+    "preparation"
+   ],
+   "ips": 0,
+   "boucle": false
+  },
+  "attaque": {
+   "images": [
+    "attaque_1"
+   ],
+   "ips": 8,
+   "boucle": false
+  },
+  "reaction": {
+   "images": [
+    "reaction_1",
+    "reaction_2"
+   ],
+   "ips": 5,
+   "boucle": false
+  },
+  "cri": {
+   "images": [
+    "cri"
+   ],
+   "ips": 0,
+   "boucle": false
+  }
+ },
+ "ref": "garde_1",
+ "troupe": "cmd_roger",
+ "note": "Planche fournie par l'utilisateur le 24/11/2026 (poses relevées par numéro de bloc, voir aperçu)."
+}

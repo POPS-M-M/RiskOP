@@ -1,0 +1,105 @@
+{
+ "planche": "barbe_blanche.png",
+ "zone": [
+  0,
+  51,
+  1036,
+  1075
+ ],
+ "dilatation": 4,
+ "alpha_min": 60,
+ "echelle": 1.5,
+ "poses": {
+  "garde_1": [
+   122,
+   166
+  ],
+  "garde_2": [
+   378,
+   167
+  ],
+  "garde_3": [
+   632,
+   167
+  ],
+  "garde_4": [
+   888,
+   167
+  ],
+  "course": [
+   385,
+   655
+  ],
+  "preparation": [
+   111,
+   920
+  ],
+  "attaque_1": [
+   820,
+   941
+  ],
+  "attaque_2": [
+   849,
+   655
+  ],
+  "reaction_1": [
+   132,
+   398
+  ],
+  "cri": [
+   384,
+   403
+  ]
+ },
+ "animations": {
+  "garde": {
+   "images": [
+    "garde_1",
+    "garde_2",
+    "garde_3",
+    "garde_4"
+   ],
+   "ips": 4,
+   "boucle": true
+  },
+  "deplacement": {
+   "images": [
+    "course"
+   ],
+   "ips": 0,
+   "boucle": true
+  },
+  "preparation": {
+   "images": [
+    "preparation"
+   ],
+   "ips": 0,
+   "boucle": false
+  },
+  "attaque": {
+   "images": [
+    "attaque_1",
+    "attaque_2"
+   ],
+   "ips": 8,
+   "boucle": false
+  },
+  "reaction": {
+   "images": [
+    "reaction_1"
+   ],
+   "ips": 5,
+   "boucle": false
+  },
+  "cri": {
+   "images": [
+    "cri"
+   ],
+   "ips": 0,
+   "boucle": false
+  }
+ },
+ "ref": "garde_1",
+ "troupe": "cmd_barbe_blanche",
+ "note": "Planche fournie par l'utilisateur le 24/11/2026 (poses relevées par numéro de bloc, voir aperçu)."
+}

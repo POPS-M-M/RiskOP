@@ -1,0 +1,105 @@
+{
+ "planche": "zoro.png",
+ "zone": [
+  0,
+  0,
+  1036,
+  720
+ ],
+ "dilatation": 1,
+ "alpha_min": 60,
+ "echelle": 1.1,
+ "poses": {
+  "garde_1": [
+   73,
+   80
+  ],
+  "garde_2": [
+   214,
+   81
+  ],
+  "garde_3": [
+   342,
+   80
+  ],
+  "garde_4": [
+   473,
+   80
+  ],
+  "course": [
+   926,
+   322
+  ],
+  "preparation": [
+   419,
+   382
+  ],
+  "attaque_1": [
+   926,
+   442
+  ],
+  "attaque_2": [
+   907,
+   621
+  ],
+  "reaction_1": [
+   111,
+   213
+  ],
+  "cri": [
+   640,
+   189
+  ]
+ },
+ "animations": {
+  "garde": {
+   "images": [
+    "garde_1",
+    "garde_2",
+    "garde_3",
+    "garde_4"
+   ],
+   "ips": 6,
+   "boucle": true
+  },
+  "deplacement": {
+   "images": [
+    "course"
+   ],
+   "ips": 0,
+   "boucle": true
+  },
+  "preparation": {
+   "images": [
+    "preparation"
+   ],
+   "ips": 0,
+   "boucle": false
+  },
+  "attaque": {
+   "images": [
+    "attaque_1",
+    "attaque_2"
+   ],
+   "ips": 8,
+   "boucle": false
+  },
+  "reaction": {
+   "images": [
+    "reaction_1"
+   ],
+   "ips": 5,
+   "boucle": false
+  },
+  "cri": {
+   "images": [
+    "cri"
+   ],
+   "ips": 0,
+   "boucle": false
+  }
+ },
+ "ref": "garde_1",
+ "troupe": "cmd_zoro",
+ "note": "Planche fournie par l'utilisateur le 24/11/2026 (poses relevées par numéro de bloc, voir aperçu)."
+}

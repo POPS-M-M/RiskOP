@@ -1,0 +1,105 @@
+{
+ "planche": "law.png",
+ "zone": [
+  0,
+  51,
+  1036,
+  1075
+ ],
+ "dilatation": 4,
+ "alpha_min": 60,
+ "echelle": 1.12,
+ "poses": {
+  "garde_1": [
+   96,
+   164
+  ],
+  "garde_2": [
+   292,
+   163
+  ],
+  "garde_3": [
+   485,
+   163
+  ],
+  "course": [
+   914,
+   589
+  ],
+  "preparation": [
+   294,
+   737
+  ],
+  "attaque_1": [
+   487,
+   737
+  ],
+  "attaque_2": [
+   899,
+   972
+  ],
+  "reaction_1": [
+   339,
+   355
+  ],
+  "reaction_2": [
+   564,
+   355
+  ],
+  "cri": [
+   911,
+   401
+  ]
+ },
+ "animations": {
+  "garde": {
+   "images": [
+    "garde_1",
+    "garde_2",
+    "garde_3"
+   ],
+   "ips": 4,
+   "boucle": true
+  },
+  "deplacement": {
+   "images": [
+    "course"
+   ],
+   "ips": 0,
+   "boucle": true
+  },
+  "preparation": {
+   "images": [
+    "preparation"
+   ],
+   "ips": 0,
+   "boucle": false
+  },
+  "attaque": {
+   "images": [
+    "attaque_1",
+    "attaque_2"
+   ],
+   "ips": 8,
+   "boucle": false
+  },
+  "reaction": {
+   "images": [
+    "reaction_1",
+    "reaction_2"
+   ],
+   "ips": 5,
+   "boucle": false
+  },
+  "cri": {
+   "images": [
+    "cri"
+   ],
+   "ips": 0,
+   "boucle": false
+  }
+ },
+ "ref": "garde_1",
+ "troupe": "cmd_law",
+ "note": "Planche fournie par l'utilisateur le 24/11/2026 (poses relevées par numéro de bloc, voir aperçu)."
+}

@@ -1,0 +1,110 @@
+{
+ "planche": "smoker.png",
+ "zone": [
+  0,
+  51,
+  1036,
+  1075
+ ],
+ "dilatation": 4,
+ "alpha_min": 60,
+ "echelle": 1.12,
+ "poses": {
+  "garde_1": [
+   99,
+   171
+  ],
+  "garde_2": [
+   278,
+   166
+  ],
+  "garde_3": [
+   437,
+   163
+  ],
+  "garde_4": [
+   597,
+   163
+  ],
+  "course": [
+   323,
+   403
+  ],
+  "preparation": [
+   443,
+   594
+  ],
+  "attaque_1": [
+   179,
+   600
+  ],
+  "attaque_2": [
+   325,
+   794
+  ],
+  "reaction_1": [
+   548,
+   403
+  ],
+  "reaction_2": [
+   932,
+   212
+  ],
+  "cri": [
+   100,
+   403
+  ]
+ },
+ "animations": {
+  "garde": {
+   "images": [
+    "garde_1",
+    "garde_2",
+    "garde_3",
+    "garde_4"
+   ],
+   "ips": 6,
+   "boucle": true
+  },
+  "deplacement": {
+   "images": [
+    "course"
+   ],
+   "ips": 0,
+   "boucle": true
+  },
+  "preparation": {
+   "images": [
+    "preparation"
+   ],
+   "ips": 0,
+   "boucle": false
+  },
+  "attaque": {
+   "images": [
+    "attaque_1",
+    "attaque_2"
+   ],
+   "ips": 8,
+   "boucle": false
+  },
+  "reaction": {
+   "images": [
+    "reaction_1",
+    "reaction_2"
+   ],
+   "ips": 5,
+   "boucle": false
+  },
+  "cri": {
+   "images": [
+    "cri"
+   ],
+   "ips": 0,
+   "boucle": false
+  }
+ },
+ "ref": "garde_1",
+ "troupe": "cmd_smoker",
+ "note": "Planche fournie par l'utilisateur le 24/11/2026 (poses relevées par numéro de bloc, voir aperçu)."
+}

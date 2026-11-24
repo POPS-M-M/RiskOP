@@ -1,0 +1,113 @@
+{
+ "planche": "mihawk.png",
+ "zone": [
+  0,
+  51,
+  1036,
+  1075
+ ],
+ "dilatation": 4,
+ "alpha_min": 60,
+ "echelle": 1.15,
+ "poses": {
+  "garde_1": [
+   109,
+   147
+  ],
+  "garde_2": [
+   334,
+   146
+  ],
+  "garde_3": [
+   559,
+   146
+  ],
+  "garde_4": [
+   783,
+   146
+  ],
+  "course": [
+   416,
+   532
+  ],
+  "preparation": [
+   219,
+   773
+  ],
+  "attaque_1": [
+   565,
+   773
+  ],
+  "attaque_2": [
+   885,
+   764
+  ],
+  "reaction_1": [
+   117,
+   322
+  ],
+  "cri": [
+   938,
+   534
+  ]
+ },
+ "animations": {
+  "garde": {
+   "images": [
+    "garde_1",
+    "garde_2",
+    "garde_3",
+    "garde_4"
+   ],
+   "ips": 6,
+   "boucle": true
+  },
+  "deplacement": {
+   "images": [
+    "course"
+   ],
+   "ips": 0,
+   "boucle": true
+  },
+  "preparation": {
+   "images": [
+    "preparation"
+   ],
+   "ips": 0,
+   "boucle": false
+  },
+  "attaque": {
+   "images": [
+    "attaque_1",
+    "attaque_2"
+   ],
+   "ips": 8,
+   "boucle": false
+  },
+  "reaction": {
+   "images": [
+    "reaction_1"
+   ],
+   "ips": 5,
+   "boucle": false
+  },
+  "cri": {
+   "images": [
+    "cri"
+   ],
+   "ips": 0,
+   "boucle": false
+  }
+ },
+ "ref": "garde_1",
+ "troupe": "cmd_mihawk",
+ "note": "Planche fournie par l'utilisateur le 24/11/2026 (poses relevées par numéro de bloc, voir aperçu).",
+ "rect": {
+  "reaction_1": [
+   6,
+   249,
+   228,
+   395
+  ]
+ }
+}

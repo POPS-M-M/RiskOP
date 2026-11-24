@@ -1,0 +1,125 @@
+{
+ "planche": "big_mom.png",
+ "zone": [
+  0,
+  0,
+  1032,
+  2060
+ ],
+ "dilatation": 4,
+ "alpha_min": 60,
+ "echelle": 1.55,
+ "poses": {
+  "garde_1": [
+   141,
+   129
+  ],
+  "garde_2": [
+   397,
+   129
+  ],
+  "garde_3": [
+   653,
+   129
+  ],
+  "garde_4": [
+   909,
+   129
+  ],
+  "garde_5": [
+   141,
+   384
+  ],
+  "garde_6": [
+   397,
+   384
+  ],
+  "course": [
+   509,
+   889
+  ],
+  "preparation": [
+   762,
+   894
+  ],
+  "attaque_1": [
+   118,
+   1163
+  ],
+  "attaque_2": [
+   136,
+   1419
+  ],
+  "attaque_3": [
+   390,
+   1419
+  ],
+  "reaction_1": [
+   93,
+   901
+  ],
+  "reaction_2": [
+   286,
+   903
+  ],
+  "cri": [
+   375,
+   1677
+  ]
+ },
+ "animations": {
+  "garde": {
+   "images": [
+    "garde_1",
+    "garde_2",
+    "garde_3",
+    "garde_4",
+    "garde_5",
+    "garde_6"
+   ],
+   "ips": 6,
+   "boucle": true
+  },
+  "deplacement": {
+   "images": [
+    "course"
+   ],
+   "ips": 0,
+   "boucle": true
+  },
+  "preparation": {
+   "images": [
+    "preparation"
+   ],
+   "ips": 0,
+   "boucle": false
+  },
+  "attaque": {
+   "images": [
+    "attaque_1",
+    "attaque_2",
+    "attaque_3"
+   ],
+   "ips": 8,
+   "boucle": false
+  },
+  "reaction": {
+   "images": [
+    "reaction_1",
+    "reaction_2"
+   ],
+   "ips": 5,
+   "boucle": false
+  },
+  "cri": {
+   "images": [
+    "cri"
+   ],
+   "ips": 0,
+   "boucle": false
+  }
+ },
+ "ref": "garde_1",
+ "troupe": "cmd_big_mom",
+ "note": "Planche fournie par l'utilisateur le 24/11/2026 (poses relevées par numéro de bloc, voir aperçu)."
+}

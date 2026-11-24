@@ -1,0 +1,342 @@
+{
+ "troupe": "cmd_big_mom",
+ "source": {
+  "fichiers": {
+   "big_mom.png": "d8fc2cc7418e1afaaa7e0316121fad2bfb9a90672965730618fc71d07285a342"
+  },
+  "zone": [
+   0,
+   0,
+   1032,
+   2060
+  ]
+ },
+ "convention": {
+  "version": 1,
+  "hauteur_ref_u": 0.54,
+  "image_ref": "garde_1",
+  "hauteur_ref_px": 136.1,
+  "regard": "droite",
+  "note": "même hauteur de référence que le soldat de la Marine (0,54 u) pour la pose de référence, ×1.55 pour un commandant"
+ },
+ "images": {
+  "garde_6": {
+   "planche": [
+    289,
+    277,
+    216,
+    214
+   ],
+   "atlas": [
+    4,
+    4,
+    216,
+    214
+   ],
+   "ancre": [
+    134.5,
+    213.0
+   ]
+  },
+  "garde_5": {
+   "planche": [
+    34,
+    278,
+    214,
+    213
+   ],
+   "atlas": [
+    228,
+    4,
+    214,
+    213
+   ],
+   "ancre": [
+    133.5,
+    212.0
+   ]
+  },
+  "garde_4": {
+   "planche": [
+    806,
+    23,
+    207,
+    212
+   ],
+   "atlas": [
+    450,
+    4,
+    207,
+    212
+   ],
+   "ancre": [
+    129.5,
+    211.0
+   ]
+  },
+  "attaque_1": {
+   "planche": [
+    15,
+    1057,
+    207,
+    212
+   ],
+   "atlas": [
+    665,
+    4,
+    207,
+    212
+   ],
+   "ancre": [
+    69.5,
+    211.0
+   ]
+  },
+  "garde_1": {
+   "planche": [
+    39,
+    24,
+    205,
+    211
+   ],
+   "atlas": [
+    4,
+    226,
+    205,
+    211
+   ],
+   "ancre": [
+    128.5,
+    210.0
+   ]
+  },
+  "garde_2": {
+   "planche": [
+    295,
+    24,
+    205,
+    211
+   ],
+   "atlas": [
+    217,
+    226,
+    205,
+    211
+   ],
+   "ancre": [
+    128.5,
+    210.0
+   ]
+  },
+  "garde_3": {
+   "planche": [
+    551,
+    24,
+    205,
+    211
+   ],
+   "atlas": [
+    430,
+    226,
+    205,
+    211
+   ],
+   "ancre": [
+    128.5,
+    210.0
+   ]
+  },
+  "preparation": {
+   "planche": [
+    628,
+    790,
+    269,
+    209
+   ],
+   "atlas": [
+    643,
+    226,
+    269,
+    209
+   ],
+   "ancre": [
+    179.1,
+    209.0
+   ]
+  },
+  "course": {
+   "planche": [
+    420,
+    785,
+    179,
+    208
+   ],
+   "atlas": [
+    4,
+    445,
+    179,
+    208
+   ],
+   "ancre": [
+    73.5,
+    208.0
+   ]
+  },
+  "attaque_2": {
+   "planche": [
+    13,
+    1316,
+    246,
+    207
+   ],
+   "atlas": [
+    191,
+    445,
+    246,
+    207
+   ],
+   "ancre": [
+    70.1,
+    207.0
+   ]
+  },
+  "attaque_3": {
+   "planche": [
+    266,
+    1316,
+    249,
+    207
+   ],
+   "atlas": [
+    445,
+    445,
+    249,
+    207
+   ],
+   "ancre": [
+    73.1,
+    207.0
+   ]
+  },
+  "cri": {
+   "planche": [
+    274,
+    1574,
+    203,
+    207
+   ],
+   "atlas": [
+    702,
+    445,
+    203,
+    207
+   ],
+   "ancre": [
+    66.1,
+    206.0
+   ]
+  },
+  "reaction_1": {
+   "planche": [
+    6,
+    810,
+    175,
+    183
+   ],
+   "atlas": [
+    4,
+    661,
+    175,
+    183
+   ],
+   "ancre": [
+    89.9,
+    182.0
+   ]
+  },
+  "reaction_2": {
+   "planche": [
+    200,
+    813,
+    172,
+    180
+   ],
+   "atlas": [
+    187,
+    661,
+    172,
+    180
+   ],
+   "ancre": [
+    88.0,
+    179.0
+   ]
+  },
+  "ombre": {
+   "planche": null,
+   "atlas": [
+    367,
+    661,
+    84,
+    30
+   ],
+   "ancre": [
+    42.0,
+    15.0
+   ]
+  }
+ },
+ "animations": {
+  "garde": {
+   "images": [
+    "garde_1",
+    "garde_2",
+    "garde_3",
+    "garde_4",
+    "garde_5",
+    "garde_6"
+   ],
+   "ips": 6,
+   "boucle": true
+  },
+  "deplacement": {
+   "images": [
+    "course"
+   ],
+   "ips": 0,
+   "boucle": true
+  },
+  "preparation": {
+   "images": [
+    "preparation"
+   ],
+   "ips": 0,
+   "boucle": false
+  },
+  "attaque": {
+   "images": [
+    "attaque_1",
+    "attaque_2",
+    "attaque_3"
+   ],
+   "ips": 8,
+   "boucle": false
+  },
+  "reaction": {
+   "images": [
+    "reaction_1",
+    "reaction_2"
+   ],
+   "ips": 5,
+   "boucle": false
+  },
+  "cri": {
+   "images": [
+    "cri"
+   ],
+   "ips": 0,
+   "boucle": false
+  }
+ },
+ "ombre": "ombre"
+}
