@@ -478,7 +478,7 @@ function rtZone(R,h,inZ,pts,hpts){for(const e of R.G){if(e.sd===h.sd||!rtAlive(e
   const c=rtSolV(e).filter(s=>inZ(s.x,s.y)).length;if(!c)continue;let P=pts*c*e.kf*RT_U[e.kind].def*(e.form==='disperse'?RT.K.disp:1);rtHurt(R,e,P,h,'zone','front',0);e.m-=5;rtCause(R,e,'compétence −5');}}
 /* meilleure cible d'une compétence pour l'IA : le plus de figurines ennemies dans la zone (les commandants comptent pour 4) */
 function rtSkillBest(R,h){const Q=RT_H[h.hero].q,foes=R.G.filter(e=>e.sd!==h.sd&&rtAlive(e)),pts=[];for(const e of foes)for(const s of rtSolV(e))pts.push([s,e.hero?4:1,e]);
-  if(Q.k==='hdr'){let v=0;for(const [p,w,e] of pts)if(!e.hero&&!RT_U[e.kind].hdr&&Math.hypot(p.x-h.cx,p.y-h.cy)<=Q.r)v+=w;return {v:v*.8,x:h.cx,y:h.cy};}
+  if(Q.k==='hdr'){let v=0;for(const [p,w,e] of pts)if((Q.dmg||!e.hero&&!RT_U[e.kind].hdr)&&Math.hypot(p.x-h.cx,p.y-h.cy)<=Q.r)v+=w;return {v:v*.8,x:h.cx,y:h.cy};}
   let best=null;for(const [p,,e0] of pts){const d=Math.hypot(p.x-h.cx,p.y-h.cy);if(d>Q.rng+(Q.k==='pistol'?1:0)||d<.3)continue;let v=0;
     if(Q.k==='boulets'||Q.k==='eclair'){for(const [q,w] of pts)if(Math.hypot(q.x-p.x,q.y-p.y)<=Q.r+.5)v+=w;}
     else if(Q.k==='pistol'){v=e0.hero?6:Math.min(6,rtSolV(e0).length);}
