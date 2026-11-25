@@ -126,7 +126,7 @@ Object.assign(CS,{SEATS,
       if(S.role==='pirate'){
         if(S.dj){if(!CS.decOK(i,S.dj.k)){ev('decLost',i,S.dj.k);if(i===ME)say('Déchiffrage interrompu : vous ne tenez plus '+PONE_N[S.dj.k]+' ni une île voisine.','#e66');S.dj=null;}
           else{S.dj.e+=1;if(S.dj.e>=CS.decLen()){const k=S.dj.k;S.dec[k]=time;if(S.found[k]===null)S.found[k]=time;p.x.dc.push(CS.PONE[k]);p.sci+=R(40*K());recalc(p);ev('dec',i,k);S.dj=null;
-            say(pn(i)+' déchiffre le Ponéglyphe de Route de '+PONE_N[k]+' ('+S.dec.filter(v=>v!==null).length+'/4).',p.color);}}}
+            if(!CS.knows||CS.knows(ME,i)||CS.seeT(CS.PONE[k],ME))say(pn(i)+' déchiffre le Ponéglyphe de Route de '+PONE_N[k]+' ('+S.dec.filter(v=>v!==null).length+'/4).',p.color);}}}
         if(S.dec.every(v=>v!==null)&&S.lsDone===null){if(own(i,CS.LS)){S.lsT+=1;if(S.lsT>=hold){S.lsDone=time;ev('lodestar',i);}}else S.lsT=0;}
         if(S.open===null&&CS.prog(i)>=100){S.open=time;ev('open',i);say('☠ La route de Laugh Tale est révélée à '+pn(i)+' : son expédition peut partir de Lodestar ou d\'Egghead.','#ff9a7a');}
         if(S.open!==null){if(own(i,CS.LT)){if(S.finStart===null){S.finStart=time;say('⚠ '+pn(i)+' a débarqué sur Laugh Tale : il gagne s\'il la tient '+R(fin)+' s.','#ff6a5e');}S.ltT+=1;if(S.ltT>=fin)return CS.victory(i,'tient Laugh Tale : le One Piece est à lui.');}else{S.ltT=0;S.finStart=null;}}
@@ -208,7 +208,9 @@ function rulesCourse(){
    +'<li><b>Pirates</b> : trouver puis déchiffrer les 4 Ponéglyphes de Route (Zou, Whole Cake Island, Pays des Wa, Île des Hommes-Poissons). On déchiffre en tenant l\'île <b>ou une île voisine</b> pendant '+R(80*1.5)+' s au rythme Standard ; plusieurs équipages peuvent déchiffrer le même. Puis tenir Lodestar 60 s : la route de Laugh Tale s\'ouvre pour vous seul. Victoire : tenir Laugh Tale 90 s.</li>'
    +'<li><b>Marine</b> : tenir ses 7 bases et les 6 passages (60 s chacun), détruire des troupes pirates en attaquant, interrompre leurs déchiffrages. À 100 points : garder ensemble 5 bases et 4 passages 90 s, sans pirate sur Laugh Tale.</li>'
    +'<li><b>Révolutionnaires</b> : prendre des îles à la Marine, rallier des îles par l\'Influence, prendre ses villes, puis préparer l\'assaut (120 s à la capitale). À 100 points : tenir Mary Geoise et le Cap des Jumeaux 90 s.</li>'
-   +'<li>Les points acquis ne se perdent pas ; l\'opération finale, elle, exige de tenir ses objectifs au moment même. Tout le monde voit la progression de tous dans le panneau Course.</li>'
+   +'<li>Les points acquis ne se perdent pas ; l\'opération finale, elle, exige de tenir ses objectifs au moment même.</li>'
+   +'<li><b>Brouillard de guerre</b> : vous voyez les garnisons et les flottes de vos îles, des îles voisines et de vos alliés ; ailleurs, la dernière observation (≈) ou « ? ». La possession des îles reste publique. La progression d\'un rival n\'est connue que par un renseignement (avis de recherche, agent dans sa capitale, alliance). Les opérations finales sont annoncées à tous.</li>'
+   +'<li><b>Opérations</b> (panneau Course) — Marine : réseau des bases (vue à 2 îles), Localisation (avis de recherche), Blocus, Buster Call, Poursuite. Révolutionnaires : Infiltration d\'agents cachés, Sabotage, Insurrection. Pirates : Se faire discret. Les alliés partagent leur vue.</li>'
    +'<li>À la fin de l\'âge III s\'ouvre une <b>phase finale</b> de 300 s (rythme Standard) : sans opération finale réussie, pas de vainqueur. Éliminer tous les autres sièges fait aussi gagner.</li>'
    +'<li>Laugh Tale ne se rallie pas et n\'accepte que l\'équipage dont la route est révélée ; un adversaire qui l\'en chasse la rend indépendante. Pas de victoire commune d\'alliance, pas de victoire par vassalité, pas de projets.</li>'
    +'</ul>';
@@ -285,8 +287,8 @@ CS.hud=function(force){
       mine+='<div class="cs-r">'+ok(false)+'Tenir '+isl(CS.MG)+' et '+isl(CS.CJ)+' '+R(fin)+' s'+(S.finT?' <small>'+R(S.finT)+'/'+R(fin)+' s</small>':'')+'</div>';
     }
   }
-  const rows=players.map(q=>{const s=CS.S[q.id],v=CS.prog(q.id),f=s.finStart!==null?' <b class="cs-alert">opération finale</b>':s.open!==null?' <small>route révélée</small>':'';
-    return '<div class="cs-p'+(q.id===me?' me':'')+(q.alive?'':' dead')+'"><span class="sw" style="background:'+q.color+'"></span><span class="cs-n">'+esc(q.name)+'</span>'+bar(v,q.color)+'<b>'+v+'</b>'+f+'</div>';}).join('');
+  const rows=players.map(q=>{const s=CS.S[q.id],kn=!CS.knows||CS.knows(me,q.id),v=kn?CS.prog(q.id):0,f=s.finStart!==null?' <b class="cs-alert">opération finale</b>':s.open!==null?' <small>route révélée</small>':'';
+    return '<div class="cs-p'+(q.id===me?' me':'')+(q.alive?'':' dead')+'"><span class="sw" style="background:'+q.color+'"></span><span class="cs-n">'+esc(q.name)+'</span>'+bar(v,q.color)+'<b'+(kn?'':' title="Progression inconnue : il faut un renseignement (avis de recherche, agent dans sa capitale ou alliance)"')+'>'+(kn?v:'?')+'</b>'+f+'</div>';}).join('');
   const ph=CS.endT!==null?'<div class="cs-alert">Phase finale : '+Math.max(0,R(CS.endT+CS.o.phase*K()-time))+' s restantes</div>':'';
   h.innerHTML='<div class="cs-top"><b>☠ Course vers Laugh Tale</b><button class="cs-fold" data-cs="fold:0" title="Replier / déplier">▾</button></div><div class="cs-body">'+ph+rows+(mine?'<div class="cs-mine">'+mine+'</div>':'')+'</div>';
 };

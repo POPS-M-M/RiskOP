@@ -184,6 +184,20 @@ if(essai){
   {const i=h.indexOf('<style>\n/* ---- Combat arcade'),j=h.lastIndexOf('</script>');if(i<0||j<i)throw new Error('bloc Combat arcade introuvable');
    if(h.slice(i,j).indexOf('window.ARC=')<0)throw new Error('bloc Combat arcade inattendu');h=h.slice(0,i)+'<!-- Combat arcade : non inclus dans la version Course (OP Adventure) -->'+h.slice(j+9);}
   rep('function launchCheck(pid,from,to,pct){','function launchCheck(pid,from,to,pct){if(CS.on&&CS.blockLaunch(pid,to))return \'La route de Laugh Tale ne vous est pas encore révélée.\';');
+  /* 28. Course asymétrique (25/11/2026, module src/essai/88-course-ops.js) : opérations par commande, brouillard de guerre par siège, diplomatie avec les 5 sièges */
+  rep("      case 'agdone':return agDone(seat);","      case 'agdone':return agDone(seat);\n      case 'cs':return (CS.on&&CS.act&&typeof c.a==='string')?CS.act(seat,{a:c.a,t:c.t,q:c.q,id:c.id}):'Action impossible.';");
+  rep('int(c.q,0,3)','int(c.q,0,players.length-1)',5);
+  rep("    return [t.owner,mine?UK.map(k=>r1(t.u[k])):r1(tr(t)),","    return [t.owner,mine?UK.map(k=>r1(t.u[k])):(CS.on&&CS.seeT&&!CS.seeT(t.id,s)?-1:r1(tr(t))),");
+  rep("  const A=armies.map(a=>[a.owner,a.from,a.to,","  const A=armies.filter(a=>!(CS.on&&CS.seeA)||CS.seeA(a,s)).map(a=>[a.owner,a.from,a.to,");
+  rep("    N:players.map(p=>p.name),","    CSV:CS.on&&CS.view?CS.view(s):0,N:players.map(p=>p.name),");
+  rep("  for(const a of armies){\n    const f=terrs[a.from],t=terrs[a.to],k=clamp(a.t/a.dur,0,1);\n    const x=f.x","  for(const a of armies){\n    if(CS.on&&CS.seeA&&!CS.seeA(a,ME))continue;\n    const f=terrs[a.from],t=terrs[a.to],k=clamp(a.t/a.dur,0,1);\n    const x=f.x");
+  rep("const tn=String(Math.floor(tr(t)));ctx.strokeText(tn,","const tn=(CS.on&&CS.seeT&&!CS.seeT(t.id,ME))?CS.memN(t.id,ME):String(Math.floor(tr(t)));ctx.strokeText(tn,");
+  rep("const n=String(Math.floor(tr(t)));\n    mctx.lineWidth=3.2","const n=(CS.on&&CS.seeT&&!CS.seeT(t.id,ME))?CS.memN(t.id,ME):String(Math.floor(tr(t)));\n    mctx.lineWidth=3.2");
+  rep("const col=own?own.color:'#8d8672',tn=Math.floor(tr(t));","const col=own?own.color:'#8d8672',fogT=CS.on&&CS.seeT&&!CS.seeT(t.id,ME),tn=fogT?CS.memN(t.id,ME):Math.floor(tr(t));",2);
+  rep("<span>Garnison <b>'+Math.floor(tr(t))+'</b></span>","<span>Garnison <b>'+((CS.on&&CS.seeT&&!CS.seeT(t.id,ME))?CS.memN(t.id,ME):Math.floor(tr(t)))+'</b></span>");
+  rep("⚔ <b>'+Math.floor(c.t)+'</b></span>","⚔ <b>'+((CS.on&&CS.knows&&p.id!==ME&&!CS.knows(ME,p.id))?'?':Math.floor(c.t))+'</b></span>");
+  rep("troupes <small>('+compText(t.u)+')</small>","troupes <small>('+(fogT?'hors de vue : '+CS.memAge(t.id,ME):compText(t.u))+')</small>");
+  rep("  h+='<p class=\"note\">'+compText(t.u)+'</p>';","  h+='<p class=\"note\">'+(fogT?'Hors de vue : dernière observation '+CS.memAge(t.id,ME)+'.':compText(t.u))+'</p>';");
 }
 /* 26. OP Adventure : la Volonté devient ⚔ Recrues (textes affichés), les « recrues naturelles » deviennent des renforts naturels.
        Ce remplacement porte sur les textes ; les identifiants internes (faith, rate.f) ne contiennent ni « Volonté » ni « ✹ ». */
