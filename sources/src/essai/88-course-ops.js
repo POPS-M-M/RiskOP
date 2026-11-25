@@ -23,7 +23,9 @@ const OPS={
   infil:{n:'Infiltration',r:'revo',g:45,i:4,cd:20,d:'Place un agent caché sur une île ennemie à 2 îles au plus des vôtres (3 agents au plus). L\'agent voit l\'île et ses voisines.'},
   sabot:{n:'Sabotage',r:'revo',g:35,cd:45,d:'Avec un agent sur place depuis 10 s : −15 % de garnison, chantier remis à zéro ; sur une base ou un passage de la Marine, son compteur de 60 s repart de zéro.'},
   insur:{n:'Insurrection',r:'revo',g:60,i:6,cd:60,d:'Avec un agent sur place depuis 20 s, sur une île de 18 troupes au plus (ni capitale, ni Mary Geoise, ni Laugh Tale) : l\'île se soulève et rejoint la Révolution. L\'agent est consommé.'},
+  indice:{n:'Indice',r:'pirate',s:40,cd:60,d:'Règles « Autorité » : étudie les textes pour situer un Ponéglyphe de Route caché ; 1er indice = sa région, 2e indice = l\'île.'},
   discret:{n:'Se faire discret',r:'pirate',g:60,cd:150,dur:60,d:'60 s : les avis de recherche contre vous tombent et aucun nouveau ne peut vous viser.'}};
+const AU=(d,why)=>{if(CS.aut)CS.aut(d,why);};
 const cost=o=>({g:R((o.g||0)*K()),s:R((o.s||0)*K()),i:o.i||0});
 let X=null;
 const fresh=()=>({mem:players.map(()=>terrs.map(()=>null)),cd:players.map(()=>({})),wt:[],bl:[],bu:[],ag:[],disc:players.map(()=>0),hit:players.map(()=>[-1e9,-1]),aiT:players.map(()=>3),agN:0,sab:{}});
@@ -87,6 +89,7 @@ function why(s,c){
       if(c.a==='insur'){if(T.capital||T.id===CS.MG||T.id===CS.LT||(typeof bossAlive==='function'&&bossAlive(T)))return 'Cette île ne peut pas se soulever.';if(tr(T)>18)return 'Garnison trop forte ('+Math.floor(tr(T))+' troupes, 18 au plus).';}
       return '';}
     case 'discret':return '';
+    case 'indice':return CS.indWhy?CS.indWhy(s):'Indisponible.';
   }
   return 'Action impossible.';
 }
@@ -97,19 +100,20 @@ function apply(s,c){
   switch(c.a){
     case 'avis':{const q=c.q;X.wt=X.wt.filter(w=>!(w.by===s&&w.q===q));X.wt.push({by:s,q,until:time+o.dur*K()});
       log('📜 Avis de recherche : la Marine localise '+pn(q)+' (îles, flottes et progression connues pendant '+R(o.dur*K())+' s).','#9ec5ff',[s,q]);
-      if(role(q)==='revo'){const caught=X.ag.filter(g=>g.by===q&&terrs[g.t].owner===s);if(caught.length){X.ag=X.ag.filter(g=>!caught.includes(g));log('🕵 Agents révolutionnaires démasqués et arrêtés : '+caught.map(g=>terrs[g.t].name).join(', ')+'.','#9ec5ff',[s,q]);}}
+      if(role(q)==='revo'){const caught=X.ag.filter(g=>g.by===q&&terrs[g.t].owner===s);if(caught.length){X.ag=X.ag.filter(g=>!caught.includes(g));AU(2*caught.length,'agents arrêtés');log('🕵 Agents révolutionnaires démasqués et arrêtés : '+caught.map(g=>terrs[g.t].name).join(', ')+'.','#9ec5ff',[s,q]);}}
       return;}
     case 'blocus':X.bl.push({by:s,t:T.id,until:time+o.dur*K()});log('⛓ Blocus de la Marine autour de '+T.name+' ('+R(o.dur*K())+' s).','#9ec5ff');return;
     case 'buster':X.bu.push({by:s,t:T.id,at:time+o.del*K()});log('💥 Buster Call annoncé sur '+T.name+' : frappe dans '+R(o.del*K())+' s.','#ff8a70',[s,T.owner].filter(x=>x>=0));return;
-    case 'inter':{const a=armies.find(z=>z.id===c.id),n0=sumU(a.u);a.u=scaleU(a.u,.75);if(sumU(a.u)<1)a.u.guerrier+=1-sumU(a.u);a.dur*=1.2;a.ix=1;killM(s,a.owner,n0-sumU(a.u));
+    case 'inter':{const a=armies.find(z=>z.id===c.id),n0=sumU(a.u);a.u=scaleU(a.u,.75);if(sumU(a.u)<1)a.u.guerrier+=1-sumU(a.u);a.dur*=1.2;a.ix=1;killM(s,a.owner,n0-sumU(a.u));AU(.5,'poursuite');
       log('⚓ Poursuite : la Marine rattrape une flotte de '+pn(a.owner)+' : −'+Math.floor(n0-sumU(a.u))+' troupes.','#9ec5ff',[s,a.owner]);return;}
     case 'infil':X.ag.push({id:++X.agN,by:s,t:T.id,t0:time});log('🕵 Un agent s\'infiltre à '+T.name+'.','#9fdcaa',s);return;
     case 'sabot':{const n0=tr(T);T.u=scaleU(T.u,.85);if(T.city&&T.city.q)T.city.q.t=0;X.sab[T.id]=time+30*K();
-      const m=T.owner;if(m>=0&&role(m)==='marine'){const S=CS.S[m];if(S.baseT[T.id])S.baseT[T.id]=0;if(S.passT[T.id])S.passT[T.id]=0;}
+      const m=T.owner;if(m>=0&&role(m)==='marine'){const S=CS.S[m];if(S.baseT[T.id])S.baseT[T.id]=0;if(S.passT[T.id])S.passT[T.id]=0;AU(CS.BASES.some(b=>b[0]===T.id)||CS.PASS.includes(T.id)?-4:-2,'sabotage');}
       log('🔥 Sabotage à '+T.name+' : −'+Math.floor(n0-tr(T))+' troupes'+(T.city?', chantier arrêté':'')+'.','#9fdcaa',[s,T.owner].filter(x=>x>=0));return;}
     case 'insur':{const prev=T.owner,n0=tr(T),u=emptyU();u.guerrier=5+Math.floor(n0*.3);T.owner=s;T.u=u;T.fo=0;T.fm=0;if(T.city)captureCity(T);
-      X.ag=X.ag.filter(g=>!(g.by===s&&g.t===T.id));if(prev>=0)opin[prev][s]=Math.max(-100,opin[prev][s]-12);dirty=true;
+      X.ag=X.ag.filter(g=>!(g.by===s&&g.t===T.id));AU(-2,'insurrection');if(prev>=0)opin[prev][s]=Math.max(-100,opin[prev][s]-12);dirty=true;
       log('✊ Insurrection à '+T.name+' : l\'île rejoint '+pn(s)+(prev>=0?' (prise à '+pn(prev)+')':'')+'.','#9fdcaa');return;}
+    case 'indice':CS.indDo(s);return;
     case 'discret':X.disc[s]=time+o.dur*K();X.wt=X.wt.filter(w=>w.q!==s);log('🌫 '+pn(s)+' se fait discret : la Marine perd sa trace.','#c9b8ff',s);return;
   }
 }
@@ -127,11 +131,11 @@ function sec(){
   VC={k:'',v:null};
   X.bl=X.bl.filter(b=>b.until>time&&terrs[b.t].owner===b.by);
   for(const b of X.bu.slice())if(time>=b.at){X.bu.splice(X.bu.indexOf(b),1);const T=terrs[b.t];
-    if(T.owner>=0&&T.owner!==b.by&&isWar(b.by,T.owner)){const n0=tr(T);T.u=scaleU(T.u,.7);killM(b.by,T.owner,n0-tr(T));X.hit[T.owner]=[time,b.by];
+    if(T.owner>=0&&T.owner!==b.by&&isWar(b.by,T.owner)){const n0=tr(T);T.u=scaleU(T.u,.7);killM(b.by,T.owner,n0-tr(T));AU(1,'Buster Call');X.hit[T.owner]=[time,b.by];
       log('💥 Buster Call sur '+T.name+' : −'+Math.floor(n0-tr(T))+' troupes pour '+pn(T.owner)+'.','#ff8a70');dirty=true;}}
   /* agents : retirés si l'île est à eux, découverts parfois sur les îles de la Marine (plus souvent sur ses bases) */
   X.ag=X.ag.filter(g=>{const T=terrs[g.t];if(T.owner===g.by||T.owner<0)return false;
-    if(role(T.owner)==='marine'){const pr=(CS.BASES.some(b=>b[0]===T.id)?1/120:1/300)/K();if(Math.random()<pr){log('🕵 La Marine démasque un agent révolutionnaire à '+T.name+'.','#9ec5ff',[g.by,T.owner]);return false;}}
+    if(role(T.owner)==='marine'){const pr=(CS.BASES.some(b=>b[0]===T.id)?1/120:1/300)/K();if(Math.random()<pr){AU(2,'agent arrêté');log('🕵 La Marine démasque un agent révolutionnaire à '+T.name+'.','#9ec5ff',[g.by,T.owner]);return false;}}
     return true;});
   if(!CS.noOps)for(const p of players)if(p.alive&&!p.human){X.aiT[p.id]-=1;if(X.aiT[p.id]<=0){X.aiT[p.id]=(4+Math.random()*4)*K();try{ai(p);}catch(_){}}}
 }
@@ -156,6 +160,8 @@ function ai(p){
     if(mine.length<3&&!cdLeft(s,'infil')){const T=terrs.filter(t=>t.owner>=0&&t.owner!==s&&role(t.owner)==='marine'&&near(s,t.id,2)&&!mine.some(g=>g.t===t.id)).map(t=>({t,sc:(CS.BASES.some(b=>b[0]===t.id)?3:0)+(CS.PASS.includes(t.id)?2:0)+(t.city?1:0)+(tr(t)<=18?2:0)})).sort((a,b)=>b.sc-a.sc);
       if(T[0]&&tryAct(s,{a:'infil',t:T[0].t.id}))return;}
   }else if(r==='pirate'){
+    {const S=CS.S[s],busy=S.dj||[0,1,2,3].some(k=>S.dec[k]===null&&S.found[k]!==null);   /* l'IA cherche des indices seulement quand elle n'a rien à déchiffrer */
+     if(!busy&&!cdLeft(s,'indice')&&CS.indWhy&&!CS.indWhy(s)&&players[s].sci>=cost(OPS.indice).s*1.5&&CS.act(s,{a:'indice'})==='')return;}
     if(!cdLeft(s,'discret')&&X.wt.some(w=>w.q===s&&w.until-time>20*K())&&(CS.S[s].dj||CS.S[s].open!==null))tryAct(s,{a:'discret'});
   }
 }
@@ -199,6 +205,7 @@ function opsHTML(){
     for(const g of mine){const T=terrs[g.t];h+='<div class="cs-r">🕵 <a href="#" data-cs="sel:'+T.id+'" onclick="return false">'+esc2(T.name)+'</a> <small>'+R(time-g.t0)+' s, '+Math.floor(tr(T))+' troupes</small> '+B({a:'sabot',t:T.id})+' '+B({a:'insur',t:T.id})+'</div>';}
   }else if(r==='pirate'){
     const wt=X.wt.filter(w=>w.q===s);
+    if(CS.o&&CS.o.v2)h+='<div class="cs-r">'+B({a:'indice'})+cdT('indice')+'</div>';
     h+='<div class="cs-r">'+(wt.length?'<b class="cs-alert">Avis de recherche contre vous : '+R(Math.max(...wt.map(w=>w.until-time)))+' s</b><br>':'')+B({a:'discret'})+cdT('discret')+(X.disc[s]>time?' <small>discret encore '+R(X.disc[s]-time)+' s</small>':'')+'</div>';
   }
   return '<div class="cs-ops">'+h+'</div>';

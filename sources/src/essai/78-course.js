@@ -25,6 +25,7 @@ const own=(i,id)=>terrs[id].owner===i;
 const capOf=i=>terrs.find(t=>t.owner===i&&t.capital);
 const ev=(k,i,x)=>{if(CS.ev.length<4000)CS.ev.push([R(time),k,i,x]);};
 const pn=i=>players[i]?players[i].name:'?';
+const pnm=k=>terrs[CS.PONE[k]]?terrs[CS.PONE[k]].name:PONE_N[k];
 const say=(txt,col)=>{try{addLog(txt,col||'#f2c75c');}catch(_){}};
 
 Object.assign(CS,{SEATS,
@@ -92,7 +93,7 @@ Object.assign(CS,{SEATS,
     return '';
   },
   decStart(i,k){const w=CS.decWhy(i,k);if(w)return w;const p=players[i],c=decCost(p);p.gold-=c.g;p.sci-=c.s;CS.S[i].dj={k,e:0,t0:time};ev('decStart',i,k);
-    if(i===ME)say('Déchiffrage du Ponéglyphe de '+PONE_N[k]+' commencé ('+R(CS.decLen())+' s).');dirty=true;return '';},
+    if(i===ME)say('Déchiffrage du Ponéglyphe de '+pnm(k)+' commencé ('+R(CS.decLen())+' s).');dirty=true;return '';},
   aiDec(p){
     const S=CS.S[p.id];if(!S||S.role!=='pirate'||S.dj||p.human)return;
     const c=decCost(p);if(p.gold<c.g*S.q.decRes||p.sci<c.s*S.q.decRes)return;
@@ -124,16 +125,16 @@ Object.assign(CS,{SEATS,
     for(const p of players){
       if(!p.alive)continue;const i=p.id,S=CS.S[i];
       if(S.role==='pirate'){
-        if(S.dj){if(!CS.decOK(i,S.dj.k)){ev('decLost',i,S.dj.k);if(i===ME)say('Déchiffrage interrompu : vous ne tenez plus '+PONE_N[S.dj.k]+' ni une île voisine.','#e66');S.dj=null;}
+        if(S.dj){if(!CS.decOK(i,S.dj.k)){ev('decLost',i,S.dj.k);if(i===ME)say('Déchiffrage interrompu : vous ne tenez plus '+pnm(S.dj.k)+' ni une île voisine.','#e66');S.dj=null;}
           else{S.dj.e+=1;if(S.dj.e>=CS.decLen()){const k=S.dj.k;S.dec[k]=time;if(S.found[k]===null)S.found[k]=time;p.x.dc.push(CS.PONE[k]);p.sci+=R(40*K());recalc(p);ev('dec',i,k);S.dj=null;
-            if(!CS.knows||CS.knows(ME,i)||CS.seeT(CS.PONE[k],ME))say(pn(i)+' déchiffre le Ponéglyphe de Route de '+PONE_N[k]+' ('+S.dec.filter(v=>v!==null).length+'/4).',p.color);}}}
+            if(!CS.knows||CS.knows(ME,i)||CS.seeT(CS.PONE[k],ME))say(pn(i)+' déchiffre le Ponéglyphe de Route de '+pnm(k)+' ('+S.dec.filter(v=>v!==null).length+'/4).',p.color);}}}
         if(S.dec.every(v=>v!==null)&&S.lsDone===null){if(own(i,CS.LS)){S.lsT+=1;if(S.lsT>=hold){S.lsDone=time;ev('lodestar',i);}}else S.lsT=0;}
         if(S.open===null&&CS.prog(i)>=100){S.open=time;ev('open',i);say('☠ La route de Laugh Tale est révélée à '+pn(i)+' : son expédition peut partir de Lodestar ou d\'Egghead.','#ff9a7a');}
         if(S.open!==null){if(own(i,CS.LT)){if(S.finStart===null){S.finStart=time;say('⚠ '+pn(i)+' a débarqué sur Laugh Tale : il gagne s\'il la tient '+R(fin)+' s.','#ff6a5e');}S.ltT+=1;if(S.ltT>=fin)return CS.victory(i,'tient Laugh Tale : le One Piece est à lui.');}else{S.ltT=0;S.finStart=null;}}
       }else if(S.role==='marine'){
         for(const [id] of CS.BASES){if(own(i,id)){S.baseT[id]=(S.baseT[id]||0)+1;if(!S.baseDone[id]&&S.baseT[id]>=hold){S.baseDone[id]=time;ev('base',i,id);}}else S.baseT[id]=0;}
         for(const id of CS.PASS){if(own(i,id)){S.passT[id]=(S.passT[id]||0)+1;if(!S.passDone[id]&&S.passT[id]>=hold){S.passDone[id]=time;ev('pass',i,id);}}else S.passT[id]=0;}
-        if(CS.prog(i)>=100){
+        if(!CS.o.v2&&CS.prog(i)>=100){
           const nb=CS.BASES.filter(([id])=>own(i,id)).length,np=CS.PASS.filter(id=>own(i,id)).length,lt=terrs[CS.LT].owner;
           if(nb>=5&&np>=4&&!(lt>=0&&role(lt)==='pirate')){if(S.finStart===null){S.finStart=time;ev('finStart',i);say('⚠ La Marine lance la Domination des mers : elle gagne si elle garde 5 bases et 4 passages '+R(fin)+' s.','#ff6a5e');}S.finT+=1;if(S.finT>=fin)return CS.victory(i,'domine les mers.');}
           else{S.finT=0;S.finStart=null;}
@@ -141,10 +142,10 @@ Object.assign(CS,{SEATS,
       }else{
         if(S.prepDone===null&&S.prepT===0&&!p.human&&!CS.prepWhy(i))CS.prepStart(i);
         if(S.prepDone===null&&S.prepT>0){if(capOf(i)){S.prepT+=1;if(S.prepT>=120*K()){S.prepDone=time;ev('prep',i);say(pn(i)+' a terminé ses préparatifs contre Mary Geoise.','#ff9a7a');}}else{S.prepT=0;ev('prepLost',i);if(i===ME)say('Préparation perdue : votre capitale est tombée.','#e66');}}
-        if(CS.prog(i)>=100){if(own(i,CS.MG)&&own(i,CS.CJ)){if(S.finStart===null){S.finStart=time;ev('finStart',i);say('⚠ L\'Armée révolutionnaire tient Mary Geoise et le Cap des Jumeaux : elle gagne si elle les garde '+R(fin)+' s.','#ff6a5e');}S.finT+=1;if(S.finT>=fin)return CS.victory(i,'prend Mary Geoise.');}else{S.finT=0;S.finStart=null;}}
+        if(!CS.o.v2&&CS.prog(i)>=100){if(own(i,CS.MG)&&own(i,CS.CJ)){if(S.finStart===null){S.finStart=time;ev('finStart',i);say('⚠ L\'Armée révolutionnaire tient Mary Geoise et le Cap des Jumeaux : elle gagne si elle les garde '+R(fin)+' s.','#ff6a5e');}S.finT+=1;if(S.finT>=fin)return CS.victory(i,'prend Mary Geoise.');}else{S.finT=0;S.finStart=null;}}
       }
     }
-    if(CS.endT!==null&&time>=CS.endT+CS.o.phase*K()){CS.endOK=true;endGame([],'Fin de la phase finale : aucune opération finale n\'a réussi, la partie se termine sans vainqueur.');return;}
+    if(CS.endT!==null&&time>=CS.endT+CS.o.phase*K()){if(CS.o.v2&&CS.finalV2&&CS.finalV2())return;CS.endOK=true;endGame([],'Fin de la phase finale : aucune opération finale n\'a réussi, la partie se termine sans vainqueur.');return;}
     CS.hud();
   },
   victory(i,why){CS.win={i,why,t:R(time),role:role(i)};ev('win',i,why);CS.endOK=true;endGame([i],pn(i)+' '+why);},
@@ -167,7 +168,7 @@ CS.start=function(o){
   MODE='solo';ME=0;
   newGame(o.seed,o.dk,{crews:seats.map(s=>s.crew),names:seats.map(s=>s.n),humans:seats.map((_,i)=>i===0),caps:seats.map(s=>s.cap),noBonus:true,turn:!!o.turn,pk:o.pk});
   MODE='solo';ME=0;
-  CS.init({roles:seats.map(s=>s.role),q:seats.map(()=>qOf(o.dk)),seats:seats.map(s=>s.k)});
+  CS.init({roles:seats.map(s=>s.role),q:seats.map(()=>qOf(o.dk)),seats:seats.map(s=>s.k),v2:!!o.v2,pone:o.pone||'canon'});
   started=true;speed=TM.on?2:1;overlay.hidden=true;try{updateHint();}catch(_){}renderPanel(true);
   {const c=capOf(0);if(c){ui.sel=c.id;try{centerOn(c.id);}catch(_){}}}
   say('Course vers Laugh Tale : vous jouez '+players[0].name+'. '+seats[0].d,'#f2c75c');
@@ -203,6 +204,7 @@ if(CS.only){
 let seatPick='pa';try{seatPick=localStorage.getItem('rk-cseat')||'pa';}catch(_){}
 if(!SEATS.some(s=>s.k===seatPick))seatPick='pa';
 function rulesCourse(){
+  if(CS.rulesV2&&CS.ruleSel&&CS.ruleSel()==='v2')return CS.rulesV2();
   return '<ul>'
    +'<li><b>Cinq sièges</b> : la Marine, l\'Armée révolutionnaire et trois équipages pirates rivaux. Les places que vous ne prenez pas sont jouées par l\'IA, sans aucun bonus de ressources.</li>'
    +'<li><b>Pirates</b> : trouver puis déchiffrer les 4 Ponéglyphes de Route (Zou, Whole Cake Island, Pays des Wa, Île des Hommes-Poissons). On déchiffre en tenant l\'île <b>ou une île voisine</b> pendant '+R(80*1.5)+' s au rythme Standard ; plusieurs équipages peuvent déchiffrer le même. Puis tenir Lodestar 60 s : la route de Laugh Tale s\'ouvre pour vous seul. Victoire : tenir Laugh Tale 90 s.</li>'
@@ -230,6 +232,7 @@ showIntro=function(){
     +'<div class="row"><label for="o-diff">Difficulté de l\'IA<select id="o-diff">'+opt([['easy','Facile'],['normal','Normal'],['hard','Difficile']],diffKey==='expert'?'hard':diffKey)+'</select></label>'
     +'<label for="o-mode">Mode<select id="o-mode">'+opt([['turn','Tours simultanés'],['real','Temps réel']],modePick)+'</select></label>'
     +'<label for="o-pace">Rythme<select id="o-pace">'+opt(PACES.map(z=>[z.k,z.n]),pacePick)+'</select></label>'
+    +(CS.ruleSel?'<label for="o-regle">Règles<select id="o-regle">'+opt([['v2','Autorité (nouvelles)'],['p2','Phase 2 (anciennes)']],CS.ruleSel())+'</select></label>':'')
     +'<label for="o-seed">Graine<input id="o-seed" type="number" min="1" value="'+sd+'"></label></div>'
     +'<p class="note">La difficulté change la qualité des décisions de l\'IA (rythme, priorités, préparation des attaques), jamais ses ressources.</p>'
     +'<div class="row" style="margin-bottom:6px"><button class="btn primary" id="o-go">Lancer la Course</button>'
@@ -240,7 +243,8 @@ showIntro=function(){
     modePick=$('#o-mode').value==='real'?'real':'turn';pacePick=+$('#o-pace').value||6;
     try{localStorage.setItem('rk-cseat',seatPick);localStorage.setItem('gl-mode',modePick);localStorage.setItem('gl-pace',String(pacePick));}catch(_){}
     TU={on:false,i:0,seen:{},clk:0,fin:false};
-    CS.start({seat:seatPick,seed:sdv,dk,turn:modePick==='turn',pk:pacePick});
+    const rg=$('#o-regle')?$('#o-regle').value:'p2';try{localStorage.setItem('rk-cregle',rg);}catch(_){}
+    CS.start({seat:seatPick,seed:sdv,dk,turn:modePick==='turn',pk:pacePick,v2:rg==='v2',pone:rg==='v2'?'cache':'canon'});
   });
   const c=$('#o-cont');if(c)c.addEventListener('click',()=>{const L=svLatest();if(!L){toast('Aucune sauvegarde.');return;}const m=svRestore(L.o);if(m){toast(m);showIntro();}else toast('Partie chargée : '+L.o.meta.name);});
   $('#o-saves').addEventListener('click',svOpen);
@@ -271,7 +275,7 @@ CS.hud=function(force){
       mine+='<div class="cs-h">Vos Ponéglyphes de Route</div>'+CS.PONE.map((id,k)=>{
         const st=S.dec[k]!==null?'déchiffré':S.dj&&S.dj.k===k?'déchiffrage '+R(S.dj.e)+'/'+R(CS.decLen())+' s':S.found[k]!==null?'trouvé':'—';
         const w=S.dec[k]===null&&!S.dj?CS.decWhy(me,k):'x';
-        return '<div class="cs-r">'+ok(S.dec[k]!==null)+isl(id)+' <small>'+st+'</small>'+(w===''?' <button class="btn cs-b" data-cs="dec:'+k+'">Déchiffrer</button>':'')+'</div>';}).join('');
+        return '<div class="cs-r">'+ok(S.dec[k]!==null)+(CS.poneLbl?CS.poneLbl(me,k):isl(id))+' <small>'+st+'</small>'+(w===''?' <button class="btn cs-b" data-cs="dec:'+k+'">Déchiffrer</button>':'')+'</div>';}).join('');
       mine+='<div class="cs-r">'+ok(S.lsDone!==null)+'Tenir '+isl(CS.LS)+' 60 s'+(S.dec.every(v=>v!==null)&&S.lsDone===null?' <small>'+R(S.lsT)+'/'+R(CS.o.hold*K())+' s</small>':'')+'</div>';
       mine+='<div class="cs-r">'+ok(false)+'Tenir '+isl(CS.LT)+' '+R(fin)+' s'+(S.open!==null?' <small>route révélée'+(S.ltT?' · '+R(S.ltT)+'/'+R(fin)+' s':'')+'</small>':' <small>route fermée</small>')+'</div>';
     }else if(S.role==='marine'){
