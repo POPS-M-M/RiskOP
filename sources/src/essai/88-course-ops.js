@@ -57,6 +57,8 @@ CS.memAge=(id,s)=>{const m=X&&X.mem[s]&&X.mem[s][id];return m?'il y a '+R(time-m
 /* ce que le siège s sait de la progression du siège q (panneau Course) */
 CS.knows=(s,q)=>{if(!CS.on||!X)return true;if(q===s||allies(s).includes(q)||CS.wanted(s,q))return true;
   return X.ag.some(g=>g.by===s&&terrs[g.t].owner===q&&terrs[g.t].capital);};
+/* forces militaires d'un rival (barre des camps) : mêmes renseignements, mais jamais publiques par la jauge d'Autorité */
+CS.knowsMil=(s,q)=>{if(!CS.on||!X)return true;if(q===s||allies(s).includes(q)||CS.wanted(s,q))return true;return X.ag.some(g=>g.by===s&&terrs[g.t].owner===q&&terrs[g.t].capital);};
 /* repères affichés au-dessus d'une île pour le siège s */
 CS.icon=(id,s)=>{if(!CS.on||!X)return '';let o='';
   if(X.bl.some(b=>b.t===id&&b.until>time&&(b.by===s||CS.seeT(id,s))))o+='⛓';

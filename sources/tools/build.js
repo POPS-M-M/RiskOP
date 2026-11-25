@@ -195,7 +195,7 @@ if(essai){
   rep("const n=String(Math.floor(tr(t)));\n    mctx.lineWidth=3.2","const n=(CS.on&&CS.seeT&&!CS.seeT(t.id,ME))?CS.memN(t.id,ME):String(Math.floor(tr(t)));\n    mctx.lineWidth=3.2");
   rep("const col=own?own.color:'#8d8672',tn=Math.floor(tr(t));","const col=own?own.color:'#8d8672',fogT=CS.on&&CS.seeT&&!CS.seeT(t.id,ME),tn=fogT?CS.memN(t.id,ME):Math.floor(tr(t));",2);
   rep("<span>Garnison <b>'+Math.floor(tr(t))+'</b></span>","<span>Garnison <b>'+((CS.on&&CS.seeT&&!CS.seeT(t.id,ME))?CS.memN(t.id,ME):Math.floor(tr(t)))+'</b></span>");
-  rep("⚔ <b>'+Math.floor(c.t)+'</b></span>","⚔ <b>'+((CS.on&&CS.knows&&p.id!==ME&&!CS.knows(ME,p.id))?'?':Math.floor(c.t))+'</b></span>");
+  rep("⚔ <b>'+Math.floor(c.t)+'</b></span>","⚔ <b>'+((CS.on&&CS.knowsMil&&p.id!==ME&&!CS.knowsMil(ME,p.id))?'?':Math.floor(c.t))+'</b></span>");
   rep("troupes <small>('+compText(t.u)+')</small>","troupes <small>('+(fogT?'hors de vue : '+CS.memAge(t.id,ME):compText(t.u))+')</small>");
   rep("  h+='<p class=\"note\">'+compText(t.u)+'</p>';","  h+='<p class=\"note\">'+(fogT?'Hors de vue : dernière observation '+CS.memAge(t.id,ME)+'.':compText(t.u))+'</p>';");
 }
